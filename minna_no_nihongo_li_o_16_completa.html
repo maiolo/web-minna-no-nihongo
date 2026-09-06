@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>みんなの日本語 - 第16課 完全マスター (Furigana & Interactive Exercises)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Precision Furigana & Typography */
+        ruby {
+            ruby-align: center;
+        }
+        rt {
+            font-size: 0.65em;
+            color: #475569;
+            font-weight: normal;
+            user-select: none;
+        }
+        
+        /* Invisible Romaji by default - Revealed on hover or selection or toggle */
+        .romaji {
+            color: transparent;
+            text-shadow: 0 0 6px rgba(100, 116, 139, 0.35);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-left: 4px;
+            display: inline-block;
+            border-radius: 4px;
+            padding: 0 4px;
+        }
+        .romaji::selection {
+            color: #1e40af;
+            background-color: #dbeafe;
+            text-shadow: none;
+        }
+        .romaji:hover, body.show-all-romaji .romaji {
+            color: #2563eb;
+            text-shadow: none;
+            background-color: #eff6ff;
+        }
+
+        header {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto 15px auto;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+        }
+        .nav-link:hover { background-color: rgba(255, 255, 255, 0.25); }
+
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title h1 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .header-title p {
+            font-size: 0.95rem;
+            color: #bfdbfe;
+        }
+
+        .btn-toggle-romaji {
+            padding: 12px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+            color: white;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-toggle-romaji:hover { background-color: rgba(255, 255, 255, 0.35); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <header>
+        <div class="header-top">
+            <a href="minna_no_nihongo_li_o_15_completa.html" class="nav-link">⬅️ <ruby>第<rt>だい</rt></ruby>15<ruby>課<rt>か</rt></ruby></a>
+            <a href="minna_no_nihongo_li_o_17_completa.html" class="nav-link"><ruby>第<rt>だい</rt></ruby>17<ruby>課<rt>か</rt></ruby> ➡️</a>
+        </div>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>みんなの<ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby> - <ruby>第<rt>だい</rt></ruby>16<ruby>課<rt>か</rt></ruby></h1>
+                <p><ruby>持<rt>も</rt></ruby>ち<ruby>物<rt>もの</rt></ruby>・<ruby>行<rt>こう</rt></ruby><ruby>動<rt>どう</rt></ruby>の<ruby>順<rt>じゅん</rt></ruby><ruby>序<rt>じょ</rt></ruby> • Vocabulário, gramática e exercícios interativos</p>
+            </div>
+            <button class="btn-toggle-romaji" onclick="toggleGlobalRomaji()" id="romaji-toggle-btn">
+                👁️ Romaji <ruby>隠<rt>かく</rt></ruby>す (Oculto)
+            </button>
+        </div>
+    </header>
+
+    <nav class="max-w-7xl w-full mx-auto px-4 mt-6">
+        <div class="flex flex-wrap gap-2 bg-white p-2 rounded-2xl shadow-sm border border-slate-200">
+            <button onclick="switchSection('vocab')" id="btn-vocab" class="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center bg-indigo-600 text-white shadow"><ruby>語<rt>ご</rt></ruby><ruby>彙<rt>い</rt></ruby></button>
+            <button onclick="switchSection('bunkei')" id="btn-bunkei" class="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center text-slate-600 hover:bg-slate-100"><ruby>文<rt>ぶん</rt></ruby><ruby>型<rt>けい</rt></ruby>・<ruby>例<rt>れい</rt></ruby><ruby>文<rt>ぶん</rt></ruby></button>
+            <button onclick="switchSection('gramatica')" id="btn-gramatica" class="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center text-slate-600 hover:bg-slate-100"><ruby>文<rt>ぶん</rt></ruby><ruby>法<rt>ぽう</rt></ruby><ruby>解<rt>かい</rt></ruby><ruby>説<rt>せつ</rt></ruby></button>
+            <button onclick="switchSection('renshuuA')" id="btn-renshuuA" class="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center text-slate-600 hover:bg-slate-100"><ruby>練<rt>れん</rt></ruby><ruby>習<rt>しゅう</rt></ruby> A</button>
+            <button onclick="switchSection('renshuuB')" id="btn-renshuuB" class="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center text-slate-600 hover:bg-slate-100"><ruby>練<rt>れん</rt></ruby><ruby>習<rt>しゅう</rt></ruby> B (8<ruby>問<rt>もん</rt></ruby>)</button>
+            <button onclick="switchSection('renshuuC')" id="btn-renshuuC" class="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center text-slate-600 hover:bg-slate-100"><ruby>練<rt>れん</rt></ruby><ruby>習<rt>しゅう</rt></ruby> C・<ruby>会<rt>かい</rt></ruby><ruby>話<rt>わ</rt></ruby></button>
+            <button onclick="switchSection('mondai')" id="btn-mondai" class="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center text-slate-600 hover:bg-slate-100"><ruby>問<rt>もん</rt></ruby><ruby>題<rt>だい</rt></ruby> (全<ruby>問<rt>もん</rt></ruby>)</button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl w-full mx-auto px-4 my-6 flex-grow" id="main-container">
+        <!-- Content dynamically injected via JavaScript -->
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>みんなの日本語 <ruby>初<rt>しょ</rt></ruby><ruby>級<rt>きゅう</rt></ruby> I <ruby>第<rt>だい</rt></ruby>16<ruby>課<rt>か</rt></ruby> • 100% Furigana • Exercícios Completos e Interativos</p>
+    </footer>
+
+    <script>
+        const l16Data = {
+            vocab: [
+                { category: "動詞 (Verbos)", items: [
+                    { jp: "<ruby>乗<rt>の</rt></ruby>ります [<ruby>電<rt>でん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>に〜]", romaji: "norimasu [densha ni~]", pt: "Andar / Subir (no trem)" },
+                    { jp: "<ruby>降<rt>お</rt></ruby>ります [<ruby>電<rt>でん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>を〜]", romaji: "orimasu [densha o~]", pt: "Descer / Sair (do trem)" },
+                    { jp: "<ruby>乗<rt>の</rt></ruby>り<ruby>換<rt>か</rt></ruby>えます", romaji: "norikaemasu", pt: "Fazer baldeação / Trocar de condução" },
+                    { jp: "<ruby>浴<rt>あ</rt></ruby>びます [シャワーを〜]", romaji: "abimasu [shawaa o~]", pt: "Tomar (ducha/banho)" },
+                    { jp: "<ruby>入<rt>い</rt></ruby>れます", romaji: "iremasu", pt: "Colocar / Inserir" },
+                    { jp: "<ruby>出<rt>だ</rt></ruby>します", romaji: "dashimasu", pt: "Tirar / Retirar / Entregar" },
+                    { jp: "<ruby>下<rt>お</rt></ruby>ろします [お<ruby>金<rt>かね</rt></ruby>を〜]", romaji: "oroshimasu [okane o~]", pt: "Sacar (dinheiro)" },
+                    { jp: "<ruby>入<rt>はい</rt></ruby>ります [<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>に〜]", romaji: "hairimasu [daigaku ni~]", pt: "Entrar (na universidade)" },
+                    { jp: "<ruby>出<rt>で</rt></ruby>ます [<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>を〜]", romaji: "demasu [daigaku o~]", pt: "Formar-se / Sair (da universidade)" },
+                    { jp: "<ruby>押<rt>お</rt></ruby>します", romaji: "oshimasu", pt: "Apertar / Empurrar" },
+                    { jp: "<ruby>飲<rt>の</rt></ruby>みます [お<ruby>酒<rt>さけ</rt></ruby>を〜]", romaji: "nomimasu [osake o~]", pt: "Beber (bebida alcoólica)" },
+                    { jp: "<ruby>始<rt>はじ</rt></ruby>めます", romaji: "hajimemasu", pt: "Começar / Iniciar" },
+                    { jp: "<ruby>見<rt>けん</rt></ruby><ruby>学<rt>がく</rt></ruby>します", romaji: "kengaku shimasu", pt: "Fazer visita de estudo" },
+                    { jp: "<ruby>電<rt>でん</rt></ruby><ruby>話<rt>わ</rt></ruby>します", romaji: "denwa shimasu", pt: "Telefonar" }
+                ]},
+                { category: "形容詞 (Adjetivos)", items: [
+                    { jp: "<ruby>若<rt>わか</rt></ruby>い", romaji: "wakai", pt: "Jovem" },
+                    { jp: "<ruby>長<rt>なが</rt></ruby>い", romaji: "nagai", pt: "Longo / Comprido" },
+                    { jp: "<ruby>短<rt>みじか</rt></ruby>い", romaji: "mijikai", pt: "Curto" },
+                    { jp: "<ruby>明<rt>あか</rt></ruby>るい", romaji: "akarui", pt: "Claro / Iluminado / Alegre" },
+                    { jp: "<ruby>暗<rt>くら</rt></ruby>い", romaji: "kurai", pt: "Escuro" },
+                    { jp: "<ruby>背<rt>せ</rt></ruby>が<ruby>高<rt>たか</rt></ruby>い", romaji: "se ga takai", pt: "Alto (estatura)" },
+                    { jp: "<ruby>頭<rt>あたま</rt></ruby>がいい", romaji: "atama ga ii", pt: "Inteligente / Esperto" }
+                ]},
+                { category: "体の部位 (Partes do Corpo)", items: [
+                    { jp: "<ruby>体<rt>からだ</rt></ruby>", romaji: "karada", pt: "Corpo" },
+                    { jp: "<ruby>頭<rt>あたま</rt></ruby>", romaji: "atama", pt: "Cabeça" },
+                    { jp: "<ruby>髪<rt>かみ</rt></ruby>", romaji: "kami", pt: "Cabelo" },
+                    { jp: "<ruby>顔<rt>かお</rt></ruby>", romaji: "kao", pt: "Rosto" },
+                    { jp: "<ruby>目<rt>め</rt></ruby>", romaji: "me", pt: "Olho" },
+                    { jp: "<ruby>耳<rt>みみ</rt></ruby>", romaji: "mimi", pt: "Orelha / Ouvido" },
+                    { jp: "<ruby>鼻<rt>はな</rt></ruby>", romaji: "hana", pt: "Nariz" },
+                    { jp: "<ruby>口<rt>くち</rt></ruby>", romaji: "kuchi", pt: "Boca" },
+                    { jp: "<ruby>歯<rt>は</rt></ruby>", romaji: "ha", pt: "Dente" },
+                    { jp: "<ruby>お<ruby>腹<rt>なか</rt></ruby>", romaji: "onaka", pt: "Barriga" },
+                    { jp: "<ruby>足<rt>あし</rt></ruby>", romaji: "ashi", pt: "Pé / Perna" },
+                    { jp: "<ruby>背<rt>せ</rt></ruby>", romaji: "se", pt: "Altura (corporal)" }
+                ]},
+                { category: "名詞・その他 (Substantivos e Outros)", items: [
+                    { jp: "サービス", romaji: "saabisu", pt: "Serviço" },
+                    { jp: "ジョギング", romaji: "jogingu", pt: "Corrida leve / Jogging" },
+                    { jp: "シャワー", romaji: "shawaa", pt: "Ducha / Chuveiro" },
+                    { jp: "<ruby>緑<rt>みどり</rt></ruby>", romaji: "midori", pt: "Verde / Vegetação" },
+                    { jp: "<ruby>お<ruby>寺<rt>てら</rt></ruby>", romaji: "otera", pt: "Templo budista" },
+                    { jp: "<ruby>神<rt>じん</rt></ruby><ruby>社<rt>じゃ</rt></ruby>", romaji: "jinja", pt: "Santuário xintoísta" },
+                    { jp: "<ruby>留<rt>りゅう</rt></ruby><ruby>学<rt>がく</rt></ruby><ruby>生<rt>せい</rt></ruby>", romaji: "ryuugakusei", pt: "Estudante estrangeiro" },
+                    { jp: "ナンバー", romaji: "nanbaa", pt: "Número" },
+                    { jp: "どうやって", romaji: "douyatte", pt: "Como / De que maneira" },
+                    { jp: "どの〜", romaji: "dono~", pt: "Qual ~ (entre 3 ou mais)" },
+                    { jp: "どれ", romaji: "dore", pt: "Qual (entre 3 ou mais)" },
+                    { jp: "まだまだです", romaji: "madamada desu", pt: "Ainda falta muito (modéstia)" },
+                    { jp: "<ruby>お<ruby>引<rt>ひ</rt></ruby>き<ruby>出<rt>だ</rt></ruby>し", romaji: "ohikidashi", pt: "Saque bancário" },
+                    { jp: "まず", romaji: "mazu", pt: "Em primeiro lugar" },
+                    { jp: "<ruby>次<rt>つぎ</rt></ruby>に", romaji: "tsugi ni", pt: "Em seguida" },
+                    { jp: "キャッシュカード", romaji: "kyasshukaado", pt: "Cartão magnético bancário" },
+                    { jp: "<ruby>暗<rt>あん</rt></ruby><ruby>証<rt>しょう</rt></ruby><ruby>番<rt>ばん</rt></ruby><ruby>号<rt>ごう</rt></ruby>", romaji: "anshoubangou", pt: "Senha / Número secreto" },
+                    { jp: "<ruby>金<rt>きん</rt></ruby><ruby>額<rt>がく</rt></ruby>", romaji: "kingaku", pt: "Quantia / Valor" },
+                    { jp: "<ruby>確<rt>かく</rt></ruby><ruby>認<rt>にん</rt></ruby>", romaji: "kakunin", pt: "Confirmação" },
+                    { jp: "ボタン", romaji: "botan", pt: "Botão" }
+                ]}
+            ],
+            bunkei: [
+                { id: 1, jp: "<ruby>朝<rt>あさ</rt></ruby>ジョギングをして、シャワーをあびて、<ruby>会<rt>かい</rt></ruby><ruby>社<rt>しゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。", romaji: "Asa jogingu o shite, shawaa o abite, kaisha e ikimasu.", pt: "De manhã faço corrida, tomo uma ducha e vou para a empresa." },
+                { id: 2, jp: "コンサートが<ruby>終<rt>お</rt></ruby>わってから、レストランで<ruby>食<rt>しょく</rt></ruby><ruby>事<rt>じ</rt></ruby>をしました。", romaji: "Konsaato ga owatte kara, resutoran de shokuji o shimashita.", pt: "Depois que o concerto terminou, jantei num restaurante." },
+                { id: 3, jp: "<ruby>大<rt>おお</rt></ruby><ruby>阪<rt>さか</rt></ruby>は<ruby>食<rt>た</rt></ruby>べ<ruby>物<rt>もの</rt></ruby>がおいしいです。", romaji: "Osaka wa tabemono ga oishii desu.", pt: "Osaka tem uma comida deliciosa (Em Osaka, a comida é gostosa)." },
+                { id: 4, jp: "この<ruby>部<rt>へ</rt></ruby><ruby>屋<rt>や</rt></ruby>は<ruby>広<rt>ひろ</rt></ruby>くて、<ruby>明<rt>あか</rt></ruby>るいです。", romaji: "Kono heya wa hirokute, akarui desu.", pt: "Este quarto é amplo e iluminado." }
+            ],
+            reibun: [
+                { id: 1, jp: "<ruby>昨<rt>きのう</rt></ruby><ruby>日<rt></rt></ruby>何をしましたか。<br>— <ruby>京<rt>きょう</rt></ruby><ruby>都<rt>と</rt></ruby>へ<ruby>行<rt>い</rt></ruby>って、<ruby>友<rt>とも</rt></ruby><ruby>達<rt>だち</rt></ruby>に<ruby>会<rt>あ</rt></ruby>って、<ruby>映<rt>えい</rt></ruby><ruby>画<rt>が</rt></ruby>を<ruby>見<rt>み</rt></ruby>ました。", romaji: "Kinou nani o shimashita ka. — Kyoto e itte, tomodachi ni atte, eiga o mimashita.", pt: "O que você fez ontem? — Fui a Kyoto, encontrei um amigo e assisti a um filme." },
+                { id: 2, jp: "<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。<br>— <ruby>京<rt>きょう</rt></ruby><ruby>都<rt>と</rt></ruby><ruby>駅<rt>えき</rt></ruby>から16<ruby>番<rt>ばん</rt></ruby>のバスに<ruby>乗<rt>の</rt></ruby>って、<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby><ruby>前<rt>まえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。", romaji: "Daigaku made douyatte ikimasu ka. — Kyoto-eki kara juuroku-ban no basu ni notte, Daigaku-mae de orimasu.", pt: "Como você vai até a universidade? — Da Estação de Kyoto, pego o ônibus nº 16 e desço em frente à universidade." },
+                { id: 3, jp: capitalization("<ruby>今<rt>いま</rt></ruby>から<ruby>大<rt>おお</rt></ruby><ruby>阪<rt>さか</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きますか。<br>— いいえ、お<ruby>昼<rt>ひる</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べてから、<ruby>行<rt>い</rt></ruby>きます。"), romaji: "Imakara Osaka e ikimasu ka. — Iie, ohirugohan o tabete kara, ikimasu.", pt: "Você vai para Osaka agora? — Não, vou depois que almoçar." },
+                { id: 4, jp: "マリアさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。<br>— あの<ruby>髪<rt>かみ</rt></ruby>が<ruby>長<rt>なが</rt></ruby>い<ruby>人<rt>ひと</rt></ruby>です。", romaji: "Maria-san wa dono hito desu ka. — Ano kami ga nagai hito desu.", pt: "Qual pessoa é a Maria-san? — É aquela pessoa de cabelo comprido." },
+                { id: 5, jp: "たろうちゃんの<ruby>自<rt>じ</rt></ruby><ruby>転<rt>てん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>はどれですか。<br>— あの<ruby>青<rt>あお</rt></ruby>くて、<ruby>新<rt>あたら</rt></ruby>しい<ruby>自<rt>じ</rt></ruby><ruby>転<rt>てん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>です。", romaji: "Taro-chan no jitensha wa dore desu ka. — Ano aokute, atarashii jitensha desu.", pt: "Qual é a bicicleta do Taro-chan? — É aquela bicicleta azul e nova." },
+                { id: 6, jp: "<ruby>奈<rt>な</rt></ruby><ruby>良<rt>ら</rt></ruby>はどんな<ruby>町<rt>まち</rt></ruby>ですか。<br>— <ruby>静<rt>しず</rt></ruby>かで、<ruby>緑<rt>みどり</rt></ruby>が<ruby>多<rt>おお</rt></ruby>い<ruby>町<rt>まち</rt></ruby>です。", romaji: "Nara wa donna machi desu ka. — Shizuka de, midori ga ooi machi desu.", pt: "Que tipo de cidade é Nara? — É uma cidade calma e com muita vegetação." }
+            ]
+        };
+
+        function capitalization(str) { return str; }
+
+        let currentSection = 'vocab';
+        let globalRomajiVisible = false;
+
+        function toggleGlobalRomaji() {
+            globalRomajiVisible = !globalRomajiVisible;
+            document.body.classList.toggle('show-all-romaji', globalRomajiVisible);
+            const btn = document.getElementById('romaji-toggle-btn');
+            btn.innerHTML = globalRomajiVisible 
+                ? "<span>👁️‍🗨️ Romaji Visível (Clique para Ocultar)</span>"
+                : "<span>👁️ Romaji Oculto (Clique para Revelar Todos)</span>";
+        }
+
+        function switchSection(secId) {
+            currentSection = secId;
+            const tabs = ['vocab', 'bunkei', 'gramatica', 'renshuuA', 'renshuuB', 'renshuuC', 'mondai'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`btn-${t}`);
+                if (!btn) return;
+                if (t === secId) {
+                    btn.className = "flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center bg-indigo-600 text-white shadow";
+                } else {
+                    btn.className = "flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all text-center text-slate-600 hover:bg-slate-100";
+                }
+            });
+            renderContent();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderContent() {
+            const container = document.getElementById('main-container');
+
+            if (currentSection === 'vocab') {
+                let html = `
+                    <div class="animate-fade space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h2 class="text-xl font-bold text-indigo-900 mb-1"><ruby>第<rt>だい</rt></ruby>16<ruby>課<rt>か</rt></ruby>：<ruby>語<rt>ご</rt></ruby><ruby>彙<rt>い</rt></ruby> (Vocabulário Completo)</h2>
+                            <p class="text-slate-500 text-sm">O Romaji está oculto por padrão. Passe o mouse ou selecione o texto transparente para visualizar a pronúncia.</p>
+                        </div>
+                `;
+                l16Data.vocab.forEach(cat => {
+                    html += `
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-800 border-b border-slate-100 pb-2">${cat.category}</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    `;
+                    cat.items.forEach(item => {
+                        html += `
+                            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 flex items-center justify-between hover:border-indigo-300 transition-all">
+                                <div>
+                                    <div class="text-lg font-bold text-slate-900">${item.jp}</div>
+                                    <div class="text-xs text-slate-400 mt-0.5">Romaji: <span class="romaji">${item.romaji}</span></div>
+                                </div>
+                                <div class="text-sm font-medium text-slate-700 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm text-right">${item.pt}</div>
+                            </div>
+                        `;
+                    });
+                    html += `</div></div>`;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+            }
+            else if (currentSection === 'bunkei') {
+                let html = `
+                    <div class="animate-fade space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h2 class="text-xl font-bold text-indigo-900 mb-1"><ruby>文<rt>ぶん</rt></ruby><ruby>型<rt>けい</rt></ruby>・<ruby>例<rt>れい</rt></ruby><ruby>文<rt>ぶん</rt></ruby> (Estruturas e Frases de Exemplo)</h2>
+                            <p class="text-slate-500 text-sm">Padrões essenciais do livro Minna no Nihongo Lição 16.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-900 border-b border-slate-100 pb-2">1. <ruby>文<rt>ぶん</rt></ruby><ruby>型<rt>けい</rt></ruby> (Padrões Frasais)</h3>
+                            <div class="grid grid-cols-1 gap-3">
+                `;
+                l16Data.bunkei.forEach(b => {
+                    html += `
+                        <div class="p-4 bg-indigo-50/60 rounded-xl border border-indigo-100 space-y-2">
+                            <div class="text-xs font-bold text-indigo-600"><ruby>文<rt>ぶん</rt></ruby><ruby>型<rt>けい</rt></ruby> ${b.id}</div>
+                            <div class="text-xl font-bold text-indigo-950">${b.jp}</div>
+                            <div class="text-xs text-slate-400">Romaji: <span class="romaji">${b.romaji}</span></div>
+                            <div class="text-sm text-slate-700 bg-white p-2.5 rounded-lg border border-indigo-50">🇧🇷 ${b.pt}</div>
+                        </div>
+                    `;
+                });
+                html += `
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-900 border-b border-slate-100 pb-2">2. <ruby>例<rt>れい</rt></ruby><ruby>文<rt>ぶん</rt></ruby> (Frases Contextuais)</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                `;
+                l16Data.reibun.forEach(r => {
+                    html += `
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div class="text-xs font-bold text-slate-500"><ruby>例<rt>れい</rt></ruby><ruby>文<rt>ぶん</rt></ruby> ${r.id}</div>
+                            <div class="text-lg font-bold text-slate-900">${r.jp}</div>
+                            <div class="text-xs text-slate-400">Romaji: <span class="romaji">${r.romaji}</span></div>
+                            <div class="text-sm text-slate-700 bg-white p-2.5 rounded-lg border border-slate-100">🇧🇷 ${r.pt}</div>
+                        </div>
+                    `;
+                });
+                html += `</div></div></div>`;
+                container.innerHTML = html;
+            }
+            else if (currentSection === 'gramatica') {
+                let html = `
+                    <div class="animate-fade space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h2 class="text-xl font-bold text-indigo-900 mb-1"><ruby>文<rt>ぶん</rt></ruby><ruby>法<rt>ぽう</rt></ruby><ruby>解<rt>かい</rt></ruby><ruby>説<rt>せつ</rt></ruby> (Explicação Gramatical Aprofundada)</h2>
+                            <p class="text-slate-500 text-sm">Entenda em detalhes os pontos centrais da Lição 16.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-900 border-b border-slate-100 pb-2">1. <ruby>動<rt>どう</rt></ruby><ruby>詞<rt>し</rt></ruby>て<ruby>形<rt>けい</rt></ruby>、<ruby>動<rt>どう</rt></ruby><ruby>詞<rt>し</rt></ruby>て<ruby>形<rt>けい</rt></ruby>、〜 (Sequência de Ações)</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">Conecta dois ou mais verbos na ordem cronológica em que as ações ocorrem. O tempo verbal da frase inteira é determinado pelo último verbo.</p>
+                            <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                                <div class="font-bold text-indigo-900"><ruby>朝<rt>あさ</rt></ruby>7<ruby>時<rt>じ</rt></ruby>に<ruby>起<rt>お</rt></ruby>きて、パンを<ruby>食<rt>た</rt></ruby>べて、<ruby>学<rt>がっ</rt></ruby><ruby>校<rt>こう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</div>
+                                <div class="text-xs text-slate-500 mt-1">Acordo às 7 da manhã, como pão e vou para a escola.</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-900 border-b border-slate-100 pb-2">2. <ruby>動<rt>どう</rt></ruby><ruby>詞<rt>し</rt></ruby>て<ruby>形<rt>けい</rt></ruby> ＋ から、〜 ("Depois de fazer X, faço Y")</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">Indica que a segunda ação só inicia após o encerramento completo da primeira ação. Enfatiza a conclusão prévia de X.</p>
+                            <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                                <div class="font-bold text-indigo-900"><ruby>国<rt>くに</rt></ruby>へ<ruby>帰<rt>かえ</rt></ruby>ってから、<ruby>父<rt>ちち</rt></ruby>の<ruby>会<rt>かい</rt></ruby><ruby>社<rt>しゃ</rt></ruby>で<ruby>働<rt>はたら</rt></ruby>きます。</div>
+                                <div class="text-xs text-slate-500 mt-1">Depois que voltar para o meu país, trabalharei na empresa do meu pai.</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-900 border-b border-slate-100 pb-2">3. [名詞1] は [名詞2] が [形容詞] です (Atributos e Características)</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">Indica o tópico principal (N1) e destaca uma parte/característica específica (N2) qualificada por um adjetivo.</p>
+                            <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                                <div class="font-bold text-indigo-900">マリアさんは<ruby>髪<rt>かみ</rt></ruby>が<ruby>長<rt>なが</rt></ruby>いです。</div>
+                                <div class="text-xs text-slate-500 mt-1">A Maria-san tem o cabelo comprido (Quanto à Maria, o cabelo é comprido).</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-900 border-b border-slate-100 pb-2">4. <ruby>形<rt>けい</rt></ruby><ruby>容<rt>よう</rt></ruby><ruby>詞<rt>し</rt></ruby>・<ruby>名<rt>めい</rt></ruby><ruby>詞<rt>し</rt></ruby>の<ruby>接<rt>せつ</rt></ruby><ruby>続<rt>ぞく</rt></ruby> (Conexão de Descrições)</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">Usado para unir múltiplos adjetivos ou substantivos em uma mesma oração:</p>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-2 pl-2">
+                                <li><strong>い-<ruby>形<rt>けい</rt></ruby><ruby>容<rt>よう</rt></ruby><ruby>詞<rt>し</rt></ruby>:</strong> Troca-se o い final por <strong>〜くて</strong> (ex: <ruby>大<rt>おお</rt></ruby>きい ➔ <ruby>大<rt>おお</rt></ruby>きくて). <span class="text-xs text-rose-600 font-bold">*Exceção: いい ➔ よくて</span></li>
+                                <li><strong>な-<ruby>形<rt>けい</rt></ruby><ruby>容<rt>よう</rt></ruby><ruby>詞<rt>し</rt></ruby>:</strong> Troca-se o な por <strong>〜で</strong> (ex: <ruby>親<rt>しん</rt></ruby><ruby>切<rt>せつ</rt></ruby>な ➔ <ruby>親<rt>しん</rt></ruby><ruby>切<rt>せつ</rt></ruby>で).</li>
+                                <li><strong><ruby>名<rt>めい</rt></ruby><ruby>詞<rt>し</rt></ruby>:</strong> Adiciona-se <strong>〜で</strong> (ex: 28<ruby>歳<rt>さい</rt></ruby> ➔ 28<ruby>歳<rt>さい</rt></ruby>で).</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="text-lg font-bold text-indigo-900 border-b border-slate-100 pb-2">5. Interrogativos: どの[名詞] / どれ / どうやって</h3>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-2 pl-2">
+                                <li><strong>どうやって:</strong> Pergunta o meio ou o modo/passo a passo para realizar algo ("Como vai até a estação?").</li>
+                                <li><strong>どの[<ruby>名<rt>めい</rt></ruby><ruby>詞<rt>し</rt></ruby>]:</strong> "Qual [substantivo]?" — Usado para escolher entre 3 ou mais opções determinando o substantivo (ex: どの<ruby>人<rt>ひと</rt></ruby>).</li>
+                                <li><strong>どれ:</strong> "Qual?" — Usado quando a opção é um objeto direto isolado (ex: あなたのカバンはどれですか).</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML = html;
+            }
+            else if (currentSection === 'renshuuA') {
+                let html = `
+                    <div class="animate-fade space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h2 class="text-xl font-bold text-indigo-900 mb-1"><ruby>練<rt>れん</rt></ruby><ruby>習<rt>しゅう</rt></ruby> A (Tabelas de Substituição Padronizadas)</h2>
+                            <p class="text-slate-500 text-sm">Visualize as estruturas completas conforme a seção Renshuu A do livro.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">1. <ruby>動<rt>どう</rt></ruby><ruby>詞<rt>し</rt></ruby>て<ruby>形<rt>けい</rt></ruby>の<ruby>接<rt>せつ</rt></ruby><ruby>続<rt>ぞく</rt></ruby> (Sequência)</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left border border-slate-200 rounded-xl overflow-hidden">
+                                    <thead class="bg-indigo-50 text-indigo-900 font-bold">
+                                        <tr>
+                                            <th class="p-3 border-b">Ação 1</th>
+                                            <th class="p-3 border-b">Ação 2</th>
+                                            <th class="p-3 border-b">Ação Conclusiva</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 bg-white">
+                                        <tr>
+                                            <td class="p-3"><ruby>朝<rt>あさ</rt></ruby>ジョギングをして、</td>
+                                            <td class="p-3">シャワーをあびて、</td>
+                                            <td class="p-3"><ruby>会<rt>かい</rt></ruby><ruby>社<rt>しゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-3"><ruby>神<rt>こう</rt></ruby><ruby>戸<rt>べ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>って、</td>
+                                            <td class="p-3"><ruby>映<rt>えい</rt></ruby><ruby>画<rt>が</rt></ruby>を<ruby>見<rt>み</rt></ruby>て、</td>
+                                            <td class="p-3"><ruby>お<ruby>茶<rt>ちゃ</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みました。</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">2. 〜てから、〜 (Após X)</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left border border-slate-200 rounded-xl overflow-hidden">
+                                    <tbody class="divide-y divide-slate-200 bg-white">
+                                        <tr>
+                                            <td class="p-3 font-bold text-indigo-900">仕事が<ruby>終<rt>お</rt></ruby>わってから、</td>
+                                            <td class="p-3">プールで<ruby>泳<rt>およ</rt></ruby>ぎます。</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-3 font-bold text-indigo-900"><ruby>電<rt>でん</rt></ruby><ruby>話<rt>わ</rt></ruby>をかけてから、</td>
+                                            <td class="p-3 font-medium"><ruby>友<rt>とも</rt></ruby><ruby>達<rt>だち</rt></ruby>の<ruby>家<rt>うち</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">3. 形容詞の接続 (Conexão de Adjetivos)</h3>
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-sm">
+                                <p>• この<ruby>部<rt>へ</rt></ruby><ruby>屋<rt>や</rt></ruby>は<ruby>広<rt>ひろ</rt></ruby>くて、<ruby>明<rt>あか</rt></ruby>るいです。</p>
+                                <p>• ミラーさんは<ruby>若<rt>わか</rt></ruby>くて、<ruby>元<rt>げん</rt></ruby><ruby>気<rt>き</rt></ruby>です。</p>
+                                <p>• <ruby>奈<rt>な</rt></ruby><ruby>良<rt>ら</rt></ruby>は<ruby>静<rt>しず</rt></ruby>かで、きれいな<ruby>町<rt>まち</rt></ruby>です。</p>
+                                <p>• カリナさんは<ruby>学<rt>がく</rt></ruby><ruby>生<rt>せい</rt></ruby>で、<ruby>富<rt>ふ</rt></ruby><ruby>士<rt>じ</rt></ruby><ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>の<ruby>留<rt>りゅう</rt></ruby><ruby>学<rt>がく</rt></ruby><ruby>生<rt>せい</rt></ruby>です。</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML = html;
+            }
+            else if (currentSection === 'renshuuB') {
+                let html = `
+                    <div class="animate-fade space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h2 class="text-xl font-bold text-indigo-900 mb-1"><ruby>練<rt>れん</rt></ruby><ruby>習<rt>しゅう</rt></ruby> B (Exercícios do Livro • 全8問)</h2>
+                            <p class="text-slate-500 text-sm">Digite a frase completa ou o complemento correto no campo indicado e valide com o gabarito oficial.</p>
+                        </div>
+
+                        <!-- Renshuu B1 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">1. <ruby>例<rt>れい</rt></ruby>のように<ruby>文<rt>ぶん</rt></ruby>をつなげてください (V-て、V-て)</h3>
+                            <p class="text-xs text-slate-500"><ruby>例<rt>れい</rt></ruby>: ジョギングをします。シャワーをあびます。会社へ行きます。➔ <strong>ジョギングをして、シャワーをあびて、会社へ行きます。</strong></p>
+                            
+                            ${createExItem('b1-1', '1) <ruby>銀<rt>ぎん</rt></ruby><ruby>行<rt>こう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。お<ruby>金<rt>かね</rt></ruby>を<ruby>下<rt>お</rt></ruby>ろします。<ruby>買<rt>かい</rt></ruby><ruby>物<rt>もの</rt></ruby>します。', '銀行へ行って、お金を下ろして、買い物します。', 'Ginkou e itte, okane o oroshite, kaimono shimasu.')}
+                            ${createExItem('b1-2', '2) みなみ<ruby>駅<rt>えき</rt></ruby>で<ruby>電<rt>でん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>ります。<ruby>緑<rt>みどり</rt></ruby><ruby>駅<rt>えき</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。<ruby>会<rt>かい</rt></ruby><ruby>社<rt>しゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。', 'みなみ駅から電車に乗って、緑駅で降りて、会社へ行きます。', 'Minami-eki kara densha ni notte, Midori-eki de orite, kaisha e ikimasu.')}
+                            ${createExItem('b1-3', '3) <ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>みます。<ruby>音<rt>おと</rt></ruby><ruby>楽<rt>がく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>きます。<ruby>寝<rt>ね</rt></ruby>ます。', '本を読んで、音楽を聞いて、寝ます。', 'Hon o yonde, ongaku o kiite, nemasu.')}
+                            ${createExItem('b1-4', '4) <ruby>土<rt>ど</rt></ruby><ruby>曜<rt>よう</rt></ruby><ruby>日<rt>び</rt></ruby>の<ruby>朝<rt>あさ</rt></ruby><ruby>神<rt>こう</rt></ruby><ruby>戸<rt>べ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きました。<ruby>友<rt>とも</rt></ruby><ruby>達<rt>だち</rt></ruby>に<ruby>会<rt>あ</rt></ruby>いました。<ruby>中<rt>ちゅう</rt></ruby><ruby>華<rt>か</rt></ruby><ruby>街<rt>がい</rt></ruby>で<ruby>昼<rt>ひる</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べました。', '土曜日の朝神戸へ行って、友達に会って、中華街で昼ごはんを食べました。', 'Doyoubi no asa Koube e itte, tomodachi ni atte, chuukagai de hirugohan o tabemashita.')}
+                        </div>
+
+                        <!-- Renshuu B2 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">2. <ruby>例<rt>れい</rt></ruby>のように「〜てから」を使って<ruby>文<rt>ぶん</rt></ruby>をつくりなさい</h3>
+                            <p class="text-xs text-slate-500"><ruby>例<rt>れい</rt></ruby>: コンサートが指示通り終わります。レストランで食事します。➔ <strong>コンサートが終わってから、レストランで食事します。</strong></p>
+
+                            ${createExItem('b2-1', '1) 国へ帰ります。父の会社で働きます。', '国へ帰ってから、父の会社で働きます。', 'Kuni e kaette kara, chichi no kaisha de hatarakimasu.')}
+                            ${createExItem('b2-2', '2) コンサートが終わります。レストランで食事します。', 'コンサートが終わってから、レストランで食事します。', 'Konsaato ga owatte kara, resutoran de shokuji shimasu.')}
+                            ${createExItem('b2-3', '3) お金を下ろします。買い物に行きます。', 'お金を下ろしてから、買い物に行きます。', 'Okane o oroshite kara, kaimono ni ikimasu.')}
+                            ${createExItem('b2-4', '4) 仕事が終わります。プールで泳ぎます。', '仕事が終わってから、プールで泳ぎます。', 'Shigoto ga owatte kara, puuru de oyogimasu.')}
+                        </div>
+
+                        <!-- Renshuu B3 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">3. N1 は N2 が [形容詞] です</h3>
+                            <p class="text-xs text-slate-500"><ruby>例<rt>れい</rt></ruby>: マリアさん、髪、長い ➔ <strong>マリアさんは髪が長いです。</strong></p>
+
+                            ${createExItem('b3-1', '1) 大阪、食べ物、おいしい', '大阪は食べ物がおいしいです。', 'Osaka wa tabemono ga oishii desu.')}
+                            ${createExItem('b3-2', '2) サントスさん、体、大きい', 'サントスさんは体でかいです。／サントスさんは体が大きいです。', 'Santosu-san wa karada ga ookii desu.')}
+                            ${createExItem('b3-3', '3) マリアさん、目、きれい', 'マリアさんは目が綺麗です。／マリアさんは目がきれいですか。', 'Maria-san wa me ga kirei desu.')}
+                            ${createExItem('b3-4', '4) 日本、食べ物、高い', '日本は食べ物が高いです。', 'Nihon wa tabemono ga takai desu.')}
+                        </div>
+
+                        <!-- Renshuu B4 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">4. <ruby>形<rt>けい</rt></ruby><ruby>容<rt>よう</rt></ruby><ruby>詞<rt>し</rt></ruby>をつなげてください (〜くて / 〜で)</h3>
+                            <p class="text-xs text-slate-500"><ruby>例<rt>れい</rt></ruby>: この部屋、広い、明るい ➔ <strong>この部屋は広くて、明るいです。</strong></p>
+
+                            ${createExItem('b4-1', '1) ミラーさん、若いです、元気です', 'ミラーさんは若くて、元気です。', 'Miraa-san wa wakakute, genki desu.')}
+                            ${createExItem('b4-2', '2) 昨日の天気、いいです、あたたかいです (Passado)', '昨日の天気はよくて、あたたかったです。', 'Kinou no tenki wa yokute, atatakatta desu.')}
+                            ${createExItem('b4-3', '3) 奈良、静かです、緑が多い町です', '奈良は静かで、緑が多い町です。', 'Nara wa shizuka de, midori ga ooi machi desu.')}
+                            ${createExItem('b4-4', '4) カリナさん、ブラジル人です、富士大学の留学生です', 'カリナさんはブラジル人で、富士大学の留学生です。', 'Karina-san wa Buraziru-jin de, Fuji-daigaku no ryuugakusei desu.')}
+                        </div>
+
+                        <!-- Renshuu B5 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">5. <ruby>適<rt>てき</rt></ruby><ruby>切<rt>せつ</rt></ruby>な<ruby>形<rt>けい</rt></ruby>に<ruby>変<rt>か</rt></ruby>えて<ruby>文<rt>ぶん</rt></ruby>を<ruby>完<rt>かん</rt></ruby><ruby>成<rt>せい</rt></ruby>させてください</h3>
+
+                            ${createExItem('b5-1', '1) この辞書は（いい ➔ ＿）、役に立ちます。', 'よくて', 'yokute')}
+                            ${createExItem('b5-2', '2) ワンさんは（親切 ➔ ＿）、おもしろい人です。', '親切で', 'shinsetsu de')}
+                            ${createExItem('b5-3', '3) 沖縄の海は（青い ➔ ＿）、綺麗でした。', '青くて', 'aokute')}
+                            ${createExItem('b5-4', '4) シュミットさんは（エンジニア ➔ ＿）、会社の社長です。', 'エンジニアで', 'enjinia de')}
+                        </div>
+
+                        <!-- Renshuu B6 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">6. 「どうやって」を<ruby>使<rt>つか</rt></ruby>って<ruby>質<rt>しつ</rt></ruby><ruby>問<rt>もん</rt></ruby>に<ruby>答<rt>こた</rt></ruby>えなさい</h3>
+                            <p class="text-xs text-slate-500"><ruby>例<rt>れい</rt></ruby>: 京都駅から大学までどうやって行きますか。(16番のバスに乗ります / 大学前で降ります) ➔ <strong>16番のバスに乗って、大学前で降ります。</strong></p>
+
+                            ${createExItem('b6-1', '1) 大阪駅から病院までどうやって行きますか。(JRに乗ります / 新大阪で降ります)', 'JRに乗って、新大阪で降ります。', 'JR ni notte, Shin-Osaka de orimasu.')}
+                            ${createExItem('b6-2', '2) ホテルから地下鉄の駅までどうやって行きますか。(橋を渡ります / 直ぐ曲がります)', '橋を渡って、直ぐ曲がります。／橋を渡って、すぐ曲がります。', 'Hashi o watatte, sugu magarimasu.')}
+                            ${createExItem('b6-3', '3) 東京駅から美術館までどうやって行きますか。(2番のバスに乗ります / 美術館前で降ります)', '2番のバスに乗って、美術館前で降ります。', 'Ni-ban no basu ni notte, Bijutsukan-mae de orimasu.')}
+                            ${createExItem('b6-4', '4) 役所までどうやって行きますか。(1番の電車に乗ります / 市役所前で降ります)', '1番の電車に乗って、市役所前で降ります。', 'Ichi-ban no densha ni notte, Shiyakusho-mae de orimasu.')}
+                        </div>
+
+                        <!-- Renshuu B7 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">7. 「どの〜」を<ruby>使<rt>つか</rt></ruby>って<ruby>人<rt>ひと</rt></ruby>を<ruby>特<rt>とく</rt></ruby><ruby>定<rt>てい</rt></ruby>しなさい</h3>
+
+                            ${createExItem('b7-1', '1) サントスさんはどの人ですか。(背が高い / 髪が黒い)', 'あの背が高くて、髪が黒い人です。', 'Ano se ga takakute, kami ga kuroi hito desu.')}
+                            ${createExItem('b7-2', '2) カリナさんはどの人ですか。(目が大きい / 髪が短い)', 'あの目が大きくて、髪が短い人です。', 'Ano me ga ookikute, kami ga mijikai hito desu.')}
+                            ${createExItem('b7-3', '3) ミラーさんはどの人ですか。(若いです / 親切です)', 'あの若くて、親切な人です。', 'Ano wakakute, shinsetsu na hito desu.')}
+                            ${createExItem('b7-4', '4) ヤマダさんはどの人ですか。(綺麗です / 白い服を着ています)', 'あの綺麗で、白い服を着ている人です。', 'Ano kirei de, shiroi fuku o kite iru hito desu.')}
+                        </div>
+
+                        <!-- Renshuu B8 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">8. 「どれ」を<ruby>使<rt>つか</rt></ruby>って<ruby>物<rt>もの</rt></ruby>を<ruby>特<rt>とく</rt></ruby><ruby>定<rt>てい</rt></ruby>しなさい</h3>
+
+                            ${createExItem('b8-1', '1) たろうちゃんの傘はどれですか。(青い / 新しい)', 'あの青くて、新しい傘です。', 'Ano aokute, atarashii kasa desu.')}
+                            ${createExItem('b8-2', '2) ヤマダさんの鞄はどれですか。(黒い / 大きい)', 'あの黒くて、大きい鞄です。', 'Ano kurokute, ookii kaban desu.')}
+                            ${createExItem('b8-3', '3) 会社のカメラはどれですか。(小さくて / 白い)', 'あの小さくて、白いカメラです。', 'Ano chiisakute, shiroi kamera desu.')}
+                            ${createExItem('b8-4', '4) あなたの自転車はどれですか。(赤いです / 古いです)', 'あの赤くて、古い自転車です。', 'Ano agakute, furui jitensha desu.')}
+                        </div>
+
+                    </div>
+                `;
+                container.innerHTML = html;
+            }
+            else if (currentSection === 'renshuuC') {
+                let html = `
+                    <div class="animate-fade space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h2 class="text-xl font-bold text-indigo-900 mb-1"><ruby>練<rt>れん</rt></ruby><ruby>習<rt>しゅう</rt></ruby> C・<ruby>会<rt>かい</rt></ruby><ruby>話<rt>わ</rt></ruby> (Prática de Conversação)</h2>
+                            <p class="text-slate-500 text-sm">Pratique os diálogos reais de substituição do livro.</p>
+                        </div>
+
+                        <!-- C1 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">1. <ruby>毎<rt>まい</rt></ruby><ruby>朝<rt>あさ</rt></ruby>何をしますか</h3>
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 text-sm">
+                                <p><strong>A:</strong> <ruby>毎<rt>まい</rt></ruby><ruby>朝<rt>あさ</rt></ruby>何をしますか。</p>
+                                <p><strong>B:</strong> ジョギングをして、シャワーをあびて、<ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。</p>
+                                <p><strong>A:</strong> そうですか。大変ですね。</p>
+                            </div>
+                            ${createExItem('c1-1', '置換練習 1: [新聞を読む / コーヒーを飲む / 会社へ行く]', '新聞を読んで、コーヒーを飲んで、会社へ行きます。', 'Shinbun o yonde, koohii o nonde, kaisha e ikimasu.')}
+                        </div>
+
+                        <!-- C2 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">2. 道順の案内 (Como chegar)</h3>
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 text-sm">
+                                <p><strong>A:</strong> すみません。<ruby>甲<rt>こう</rt></ruby><ruby>南<rt>なん</rt></ruby><ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。</p>
+                                <p><strong>B:</strong> <ruby>梅<rt>うめ</rt></ruby><ruby>田<rt>だ</rt></ruby>から<ruby>阪<rt>はん</rt></ruby><ruby>急<rt>きゅう</rt></ruby><ruby>電<rt>でん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>って、<ruby>岡<rt>おか</rt></ruby><ruby>本<rt>もと</rt></ruby>で<ruby>降<rt>お</rt></ruby>りてください。</p>
+                                <p><strong>A:</strong> <ruby>岡<rt>おか</rt></ruby><ruby>本<rt>もと</rt></ruby>ですね。ありがとうございました。</p>
+                            </div>
+                            ${createExItem('c2-1', '置換練習 2: [JRに乗る / さくら宮で降りる]', 'JRに乗って、さくら宮で降りてください。', 'JR ni notte, Sakuramiya de orite kudasai.')}
+                        </div>
+
+                        <!-- C3 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">3. 人の特定 (Identificando pessoas)</h3>
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 text-sm">
+                                <p><strong>A:</strong> サントスさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。</p>
+                                <p><strong>B:</strong> あの<ruby>背<rt>せ</rt></ruby>が<ruby>高<rt>たか</rt></ruby>くて、<ruby>髪<rt>かみ</rt></ruby>が<ruby>黒<rt>くろ</rt></ruby>い<ruby>人<rt>ひと</rt></ruby>です。</p>
+                                <p><strong>A:</strong> ああ、あの<ruby>人<rt>ひと</rt></ruby>ですか。どうも。</p>
+                            </div>
+                            ${createExItem('c3-1', '置換練習 3: [メガネをかけている / 背が低い]', 'あのメガネをかけていて、背が低い人です。', 'Ano megane o kakete ite, se ga hikui hito desu.')}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML = html;
+            }
+            else if (currentSection === 'mondai') {
+                let html = `
+                    <div class="animate-fade space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h2 class="text-xl font-bold text-indigo-900 mb-1"><ruby>問<rt>もん</rt></ruby><ruby>題<rt>だい</rt></ruby> (Exercícios de Consolidação e Leitura)</h2>
+                            <p class="text-slate-500 text-sm">Resolva todas as questões do livro e confira os gabaritos oficiais.</p>
+                        </div>
+
+                        <!-- Mondai 1: Partículas -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">1. 助詞（助詞：は、が、で、に、を、から、まで）を入れなさい</h3>
+                            ${createExItem('m1-1', '1) シャワー（＿）あびてから、出かけます。', 'を', 'o')}
+                            ${createExItem('m1-2', '2) 京都駅（＿）JR（＿）乗って、大阪（＿）降ります。', 'から、に、で', 'kara, ni, de')}
+                            ${createExItem('m1-3', '3) マリアさん（＿）髪（＿）長いですか。', 'は、が', 'wa, ga')}
+                        </div>
+
+                        <!-- Mondai 2: V-て / V-てから -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">2. 動詞を適切な形にしなさい</h3>
+                            ${createExItem('m2-1', '1) ジョギングを（します ➔ ＿）、シャワーをあびます。', 'して', 'shite')}
+                            ${createExItem('m2-2', '2) お金を（下ろします ➔ ＿）から、買い物に行きます。', '下ろして', 'oroshite')}
+                            ${createExItem('m2-3', '3) 銀行へ（行きます ➔ ＿）、お金を下ろします。', '行って', 'itte')}
+                        </div>
+
+                        <!-- Mondai 3: 形容詞の接続 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">3. 形容詞を正しい接続形にしなさい</h3>
+                            ${createExItem('m3-1', '1) この部屋は（広い ➔ ＿）、明るいです。', '広くて', 'hirokute')}
+                            ${createExItem('m3-2', '2) 奈良は（静か ➔ ＿）、いい町です。', '静かで', 'shizuka de')}
+                            ${createExItem('m3-3', '3) 昨日の天気は（いい ➔ ＿）、あたたかかったです。', 'よくて', 'yokute')}
+                        </div>
+
+                        <!-- Mondai 4: 読解1 「マリアさんの一日」 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">4. <ruby>読<rt>どく</rt></ruby><ruby>解<rt>かい</rt></ruby>1：「マリアさんの一日」</h3>
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-sm leading-relaxed space-y-2">
+                                <p>マリアさんは<ruby>毎<rt>まい</rt></ruby><ruby>朝<rt>あさ</rt></ruby>6<ruby>時<rt>じ</rt></ruby>に<ruby>起<rt>お</rt></ruby>きます。<ruby>顔<rt>かお</rt></ruby>を<ruby>洗<rt>あら</rt></ruby>って、シャワーをあびてから、<ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。7<ruby>時<rt>じ</rt></ruby>半に<ruby>家<rt>うち</rt></ruby>を出て、<ruby>電<rt>でん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>で<ruby>会<rt>かい</rt></ruby><ruby>社<rt>しゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。<ruby>会<rt>かい</rt></ruby><ruby>社<rt>しゃ</rt></ruby>は9<ruby>時<rt>じ</rt></ruby>から5<ruby>時<rt>じ</rt></ruby>までです。<ruby>仕<rt>し</rt></ruby><ruby>事<rt>ごと</rt></ruby>が<ruby>終<rt>お</rt></ruby>わってから、レストランで<ruby>晩<rt>ばん</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。<ruby>家<rt>うち</rt></ruby>へ<ruby>帰<rt>かえ</rt></ruby>って、<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んでから、11<ruby>時<rt>じ</rt></ruby>に<ruby>寝<rt>ね</rt></ruby>ます。</p>
+                            </div>
+                            ${createExItem('m4-1', '質問 1: マリアさんはシャワーをあびてから、何を変しますか。(朝ごはんを食べる)', '朝ごはんを食べます。', 'Asagohan o tabemasu.')}
+                            ${createExItem('m4-2', '質問 2: マリアさんは仕事が終わってから、何をしますか。(晩ごはんを食べる)', 'レストランで晩ごはんを食べます。', 'Resutoran de bangohan o tabemasu.')}
+                        </div>
+
+                        <!-- Mondai 5: 読解2 「ATMの使い方」 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-indigo-900 border-b border-slate-100 pb-2">5. <ruby>読<rt>どく</rt></ruby><ruby>解<rt>かい</rt></ruby>2：「ATMの使い方（お引き出し）」</h3>
+                            <div class="p-4 bg-indigo-50/60 rounded-xl border border-indigo-100 text-sm leading-relaxed space-y-2">
+                                <p><strong>【お引き出しの手順】</strong></p>
+                                <p>① まず「お引き出し」ボタンを<ruby>押<rt>お</rt></ruby>してください。</p>
+                                <p>② 次にキャッシュカードを<ruby>入<rt>い</rt></ruby>れてください。</p>
+                                <p>③ <ruby>暗<rt>あん</rt></ruby><ruby>証<rt>しょう</rt></ruby><ruby>番<rt>ばん</rt></ruby><ruby>号<rt>ごう</rt></ruby>を<ruby>押<rt>お</rt></ruby>してください。</p>
+                                <p>④ <ruby>金<rt>きん</rt></ruby><ruby>額<rt>がく</rt></ruby>を<ruby>押<rt>お</rt></ruby>して、「<ruby>確<rt>かく</rt></ruby><ruby>認<rt>にん</rt></ruby>」ボタンを<ruby>押<rt>お</rt></ruby>してください。</p>
+                            </div>
+                            ${createExItem('m5-1', '質問: 暗証番号を押してから、何をしますか。', '金額を押して、「確認」ボタンを押します。', 'Kingaku o oshite, [kakunin] botan o oshimasu.')}
+                        </div>
+
+                    </div>
+                `;
+                container.innerHTML = html;
+            }
+        }
+
+        function createExItem(id, promptText, answerOfficial, answerRomaji) {
+            return `
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <div class="text-sm font-bold text-slate-800">${promptText}</div>
+                    <div class="text-xs text-slate-400">Romaji gabarito: <span class="romaji">${answerRomaji}</span></div>
+                    <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                        <input type="text" id="input-${id}" placeholder="Digite a resposta em japonês..." class="border border-slate-300 px-3.5 py-2 rounded-xl text-sm w-full sm:w-96 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <div class="flex gap-2">
+                            <button onclick="checkAnswer('input-${id}', '${answerOfficial}', 'feedback-${id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow">Verificar</button>
+                            <button onclick="toggleAnswerBox('answer-box-${id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow">Gabarito</button>
+                        </div>
+                    </div>
+                    <div id="feedback-${id}" class="text-xs font-bold"></div>
+                    <div id="answer-box-${id}" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 font-bold text-sm animate-fade">
+                        正解: ${answerOfficial}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(inputId, correctStr, feedbackId) {
+            const userVal = document.getElementById(inputId).value.trim();
+            const feedback = document.getElementById(feedbackId);
+
+            if (!userVal) {
+                feedback.className = "text-xs font-bold text-amber-600 bg-amber-50 p-2 rounded-lg border border-amber-200 animate-fade";
+                feedback.innerHTML = "⚠️ Por favor, digite uma resposta antes de verificar.";
+                return;
+            }
+
+            // Normalization for comparison
+            const normUser = userVal.replace(/\s+/g, '').replace(/[\u3040-\u309F]/g, c => String.fromCharCode(c.charCodeAt(0)));
+            const options = correctStr.split('／').map(s => s.replace(/\s+/g, ''));
+
+            const isCorrect = options.some(opt => normUser === opt);
+
+            if (isCorrect) {
+                feedback.className = "text-xs font-bold text-emerald-600 bg-emerald-50 p-2 rounded-lg border border-emerald-200 animate-fade";
+                feedback.innerHTML = "✓ 正解です！ (Resposta Correta!)";
+            } else {
+                feedback.className = "text-xs font-bold text-rose-600 bg-rose-50 p-2 rounded-lg border border-rose-200 animate-fade";
+                feedback.innerHTML = `✕ 不正解 (Incorreto). Gabarito: ${correctStr}`;
+            }
+        }
+
+        function toggleAnswerBox(boxId) {
+            const box = document.getElementById(boxId);
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+            } else {
+                box.classList.add('hidden');
+            }
+        }
+
+        // Initialize application on page load
+        window.onload = function() {
+            switchSection('vocab');
+        };
+    </script>
+</body>
+</html>

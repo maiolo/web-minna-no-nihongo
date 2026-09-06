@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>みんなの日本語 - 第19課</title>
+    <style>
+        :root {
+            --primary: #0f766e; /* Teal 700 */
+            --primary-hover: #0f5f59;
+            --secondary: #0ea5e9; /* Light Blue 500 */
+            --secondary-hover: #0284c7;
+            --accent: #f59e0b; /* Amber 500 */
+            --success: #10b981; /* Emerald 500 */
+            --success-bg: #d1fae5;
+            --danger: #ef4444; /* Red 500 */
+            --danger-bg: #fee2e2;
+            --bg-body: #f0fdfa; /* Teal 50 */
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+            --font-main: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        /* Ruby / Furigana Styling */
+        ruby {
+            ruby-align: center;
+        }
+        rt {
+            font-size: 0.65em;
+            color: var(--text-muted);
+            font-weight: normal;
+            user-select: none;
+        }
+
+        /* Romaji Styling (Hidden by default) */
+        .romaji {
+            color: transparent;
+            text-shadow: 0 0 8px rgba(100, 116, 139, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-left: 8px;
+            display: inline-block;
+            background-color: transparent;
+            border-radius: 4px;
+            padding: 0 4px;
+        }
+        
+        .romaji::selection {
+            color: var(--secondary);
+            background-color: #e0f2fe;
+            text-shadow: none;
+        }
+
+        .romaji:hover, body.show-romaji .romaji {
+            color: var(--secondary);
+            text-shadow: none;
+            background-color: #e0f2fe;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto 15px auto;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .nav-link:hover { background-color: rgba(255, 255, 255, 0.3); }
+
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title h1 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .header-title p {
+            font-size: 0.95rem;
+            color: #ccfbf1;
+        }
+
+        .main-nav {
+            max-width: 1100px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0 15px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 130px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: bold;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn:hover { background-color: #f8fafc; }
+        .tab-btn.active {
+            background-color: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        /* Main Content Area */
+        main {
+            max-width: 1100px;
+            margin: 0 auto 50px auto;
+            padding: 0 15px;
+        }
+
+        .section-container {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .section-container.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .card-header {
+            font-size: 1.3rem;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .item-box {
+            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        /* Exercise Styles */
+        .exercise-prompt {
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+            color: #1e293b;
+        }
+
+        .exercise-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .input-text {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-check { background-color: var(--secondary); }
+        .btn-check:hover { background-color: var(--secondary-hover); }
+
+        .btn-reveal { background-color: var(--success); }
+        .btn-reveal:hover { background-color: #059669; }
+
+        .btn-toggle {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .btn-toggle:hover { background-color: rgba(255, 255, 255, 0.35); }
+
+        .feedback-box {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            display: none;
+        }
+        .feedback-correct {
+            display: block;
+            background-color: var(--success-bg);
+            color: var(--success);
+            border: 1px solid #6ee7b7;
+        }
+        .feedback-incorrect {
+            display: block;
+            background-color: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid #fca5a5;
+        }
+
+        .answer-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f0fdf4;
+            border-left: 5px solid var(--success);
+            border-radius: 0 6px 6px 0;
+            font-weight: bold;
+            color: #166534;
+        }
+
+        .answer-box.visible {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .grammar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .grammar-table th, .grammar-table td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+        .grammar-table th { background-color: #f1f5f9; color: var(--primary); }
+
+        .msg-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="minna_no_nihongo_18.html" class="nav-link" onclick="showToast('Navegando para a Lição 18...')">⬅️ <ruby>第<rt>だい</rt></ruby>18<ruby>課<rt>か</rt></ruby></a>
+            <a href="minna_no_nihongo_20.html" class="nav-link" onclick="showToast('Navegando para a Lição 20...')"><ruby>第<rt>だい</rt></ruby>20<ruby>課<rt>か</rt></ruby> ➡️</a>
+        </div>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>みんなの<ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby> - <ruby>第<rt>だい</rt></ruby>19<ruby>課<rt>か</rt></ruby></h1>
+                <p>た形 (Forma TA) • 経験 (Experiência) • 〜たり〜たりします • なります</p>
+            </div>
+            <button class="btn btn-toggle" onclick="toggleGlobalRomaji()" id="romaji-toggle-btn">
+                👁️ Romaji <ruby>隠<rt>かく</rt></ruby>す (Oculto)
+            </button>
+        </div>
+    </header>
+
+    <nav class="main-nav" id="main-nav">
+        <!-- Tabs generated by JS -->
+    </nav>
+
+    <main id="main-container">
+        <!-- Content generated by JS -->
+    </main>
+
+    <!-- Footer Navigation (Bottom) -->
+    <div style="max-width: 1100px; margin: 0 auto 30px auto; padding: 0 15px; display: flex; justify-content: space-between;">
+        <a href="#" class="btn btn-toggle" style="background: var(--primary); color: white;" onclick="showToast('Navegando para a Lição 18...')">⬅️ <ruby>第<rt>だい</rt></ruby>18<ruby>課<rt>か</rt></ruby></a>
+        <a href="#" class="btn btn-toggle" style="background: var(--primary); color: white;" onclick="showToast('Navegando para a Lição 20...')"><ruby>第<rt>だい</rt></ruby>20<ruby>課<rt>か</rt></ruby> ➡️</a>
+    </div>
+
+    <div id="toast-msg" class="msg-box"></div>
+
+    <script>
+        const lessonData = {
+            vocab: {
+                title: "<ruby>語<rt>ご</rt></ruby><ruby>彙<rt>い</rt></ruby> (Vocabulário)",
+                items: [
+                    { jp: "<ruby>登<rt>のぼ</rt></ruby>ります", romaji: "noborimasu", pt: "Subir, escalar (ex: montanha)" },
+                    { jp: "<ruby>泊<rt>と</rt></ruby>まります", romaji: "tomarimasu", pt: "Hospedar-se, pernoitar" },
+                    { jp: "<ruby>掃除<rt>そうじ</rt></ruby>します", romaji: "souji shimasu", pt: "Limpar, fazer faxina" },
+                    { jp: "<ruby>洗濯<rt>せんたく</rt></ruby>します", romaji: "sentaku shimasu", pt: "Lavar (roupas)" },
+                    { jp: "なります", romaji: "narimasu", pt: "Tornar-se, ficar, passar a ser" },
+                    { jp: "<ruby>眠<rt>ねむ</rt></ruby>い", romaji: "nemui", pt: "Com sono" },
+                    { jp: "<ruby>強<rt>つよ</rt></ruby>い", romaji: "tsuyoi", pt: "Forte" },
+                    { jp: "<ruby>弱<rt>よわ</rt></ruby>い", romaji: "yowai", pt: "Fraco" },
+                    { jp: "<ruby>練習<rt>れんしゅう</rt></ruby>", romaji: "renshuu", pt: "Prática, treino" },
+                    { jp: "ゴルフ", romaji: "gorufu", pt: "Golfe" },
+                    { jp: "<ruby>相撲<rt>すもう</rt></ruby>", romaji: "sumou", pt: "Sumô" },
+                    { jp: "お<ruby>茶<rt>ちゃ</rt></ruby>", romaji: "ocha", pt: "Chá (cerimônia do chá)" },
+                    { jp: "<ruby>日<rt>ひ</rt></ruby>", romaji: "hi", pt: "Dia" },
+                    { jp: "<ruby>調子<rt>ちょうし</rt></ruby>", romaji: "choushi", pt: "Condição, estado (de saúde, máquina)" },
+                    { jp: "<ruby>一度<rt>いちど</rt></ruby>", romaji: "ichido", pt: "Uma vez" },
+                    { jp: "<ruby>一度<rt>いちど</rt></ruby>も", romaji: "ichidomo", pt: "Nenhuma vez, nunca (usado com negativa)" },
+                    { jp: "だんだん", romaji: "dandan", pt: "Gradualmente, aos poucos" },
+                    { jp: "もうすぐ", romaji: "mousugu", pt: "Em breve, logo" },
+                    { jp: "おかげさまで", romaji: "okagesamade", pt: "Graças a Deus / Graças a você (resposta a 'como vai?')" },
+                    { jp: "ダイエット", romaji: "daietto", pt: "Dieta" }
+                ]
+            },
+            bunkei: {
+                title: "<ruby>文<rt>ぶん</rt></ruby><ruby>型<rt>けい</rt></ruby>・<ruby>例<rt>れい</rt></ruby><ruby>文<rt>ぶん</rt></ruby> (Padrões e Exemplos)",
+                bunkei: [
+                    { jp: "<ruby>相撲<rt>すもう</rt></ruby>を <ruby>見<rt>み</rt></ruby>た ことが あります。", romaji: "Sumou o mita koto ga arimasu.", pt: "Eu já vi sumô (tenho a experiência de ver)." },
+                    { jp: "<ruby>休<rt>やす</rt></ruby>みの <ruby>日<rt>ひ</rt></ruby>は テニスを したり、<ruby>散歩<rt>さんぽ</rt></ruby>に <ruby>行<rt>い</rt></ruby>ったり します。", romaji: "Yasumi no hi wa tenisu o shitari, sanpo ni ittari shimasu.", pt: "Nos dias de folga, eu jogo tênis, vou passear, etc." },
+                    { jp: "これから だんだん <ruby>暑<rt>あつ</rt></ruby>く なります。", romaji: "Korekara dandan atsuku narimasu.", pt: "De agora em diante, ficará gradualmente mais quente." }
+                ],
+                reibun: [
+                    { jp: "<ruby>北海道<rt>ほっかいどう</rt></ruby>へ <ruby>行<rt>い</rt></ruby>った ことが ありますか。<br>…はい、<ruby>一度<rt>いちど</rt></ruby> あります。2<ruby>年<rt>ねん</rt></ruby><ruby>前<rt>まえ</rt></ruby>に <ruby>友達<rt>ともだち</rt></ruby>と <ruby>行<rt>い</rt></ruby>きました。", romaji: "Hokkaido e itta koto ga arimasu ka. ...Hai, ichido arimasu. Ninen mae ni tomodachi to ikimashita.", pt: "Você já foi a Hokkaido? ...Sim, fui uma vez. Fui com um amigo há 2 anos." },
+                    { jp: "<ruby>馬<rt>うま</rt></ruby>に <ruby>乗<rt>の</rt></ruby>った ことが ありますか。<br>…いいえ、<ruby>一度<rt>いちど</rt></ruby>も ありません。ぜひ <ruby>乗<rt>の</rt></ruby>りたいです。", romaji: "Uma ni notta koto ga arimasu ka. ...Iie, ichidomo arimasen. Zehi noritai desu.", pt: "Você já andou a cavalo? ...Não, nunca. Quero muito andar." },
+                    { jp: "<ruby>冬休<rt>ふゆやす</rt></ruby>みは <ruby>何<rt>なに</rt></ruby>を しましたか。<br>…<ruby>京都<rt>きょうと</rt></ruby>の お<ruby>寺<rt>てら</rt></ruby>を <ruby>見<rt>み</rt></ruby>たり、<ruby>日本<rt>にほん</rt></ruby>の <ruby>料理<rt>りょうり</rt></ruby>を <ruby>食<rt>た</rt></ruby>べたり しました。", romaji: "Fuyuyasumi wa nani o shimashita ka. ...Kyouto no otera o mitari, nihon no ryouri o tabetari shimashita.", pt: "O que você fez nas férias de inverno? ...Visitei templos em Kyoto, comi comida japonesa, etc." },
+                    { jp: "<ruby>日本<rt>にほん</rt></ruby>で <ruby>何<rt>なに</rt></ruby>を したいですか。<br>…<ruby>旅行<rt>りょこう</rt></ruby>したり、お<ruby>茶<rt>ちゃ</rt></ruby>を <ruby>習<rt>なら</rt></ruby>ったり したいです。", romaji: "Nihon de nani o shitai desu ka. ...Ryokou shitari, ocha o narattari shitai desu.", pt: "O que você quer fazer no Japão? ...Quero viajar, aprender a cerimônia do chá, etc." },
+                    { jp: "<ruby>体<rt>からだ</rt></ruby>の <ruby>調子<rt>ちょうし</rt></ruby>は どうですか。<br>…おかげさまで よく なりました。", romaji: "Karada no choushi wa dou desu ka. ...Okagesamade yoku narimashita.", pt: "Como está a sua condição física? ...Graças a Deus, ficou boa (melhorei)." }
+                ]
+            },
+            gramatica: {
+                title: "<ruby>文<rt>ぶん</rt></ruby><ruby>法<rt>ぽう</rt></ruby> (Gramática)",
+                content: `
+                    <div class="card">
+                        <h3 class="card-header">1. <ruby>動詞<rt>どうし</rt></ruby>の た<ruby>形<rt>けい</rt></ruby> (A forma TA dos verbos)</h3>
+                        <p>A forma "ta" (<ruby>た形<rt>たけい</rt></ruby>) é usada principalmente para o passado informal e em estruturas gramaticais específicas. A regra de conjugação é <strong>exatamente a mesma da forma TE (<ruby>て形<rt>てけい</rt></ruby>)</strong>, bastando trocar o "て" por "た" e o "で" por "だ".</p>
+                        <table class="grammar-table">
+                            <tr>
+                                <th><ruby>第<rt>だい</rt></ruby>１グループ (Grupo 1)</th>
+                                <td>
+                                    い、ち、り ➔ <strong>った</strong> (<ruby>買<rt>か</rt></ruby>います ➔ <ruby>買<rt>か</rt></ruby><strong>った</strong>)<br>
+                                    み、び、に ➔ <strong>んだ</strong> (<ruby>飲<rt>の</rt></ruby>みます ➔ <ruby>飲<rt>の</rt></ruby><strong>んだ</strong>)<br>
+                                    き ➔ <strong>いた</strong> (<ruby>書<rt>か</rt></ruby>きます ➔ <ruby>書<rt>か</rt></ruby><strong>いた</strong>) *Exceção: <ruby>行<rt>い</rt></ruby>きます ➔ <ruby>行<rt>い</rt></ruby><strong>った</strong><br>
+                                    ぎ ➔ <strong>いだ</strong> (<ruby>急<rt>いそ</rt></ruby>ぎます ➔ <ruby>急<rt>いそ</rt></ruby><strong>いだ</strong>)<br>
+                                    し ➔ <strong>した</strong> (<ruby>話<rt>はな</rt></ruby>します ➔ <ruby>話<rt>はな</rt></ruby><strong>した</strong>)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><ruby>第<rt>だい</rt></ruby>２グループ (Grupo 2)</th>
+                                <td>Corta-se o ます e adiciona-se <strong>た</strong>.<br>
+                                    <ruby>食<rt>た</rt></ruby>べます ➔ <ruby>食<rt>た</rt></ruby>べ<strong>た</strong><br>
+                                    <ruby>見<rt>み</rt></ruby>ます ➔ <ruby>見<rt>み</rt></ruby><strong>た</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><ruby>第<rt>だい</rt></ruby>３グループ (Grupo 3)</th>
+                                <td>Irregulares.<br>
+                                    します ➔ <strong>した</strong><br>
+                                    <ruby>来<rt>き</rt></ruby>ます ➔ <strong><ruby>来<rt>き</rt></ruby>た</strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-header">2. <ruby>動詞<rt>どうし</rt></ruby>た<ruby>形<rt>けい</rt></ruby> ＋ ことが あります</h3>
+                        <p>Significa <strong>"Já fiz / Tenho a experiência de ter feito"</strong>. É usado para falar de experiências passadas (não é usado para ações do passado recente ou rotinas).</p>
+                        <p class="item-box">
+                            わたしは <ruby>馬<rt>うま</rt></ruby>に <strong><ruby>乗<rt>の</rt></ruby>った ことが あります</strong>。<br>
+                            <span class="romaji">Watashi wa uma ni notta koto ga arimasu.</span><br>
+                            <em>(Eu já andei a cavalo.)</em>
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-header">3. <ruby>動詞<rt>どうし</rt></ruby>た<ruby>形<rt>けい</rt></ruby>り、<ruby>動詞<rt>どうし</rt></ruby>た<ruby>形<rt>けい</rt></ruby>り します</h3>
+                        <p>Significa <strong>"Fazer coisas como [A], [B], etc"</strong>. É usado para listar algumas ações representativas entre várias outras, sem implicar uma ordem cronológica rígida (diferente da forma TE).</p>
+                        <p class="item-box">
+                            <ruby>日曜日<rt>にちようび</rt></ruby>は <ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>を <strong>したり</strong>、<ruby>映画<rt>えいが</rt></ruby>を <strong><ruby>見<rt>み</rt></ruby>たり します</strong>。<br>
+                            <span class="romaji">Nichiyoubi wa kaimono o shitari, eiga o mitari shimasu.</span><br>
+                            <em>(No domingo, faço compras, assisto a filmes, etc.)</em>
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-header">4. 〜 なります (Tornar-se / Ficar)</h3>
+                        <p>Indica uma mudança de estado. A conjugação varia dependendo da palavra anterior:</p>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong><ruby>い形容詞<rt>いけいようし</rt></ruby> (Adj-i):</strong> Troca o "い" por <strong>く</strong> + なります。<br>
+                                <ruby>寒<rt>さむ</rt></ruby>い ➔ <ruby>寒<rt>さむ</rt></ruby><strong>く なります</strong> (Fica/Ficará frio)
+                            </li>
+                            <li><strong><ruby>な形容詞<rt>なけいようし</rt></ruby> (Adj-na):</strong> Adiciona <strong>に</strong> + なります。<br>
+                                <ruby>元気<rt>げんき</rt></ruby>[な] ➔ <ruby>元気<rt>げんき</rt></ruby><strong>に なります</strong> (Fica/Ficará saudável)
+                            </li>
+                            <li><strong><ruby>名詞<rt>めいし</rt></ruby> (Substantivo):</strong> Adiciona <strong>に</strong> + なります。<br>
+                                25<ruby>歳<rt>さい</rt></ruby> ➔ 25<ruby>歳<rt>さい</rt></ruby><strong>に なります</strong> (Faz/Fará 25 anos)
+                            </li>
+                        </ul>
+                    </div>
+                `
+            },
+            renshuuA: {
+                title: "<ruby>練習<rt>れんしゅう</rt></ruby> A",
+                exercises: [
+                    {
+                        desc: "<ruby>動詞<rt>どうし</rt></ruby>の た<ruby>形<rt>けい</rt></ruby> (Forma TA dos verbos)",
+                        questions: [
+                            { q: "<ruby>書<rt>か</rt></ruby>きます ➔", a: "<ruby>書<rt>か</rt></ruby>いた", romaji: "kaita", pt: "Escreveu" },
+                            { q: "<ruby>行<rt>い</rt></ruby>きます (exceção) ➔", a: "<ruby>行<rt>い</rt></ruby>った", romaji: "itta", pt: "Foi" },
+                            { q: "<ruby>飲<rt>の</rt></ruby>みます ➔", a: "<ruby>飲<rt>の</rt></ruby>んだ", romaji: "nonda", pt: "Bebeu" },
+                            { q: "<ruby>読<rt>よ</rt></ruby>みます ➔", a: "<ruby>読<rt>よ</rt></ruby>んだ", romaji: "yonda", pt: "Leu" },
+                            { q: "<ruby>買<rt>か</rt></ruby>います ➔", a: "<ruby>買<rt>か</rt></ruby>った", romaji: "katta", pt: "Comprou" },
+                            { q: "<ruby>待<rt>ま</rt></ruby>ちます ➔", a: "<ruby>待<rt>ま</rt></ruby>った", romaji: "matta", pt: "Esperou" },
+                            { q: "<ruby>帰<rt>かえ</rt></ruby>ります ➔", a: "<ruby>帰<rt>かえ</rt></ruby>った", romaji: "kaetta", pt: "Voltou" },
+                            { q: "<ruby>食<rt>た</rt></ruby>べます (Grp 2) ➔", a: "<ruby>食<rt>た</rt></ruby>べた", romaji: "tabeta", pt: "Comeu" },
+                            { q: "<ruby>見<rt>み</rt></ruby>ます (Grp 2) ➔", a: "<ruby>見<rt>み</rt></ruby>た", romaji: "mita", pt: "Viu" },
+                            { q: "します (Grp 3) ➔", a: "した", romaji: "shita", pt: "Fez" },
+                            { q: "<ruby>来<rt>き</rt></ruby>ます (Grp 3) ➔", a: "<ruby>来<rt>き</rt></ruby>た", romaji: "kita", pt: "Veio" }
+                        ]
+                    }
+                ]
+            },
+            renshuuB: {
+                title: "<ruby>練習<rt>れんしゅう</rt></ruby> B",
+                exercises: [
+                    {
+                        desc: "1. た<ruby>形<rt>けい</rt></ruby>に <ruby>変<rt>か</rt></ruby>えなさい。(Mude para a forma TA)",
+                        questions: [
+                            { q: "<ruby>歌<rt>うた</rt></ruby>います ➔", a: "<ruby>歌<rt>うた</rt></ruby>った", romaji: "utatta", pt: "Cantou" },
+                            { q: "<ruby>遊<rt>あそ</rt></ruby>びます ➔", a: "<ruby>遊<rt>あそ</rt></ruby>んだ", romaji: "asonda", pt: "Brincou" },
+                            { q: "<ruby>起<rt>お</rt></ruby>きます ➔", a: "<ruby>起<rt>お</rt></ruby>きた", romaji: "okita", pt: "Acordou" },
+                            { q: "<ruby>掃除<rt>そうじ</rt></ruby>します ➔", a: "<ruby>掃除<rt>そうじ</rt></ruby>した", romaji: "souji shita", pt: "Limpou" }
+                        ]
+                    },
+                    {
+                        desc: "2. 〜た ことが あります を<ruby>使<rt>つか</rt></ruby>って<ruby>文<rt>ぶん</rt></ruby>を<ruby>作<rt>つく</rt></ruby>りなさい。(Use ~ta koto ga arimasu)",
+                        questions: [
+                            { q: "<ruby>富士山<rt>ふじさん</rt></ruby>に <ruby>登<rt>のぼ</rt></ruby>ります ➔", a: "<ruby>富士山<rt>ふじさん</rt></ruby>に <ruby>登<rt>のぼ</rt></ruby>った ことが あります。", romaji: "Fujisan ni nobotta koto ga arimasu.", pt: "Já escalei o Monte Fuji." },
+                            { q: "<ruby>寿司<rt>すし</rt></ruby>を <ruby>食<rt>た</rt></ruby>べます ➔", a: "<ruby>寿司<rt>すし</rt></ruby>を <ruby>食<rt>た</rt></ruby>べた ことが あります。", romaji: "Sushi o tabeta koto ga arimasu.", pt: "Já comi sushi." },
+                            { q: "<ruby>日本<rt>にほん</rt></ruby>のお<ruby>酒<rt>さけ</rt></ruby>を <ruby>飲<rt>の</rt></ruby>みます ➔", a: "<ruby>日本<rt>にほん</rt></ruby>のお<ruby>酒<rt>さけ</rt></ruby>を <ruby>飲<rt>の</rt></ruby>んだ ことが あります。", romaji: "Nihon no osake o nonda koto ga arimasu.", pt: "Já bebi saquê japonês." }
+                        ]
+                    },
+                    {
+                        desc: "3. ありますか？ (はい / いいえ) (Responda)",
+                        questions: [
+                            { q: "<ruby>京都<rt>きょうと</rt></ruby>へ <ruby>行<rt>い</rt></ruby>った ことが ありますか。（はい） ➔", a: "はい、あります。", romaji: "Hai, arimasu.", pt: "Sim, tenho (já fui)." },
+                            { q: "<ruby>馬<rt>うま</rt></ruby>に <ruby>乗<rt>の</rt></ruby>った ことが ありますか。（いいえ・<ruby>一度<rt>いちど</rt></ruby>も） ➔", a: "いいえ、<ruby>一度<rt>いちど</rt></ruby>も ありません。", romaji: "Iie, ichidomo arimasen.", pt: "Não, nunca andei." }
+                        ]
+                    },
+                    {
+                        desc: "4. 〜たり、〜たり します (Liste as ações com ~tari, ~tari shimasu)",
+                        questions: [
+                            { q: "<ruby>日曜日<rt>にちようび</rt></ruby>。<ruby>本<rt>ほん</rt></ruby>を <ruby>読<rt>よ</rt></ruby>みます。<ruby>散歩<rt>さんぽ</rt></ruby>します。➔", a: "<ruby>日曜日<rt>にちようび</rt></ruby>は <ruby>本<rt>ほん</rt></ruby>を <ruby>読<rt>よ</rt></ruby>んだり、<ruby>散歩<rt>さんぽ</rt></ruby>したり します。", romaji: "Nichiyoubi wa hon o yondari, sanpo shitari shimasu.", pt: "No domingo, eu leio livros, passeio, etc." },
+                            { q: "<ruby>昨日<rt>きのう</rt></ruby>。<ruby>歌<rt>うた</rt></ruby>を <ruby>歌<rt>うた</rt></ruby>いました。ダンスを しました。➔", a: "<ruby>昨日<rt>きのう</rt></ruby>は <ruby>歌<rt>うた</rt></ruby>を <ruby>歌<rt>うた</rt></ruby>ったり、ダンスを したり しました。", romaji: "Kinou wa uta o utattari, dansu o shitari shimashita.", pt: "Ontem eu cantei músicas, dancei, etc. (Atenção ao しました no final porque é passado)" }
+                        ]
+                    },
+                    {
+                        desc: "5. 〜く なります / に なります (Mudança de estado)",
+                        questions: [
+                            { q: "<ruby>暖<rt>あたた</rt></ruby>かい ➔", a: "<ruby>暖<rt>あたた</rt></ruby>かく なります", romaji: "Atatakaku narimasu", pt: "Fica quente (adj-i)" },
+                            { q: "<ruby>元気<rt>げんき</rt></ruby> ➔", a: "<ruby>元気<rt>げんき</rt></ruby>に なります", romaji: "Genki ni narimasu", pt: "Fica saudável/bem (adj-na)" },
+                            { q: "25<ruby>歳<rt>さい</rt></ruby> ➔", a: "25<ruby>歳<rt>さい</rt></ruby>に なります", romaji: "Nijuugosai ni narimasu", pt: "Faz 25 anos (substantivo)" },
+                            { q: "<ruby>医者<rt>いしゃ</rt></ruby> ➔", a: "<ruby>医者<rt>いしゃ</rt></ruby>に なります", romaji: "Isha ni narimasu", pt: "Torna-se médico (substantivo)" }
+                        ]
+                    }
+                ]
+            },
+            renshuuC: {
+                title: "<ruby>練習<rt>れんしゅう</rt></ruby> C (Diálogos)",
+                exercises: [
+                    {
+                        desc: "1. 経験について話す (Falando sobre experiências)",
+                        questions: [
+                            {
+                                q: "A: <strong>[<ruby>相撲<rt>すもう</rt></ruby>を <ruby>見<rt>み</rt></ruby>ます]</strong> ことが ありますか。<br>B: いいえ、<ruby>一度<rt>いちど</rt></ruby>も ありません。<br>A: おもしろいですよ。ぜひ <strong>[<ruby>見<rt>み</rt></ruby>て]</strong> ください。",
+                                a: "<ruby>相撲<rt>すもう</rt></ruby>を <ruby>見<rt>み</rt></ruby>た",
+                                romaji: "Sumou o mita",
+                                pt: "ver sumô (forma ta)"
+                            },
+                            {
+                                q: "A: <strong>[パチンコを します]</strong> ことが ありますか。<br>B: いいえ、<ruby>一度<rt>いちど</rt></ruby>も ありません。<br>A: おもしろいですよ。ぜひ <strong>[して]</strong> ください。",
+                                a: "パチンコを した",
+                                romaji: "Pachinko o shita",
+                                pt: "jogar pachinko (forma ta)"
+                            }
+                        ]
+                    },
+                    {
+                        desc: "2. 変化について話す (Falando sobre mudanças)",
+                        questions: [
+                            {
+                                q: "A: <ruby>日本語<rt>にほんご</rt></ruby>が <strong>[<ruby>上手<rt>じょうず</rt></ruby>]</strong> なりましたね。<br>B: ありがとう ございます。でも、まだまだです。",
+                                a: "<ruby>上手<rt>じょうず</rt></ruby>に",
+                                romaji: "Jouzu ni",
+                                pt: "ficou habilidoso (na-adj + ni)"
+                            }
+                        ]
+                    }
+                ]
+            },
+            mondai: {
+                title: "<ruby>問題<rt>もんだい</rt></ruby> (Problemas / Avaliação)",
+                exercises: [
+                    {
+                        desc: "1. (　　) に <ruby>正<rt>ただ</rt></ruby>しい <ruby>助詞<rt>じょし</rt></ruby> を <ruby>入<rt>い</rt></ruby>れなさい。 (Preencha as partículas: に, を, が, は)",
+                        questions: [
+                            { q: "わたしは <ruby>富士山<rt>ふじさん</rt></ruby>（　　）<ruby>登<rt>のぼ</rt></ruby>った ことが あります。", a: "に", romaji: "ni", pt: "Partícula 'ni' (Direção/Alvo para subir)" },
+                            { q: "<ruby>休<rt>やす</rt></ruby>みの <ruby>日<rt>ひ</rt></ruby>は <ruby>音楽<rt>おんがく</rt></ruby>（　　）<ruby>聞<rt>き</rt></ruby>いたり、<ruby>本<rt>ほん</rt></ruby>を <ruby>読<rt>よ</rt></ruby>んだり します。", a: "を", romaji: "o", pt: "Partícula 'o' (Objeto direto de ouvir)" },
+                            { q: "だんだん <ruby>寒<rt>さむ</rt></ruby>く なりますから、<ruby>体<rt>からだ</rt></ruby>（　　）<ruby>気<rt>き</rt></ruby>を つけて ください。", a: "に", romaji: "ni", pt: "Partícula 'ni' (ki o tsukeru requer 'ni')" }
+                        ]
+                    },
+                    {
+                        desc: "2. <ruby>動詞<rt>どうし</rt></ruby>や<ruby>形容詞<rt>けいようし</rt></ruby> を <ruby>正<rt>ただ</rt></ruby>しい <ruby>形<rt>けい</rt></ruby> に <ruby>変<rt>か</rt></ruby>えなさい。 (Mude para a forma correta)",
+                        questions: [
+                            { q: "ここで <ruby>写真<rt>しゃしん</rt></ruby>を（<ruby>撮<rt>と</rt></ruby>ります ➔ ＿＿＿＿＿） ことが ありますか。", a: "<ruby>撮<rt>と</rt></ruby>った", romaji: "totta", pt: "Forma TA antes de koto ga arimasu" },
+                            { q: "<ruby>日曜日<rt>にちようび</rt></ruby>は テニスを（します ➔ ＿＿＿＿＿）、<ruby>映画<rt>えいが</rt></ruby>を <ruby>見<rt>み</rt></ruby>たり します。", a: "したり", romaji: "shitari", pt: "Forma TARI" },
+                            { q: "<ruby>来年<rt>らいねん</rt></ruby> わたしは 20<ruby>歳<rt>さい</rt></ruby>（です ➔ ＿＿＿＿＿）。", a: "に なります", romaji: "ni narimasu", pt: "Tornar-se 20 anos" }
+                        ]
+                    },
+                    {
+                        desc: "3. <ruby>読<rt>よ</rt></ruby>み<ruby>物<rt>もの</rt></ruby> (Leitura): ダイエット (Dieta)",
+                        questions: [
+                            { 
+                                q: `<div style="padding: 15px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; margin-bottom: 15px;">
+                                    サントスさんは １か月 まえに、ダイエットを はじめました。毎日 運動したり、野菜を 食べたり しました。でも、あまり 痩せませんでした。昨日 サントスさんは ケーキを 3つ 食べました。
+                                </div>
+                                <ruby>質問<rt>しつもん</rt></ruby>: サントスさんは どうして ダイエットを しますか。<br>➔ <ruby>太<rt>ふと</rt></ruby>りましたから、＿＿＿＿＿＿＿＿＿。`, 
+                                a: "<ruby>痩<rt>や</rt></ruby>せたいです", 
+                                romaji: "yasetai desu", 
+                                pt: "Porque quer emagrecer." 
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        let globalRomaji = false;
+
+        function toggleGlobalRomaji() {
+            globalRomaji = !globalRomaji;
+            if (globalRomaji) {
+                document.body.classList.add('show-romaji');
+                document.getElementById('romaji-toggle-btn').innerHTML = "👁️‍🗨️ Romaji <ruby>表示<rt>ひょうじ</rt></ruby> (Visível)";
+            } else {
+                document.body.classList.remove('show-romaji');
+                document.getElementById('romaji-toggle-btn').innerHTML = "👁️ Romaji <ruby>隠<rt>かく</rt></ruby>す (Oculto)";
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast-msg');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        }
+
+        // Helper function to extract pure text from HTML (removes <rt> tags and their contents)
+        function extractBaseText(htmlStr) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlStr;
+            const rtElements = tempDiv.querySelectorAll('rt');
+            rtElements.forEach(rt => rt.remove());
+            return tempDiv.textContent || tempDiv.innerText || "";
+        }
+
+        // Helper function to normalize strings for comparison (removes spaces, punctuation)
+        function normalizeString(str) {
+            return str.replace(/[\s　、。！？,!?]/g, '');
+        }
+
+        function initApp() {
+            renderNav();
+            renderSections();
+            switchTab('vocab');
+        }
+
+        function renderNav() {
+            const nav = document.getElementById('main-nav');
+            const sections = [
+                { id: 'vocab', label: "<ruby>語彙<rt>ごい</rt></ruby>" },
+                { id: 'bunkei', label: "<ruby>文型<rt>ぶんけい</rt></ruby>・<ruby>例文<rt>れいぶん</rt></ruby>" },
+                { id: 'gramatica', label: "<ruby>文法<rt>ぶんぽう</rt></ruby>" },
+                { id: 'renshuuA', label: "<ruby>練習<rt>れんしゅう</rt></ruby> A" },
+                { id: 'renshuuB', label: "<ruby>練習<rt>れんしゅう</rt></ruby> B" },
+                { id: 'renshuuC', label: "<ruby>練習<rt>れんしゅう</rt></ruby> C" },
+                { id: 'mondai', label: "<ruby>問題<rt>もんだい</rt></ruby>" }
+            ];
+
+            nav.innerHTML = sections.map(sec => `
+                <button class="tab-btn" id="btn-${sec.id}" onclick="switchTab('${sec.id}')">
+                    ${sec.label}
+                </button>
+            `).join('');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
+            
+            document.getElementById(`btn-${tabId}`).classList.add('active');
+            document.getElementById(`sec-${tabId}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderSections() {
+            const container = document.getElementById('main-container');
+            
+            // --- VOCABULARY ---
+            let html = `<div id="sec-vocab" class="section-container card">
+                <h2 class="card-header">${lessonData.vocab.title}</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px;">
+                    ${lessonData.vocab.items.map(v => `
+                        <div class="item-box">
+                            <div style="font-size: 1.25rem; font-weight: bold; color: var(--primary);">${v.jp}</div>
+                            <div class="romaji">${v.romaji}</div>
+                            <div style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">🇧🇷 ${v.pt}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+
+            // --- BUNKEI & REIBUN ---
+            html += `<div id="sec-bunkei" class="section-container">
+                <div class="card">
+                    <h2 class="card-header">${lessonData.bunkei.title.split('・')[0]} (Padrões)</h2>
+                    ${lessonData.bunkei.bunkei.map(b => `
+                        <div class="item-box">
+                            <div style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">${b.jp}</div>
+                            <div class="romaji">${b.romaji}</div>
+                            <div style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">🇧🇷 ${b.pt}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="card">
+                    <h2 class="card-header"> ${lessonData.bunkei.title.split('・')[1]} (Exemplos)</h2>
+                    ${lessonData.bunkei.reibun.map(r => `
+                        <div class="item-box">
+                            <div style="font-size: 1.15rem; font-weight: bold;">${r.jp}</div>
+                            <div class="romaji">${r.romaji}</div>
+                            <div style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">🇧🇷 ${r.pt}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+
+            // --- GRAMATICA ---
+            html += `<div id="sec-gramatica" class="section-container">
+                ${lessonData.gramatica.content}
+            </div>`;
+
+            // --- EXERCISE GENERATOR FUNCTION ---
+            const generateExerciseBlock = (dataObj, secId) => {
+                let blockHtml = `<div id="sec-${secId}" class="section-container">
+                    <div class="card">
+                        <h2 class="card-header">${dataObj.title}</h2>`;
+                
+                dataObj.exercises.forEach((exGroup, groupIdx) => {
+                    blockHtml += `<h3 style="margin: 25px 0 15px 0; color: var(--primary); border-left: 4px solid var(--secondary); padding-left: 10px;">${exGroup.desc}</h3>`;
+                    
+                    exGroup.questions.forEach((q, qIdx) => {
+                        const uniqueId = `${secId}-${groupIdx}-${qIdx}`;
+                        
+                        // Safely pass the HTML answer string
+                        const safeAnswerHtml = q.a.replace(/'/g, "&apos;");
+
+                        blockHtml += `
+                            <div class="item-box">
+                                <div class="exercise-prompt">${q.q}</div>
+                                <div class="exercise-controls">
+                                    <input type="text" id="input-${uniqueId}" class="input-text" placeholder="<ruby>答<rt>こた</rt></ruby>えを<ruby>入力<rt>にゅうりょく</rt></ruby>...">
+                                    <button class="btn btn-check" onclick="checkAnswer('input-${uniqueId}', '${safeAnswerHtml}', 'feedback-${uniqueId}')">
+                                        ✅ Verificar (<ruby>確認<rt>かくにん</rt></ruby>)
+                                    </button>
+                                    <button class="btn btn-reveal" onclick="toggleAnswer('ans-${uniqueId}')">
+                                        💡 Revelar (<ruby>答<rt>こた</rt></ruby>え)
+                                    </button>
+                                </div>
+                                <div id="feedback-${uniqueId}" class="feedback-box"></div>
+                                <div id="ans-${uniqueId}" class="answer-box">
+                                    <div style="font-size: 1.1rem;"><ruby>正解<rt>せいかい</rt></ruby>: ${q.a}</div>
+                                    <div class="romaji">${q.romaji}</div>
+                                    <div style="color: #475569; font-weight: normal; margin-top: 5px; font-size: 0.95rem;">Tradução: ${q.pt}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                });
+                
+                blockHtml += `</div></div>`;
+                return blockHtml;
+            };
+
+            html += generateExerciseBlock(lessonData.renshuuA, 'renshuuA');
+            html += generateExerciseBlock(lessonData.renshuuB, 'renshuuB');
+            html += generateExerciseBlock(lessonData.renshuuC, 'renshuuC');
+            html += generateExerciseBlock(lessonData.mondai, 'mondai');
+
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(inputId, correctHtmlStr, feedbackId) {
+            const inputEl = document.getElementById(inputId);
+            const feedbackEl = document.getElementById(feedbackId);
+            
+            const userVal = normalizeString(inputEl.value);
+            const correctBaseText = extractBaseText(correctHtmlStr);
+            const correctVal = normalizeString(correctBaseText);
+
+            if (!userVal) {
+                feedbackEl.innerHTML = "⚠️ <ruby>入力<rt>にゅうりょく</rt></ruby>してください。(Por favor, digite a resposta)";
+                feedbackEl.className = "feedback-box feedback-incorrect";
+                return;
+            }
+
+            if (userVal === correctVal) {
+                feedbackEl.innerHTML = "⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)";
+                feedbackEl.className = "feedback-box feedback-correct";
+            } else {
+                feedbackEl.innerHTML = `❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(Incorreto). Você digitou: ${inputEl.value}`;
+                feedbackEl.className = "feedback-box feedback-incorrect";
+            }
+        }
+
+        function toggleAnswer(ansId) {
+            const ansEl = document.getElementById(ansId);
+            ansEl.classList.toggle('visible');
+        }
+
+        // Boot
+        window.onload = initApp;
+
+    </script>
+</body>
+</html>
