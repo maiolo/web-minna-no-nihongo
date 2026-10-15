@@ -1,0 +1,370 @@
+/* ==========================================================================
+   みんなの日本語 - estilos compartilhados (índice e lições)
+   Cores e fontes ficam nas variáveis de :root; para mudar o visual do
+   site inteiro, basta editar este arquivo.
+   ========================================================================== */
+
+:root {
+    --primary: #0f766e;
+    --primary-hover: #0f5f59;
+    --secondary: #0ea5e9;
+    --secondary-hover: #0284c7;
+    --accent: #f59e0b;
+    --success: #10b981;
+    --success-bg: #d1fae5;
+    --danger: #ef4444;
+    --danger-bg: #fee2e2;
+    --bg-body: #f0fdfa;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #cbd5e1;
+    --font-main: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.7;
+}
+
+/* ---------- Furigana ---------- */
+ruby { ruby-align: center; }
+rt {
+    font-size: 0.65em;
+    color: var(--text-muted);
+    font-weight: normal;
+    user-select: none;
+}
+
+/* ---------- Romaji (oculto por padrão) ---------- */
+.romaji {
+    color: transparent;
+    text-shadow: 0 0 8px rgba(100, 116, 139, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-left: 8px;
+    display: inline-block;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0 4px;
+}
+.romaji::selection {
+    color: var(--secondary);
+    background-color: #e0f2fe;
+    text-shadow: none;
+}
+.romaji:hover,
+body.show-romaji .romaji {
+    color: var(--secondary);
+    text-shadow: none;
+    background-color: #e0f2fe;
+}
+
+/* ---------- Cabeçalho ---------- */
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+header.sticky { position: sticky; top: 0; z-index: 100; }
+header.hero { padding: 30px 20px; }
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 1100px;
+    margin: 0 auto 15px auto;
+}
+.header-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.header-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.header-title h1 { font-size: 1.6rem; margin-bottom: 5px; }
+.header-title p { font-size: 0.95rem; color: #ccfbf1; }
+header.hero .header-title h1 { font-size: 2rem; }
+header rt { color: #99f6e4; }
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.nav-link:hover { background-color: rgba(255, 255, 255, 0.3); }
+
+/* ---------- Conteúdo ---------- */
+main {
+    max-width: 1100px;
+    margin: 0 auto 50px auto;
+    padding: 0 15px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.card-header {
+    font-size: 1.3rem;
+    color: var(--primary);
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+.item-box {
+    background-color: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+/* ---------- Abas das lições ---------- */
+.main-nav {
+    max-width: 1100px;
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 15px;
+}
+.tab-btn {
+    flex: 1;
+    min-width: 130px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.tab-btn:hover { background-color: #f8fafc; }
+.tab-btn.active {
+    background-color: var(--secondary);
+    color: white;
+    border-color: var(--secondary);
+}
+
+.section-container { display: none; animation: fadeIn 0.3s ease-out; }
+.section-container.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Vocabulário e frases ---------- */
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 15px;
+}
+.jp-term { font-size: 1.25rem; font-weight: bold; color: var(--primary); }
+.jp-pattern { font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+.jp-example { font-size: 1.15rem; font-weight: bold; }
+.pt-line { color: var(--text-muted); font-size: 0.95rem; margin-top: 5px; }
+
+/* ---------- Exercícios ---------- */
+.exercise-group-title {
+    margin: 25px 0 15px 0;
+    color: var(--primary);
+    border-left: 4px solid var(--secondary);
+    padding-left: 10px;
+}
+.exercise-prompt {
+    font-weight: bold;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
+    color: #1e293b;
+}
+.exercise-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 15px;
+}
+.input-text {
+    flex: 1 1 200px;
+    min-width: 0;
+    padding: 12px 15px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+.input-text:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+.btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-check { background-color: var(--secondary); }
+.btn-check:hover { background-color: var(--secondary-hover); }
+.btn-reveal { background-color: var(--success); }
+.btn-reveal:hover { background-color: #059669; }
+.btn-toggle {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.btn-toggle:hover { background-color: rgba(255, 255, 255, 0.35); }
+
+.feedback-box {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: none;
+}
+.feedback-correct {
+    display: block;
+    background-color: var(--success-bg);
+    color: var(--success);
+    border: 1px solid #6ee7b7;
+}
+.feedback-incorrect {
+    display: block;
+    background-color: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid #fca5a5;
+}
+
+.answer-box {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f0fdf4;
+    border-left: 5px solid var(--success);
+    border-radius: 0 6px 6px 0;
+    font-weight: bold;
+    color: #166534;
+}
+.answer-box.visible { display: block; animation: fadeIn 0.3s ease-out; }
+.answer-correct { font-size: 1.1rem; }
+.answer-translation {
+    color: #475569;
+    font-weight: normal;
+    margin-top: 5px;
+    font-size: 0.95rem;
+}
+
+/* ---------- Tabelas de gramática ---------- */
+.grammar-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.grammar-table th,
+.grammar-table td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: left;
+}
+.grammar-table th { background-color: #f1f5f9; color: var(--primary); }
+
+/* ---------- Índice ---------- */
+.section-title {
+    font-size: 1.3rem;
+    color: var(--primary);
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    gap: 20px;
+    list-style: none;
+}
+.lesson-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.lesson-card:hover,
+.lesson-card:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--secondary);
+    box-shadow: 0 8px 18px rgba(14, 165, 233, 0.15);
+    outline: none;
+}
+.lesson-number { font-size: 1.6rem; font-weight: bold; color: var(--primary); margin-bottom: 4px; }
+.lesson-topic { font-size: 1.05rem; font-weight: bold; margin-bottom: 10px; }
+.lesson-desc { font-size: 0.92rem; color: var(--text-muted); flex: 1; }
+.lesson-go { margin-top: 16px; font-weight: bold; font-size: 0.95rem; color: var(--secondary); }
+.lesson-card:hover .lesson-go { color: var(--primary); }
+
+footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0 15px 30px 15px;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 15px;
+}
+
+@media (max-width: 640px) {
+    /* O cabeçalho é alto em telas pequenas; fixo ele tomaria boa parte da tela. */
+    header.sticky { position: static; }
+}
+
+@media (max-width: 480px) {
+    header.hero .header-title h1 { font-size: 1.5rem; }
+}
