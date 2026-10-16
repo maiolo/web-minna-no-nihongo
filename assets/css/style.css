@@ -360,6 +360,116 @@ footer {
     padding: 40px 15px;
 }
 
+/* ---------- JLPT: página de kanji ---------- */
+[hidden] { display: none !important; }
+
+.kanji-intro { margin-top: 25px; }
+.kanji-intro p + p { margin-top: 10px; }
+.kanji-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+.kanji-legend + p { margin-top: 15px; }
+.legend-item { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 0.95rem; }
+
+.kanji-controls { margin: 0 0 20px 0; }
+.kanji-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.kanji-toolbar .input-text { flex: 1 1 260px; }
+.btn-plain {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+.btn-plain:hover { background-color: #f1f5f9; }
+.kanji-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.chip:hover { background: #f1f5f9; }
+.chip.active { background: var(--primary); border-color: var(--primary); color: white; }
+.kanji-count { margin-top: 12px; font-size: 0.9rem; color: var(--text-muted); }
+
+.kanji-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+    gap: 20px;
+    align-items: start;
+}
+.kanji-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.kanji-head { display: flex; gap: 16px; align-items: flex-start; }
+.kanji-glyph {
+    flex: 0 0 auto;
+    min-width: 84px;
+    text-align: center;
+    font-size: 3.6rem;
+    line-height: 1.15;
+    color: var(--primary);
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    border-radius: 10px;
+    padding: 8px 6px;
+}
+.kanji-info { flex: 1; min-width: 0; }
+.kanji-meaning { font-size: 1.15rem; font-weight: bold; margin-bottom: 8px; }
+.read-row { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin-bottom: 6px; font-size: 1.05rem; }
+.read-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 1px 6px;
+    white-space: nowrap;
+}
+.read-label.on, .read-tag.on { background: #e0f2fe; color: #075985; }
+.read-label.kun, .read-tag.kun { background: #fef3c7; color: #92400e; }
+.read-chip { white-space: nowrap; }
+.read-chip .romaji { margin-left: 2px; }
+.read-chip + .read-chip::before { content: "・"; color: var(--text-muted); }
+.read-none { color: var(--text-muted); }
+
+.example-list { list-style: none; margin-top: 14px; }
+.example { border-top: 1px solid #e2e8f0; padding: 12px 0 4px 0; }
+.example .read-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 1px 8px;
+    margin-bottom: 4px;
+}
+.example .romaji { margin-left: 0; }
+.kanji-note {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #fffbeb;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.92rem;
+}
+.examples-collapsed .example-list,
+.examples-collapsed .kanji-note { display: none; }
+
+ruby.hl { background: #fef3c7; border-radius: 4px; padding: 0 2px; }
+
+@media (max-width: 480px) {
+    .kanji-glyph { min-width: 70px; font-size: 3rem; }
+    .kanji-card { padding: 16px; }
+}
+
 @media (max-width: 640px) {
     /* O cabeçalho é alto em telas pequenas; fixo ele tomaria boa parte da tela. */
     header.sticky { position: static; }

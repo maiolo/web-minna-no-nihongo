@@ -6,6 +6,11 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 
 > **Status do conteúdo:** as lições 16 a 19 estão em revisão e serão reescritas com conteúdo próprio. As lições seguintes já entram nesse formato.
 
+## Seções
+
+- **Lições** (`lessons/`): o conteúdo do *Minna no Nihongo*, lição por lição.
+- **JLPT** (`jlpt/`): material de apoio para o exame. Por enquanto tem a **lista dos 103 kanji do N5**, com significado, leituras on'yomi e kun'yomi e frases de exemplo para as principais leituras. Dá para buscar (por kanji, português, kana ou romaji), filtrar por categoria e recolher os exemplos.
+
 ## Recursos
 
 - Furigana em todos os kanji (`<ruby>`), com botão para mostrar ou ocultar o romaji.
@@ -22,9 +27,15 @@ assets/
   css/style.css             Estilos compartilhados (cores nas variáveis de :root)
   js/lessons-index.js       Lista central de lições (índice e botões anterior/próxima)
   js/engine.js              Motor que monta a página de uma lição a partir dos dados
+  js/jlpt-index.js          Lista de páginas da seção JLPT
+  js/kanji-page.js          Monta a página de kanji (cartões, busca, filtros, romaji)
 lessons/
   lesson-NN.html            Página de cada lição (estrutura mínima)
   data/lesson-NN.js         Conteúdo de cada lição (vocabulário, gramática, exercícios)
+jlpt/
+  index.html                Página inicial da seção JLPT
+  n5-kanji.html             Lista de kanji do N5
+  data/n5-kanji-*.js        Dados dos kanji (3 arquivos, por categoria)
 ```
 
 A lição 16 (`lessons/lesson-16.html`) ainda é uma página independente, com Tailwind via CDN. Ela será refeita no formato acima.
@@ -86,8 +97,35 @@ window.lessonData = {
 - Em `a` (resposta), o furigana (`<rt>`) é ignorado na correção: o aluno digita só o texto base.
 - Em `gramatica.content`, use as classes de `style.css` (`card`, `card-header`, `item-box`, `grammar-table`, `romaji`).
 
+## Adicionar kanji ou uma página JLPT
+
+**Kanji novo** (ou correção) em `jlpt/data/n5-kanji-*.js`:
+
+```js
+{
+  k: "食", pt: "comer; comida", on: ["ショク"], kun: ["た(べる)", "く(う)"], cat: "verbos",
+  ex: [
+    // [leitura usada, frase, tradução]
+    ["た(べる)", "{朝|あさ}ごはんを {食|た}べます。", "Tomo café da manhã."],
+    ["ショク", "{食事|しょくじ}を します。", "Faço uma refeição."]
+  ],
+  note: "Dica opcional."
+}
+```
+
+- Nas frases, `{漢字|かんじ}` gera o furigana e o romaji é calculado automaticamente a partir das leituras.
+- `^は` e `^へ` marcam a partícula (lida *wa* e *e*). Um espaço separa palavras no romaji e não aparece no japonês.
+- Todo kanji da frase precisa estar dentro de `{...|...}`; o kanji do cartão é destacado.
+- `cat` é uma destas categorias: `numeros`, `tempo`, `natureza`, `pessoas`, `corpo`, `posicao`, `verbos`, `adjetivos`, `sociedade`.
+- Cada leitura listada em `on` e `kun` deve ter ao menos uma frase de exemplo; leituras raras demais para o N5 ficam de fora.
+
+**Página nova na seção JLPT** (ex.: kanji do N4): crie a página e os dados em `jlpt/`, reutilize `assets/js/kanji-page.js` (ele lê `data-global` e `data-level` do `<body>`) e acrescente a página em `assets/js/jlpt-index.js`.
+
+A lista de 103 kanji segue uma lista de referência muito usada em materiais de estudo: o JLPT deixou de publicar listas oficiais em 2010. As frases e explicações são próprias do projeto.
+
 ## Próximos passos
 
+- JLPT: kanji do N4, vocabulário do N5, simulados e exercícios de leitura das kanji.
 - Reescrever as lições 16 a 19 e seguir com as próximas, com conteúdo próprio.
 - Ilustrações no vocabulário (SVG).
 - Explicações gramaticais mais profundas, com mais exemplos em contextos variados.
