@@ -9,7 +9,7 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 ## Seções
 
 - **Lições** (`lessons/`): o conteúdo do *Minna no Nihongo*, lição por lição.
-- **JLPT** (`jlpt/`): material de apoio para o exame. Por enquanto tem a **lista dos 103 kanji do N5**, com significado, leituras on'yomi e kun'yomi e frases de exemplo para as principais leituras. Dá para buscar (por kanji, português, kana ou romaji), filtrar por categoria e recolher os exemplos.
+- **JLPT** (`jlpt/`): material de apoio para o exame. Por enquanto tem a **lista dos 103 kanji do N5**, com significado, leituras on'yomi e kun'yomi e frases de exemplo para as principais leituras. Dá para buscar (por kanji, português, kana ou romaji), filtrar por categoria e abrir, com um clique no kanji, os exemplos de cada cartão (um por vez ou vários ao mesmo tempo).
 
 ## Recursos
 
