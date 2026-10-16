@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%230f766e%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2770%27 text-anchor=%27middle%27 fill=%27white%27%3E日%3C/text%3E%3C/svg%3E">
+    <title>JLPT - 日本語能力試験</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="header-top">
+            <div class="header-links">
+                <a class="nav-link" href="../index.html">🏠 <ruby>目次<rt>もくじ</rt></ruby></a>
+            </div>
+        </div>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>JLPT</h1>
+                <p><ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby><ruby>能<rt>のう</rt></ruby><ruby>力<rt>りょく</rt></ruby><ruby>試<rt>し</rt></ruby><ruby>験<rt>けん</rt></ruby> • Material de apoio para o Exame de Proficiência em Língua Japonesa</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="section-title" style="margin-top: 30px;">Páginas disponíveis</h2>
+        <ul class="lesson-grid" id="jlpt-list"></ul>
+    </main>
+
+    <footer>
+        みんなの日本語 • versão web para estudo
+    </footer>
+
+    <script src="../assets/js/jlpt-index.js"></script>
+    <script>
+        (function () {
+            var list = document.getElementById("jlpt-list");
+            if (!window.JLPT_PAGES || !window.JLPT_PAGES.length) {
+                list.outerHTML = '<p class="empty-state">Nenhuma página disponível ainda.</p>';
+                return;
+            }
+            list.innerHTML = window.JLPT_PAGES.map(function (p) {
+                return '<li><a class="lesson-card" href="' + p.file + '">' +
+                    '<div class="lesson-number">' + p.level + "</div>" +
+                    '<div class="lesson-topic">' + p.topic + "</div>" +
+                    '<p class="lesson-desc">' + p.description + "</p>" +
+                    '<span class="lesson-go">Abrir página →</span>' +
+                "</a></li>";
+            }).join("");
+        })();
+    </script>
+</body>
+</html>

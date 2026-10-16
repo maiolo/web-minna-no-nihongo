@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%230f766e%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2770%27 text-anchor=%27middle%27 fill=%27white%27%3E日%3C/text%3E%3C/svg%3E">
+    <title>JLPT N5 - 漢字 (Lista de Kanji)</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-global="JLPT_N5_KANJI" data-level="N5">
+
+    <header class="sticky">
+        <div class="header-top">
+            <div class="header-links">
+                <a class="nav-link" href="../index.html">🏠 <ruby>目次<rt>もくじ</rt></ruby></a>
+                <a class="nav-link" href="index.html">📘 JLPT</a>
+            </div>
+        </div>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>JLPT <span id="level-label">N5</span> - <ruby>漢字<rt>かんじ</rt></ruby></h1>
+                <p>Significados, leituras e frases de exemplo</p>
+            </div>
+            <button type="button" class="btn btn-toggle" id="romaji-toggle-btn"></button>
+        </div>
+    </header>
+
+    <main>
+        <section class="card kanji-intro">
+            <h2 class="card-header">Como usar esta página</h2>
+            <p>Cada cartão mostra o kanji, o significado, as leituras e frases de exemplo, com uma frase para cada leitura principal usada no N5. O kanji destacado em amarelo nas frases é o do cartão, e a etiqueta acima da frase diz qual leitura está sendo usada.</p>
+            <div class="kanji-legend">
+                <div class="legend-item"><span class="read-label on">音 On</span> <strong>On'yomi</strong> (katakana): leitura de origem chinesa. Aparece em palavras formadas por dois ou mais kanji, como 学校 (がっこう).</div>
+                <div class="legend-item"><span class="read-label kun">訓 Kun</span> <strong>Kun'yomi</strong> (hiragana): leitura japonesa. Aparece sozinho ou com okurigana, como 食べる (たべる). O que está entre parênteses é o okurigana: た(べる).</div>
+            </div>
+            <p>A lista tem <strong>103 kanji</strong>. O JLPT deixou de publicar listas oficiais de kanji em 2010, então esta é uma lista de referência muito usada em materiais de estudo, não uma lista oficial. As frases e explicações são próprias deste projeto.</p>
+        </section>
+
+        <section class="kanji-controls card">
+            <div class="kanji-toolbar">
+                <input type="search" id="kanji-search" class="input-text" autocomplete="off" autocapitalize="off"
+                       placeholder="Buscar por kanji, significado ou leitura (ex.: água, みず, mizu)">
+                <button type="button" class="btn btn-plain" id="examples-toggle-btn"></button>
+            </div>
+            <div class="kanji-chips" id="kanji-chips"></div>
+            <div class="kanji-count" id="kanji-count" aria-live="polite"></div>
+        </section>
+
+        <div class="kanji-grid" id="kanji-list"></div>
+        <p class="empty-state" id="kanji-empty" hidden>Nenhum kanji encontrado. Tente outra busca ou escolha "Todos".</p>
+    </main>
+
+    <footer>
+        みんなの日本語 • versão web para estudo
+    </footer>
+
+    <script src="data/n5-kanji-1.js"></script>
+    <script src="data/n5-kanji-2.js"></script>
+    <script src="data/n5-kanji-3.js"></script>
+    <script src="../assets/js/kanji-page.js"></script>
+</body>
+</html>
