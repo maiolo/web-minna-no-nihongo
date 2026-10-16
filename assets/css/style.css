@@ -377,12 +377,6 @@ footer {
 .kanji-controls { margin: 0 0 20px 0; }
 .kanji-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .kanji-toolbar .input-text { flex: 1 1 260px; }
-.btn-plain {
-    background-color: var(--bg-card);
-    color: var(--text-main);
-    border: 1px solid var(--border);
-}
-.btn-plain:hover { background-color: #f1f5f9; }
 .kanji-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .chip {
     background: var(--bg-card);
@@ -460,8 +454,21 @@ footer {
     border-radius: 0 6px 6px 0;
     font-size: 0.92rem;
 }
-.examples-collapsed .example-list,
-.examples-collapsed .kanji-note { display: none; }
+/* Cartão fechado por padrão; clique no cabeçalho abre só aquele cartão. */
+.kanji-card .example-list,
+.kanji-card .kanji-note { display: none; }
+.kanji-card.open .example-list { display: block; animation: fadeIn 0.25s ease-out; }
+.kanji-card.open .kanji-note { display: block; }
+.kanji-card.open { border-color: var(--secondary); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.12); }
+
+.kanji-head { cursor: pointer; border-radius: 10px; }
+.kanji-head:hover .kanji-glyph { background: #ccfbf1; }
+.kanji-head:focus-visible { outline: 3px solid rgba(14, 165, 233, 0.45); outline-offset: 4px; }
+.kanji-more { margin-top: 4px; font-size: 0.85rem; font-weight: bold; color: var(--secondary); user-select: none; }
+.kanji-head:hover .kanji-more { color: var(--secondary-hover); }
+.kanji-card .more-open,
+.kanji-card.open .more-closed { display: none; }
+.kanji-card.open .more-open { display: inline; }
 
 ruby.hl { background: #fef3c7; border-radius: 4px; padding: 0 2px; }
 
