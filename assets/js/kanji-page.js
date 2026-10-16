@@ -28,7 +28,7 @@
         { id: "sociedade", label: "Lugares, estudo e coisas" }
     ];
 
-    var state = { query: "", category: "all", examplesOpen: true, romajiVisible: false };
+    var state = { query: "", category: "all", romajiVisible: false };
 
     /* ---------- Kana → romaji (Hepburn simples, sem macron) ---------- */
 
@@ -218,7 +218,8 @@
         }).join("");
 
         return '<article class="kanji-card" data-kanji="' + entry.k + '">' +
-            '<div class="kanji-head">' +
+            '<div class="kanji-head" role="button" tabindex="0" aria-expanded="false" ' +
+                'title="Clique para ver os exemplos">' +
                 '<div class="kanji-glyph" lang="ja">' + entry.k + "</div>" +
                 '<div class="kanji-info">' +
                     '<div class="kanji-meaning">' + entry.pt + "</div>" +
@@ -227,6 +228,11 @@
                             readingChips(entry.on) + "</div>" +
                         '<div class="read-row"><span class="read-label kun" title="Kun\'yomi: leitura japonesa">訓 Kun</span>' +
                             readingChips(entry.kun) + "</div>" +
+                    "</div>" +
+                    '<div class="kanji-more" aria-hidden="true">' +
+                        '<span class="more-closed">▾ Ver ' + entry.ex.length +
+                            (entry.ex.length === 1 ? " exemplo" : " exemplos") + "</span>" +
+                        '<span class="more-open">▴ Ocultar exemplos</span>' +
                     "</div>" +
                 "</div>" +
             "</div>" +
@@ -291,11 +297,10 @@
             : "👁️ Romaji <ruby>隠<rt>かく</rt></ruby>す (Oculto)";
     }
 
-    function updateExamplesButton() {
-        document.getElementById("examples-toggle-btn").textContent = state.examplesOpen
-            ? "Recolher exemplos"
-            : "Mostrar exemplos";
-        document.body.classList.toggle("examples-collapsed", !state.examplesOpen);
+    // Abre ou fecha os exemplos de um cartão (cada cartão é independente).
+    function toggleCard(card) {
+        var open = card.classList.toggle("open");
+        card.querySelector(".kanji-head").setAttribute("aria-expanded", open ? "true" : "false");
     }
 
     function bindEvents() {
@@ -305,9 +310,21 @@
             updateRomajiButton();
         });
 
-        document.getElementById("examples-toggle-btn").addEventListener("click", function () {
-            state.examplesOpen = !state.examplesOpen;
-            updateExamplesButton();
+        // Clique no kanji ou na parte de cima do cartão abre/fecha os exemplos.
+        // Se a pessoa estiver selecionando texto (para copiar), não alterna.
+        var list = document.getElementById("kanji-list");
+        list.addEventListener("click", function (e) {
+            var head = e.target.closest(".kanji-head");
+            if (!head) return;
+            var selection = window.getSelection && window.getSelection().toString();
+            if (selection) return;
+            toggleCard(head.closest(".kanji-card"));
+        });
+        list.addEventListener("keydown", function (e) {
+            if ((e.key === "Enter" || e.key === " ") && e.target.classList.contains("kanji-head")) {
+                e.preventDefault();
+                toggleCard(e.target.closest(".kanji-card"));
+            }
         });
 
         document.getElementById("kanji-search").addEventListener("input", function (e) {
@@ -337,7 +354,6 @@
         renderChips();
         document.getElementById("kanji-list").innerHTML = kanjiList.map(renderCard).join("");
         updateRomajiButton();
-        updateExamplesButton();
         bindEvents();
         applyFilters();
     }
