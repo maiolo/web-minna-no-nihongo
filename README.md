@@ -16,7 +16,7 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 - Furigana em todos os kanji (`<ruby>`), com botão para mostrar ou ocultar o romaji.
 - Abas por seção: vocabulário, padrões e exemplos, gramática, exercícios (A, B, C) e problemas.
 - Exercícios com verificação de resposta (ignora espaços e pontuação) e botão para revelar o gabarito.
-- Layout responsivo, pensado para uso no celular.
+- Layout responsivo, pensado para uso no celular, com tabelas que rolam na horizontal e foco visível para navegação por teclado.
 - Sem etapa de build e sem dependências: são só arquivos HTML, CSS e JavaScript estáticos.
 
 ## Estrutura do projeto
@@ -24,11 +24,13 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 ```
 index.html                  Página inicial com a lista de lições
 assets/
-  css/style.css             Estilos compartilhados (cores nas variáveis de :root)
+  css/style.css             Estilos compartilhados (tema "Washi"; cores e fontes nas variáveis de :root)
   js/lessons-index.js       Lista central de lições (índice e botões anterior/próxima)
   js/engine.js              Motor que monta a página de uma lição a partir dos dados
   js/jlpt-index.js          Lista de páginas da seção JLPT
   js/kanji-page.js          Monta a página de kanji (cartões, busca, filtros, romaji)
+docs/
+  ROADMAP.md                Divisão da nova interface em PRs e lista de recursos de back end
 lessons/
   lesson-NN.html            Página de cada lição (estrutura mínima)
   data/lesson-NN.js         Conteúdo de cada lição (vocabulário, gramática, exercícios)
@@ -131,3 +133,5 @@ A lista de 103 kanji segue uma lista de referência muito usada em materiais de 
 - Explicações gramaticais mais profundas, com mais exemplos em contextos variados.
 - Exercícios mais dinâmicos e difíceis: ordenar palavras, conjugação sorteada, áudio, diálogos em partes e revisão cumulativa.
 - Ajustes de layout para celular, modo escuro, progresso salvo no navegador e instalação como PWA.
+
+O plano de implementação da nova interface, dividido em PRs, está em [`docs/ROADMAP.md`](docs/ROADMAP.md), junto com a lista dos recursos que dependem de back end.
