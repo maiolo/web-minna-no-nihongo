@@ -178,6 +178,21 @@
             else if (EXERCISE_SECTIONS.indexOf(id) !== -1) html += renderExercises(id);
         });
         document.getElementById("main-container").innerHTML = html;
+        wrapTables();
+    }
+
+    // Tabelas largas rolam na horizontal dentro de um contêiner focável, em
+    // vez de estourar a tela do celular.
+    function wrapTables() {
+        document.querySelectorAll("#main-container table").forEach(function (table) {
+            var wrapper = document.createElement("div");
+            wrapper.className = "table-scroll";
+            wrapper.tabIndex = 0;
+            wrapper.setAttribute("role", "region");
+            wrapper.setAttribute("aria-label", "Tabela (role para ver tudo)");
+            table.parentNode.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        });
     }
 
     /* ---------- Exercícios ---------- */
