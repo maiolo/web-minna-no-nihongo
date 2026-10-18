@@ -15,21 +15,7 @@
 </head>
 <body data-global="JLPT_N5_KANJI" data-level="N5">
 
-    <header class="sticky">
-        <div class="header-top">
-            <div class="header-links">
-                <a class="nav-link" href="../index.html">🏠 <ruby>目次<rt>もくじ</rt></ruby></a>
-                <a class="nav-link" href="index.html">📘 JLPT</a>
-            </div>
-        </div>
-        <div class="header-content">
-            <div class="header-title">
-                <h1>JLPT <span id="level-label">N5</span> - <ruby>漢字<rt>かんじ</rt></ruby></h1>
-                <p>Significados, leituras e frases de exemplo</p>
-            </div>
-            <div class="settings-slot"></div>
-        </div>
-    </header>
+    <header id="page-header"></header>
 
     <main>
         <section class="card kanji-intro">
@@ -63,6 +49,19 @@
     <script src="data/n5-kanji-2.js"></script>
     <script src="data/n5-kanji-3.js"></script>
     <script src="../assets/js/settings-panel.js"></script>
+    <script src="../assets/js/site-header.js"></script>
+    <script>
+        SiteHeader.render(document.getElementById("page-header"), {
+            stamp: "N5",
+            title: 'JLPT <span id="level-label">N5</span> - <ruby>漢字<rt>かんじ</rt></ruby>',
+            back: { href: "index.html", label: "Voltar ao JLPT" },
+            crumbs: [
+                { label: "Início", href: "../index.html" },
+                { label: "JLPT", href: "index.html" },
+                { label: "<ruby>漢字<rt>かんじ</rt></ruby> N5" }
+            ]
+        });
+    </script>
     <script src="../assets/js/kanji-page.js"></script>
 </body>
 </html>

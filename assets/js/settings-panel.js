@@ -46,8 +46,11 @@
         var id = "settings-panel-" + (++uid);
 
         slot.innerHTML =
+            // O texto "Ajustes" some em telas estreitas (fica só o ícone); o aria-label
+            // mantém o nome acessível e contém o texto visível.
             '<button type="button" class="btn btn-toggle settings-btn" aria-haspopup="dialog" ' +
-                'aria-expanded="false" aria-controls="' + id + '">' + ICON + " Ajustes</button>" +
+                'aria-label="Ajustes de leitura" aria-expanded="false" aria-controls="' + id + '">' +
+                ICON + '<span class="settings-label">Ajustes</span></button>' +
             '<div class="settings-panel" id="' + id + '" role="dialog" aria-label="Ajustes de leitura" hidden>' +
                 segmented("furigana-" + uid, "Furigana (<ruby>振<rt>ふ</rt></ruby>り<ruby>仮<rt>が</rt></ruby><ruby>名<rt>な</rt></ruby>)",
                     "“Ao tocar” esconde a leitura; toque no kanji para vê-la.", FURIGANA_OPTIONS) +

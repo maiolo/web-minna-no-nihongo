@@ -343,7 +343,6 @@
         buildSearchIndex();
         renderChips();
         document.getElementById("kanji-list").innerHTML = kanjiList.map(renderCard).join("");
-        if (window.SettingsPanel) window.SettingsPanel.mount(document.querySelector(".settings-slot"));
         bindEvents();
         applyFilters();
     }

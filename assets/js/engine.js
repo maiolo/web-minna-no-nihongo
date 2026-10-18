@@ -4,6 +4,11 @@
  * Monta a página de uma lição a partir de window.lessonData (arquivo em
  * lessons/data/) e da lista window.LESSONS (assets/js/lessons-index.js).
  * O número da lição vem de <body data-lesson="N">.
+ *
+ * Abas: cada seção tem uma URL (lesson-17.html#gramatica); o botão voltar do
+ * navegador percorre as abas. Teclado: setas, Home e End.
+ * Rodapé: "anterior / próxima" percorre as seções e, no fim, passa para a
+ * lição vizinha.
  */
 (function () {
     "use strict";
@@ -12,54 +17,46 @@
     var data = window.lessonData;
     var lessonNumber = Number(document.body.dataset.lesson);
 
+    // Rótulo de cada aba: kanji com furigana em cima, português embaixo.
     var LABELS = {
-        vocab: "<ruby>語彙<rt>ごい</rt></ruby>",
-        bunkei: "<ruby>文型<rt>ぶんけい</rt></ruby>・<ruby>例文<rt>れいぶん</rt></ruby>",
-        gramatica: "<ruby>文法<rt>ぶんぽう</rt></ruby>",
-        renshuuA: "<ruby>練習<rt>れんしゅう</rt></ruby> A",
-        renshuuB: "<ruby>練習<rt>れんしゅう</rt></ruby> B",
-        renshuuC: "<ruby>練習<rt>れんしゅう</rt></ruby> C",
-        mondai: "<ruby>問題<rt>もんだい</rt></ruby>"
+        vocab: { jp: "<ruby>語彙<rt>ごい</rt></ruby>", pt: "Vocabulário" },
+        bunkei: { jp: "<ruby>文型<rt>ぶんけい</rt></ruby>", pt: "Padrões" },
+        gramatica: { jp: "<ruby>文法<rt>ぶんぽう</rt></ruby>", pt: "Gramática" },
+        renshuuA: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> A", pt: "Exercícios" },
+        renshuuB: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> B", pt: "Exercícios" },
+        renshuuC: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> C", pt: "Exercícios" },
+        mondai: { jp: "<ruby>問題<rt>もんだい</rt></ruby>", pt: "Problemas" }
     };
 
     // Ordem fixa das abas; seções ausentes nos dados são omitidas.
     var SECTION_ORDER = ["vocab", "bunkei", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai"];
     var EXERCISE_SECTIONS = ["renshuuA", "renshuuB", "renshuuC", "mondai"];
 
-    /* ---------- Cabeçalho ---------- */
+    var sections = [];
+    var currentTab = null;
 
-    function lessonLink(lesson, isNext) {
-        var label = window.lessonLabel(lesson.number);
-        var content = isNext ? label + " ➡️" : "⬅️ " + label;
-        return '<a class="nav-link" href="' + lesson.file + '">' + content + "</a>";
+    function lessonIndex() {
+        return lessons.findIndex(function (l) { return l.number === lessonNumber; });
     }
 
+    function prefersReducedMotion() {
+        return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    /* ---------- Cabeçalho ---------- */
+
     function renderHeader() {
-        var header = document.getElementById("lesson-header");
-        var index = lessons.findIndex(function (l) { return l.number === lessonNumber; });
-        var current = lessons[index];
-        var prev = index > 0 ? lessons[index - 1] : null;
-        var next = index >= 0 && index < lessons.length - 1 ? lessons[index + 1] : null;
-
-        header.innerHTML =
-            '<div class="header-top">' +
-                '<div class="header-links">' +
-                    '<a class="nav-link" href="../index.html">🏠 <ruby>目次<rt>もくじ</rt></ruby></a>' +
-                    (prev ? lessonLink(prev, false) : "") +
-                "</div>" +
-                (next ? lessonLink(next, true) : "") +
-            "</div>" +
-            '<div class="header-content">' +
-                '<div class="header-title">' +
-                    "<h1>みんなの<ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby> - " +
-                        window.lessonLabel(lessonNumber) + "</h1>" +
-                    "<p>" + (current ? current.topic : "") + "</p>" +
-                "</div>" +
-                '<div class="settings-slot"></div>' +
-            "</div>";
-
-        // Furigana, romaji e tamanho do texto (assets/js/settings-panel.js).
-        if (window.SettingsPanel) window.SettingsPanel.mount(header.querySelector(".settings-slot"));
+        var current = lessons[lessonIndex()];
+        window.SiteHeader.render(document.getElementById("lesson-header"), {
+            stamp: String(lessonNumber),
+            title: current ? current.topic : window.lessonLabel(lessonNumber),
+            back: { href: "../index.html#licoes", label: "Voltar às lições" },
+            crumbs: [
+                { label: "Início", href: "../index.html" },
+                { label: "Lições", href: "../index.html#licoes" },
+                { label: window.lessonLabel(lessonNumber) }
+            ]
+        });
     }
 
     /* ---------- Abas ---------- */
@@ -68,20 +65,110 @@
         return SECTION_ORDER.filter(function (id) { return Boolean(data[id]); });
     }
 
-    function renderNav(sections) {
-        document.getElementById("main-nav").innerHTML = sections.map(function (id) {
-            return '<button type="button" class="tab-btn" data-tab="' + id + '">' + LABELS[id] + "</button>";
+    function renderNav() {
+        var nav = document.getElementById("main-nav");
+        nav.setAttribute("role", "tablist");
+        nav.setAttribute("aria-label", "Seções da lição");
+        nav.innerHTML = sections.map(function (id) {
+            return '<button type="button" role="tab" class="tab-btn" id="tab-' + id + '" data-tab="' + id + '" ' +
+                'aria-controls="sec-' + id + '" aria-selected="false" tabindex="-1">' +
+                '<span class="tab-jp">' + LABELS[id].jp + "</span>" +
+                '<span class="tab-pt">' + LABELS[id].pt + "</span>" +
+            "</button>";
         }).join("");
     }
 
-    function switchTab(id) {
+    function markPanels() {
+        document.querySelectorAll(".section-container").forEach(function (panel) {
+            var id = panel.id.replace(/^sec-/, "");
+            panel.setAttribute("role", "tabpanel");
+            panel.setAttribute("aria-labelledby", "tab-" + id);
+            panel.tabIndex = 0;
+        });
+    }
+
+    function sectionFromHash() {
+        var id = decodeURIComponent(location.hash.replace(/^#/, ""));
+        return sections.indexOf(id) !== -1 ? id : null;
+    }
+
+    // Mostra a seção. "scroll" leva a página ao topo (troca feita pela pessoa).
+    function activate(id, scroll) {
+        currentTab = id;
+        var nav = document.getElementById("main-nav");
+
         document.querySelectorAll(".tab-btn").forEach(function (btn) {
-            btn.classList.toggle("active", btn.dataset.tab === id);
+            var on = btn.dataset.tab === id;
+            btn.classList.toggle("active", on);
+            btn.setAttribute("aria-selected", on ? "true" : "false");
+            btn.tabIndex = on ? 0 : -1;
+            if (on) {
+                // Centraliza a aba ativa na barra, que rola na horizontal no celular.
+                var left = btn.offsetLeft - (nav.clientWidth - btn.offsetWidth) / 2;
+                nav.scrollTo({ left: Math.max(0, left), behavior: prefersReducedMotion() ? "auto" : "smooth" });
+            }
         });
         document.querySelectorAll(".section-container").forEach(function (sec) {
             sec.classList.toggle("active", sec.id === "sec-" + id);
         });
-        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        renderPager();
+        if (scroll) window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    }
+
+    // Troca de aba pedida pela pessoa: grava a URL (o evento hashchange ativa a aba).
+    function go(id) {
+        if (id === currentTab) return;
+        if (decodeURIComponent(location.hash.replace(/^#/, "")) !== id) location.hash = id;
+        else activate(id, true);
+    }
+
+    /* ---------- Rodapé: anterior / próxima ---------- */
+
+    function pagerButton(target, side) {
+        var arrowLeft = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+        var arrowRight = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+        if (!target) return '<span class="pager-btn pager-empty"></span>';
+        var inner = side === "prev" ? arrowLeft + target.label : target.label + arrowRight;
+        var cls = "pager-btn pager-" + side;
+        return target.href
+            ? '<a class="' + cls + '" href="' + target.href + '">' + inner + "</a>"
+            : '<button type="button" class="' + cls + '" data-go="' + target.id + '">' + inner + "</button>";
+    }
+
+    function renderPager() {
+        var pager = document.getElementById("lesson-pager");
+        if (!pager) {
+            pager = document.createElement("nav");
+            pager.id = "lesson-pager";
+            pager.className = "lesson-pager";
+            pager.setAttribute("aria-label", "Navegação da lição");
+            document.body.appendChild(pager);
+            pager.addEventListener("click", function (e) {
+                var btn = e.target.closest("[data-go]");
+                if (btn) go(btn.dataset.go);
+            });
+        }
+
+        var i = sections.indexOf(currentTab);
+        var li = lessonIndex();
+        var prevLesson = li > 0 ? lessons[li - 1] : null;
+        var nextLesson = li >= 0 && li < lessons.length - 1 ? lessons[li + 1] : null;
+
+        var prev = i > 0
+            ? { id: sections[i - 1], label: LABELS[sections[i - 1]].pt }
+            : (prevLesson ? { href: prevLesson.file, label: window.lessonLabel(prevLesson.number) } : null);
+        var next = i < sections.length - 1
+            ? { id: sections[i + 1], label: LABELS[sections[i + 1]].pt }
+            : (nextLesson ? { href: nextLesson.file, label: window.lessonLabel(nextLesson.number) } : null);
+
+        var dots = sections.map(function (id, n) {
+            return '<span class="pager-dot' + (n === i ? " current" : "") + '"></span>';
+        }).join("");
+
+        pager.innerHTML = pagerButton(prev, "prev") +
+            '<div class="pager-dots" role="img" aria-label="Seção ' + (i + 1) + " de " + sections.length + '">' + dots + "</div>" +
+            pagerButton(next, "next");
     }
 
     /* ---------- Seções ---------- */
@@ -154,7 +241,7 @@
         return html + "</div></div>";
     }
 
-    function renderSections(sections) {
+    function renderSections() {
         var html = "";
         sections.forEach(function (id) {
             if (id === "vocab") html += renderVocab();
@@ -164,6 +251,7 @@
         });
         document.getElementById("main-container").innerHTML = html;
         wrapTables();
+        markPanels();
     }
 
     // Tabelas largas rolam na horizontal dentro de um contêiner focável, em
@@ -219,10 +307,32 @@
         }
     }
 
+    /* ---------- Eventos ---------- */
+
     function bindEvents() {
-        document.getElementById("main-nav").addEventListener("click", function (e) {
+        var nav = document.getElementById("main-nav");
+
+        nav.addEventListener("click", function (e) {
             var btn = e.target.closest(".tab-btn");
-            if (btn) switchTab(btn.dataset.tab);
+            if (btn) go(btn.dataset.tab);
+        });
+
+        // Teclado nas abas: setas, Home e End movem o foco e ativam a aba.
+        nav.addEventListener("keydown", function (e) {
+            var keys = { ArrowRight: 1, ArrowLeft: -1, Home: "first", End: "last" };
+            if (!(e.key in keys)) return;
+            e.preventDefault();
+            var i = sections.indexOf(currentTab);
+            var step = keys[e.key];
+            var target = step === "first" ? 0 : step === "last" ? sections.length - 1
+                : (i + step + sections.length) % sections.length;
+            go(sections[target]);
+            document.getElementById("tab-" + sections[target]).focus();
+        });
+
+        window.addEventListener("hashchange", function () {
+            var id = sectionFromHash();
+            if (id && id !== currentTab) activate(id, true);
         });
 
         var container = document.getElementById("main-container");
@@ -251,11 +361,11 @@
                 '<p class="empty-state">Não foi possível carregar os dados desta lição.</p>';
             return;
         }
-        var sections = availableSections();
-        renderNav(sections);
-        renderSections(sections);
+        sections = availableSections();
+        renderNav();
+        renderSections();
         bindEvents();
-        switchTab(sections[0]);
+        activate(sectionFromHash() || sections[0], false);
     }
 
     init();

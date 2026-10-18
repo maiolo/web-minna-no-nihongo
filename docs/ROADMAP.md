@@ -15,7 +15,7 @@ Princípios:
 |----|------|-------------|------------|
 | 1 | Base visual Washi | Tokens de cor e tipografia, fontes Noto, foco visível, contraste, `prefers-reduced-motion`, tabelas com rolagem, `lang="pt-BR"`, favicon novo. Restyle dos componentes atuais sem mudar o comportamento. | nada |
 | 2 | Camada de dados e preferências de leitura (`store.js`, `prefs.js`, painel Ajustes, testes com `node --test`) | `store.js` com adaptador local (e contrato do adaptador de API). Preferências: furigana (ligado, desligado, ao toque), romaji ao toque em cada linha, tamanho do texto. Painel de ajustes. Persistência. | 1 |
-| 3 | Navegação e página inicial | Cabeçalho compacto com carimbo da lição, abas com URL (`#gramatica`) e ARIA, rótulos de duas linhas (kanji + português), rodapé com anterior/próxima, breadcrumbs. Nova home: faixa com padrão *seigaiha*, mapa das lições, lições "em breve". | 1 |
+| 3 | Navegação e página inicial (feito) | Cabeçalho compacto com carimbo da lição, abas com URL (`#gramatica`) e ARIA, rótulos de duas linhas (kanji + português), rodapé com anterior/próxima, breadcrumbs. Nova home: faixa com padrão *seigaiha*, mapa das lições, lições "em breve". | 1 |
 | 4 | Progresso local | Registro de seções e exercícios concluídos, "continue de onde parou", barras de progresso, status por lição (concluída, em andamento, disponível). Tudo via `store.js`. | 2, 3 |
 | 5 | Exercícios | Feedback que mostra onde a resposta difere, placar e barra de questões, "tentar de novo", teclado romaji→kana, novo formato "montar a frase". | 2, 4 |
 | 6 | Kanji | Grade compacta, painel de detalhes (gaveta no celular), busca e filtros fixos, chips com rolagem horizontal, "já sei" com filtro, quiz. | 2, 4 |

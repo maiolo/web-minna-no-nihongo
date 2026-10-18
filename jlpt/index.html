@@ -15,21 +15,10 @@
 </head>
 <body>
 
-    <header class="hero">
-        <div class="header-top">
-            <div class="header-links">
-                <a class="nav-link" href="../index.html">🏠 <ruby>目次<rt>もくじ</rt></ruby></a>
-            </div>
-        </div>
-        <div class="header-content">
-            <div class="header-title">
-                <h1>JLPT</h1>
-                <p><ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby><ruby>能<rt>のう</rt></ruby><ruby>力<rt>りょく</rt></ruby><ruby>試<rt>し</rt></ruby><ruby>験<rt>けん</rt></ruby> • Material de apoio para o Exame de Proficiência em Língua Japonesa</p>
-            </div>
-        </div>
-    </header>
+    <header id="page-header"></header>
 
     <main>
+        <p class="page-intro"><ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby><ruby>能<rt>のう</rt></ruby><ruby>力<rt>りょく</rt></ruby><ruby>試<rt>し</rt></ruby><ruby>験<rt>けん</rt></ruby> • Material de apoio para o Exame de Proficiência em Língua Japonesa.</p>
         <h2 class="section-title" style="margin-top: 30px;">Páginas disponíveis</h2>
         <ul class="lesson-grid" id="jlpt-list"></ul>
     </main>
@@ -38,6 +27,16 @@
         みんなの日本語 • versão web para estudo
     </footer>
 
+    <script src="../assets/js/settings-panel.js"></script>
+    <script src="../assets/js/site-header.js"></script>
+    <script>
+        SiteHeader.render(document.getElementById("page-header"), {
+            stamp: "試",
+            title: "JLPT",
+            back: { href: "../index.html", label: "Voltar ao início" },
+            crumbs: [{ label: "Início", href: "../index.html" }, { label: "JLPT" }]
+        });
+    </script>
     <script src="../assets/js/jlpt-index.js"></script>
     <script>
         (function () {

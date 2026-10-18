@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23B0281F%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2770%27 text-anchor=%27middle%27 fill=%27white%27%3E日%3C/text%3E%3C/svg%3E">
-    <title>みんなの日本語 - Índice das Lições</title>
+    <title>みんなの日本語 - Estudo na web</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
@@ -15,30 +15,33 @@
 </head>
 <body>
 
-    <header class="hero">
-        <div class="header-content">
-            <div class="header-title">
-                <h1>みんなの<ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby></h1>
-                <p>Índice das lições • Vocabulário, gramática e exercícios interativos</p>
+    <header id="site-header" class="home-bar"></header>
+
+    <section class="home-hero">
+        <div class="home-hero-inner">
+            <p class="eyebrow">ESTUDO DE JAPONÊS</p>
+            <h1>Aprenda japonês, <span class="nowrap"><ruby>一<rt>ひと</rt></ruby>つずつ.</span></h1>
+            <p class="lead">Vocabulário, gramática e exercícios interativos na ordem do Minna no Nihongo, com furigana e romaji que você liga e desliga.</p>
+            <div class="hero-actions">
+                <a class="btn-link primary" id="start-link" href="#licoes">Ver as lições</a>
+                <a class="btn-link" href="jlpt/index.html">Kanji do JLPT N5</a>
             </div>
         </div>
-    </header>
+    </section>
 
     <main>
-        <h2 class="section-title" style="margin-top: 30px;"><ruby>課<rt>か</rt></ruby> (Lições disponíveis)</h2>
-        <ul class="lesson-grid" id="lesson-list"></ul>
+        <div id="licoes"></div>
 
-        <h2 class="section-title" style="margin-top: 40px;">JLPT (<ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby><ruby>能<rt>のう</rt></ruby><ruby>力<rt>りょく</rt></ruby><ruby>試<rt>し</rt></ruby><ruby>験<rt>けん</rt></ruby>)</h2>
-        <ul class="lesson-grid">
-            <li>
-                <a class="lesson-card" href="jlpt/index.html">
-                    <div class="lesson-number">JLPT</div>
-                    <div class="lesson-topic">Preparação para o exame</div>
-                    <p class="lesson-desc">Lista de kanji do N5 com leituras e frases de exemplo. Mais conteúdo por vir.</p>
-                    <span class="lesson-go">Abrir seção →</span>
-                </a>
-            </li>
-        </ul>
+        <h2 class="section-title" style="margin-top: 40px;"><ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby><ruby>能<rt>のう</rt></ruby><ruby>力<rt>りょく</rt></ruby><ruby>試<rt>し</rt></ruby><ruby>験<rt>けん</rt></ruby> (JLPT)</h2>
+        <a class="feature-card" href="jlpt/index.html">
+            <div class="feature-glyph" aria-hidden="true">食</div>
+            <div class="feature-body">
+                <div class="feature-level">JLPT N5</div>
+                <div class="feature-title"><ruby>漢字<rt>かんじ</rt></ruby> (Lista de Kanji)</div>
+                <p class="feature-desc">Os 103 kanji do N5 com significados, leituras e frases de exemplo. Mais conteúdo por vir.</p>
+                <span class="feature-go">Abrir seção →</span>
+            </div>
+        </a>
     </main>
 
     <footer>
@@ -46,22 +49,8 @@
     </footer>
 
     <script src="assets/js/lessons-index.js"></script>
-    <script>
-        (function () {
-            var list = document.getElementById("lesson-list");
-            if (!window.LESSONS || !window.LESSONS.length) {
-                list.outerHTML = '<p class="empty-state">Nenhuma lição disponível ainda.</p>';
-                return;
-            }
-            list.innerHTML = window.LESSONS.map(function (l) {
-                return '<li><a class="lesson-card" href="lessons/' + l.file + '">' +
-                    '<div class="lesson-number">' + window.lessonLabel(l.number) + "</div>" +
-                    '<div class="lesson-topic">' + l.topic + "</div>" +
-                    '<p class="lesson-desc">' + l.description + "</p>" +
-                    '<span class="lesson-go">Abrir lição →</span>' +
-                "</a></li>";
-            }).join("");
-        })();
-    </script>
+    <script src="assets/js/settings-panel.js"></script>
+    <script src="assets/js/site-header.js"></script>
+    <script src="assets/js/home.js"></script>
 </body>
 </html>
