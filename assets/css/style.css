@@ -798,6 +798,50 @@ span.map-cell { border: 1px dashed var(--muted); color: var(--muted); }
 .feature-go { font-weight: 700; color: var(--shu); }
 .page-intro { margin-top: 16px; color: var(--muted); }
 
+/* ---------- Progresso ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.progress { height: 8px; background: var(--paper-deep); border: 1px solid var(--line-soft); border-radius: 999px; overflow: hidden; }
+.progress > span { display: block; height: 100%; width: 0; background: var(--matcha); border-radius: 999px; transition: width 0.3s; }
+.progress.thin { height: 3px; border: 0; border-radius: 0; background: transparent; }
+.progress.thin > span { border-radius: 0; }
+.topbar-progress { position: absolute; left: 0; right: 0; bottom: -1px; }
+
+/* Marca na aba: ponto para "em andamento", ✓ para concluída. */
+.tab-btn { position: relative; }
+.tab-mark { position: absolute; top: 6px; right: 8px; font-size: 0.75rem; line-height: 1; color: var(--matcha-dark); }
+.tab-btn.seen .tab-mark::before { content: ""; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--indigo); }
+.tab-btn.done .tab-mark::before { content: "✓"; font-weight: 700; }
+
+.section-done { display: flex; justify-content: center; margin: 24px 0 8px; }
+.section-done-btn[aria-pressed="true"] { background: var(--matcha-tint); border-color: var(--matcha-line); color: var(--matcha-dark); }
+.ex-progress { display: flex; align-items: center; gap: 12px; margin: 12px 0 4px; }
+.ex-progress .progress { flex: 1; }
+.ex-progress-text { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
+.item-box.answered-ok { border-left: 4px solid var(--matcha); }
+
+/* Home: continuar, situação das lições */
+.continue-card {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;
+    margin-top: 32px; padding: 20px 24px;
+    background: var(--shu-tint); border: 1px solid var(--shu-line); border-radius: var(--radius);
+    color: inherit; text-decoration: none;
+}
+.continue-card:hover { border-color: var(--shu); }
+.continue-text { flex: 1 1 240px; min-width: 0; }
+.continue-eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; color: var(--shu-dark); }
+.continue-title { margin-top: 2px; font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; line-height: 1.7; }
+.continue-go { font-weight: 700; color: var(--shu-dark); }
+.lesson-status { display: inline-block; margin-top: 12px; padding: 2px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; background: var(--paper-deep); color: var(--muted); }
+.lesson-status.done { background: var(--matcha-tint); color: var(--matcha-dark); }
+.lesson-status.in_progress { background: var(--amber-tint); color: var(--amber-ink); }
+.lesson-card .progress { margin-top: 12px; }
+a.map-cell.done { background: var(--matcha); border-color: var(--matcha); color: var(--surface); }
+a.map-cell.in_progress { background: var(--amber-tint); border-color: var(--amber-ink); color: var(--amber-ink); }
+.legend-swatch.done { background: var(--matcha); }
+.legend-swatch.in_progress { background: var(--amber-tint); border: 2px solid var(--amber-ink); }
+.reset-progress { margin-top: 8px; background: none; border: 0; padding: 12px 0; min-height: 44px; font: inherit; font-size: 0.85rem; color: var(--muted); text-decoration: underline; cursor: pointer; }
+.reset-progress:hover { color: var(--shu-dark); }
+
 /* ---------- Telas pequenas e toque ---------- */
 @media (pointer: coarse) {
     .chip { min-height: 44px; }

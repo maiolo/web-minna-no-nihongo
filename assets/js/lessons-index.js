@@ -62,3 +62,14 @@ window.VOLUMES = [
         to: 50
     }
 ];
+
+/* Rótulo de cada seção da lição: kanji com furigana (jp) e português (pt). */
+window.SECTION_LABELS = {
+        vocab: { jp: "<ruby>語彙<rt>ごい</rt></ruby>", pt: "Vocabulário" },
+        bunkei: { jp: "<ruby>文型<rt>ぶんけい</rt></ruby>", pt: "Padrões" },
+        gramatica: { jp: "<ruby>文法<rt>ぶんぽう</rt></ruby>", pt: "Gramática" },
+        renshuuA: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> A", pt: "Exercícios" },
+        renshuuB: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> B", pt: "Exercícios" },
+        renshuuC: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> C", pt: "Exercícios" },
+        mondai: { jp: "<ruby>問題<rt>もんだい</rt></ruby>", pt: "Problemas" }
+};
