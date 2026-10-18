@@ -85,3 +85,17 @@ test("clear apaga o progresso", async () => {
     assert.equal(progress.sectionStatus(17, "vocab"), "todo");
     assert.equal(progress.last(), null);
 });
+
+test("resetSection apaga só as respostas daquela seção e conta tentativas", async () => {
+    const { progress } = setup();
+    await progress.recordAnswer(17, "renshuuB", "renshuuB:0:0", false);
+    await progress.recordAnswer(17, "renshuuB", "renshuuB:0:0", true);
+    await progress.recordAnswer(17, "renshuuC", "renshuuC:0:0", true);
+    assert.equal(progress.attemptCount(17, "renshuuB"), 2);
+    await progress.setSection(17, "renshuuB", true);
+    await progress.resetSection(17, "renshuuB");
+    assert.equal(progress.correctCount(17, "renshuuB"), 0);
+    assert.equal(progress.attemptCount(17, "renshuuB"), 0);
+    assert.equal(progress.sectionStatus(17, "renshuuB"), "in_progress");
+    assert.equal(progress.correctCount(17, "renshuuC"), 1);
+});

@@ -22,8 +22,9 @@
     var P = window.Progress;
 
     // Ordem fixa das abas; seções ausentes nos dados são omitidas.
-    var SECTION_ORDER = ["vocab", "bunkei", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai"];
-    var EXERCISE_SECTIONS = ["renshuuA", "renshuuB", "renshuuC", "mondai"];
+    var SECTION_ORDER = ["vocab", "bunkei", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai", "montar"];
+    var EXERCISE_SECTIONS = ["renshuuA", "renshuuB", "renshuuC", "mondai", "montar"];
+    var E = window.Exercises;
 
     var sections = [];
     var currentTab = null;
@@ -211,8 +212,12 @@
                 var holder = document.querySelector("#sec-" + id + " .ex-progress");
                 if (holder) {
                     var pct = c.total ? Math.round(c.done / c.total * 100) : 0;
+                    var tries = P.attemptCount(lessonNumber, id);
                     holder.innerHTML = progressBar(pct, "Questões corretas") +
-                        '<span class="ex-progress-text">' + c.done + " de " + c.total + " corretas</span>";
+                        '<span class="ex-progress-text">' + c.done + " de " + c.total + " corretas" +
+                        (tries ? " · " + tries + (tries === 1 ? " tentativa" : " tentativas") : "") + "</span>";
+                    var reset = document.querySelector("#sec-" + id + " .ex-reset");
+                    if (reset) reset.hidden = !tries;
                 }
                 document.querySelectorAll("#sec-" + id + " [data-exercise]").forEach(function (box) {
                     var ex = P.get().lessons[lessonNumber];
@@ -236,6 +241,30 @@
         }
     }
 
+    function kanaOn() {
+        var prefs = window.Store && window.Store.peek("prefs");
+        return !(prefs && prefs.kanaInput === "off");
+    }
+
+    function exTools(id) {
+        var kana = id === "montar" ? "" :
+            '<button type="button" class="btn btn-toggle kana-toggle" data-action="kana-toggle" aria-pressed="true">' +
+            "あ Digitar em romaji</button>";
+        return '<div class="ex-tools">' + kana +
+            '<button type="button" class="btn btn-reveal ex-reset" data-action="reset-section" hidden>↺ Refazer seção</button></div>';
+    }
+
+    function refreshKanaToggle() {
+        var on = kanaOn();
+        document.querySelectorAll(".kana-toggle").forEach(function (btn) {
+            btn.setAttribute("aria-pressed", on ? "true" : "false");
+            btn.title = on ? "Letras do alfabeto viram hiragana enquanto você digita (ex.: kaku → かく)" : "Digitação normal";
+        });
+        document.querySelectorAll("#main-container .input-text").forEach(function (input) {
+            input.placeholder = on ? "romaji → かな (ou 答えを入力...)" : "答えを入力...";
+        });
+    }
+
     function addProgressUi() {
         if (!P) return;
         var header = document.getElementById("lesson-header");
@@ -250,10 +279,11 @@
                     'data-action="section-done" aria-pressed="false">Marcar como concluída</button></div>');
             } else {
                 var head = panel.querySelector(".card-header");
-                if (head) head.insertAdjacentHTML("afterend", '<div class="ex-progress"></div>');
+                if (head) head.insertAdjacentHTML("afterend", '<div class="ex-progress"></div>' + exTools(id));
             }
         });
         P.subscribe(refreshProgress);
+        refreshKanaToggle();
     }
 
     /* ---------- Seções ---------- */
@@ -326,12 +356,46 @@
         return html + "</div></div>";
     }
 
+    // "Montar a frase": palavras embaralhadas para tocar na ordem certa.
+    function renderMontar(sectionId) {
+        var section = data[sectionId];
+        var html = '<div id="sec-' + sectionId + '" class="section-container"><div class="card">' +
+            '<h2 class="card-header">' + section.title + "</h2>";
+        section.exercises.forEach(function (group, g) {
+            html += '<h3 class="exercise-group-title">' + group.desc + "</h3>";
+            group.questions.forEach(function (q, n) {
+                var order = E.shuffleSeeded(q.tokens.map(function (t, i) { return i; }), (g + 1) * 100 + n + lessonNumber);
+                html += '<div class="item-box" data-exercise="' + sectionId + ":" + g + ":" + n + '" data-kind="assemble">' +
+                    '<div class="exercise-prompt">' + q.pt + "</div>" +
+                    '<div class="assemble-answer" aria-label="Sua frase" aria-live="polite"></div>' +
+                    '<div class="assemble-bank" aria-label="Palavras disponíveis">' +
+                        order.map(function (i) {
+                            return '<button type="button" class="word-chip" data-i="' + i + '">' + q.tokens[i] + "</button>";
+                        }).join("") +
+                    "</div>" +
+                    '<div class="exercise-controls">' +
+                        '<button type="button" class="btn btn-check" data-action="check">✅ Verificar (<ruby>確認<rt>かくにん</rt></ruby>)</button>' +
+                        '<button type="button" class="btn btn-reveal" data-action="retry">↺ Limpar</button>' +
+                        '<button type="button" class="btn btn-reveal" data-action="reveal">💡 Revelar (<ruby>答<rt>こた</rt></ruby>え)</button>' +
+                    "</div>" +
+                    '<div class="feedback-box"></div>' +
+                    '<div class="answer-box">' +
+                        '<div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.tokens.join("") + "</div>" +
+                        '<div class="romaji">' + q.romaji + "</div>" +
+                    "</div>" +
+                "</div>";
+            });
+        });
+        return html + "</div></div>";
+    }
+
     function renderSections() {
         var html = "";
         sections.forEach(function (id) {
             if (id === "vocab") html += renderVocab();
             else if (id === "bunkei") html += renderBunkei();
             else if (id === "gramatica") html += renderGramatica();
+            else if (id === "montar") html += renderMontar(id);
             else if (EXERCISE_SECTIONS.indexOf(id) !== -1) html += renderExercises(id);
         });
         document.getElementById("main-container").innerHTML = html;
@@ -373,25 +437,163 @@
         return data[parts[0]].exercises[Number(parts[1])].questions[Number(parts[2])];
     }
 
+    function say(feedback, ok, nodes) {
+        feedback.className = "feedback-box " + (ok ? "feedback-correct" : "feedback-incorrect");
+        feedback.textContent = "";
+        nodes.forEach(function (n) { feedback.appendChild(typeof n === "string" ? document.createTextNode(n) : n); });
+    }
+
+    function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text !== undefined) n.textContent = text;
+        return n;
+    }
+
+    function html(markup) {
+        var n = document.createElement("span");
+        n.innerHTML = markup;
+        return n;
+    }
+
+    function retryButton() {
+        var b = el("button", "btn btn-reveal feedback-retry", "↺ Tentar de novo");
+        b.type = "button";
+        b.dataset.action = "retry";
+        return b;
+    }
+
+    // Linha com os caracteres da diferença: "del" (a mais/errado) ou "ins" (faltou) destacados.
+    function diffLine(label, ops, mark) {
+        var line = el("div", "diff-line");
+        line.appendChild(el("span", "diff-label", label));
+        var text = el("span", "diff-text jp");
+        ops.forEach(function (o) {
+            if (o.t === "same") text.appendChild(document.createTextNode(o.ch));
+            else if (o.t === mark) text.appendChild(el("mark", "diff-" + mark, o.ch));
+        });
+        line.appendChild(text);
+        return line;
+    }
+
+    function recordAnswer(box, correct) {
+        if (P) P.recordAnswer(lessonNumber, box.dataset.exercise.split(":")[0], box.dataset.exercise, correct);
+        refreshProgress();
+    }
+
     function checkAnswer(box) {
+        if (box.dataset.kind === "assemble") return checkAssemble(box);
         var input = box.querySelector(".input-text");
         var feedback = box.querySelector(".feedback-box");
-        var user = normalize(input.value);
-        var correct = normalize(extractBaseText(findQuestion(box).a));
+        if (kanaOn()) input.value = E.finalize(input.value);
+        var typed = E.normalize(input.value);
+        var answer = findQuestion(box).a;
+        var base = E.normalize(E.baseOf(answer));
+        var reading = E.normalize(E.toHiragana(E.readingOf(answer)));
 
-        if (!user) {
-            feedback.innerHTML = "⚠️ <ruby>入力<rt>にゅうりょく</rt></ruby>してください。(Por favor, digite a resposta)";
-            feedback.className = "feedback-box feedback-incorrect";
-        } else if (user === correct) {
-            if (P) P.recordAnswer(lessonNumber, box.dataset.exercise.split(":")[0], box.dataset.exercise, true);
-            feedback.innerHTML = "⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)";
-            feedback.className = "feedback-box feedback-correct";
-        } else {
-            feedback.innerHTML = "❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(Incorreto). Você digitou: ";
-            feedback.appendChild(document.createTextNode(input.value));
-            feedback.className = "feedback-box feedback-incorrect";
-            if (P) P.recordAnswer(lessonNumber, box.dataset.exercise.split(":")[0], box.dataset.exercise, false);
+        if (!typed) {
+            say(feedback, false, [html("⚠️ <ruby>入力<rt>にゅうりょく</rt></ruby>してください。(Por favor, digite a resposta)")]);
+            return;
         }
+        if (typed === base || E.toHiragana(typed) === reading) {
+            var inKana = typed !== base && base !== reading;
+            say(feedback, true, [html("⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)")].concat(
+                inKana ? [el("div", "feedback-note", "Em kana. Com kanji: " + base)] : []));
+            recordAnswer(box, true);
+            return;
+        }
+        // Compara com a forma (kanji ou kana) mais parecida com o que a pessoa digitou.
+        var candidates = [base, reading].map(function (c) {
+            var ops = E.diff(c === reading ? E.toHiragana(typed) : typed, c);
+            return { text: c, ops: ops, cost: ops.filter(function (o) { return o.t !== "same"; }).length };
+        });
+        // Empate: quem digitou em kana (sem kanji) é comparado com a leitura.
+        var hasKanji = /[一-龯]/.test(typed);
+        var best = candidates[0].cost < candidates[1].cost || (candidates[0].cost === candidates[1].cost && hasKanji)
+            ? candidates[0] : candidates[1];
+        var box1 = el("div", "diff");
+        box1.appendChild(diffLine("Você digitou", best.ops, "del"));
+        box1.appendChild(diffLine("Esperado", best.ops, "ins"));
+        say(feedback, false, [html("❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(Incorreto)"), box1, retryButton()]);
+        recordAnswer(box, false);
+    }
+
+    /* ---------- Montar a frase ---------- */
+
+    function chipsOf(container) { return Array.prototype.slice.call(container.querySelectorAll(".word-chip")); }
+
+    function moveChip(chip) {
+        var box = chip.closest("[data-exercise]");
+        var answer = box.querySelector(".assemble-answer");
+        var bank = box.querySelector(".assemble-bank");
+        var target = chip.parentNode === bank ? answer : bank;
+        target.appendChild(chip);
+        chip.classList.remove("wrong", "right");
+        chip.focus();
+        var fb = box.querySelector(".feedback-box");
+        fb.className = "feedback-box";
+        fb.textContent = "";
+    }
+
+    function checkAssemble(box) {
+        var q = findQuestion(box);
+        var feedback = box.querySelector(".feedback-box");
+        var chosen = chipsOf(box.querySelector(".assemble-answer"));
+        if (!chosen.length) {
+            say(feedback, false, ["⚠️ Toque nas palavras para montar a frase."]);
+            return;
+        }
+        var expected = q.tokens.map(function (t) { return E.normalize(E.baseOf(t)); });
+        var marks = chosen.map(function (chip, i) {
+            return E.normalize(E.baseOf(q.tokens[Number(chip.dataset.i)])) === expected[i];
+        });
+        var complete = chosen.length === expected.length;
+        chosen.forEach(function (chip, i) {
+            chip.classList.toggle("right", marks[i]);
+            chip.classList.toggle("wrong", !marks[i]);
+        });
+        if (complete && marks.every(Boolean)) {
+            say(feedback, true, [html("⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)")]);
+            box.querySelector(".answer-box").classList.add("visible");
+            recordAnswer(box, true);
+            return;
+        }
+        var wrong = marks.filter(function (ok) { return !ok; }).length;
+        var msg = !complete && !wrong ? "Está certo até aqui, mas faltam palavras."
+            : (!complete ? "Faltam palavras e algumas estão fora do lugar (em vermelho)."
+                         : wrong + (wrong === 1 ? " palavra está" : " palavras estão") + " fora do lugar (em vermelho).");
+        say(feedback, false, [html("❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(Incorreto) "), msg, " ", retryButton()]);
+        recordAnswer(box, false);
+    }
+
+    function retry(box) {
+        var feedback = box.querySelector(".feedback-box");
+        feedback.className = "feedback-box";
+        feedback.textContent = "";
+        if (box.dataset.kind === "assemble") {
+            var bank = box.querySelector(".assemble-bank");
+            chipsOf(box.querySelector(".assemble-answer")).forEach(function (chip) {
+                chip.classList.remove("wrong", "right");
+                bank.appendChild(chip);
+            });
+            var first = bank.querySelector(".word-chip");
+            if (first) first.focus();
+        } else {
+            var input = box.querySelector(".input-text");
+            input.value = "";
+            input.focus();
+        }
+    }
+
+    function resetSection(id) {
+        if (!window.confirm("Apagar suas respostas desta seção e refazer?")) return;
+        document.querySelectorAll("#sec-" + id + " [data-exercise]").forEach(function (box) {
+            retry(box);
+            box.querySelector(".answer-box").classList.remove("visible");
+            var input = box.querySelector(".input-text");
+            if (input) input.blur();
+        });
+        P.resetSection(lessonNumber, id);
         refreshProgress();
     }
 
@@ -433,9 +635,30 @@
                 refreshProgress();
                 return;
             }
+            if (btn.dataset.action === "kana-toggle") {
+                window.Prefs.set({ kanaInput: kanaOn() ? "off" : "on" });
+                refreshKanaToggle();
+                return;
+            }
+            if (btn.dataset.action === "reset-section") { resetSection(currentTab); return; }
             var box = btn.closest("[data-exercise]");
-            if (btn.dataset.action === "check") checkAnswer(box);
+            if (btn.dataset.action === "retry") retry(box);
+            else if (btn.dataset.action === "check") checkAnswer(box);
             else if (btn.dataset.action === "reveal") box.querySelector(".answer-box").classList.toggle("visible");
+        });
+
+        container.addEventListener("click", function (e) {
+            var chip = e.target.closest(".word-chip");
+            if (chip) moveChip(chip);
+        });
+
+        // Romaji → kana enquanto digita (não mexe se o teclado já está compondo kana).
+        container.addEventListener("input", function (e) {
+            var input = e.target;
+            if (!input.classList.contains("input-text") || e.isComposing || !kanaOn()) return;
+            var r = E.romajiToKana(input.value);
+            var next = r.kana + r.pending;
+            if (next !== input.value) input.value = next;
         });
 
         container.addEventListener("keydown", function (e) {

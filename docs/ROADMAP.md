@@ -17,7 +17,7 @@ Princípios:
 | 2 | Camada de dados e preferências de leitura (`store.js`, `prefs.js`, painel Ajustes, testes com `node --test`) | `store.js` com adaptador local (e contrato do adaptador de API). Preferências: furigana (ligado, desligado, ao toque), romaji ao toque em cada linha, tamanho do texto. Painel de ajustes. Persistência. | 1 |
 | 3 | Navegação e página inicial (feito) | Cabeçalho compacto com carimbo da lição, abas com URL (`#gramatica`) e ARIA, rótulos de duas linhas (kanji + português), rodapé com anterior/próxima, breadcrumbs. Nova home: faixa com padrão *seigaiha*, mapa das lições, lições "em breve". | 1 |
 | 4 | Progresso local (feito) | Registro de seções e exercícios concluídos, "continue de onde parou", barras de progresso, status por lição (concluída, em andamento, disponível). Tudo via `store.js`. | 2, 3 |
-| 5 | Exercícios | Feedback que mostra onde a resposta difere, placar e barra de questões, "tentar de novo", teclado romaji→kana, novo formato "montar a frase". | 2, 4 |
+| 5 | Exercícios (feito) | Feedback que mostra onde a resposta difere, placar e barra de questões, "tentar de novo", teclado romaji→kana, novo formato "montar a frase". | 2, 4 |
 | 6 | Kanji | Grade compacta, painel de detalhes (gaveta no celular), busca e filtros fixos, chips com rolagem horizontal, "já sei" com filtro, quiz. | 2, 4 |
 | 7 | Extras | Áudio por Web Speech API, modo escuro, migração da lição 16 para o motor, PWA e uso offline (inclui hospedar as fontes no próprio repositório). | 1 a 6 |
 
@@ -33,6 +33,7 @@ O front end já será escrito para consumir estes formatos. Enquanto não houver
   "furigana": "on" | "off" | "touch",
   "romaji": "touch" | "on" | "off",   // padrão: "touch" (borrado; toque na linha para ler)
   "fontScale": 1.0,            // 0.9, 1, 1.1, 1.25 ou 1.4
+  "kanaInput": "on" | "off",    // romaji vira hiragana ao digitar nos exercícios (padrão: on)
   "theme": "light" | "dark" | "auto",
   "updatedAt": "2026-10-17T15:00:00Z"
 }

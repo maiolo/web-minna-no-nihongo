@@ -234,5 +234,19 @@ window.lessonData = {
         ]
       }
     ]
+  },
+  montar: {
+    title: "<ruby>組<rt>く</rt></ruby>み<ruby>立<rt>た</rt></ruby>て (Montar a frase)",
+    exercises: [
+      {
+        desc: "Toque nas palavras na ordem certa para montar a frase.",
+        questions: [
+          { tokens: ["<ruby>相撲<rt>すもう</rt></ruby>を", "<ruby>見<rt>み</rt></ruby>た", "ことが", "あります。"], pt: "Eu já vi sumô.", romaji: "Sumou o mita koto ga arimasu." },
+          { tokens: ["<ruby>休<rt>やす</rt></ruby>みの", "<ruby>日<rt>ひ</rt></ruby>は", "テニスを", "したり、", "<ruby>散歩<rt>さんぽ</rt></ruby>に", "<ruby>行<rt>い</rt></ruby>ったり", "します。"], pt: "Nos dias de folga, eu jogo tênis, vou passear, etc.", romaji: "Yasumi no hi wa tenisu o shitari, sanpo ni ittari shimasu." },
+          { tokens: ["これから", "だんだん", "<ruby>暑<rt>あつ</rt></ruby>く", "なります。"], pt: "De agora em diante, ficará gradualmente mais quente.", romaji: "Korekara dandan atsuku narimasu." },
+          { tokens: ["<ruby>北海道<rt>ほっかいどう</rt></ruby>へ", "<ruby>行<rt>い</rt></ruby>った", "ことが", "ありますか。"], pt: "Você já foi a Hokkaido?", romaji: "Hokkaidou e itta koto ga arimasu ka." }
+        ]
+      }
+    ]
   }
 };
