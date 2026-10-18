@@ -28,7 +28,9 @@ assets/
   js/store.js               Camada de dados do aluno (localStorage hoje; pronta para um back end)
   js/prefs.js               Preferências de leitura (furigana, romaji, tamanho do texto)
   js/settings-panel.js      Painel "Ajustes" usado nas lições e na página de kanji
-  js/lessons-index.js       Lista central de lições (índice e botões anterior/próxima)
+  js/site-header.js         Cabeçalho compartilhado (carimbo, migalhas, voltar, Ajustes)
+  js/home.js                Página inicial: mapa de lições por volume e cartões
+  js/lessons-index.js       Lista central de lições e volumes (home e botões anterior/próxima)
   js/engine.js              Motor que monta a página de uma lição a partir dos dados
   js/jlpt-index.js          Lista de páginas da seção JLPT
   js/kanji-page.js          Monta a página de kanji (cartões, busca, filtros, romaji)

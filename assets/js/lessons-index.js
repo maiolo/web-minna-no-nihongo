@@ -40,3 +40,25 @@ window.LESSONS = [
 window.lessonLabel = function (number) {
     return "<ruby>第<rt>だい</rt></ruby>" + number + "<ruby>課<rt>か</rt></ruby>";
 };
+
+/*
+ * Volumes do livro, usados pelo mapa de lições da página inicial.
+ * Cada volume vai de "from" a "to"; as lições que ainda não estão em
+ * window.LESSONS aparecem no mapa como "em breve".
+ */
+window.VOLUMES = [
+    {
+        id: "shokyu-1",
+        label: "<ruby>初<rt>しょ</rt></ruby><ruby>級<rt>きゅう</rt></ruby> I",
+        range: "Lições 1 a 25",
+        from: 1,
+        to: 25
+    },
+    {
+        id: "shokyu-2",
+        label: "<ruby>初<rt>しょ</rt></ruby><ruby>級<rt>きゅう</rt></ruby> II",
+        range: "Lições 26 a 50",
+        from: 26,
+        to: 50
+    }
+];

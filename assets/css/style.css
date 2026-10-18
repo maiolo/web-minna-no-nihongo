@@ -141,76 +141,90 @@ html[data-romaji="on"] .romaji {
 html[data-romaji="off"] .romaji { display: none; }
 
 /* ---------- Cabeçalho ---------- */
-header {
-    position: relative;
+/* Barra compacta e fixa no topo, desenhada por assets/js/site-header.js.
+   O painel de ajustes se ancora nela (position: sticky já serve de âncora). */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     background-color: var(--surface);
     color: var(--ink);
-    padding: 12px 20px;
     border-bottom: 1px solid var(--line);
 }
-header.sticky { position: sticky; top: 0; z-index: 100; }
-header.hero {
-    position: relative;
-    overflow: hidden;
-    padding: 36px 20px 40px;
-    background-color: var(--paper);
-}
-/* Padrão seigaiha (ondas) discreto, esmaecendo para a esquerda. */
-header.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: min(620px, 100%);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'%3E%3Cg fill='none' stroke='%232E4C6D' stroke-width='1'%3E%3Ccircle cx='20' cy='20' r='20'/%3E%3Ccircle cx='20' cy='20' r='14'/%3E%3Ccircle cx='20' cy='20' r='8'/%3E%3Ccircle cx='0' cy='10' r='20'/%3E%3Ccircle cx='0' cy='10' r='14'/%3E%3Ccircle cx='0' cy='10' r='8'/%3E%3Ccircle cx='40' cy='10' r='20'/%3E%3Ccircle cx='40' cy='10' r='14'/%3E%3Ccircle cx='40' cy='10' r='8'/%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.2;
-    -webkit-mask-image: linear-gradient(to right, transparent, #000);
-    mask-image: linear-gradient(to right, transparent, #000);
-    pointer-events: none;
-}
-header.hero > * { position: relative; }
-
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    max-width: 1100px;
-    margin: 0 auto 12px auto;
-}
-.header-links { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.header-content {
+.topbar-inner {
     max-width: 1100px;
     margin: 0 auto;
+    min-height: 56px;
+    padding: 6px 8px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    gap: 8px;
 }
-.header-title h1 { font-size: 1.5rem; line-height: 1.5; margin-bottom: 2px; }
-.header-title p { font-size: 0.95rem; color: var(--muted); }
-header.hero .header-title h1 { font-size: 2.2rem; }
-
-.nav-link {
+.topbar-back {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--ink);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0 14px;
-    min-height: 40px;
-    background-color: transparent;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    transition: background-color 0.2s, border-color 0.2s;
-    font-size: 0.9rem;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+.topbar-back:hover { background-color: var(--paper-deep); }
+.topbar-title {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.topbar-title h1 { font-size: 1.1rem; line-height: 1.5; }
+
+/* Carimbo vermelho (número da lição, nível do JLPT, logotipo). */
+.stamp {
+    flex: none;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    background: var(--shu);
+    color: var(--surface);
+    border-radius: 6px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1rem;
 }
-.nav-link:hover { background-color: var(--paper); border-color: var(--ink); }
+.stamp-logo { min-width: 40px; height: 40px; border-radius: 8px; font-size: 1.3rem; }
+
+/* Migalhas de pão: só em telas largas (no celular vale a seta de voltar). */
+.breadcrumb { display: none; max-width: 1100px; margin: 0 auto; padding: 8px 15px 0; font-size: 0.85rem; color: var(--muted); }
+.breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; }
+.breadcrumb li + li::before { content: "›"; margin: 0 8px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb [aria-current="page"] { color: var(--ink); font-weight: 500; }
+
+/* Cabeçalho da página inicial */
+.brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.3; }
+.brand-name { font-family: var(--font-serif); font-weight: 700; font-size: 1.25rem; }
+.brand-sub { font-size: 0.75rem; color: var(--muted); }
+.topbar-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.topbar-nav a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 14px;
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: background-color 0.2s;
+}
+.topbar-nav a:hover { background-color: var(--paper-deep); }
 
 /* ---------- Conteúdo ---------- */
 main {
@@ -257,25 +271,30 @@ main {
 }
 .tab-btn {
     flex: 0 0 auto;
-    min-width: 76px;
-    min-height: 48px;
+    min-width: 84px;
+    min-height: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
     border: 0;
     border-bottom: 3px solid transparent;
     color: var(--muted);
-    padding: 0 16px;
+    padding: 0 14px;
     cursor: pointer;
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    font-weight: 700;
+    font-family: var(--font-sans);
     white-space: nowrap;
     transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 }
+.tab-jp { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; line-height: 1.6; }
+.tab-pt { font-size: 0.75rem; font-weight: 500; line-height: 1.2; }
 .tab-btn:hover { color: var(--ink); background-color: rgba(30, 42, 53, 0.04); }
 .tab-btn.active {
     color: var(--shu);
     border-bottom-color: var(--shu);
 }
+.tab-btn.active .tab-pt { font-weight: 700; }
 
 .section-container { display: none; animation: fadeIn 0.3s ease-out; }
 .section-container.active { display: block; }
@@ -619,9 +638,168 @@ footer {
 
 ruby.hl { background: var(--hl); border-radius: 4px; padding: 0 2px; }
 
+/* ---------- Rodapé de navegação da lição ---------- */
+/* "sticky" faz a barra ficar colada embaixo enquanto há conteúdo abaixo e
+   assentar no fim da página, sem cobrir o último trecho. */
+.lesson-pager {
+    position: sticky;
+    bottom: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px max(8px, calc((100% - 1100px) / 2 + 7px));
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+}
+.pager-btn {
+    flex: 1 1 0;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 12px;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.pager-btn:hover { background-color: var(--paper-deep); }
+.pager-prev { justify-content: flex-start; }
+.pager-next { justify-content: flex-end; color: var(--shu); font-weight: 700; }
+.pager-empty { pointer-events: none; }
+.pager-dots { display: flex; align-items: center; gap: 6px; flex: none; }
+.pager-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--line); }
+.pager-dot.current { width: 18px; background: var(--shu); }
+
+/* ---------- Página inicial ---------- */
+.home-hero { position: relative; overflow: hidden; background-color: var(--paper); }
+/* Padrão seigaiha (ondas) discreto, esmaecendo para a esquerda. */
+.home-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(620px, 100%);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'%3E%3Cg fill='none' stroke='%232E4C6D' stroke-width='1'%3E%3Ccircle cx='20' cy='20' r='20'/%3E%3Ccircle cx='20' cy='20' r='14'/%3E%3Ccircle cx='20' cy='20' r='8'/%3E%3Ccircle cx='0' cy='10' r='20'/%3E%3Ccircle cx='0' cy='10' r='14'/%3E%3Ccircle cx='0' cy='10' r='8'/%3E%3Ccircle cx='40' cy='10' r='20'/%3E%3Ccircle cx='40' cy='10' r='14'/%3E%3Ccircle cx='40' cy='10' r='8'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.2;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000);
+    mask-image: linear-gradient(to right, transparent, #000);
+    pointer-events: none;
+}
+.home-hero-inner { position: relative; max-width: 1100px; margin: 0 auto; padding: 56px 20px 72px; }
+.nowrap { white-space: nowrap; }
+.eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--shu); }
+.home-hero h1 { margin-top: 12px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.25; max-width: 16em; }
+.lead { margin-top: 20px; font-size: 1.1rem; color: var(--muted); max-width: 34em; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.btn-link {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 24px;
+    border: 1px solid var(--ink);
+    border-radius: 10px;
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.btn-link:hover { background-color: var(--paper-deep); }
+.btn-link.primary { background: var(--shu); border-color: var(--shu); color: var(--surface); font-weight: 700; }
+.btn-link.primary:hover { background: var(--shu-dark); border-color: var(--shu-dark); }
+
+.volume { margin-top: 40px; }
+.volume-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+}
+.volume-head h2 { font-size: 1.5rem; line-height: 1.7; }
+.volume-range { color: var(--muted); }
+.map-legend { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.8rem; color: var(--muted); }
+.map-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend-swatch { width: 12px; height: 12px; border-radius: 3px; box-sizing: border-box; }
+.legend-swatch.available { border: 2px solid var(--indigo); }
+.legend-swatch.soon { border: 1px dashed var(--muted); }
+
+.lesson-map {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+    gap: 6px;
+    margin-top: 20px;
+}
+.map-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+}
+a.map-cell { border: 2px solid var(--indigo); color: var(--indigo); background: var(--surface); transition: background-color 0.2s; }
+a.map-cell:hover { background: var(--indigo-tint); }
+span.map-cell { border: 1px dashed var(--muted); color: var(--muted); }
+.volume .lesson-grid { margin-top: 28px; }
+
+.feature-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px 32px;
+    margin-top: 24px;
+    padding: 28px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.feature-card:hover,
+.feature-card:focus-visible { transform: translateY(-2px); border-color: var(--shu); box-shadow: var(--shadow-lift); }
+.feature-glyph {
+    width: 112px;
+    height: 112px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 4rem;
+    color: var(--indigo);
+}
+.feature-body { flex: 1 1 280px; min-width: 0; }
+.feature-level { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; color: var(--indigo); }
+.feature-title { margin-top: 4px; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; line-height: 1.6; }
+.feature-desc { margin-top: 8px; color: var(--muted); }
+.feature-go { font-weight: 700; color: var(--shu); }
+.page-intro { margin-top: 16px; color: var(--muted); }
+
 /* ---------- Telas pequenas e toque ---------- */
 @media (pointer: coarse) {
-    .nav-link { min-height: 44px; }
     .chip { min-height: 44px; }
 }
 
@@ -629,13 +807,22 @@ ruby.hl { background: var(--hl); border-radius: 4px; padding: 0 2px; }
     .kanji-glyph { min-width: 70px; font-size: 3rem; }
     .kanji-card { padding: 16px; }
     .card { padding: 18px; }
-    header.hero .header-title h1 { font-size: 1.7rem; }
+    .home-hero-inner { padding: 36px 20px 44px; }
+    .feature-card { padding: 20px; }
+    /* Só o ícone no botão de ajustes; a barra da página inicial quebra em duas linhas. */
+    .settings-label { display: none; }
+    .settings-btn { width: 44px; padding: 0; border-radius: 50%; }
+    .home-bar .topbar-inner { flex-wrap: wrap; }
+    .home-bar .brand-sub { display: none; }
+    .home-bar .settings-slot { margin-left: auto; }
+    .home-bar .topbar-nav { order: 3; width: 100%; margin-left: 0; }
 }
 
-@media (max-width: 640px) {
-    /* O cabeçalho é alto em telas pequenas; fixo ele tomaria boa parte da tela.
-       Continua "relative" porque o painel de ajustes se ancora nele. */
-    header.sticky { position: relative; }
+@media (min-width: 641px) {
+    .topbar-back { display: none; }
+    .topbar-inner { padding: 4px 15px 8px; }
+    .breadcrumb { display: block; }
+    .home-bar .topbar-inner { padding-top: 8px; }
 }
 
 /* ---------- Painel de ajustes de leitura ---------- */
