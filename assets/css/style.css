@@ -536,10 +536,22 @@ footer {
     font-size: 0.95rem;
 }
 
-.kanji-controls { margin: 0 0 20px 0; }
-.kanji-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.kanji-toolbar .input-text { flex: 1 1 260px; }
-.kanji-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.kanji-intro { margin-top: 20px; padding-top: 4px; padding-bottom: 4px; }
+.kanji-intro summary { cursor: pointer; font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem; min-height: 44px; display: flex; align-items: center; }
+.kanji-intro[open] summary { margin-bottom: 8px; }
+
+/* Busca: no celular só ela fica fixa; no computador, o bloco todo. */
+.kanji-controls { margin: 12px 0 16px; }
+.kanji-searchbar {
+    position: sticky; top: var(--topbar-h, 56px); z-index: 80;
+    margin: 0 -15px; padding: 8px 15px;
+    background: var(--paper); border-bottom: 1px solid var(--line-soft);
+}
+.kanji-searchbar .input-text { width: 100%; }
+.kanji-filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 12px; }
+.status-filter { flex: 1 1 260px; max-width: 360px; }
+.kanji-chips { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+.kanji-chips .chip { flex: none; white-space: nowrap; }
 .chip {
     background: var(--surface);
     border: 1px solid var(--line);
@@ -556,35 +568,6 @@ footer {
 .chip.active { background: var(--shu); border-color: var(--shu); color: var(--surface); font-weight: 700; }
 .kanji-count { margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
 
-.kanji-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
-    gap: 20px;
-    align-items: start;
-}
-.kanji-card {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-}
-.kanji-head { display: flex; gap: 16px; align-items: flex-start; }
-.kanji-glyph {
-    flex: 0 0 auto;
-    min-width: 84px;
-    text-align: center;
-    font-family: var(--font-serif);
-    font-weight: 700;
-    font-size: 3.6rem;
-    line-height: 1.15;
-    color: var(--shu-dark);
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 8px 6px;
-}
-.kanji-info { flex: 1; min-width: 0; }
 .kanji-meaning { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
 .read-row { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin-bottom: 6px; font-size: 1.05rem; }
 .read-label {
@@ -620,22 +603,6 @@ footer {
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     font-size: 0.92rem;
 }
-/* Cartão fechado por padrão; clique no cabeçalho abre só aquele cartão. */
-.kanji-card .example-list,
-.kanji-card .kanji-note { display: none; }
-.kanji-card.open .example-list { display: block; animation: fadeIn 0.25s ease-out; }
-.kanji-card.open .kanji-note { display: block; }
-.kanji-card.open { border-color: var(--shu); box-shadow: var(--shadow-lift); }
-
-.kanji-head { cursor: pointer; border-radius: var(--radius); }
-.kanji-head:hover .kanji-glyph { background: var(--paper-deep); }
-.kanji-head:focus-visible { outline-offset: 4px; }
-.kanji-more { margin-top: 4px; font-size: 0.85rem; font-weight: 700; color: var(--shu); user-select: none; }
-.kanji-head:hover .kanji-more { color: var(--shu-dark); }
-.kanji-card .more-open,
-.kanji-card.open .more-closed { display: none; }
-.kanji-card.open .more-open { display: inline; }
-
 ruby.hl { background: var(--hl); border-radius: 4px; padding: 0 2px; }
 
 /* ---------- Rodapé de navegação da lição ---------- */
@@ -873,14 +840,110 @@ mark.diff-ins { background: var(--matcha-tint); color: var(--matcha-dark); borde
 .assemble-answer .word-chip.right { background: var(--matcha-tint); border-color: var(--matcha); }
 .assemble-answer .word-chip.wrong { background: var(--shu-tint); border-color: var(--shu); }
 
+
+/* Grade compacta + painel de detalhes (gaveta no celular, lateral no computador) */
+.kanji-layout { display: block; }
+.kanji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; align-content: start; }
+.kanji-tile {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 88px; padding: 6px 4px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    color: var(--ink); font-family: inherit; cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.kanji-tile .tile-glyph { font-family: var(--font-serif); font-weight: 700; font-size: 2rem; line-height: 1.2; color: var(--shu-dark); }
+.kanji-tile .tile-meaning { max-width: 100%; margin-top: 2px; font-size: 0.75rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kanji-tile[aria-pressed="true"] { border-color: var(--shu); background: var(--shu-tint); box-shadow: 0 0 0 1px var(--shu); }
+.kanji-tile.known { background: var(--matcha-tint); border-color: var(--matcha-line); }
+.kanji-tile.known .tile-glyph { color: var(--matcha-dark); }
+.kanji-tile.known::after { content: "✓"; position: absolute; top: 4px; right: 7px; font-size: 0.8rem; font-weight: 700; color: var(--matcha-dark); }
+.kanji-tile.known[aria-pressed="true"] { border-color: var(--shu); }
+
+.kanji-detail {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 210;
+    max-height: 88vh; overflow-y: auto; overscroll-behavior: contain;
+    padding: 0 18px 24px; background: var(--surface);
+    border-top: 1px solid var(--line); border-radius: 18px 18px 0 0;
+    box-shadow: 0 -8px 30px rgba(30, 42, 53, 0.18);
+    transform: translateY(105%); visibility: hidden;
+    transition: transform 0.25s ease-out, visibility 0s 0.25s;
+}
+.kanji-detail.open { transform: none; visibility: visible; transition: transform 0.25s ease-out; }
+.sheet-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(30, 42, 53, 0.45); }
+body.sheet-lock { overflow: hidden; }
+.detail-top { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; padding: 8px 0; background: var(--surface); }
+.detail-top .detail-nav { display: flex; gap: 4px; }
+.detail-btn {
+    min-width: 44px; min-height: 44px; padding: 0 12px;
+    background: none; border: 1px solid var(--line); border-radius: 10px;
+    color: var(--ink); font: inherit; cursor: pointer;
+}
+.detail-btn:hover { background: var(--paper-deep); }
+.detail-btn:disabled { opacity: 0.4; cursor: default; }
+.detail-hero { display: flex; align-items: center; gap: 16px; }
+.detail-glyph {
+    flex: none; min-width: 96px; padding: 8px 6px; text-align: center;
+    font-family: var(--font-serif); font-weight: 700; font-size: 4rem; line-height: 1.15; color: var(--shu-dark);
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.detail-hero .kanji-meaning { margin: 0; font-size: 1.4rem; }
+.detail-readings { margin-top: 16px; }
+.known-btn { margin-top: 12px; min-height: 44px; }
+.known-btn[aria-pressed="true"] { background: var(--matcha-tint); border-color: var(--matcha-line); color: var(--matcha-dark); }
+.detail-empty { padding: 24px 8px; color: var(--muted); text-align: center; }
+
+@media (min-width: 900px) {
+    .kanji-controls { position: sticky; top: var(--topbar-h, 56px); z-index: 80; margin: 12px 0 16px; padding: 10px 15px 8px; background: var(--paper); border-bottom: 1px solid var(--line-soft); }
+    .kanji-controls .kanji-searchbar { position: static; margin: 0; padding: 0; border: 0; background: none; }
+    .kanji-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+    .kanji-controls .kanji-searchbar { flex: 1 1 320px; }
+    .kanji-controls .kanji-filters { margin: 0; flex: 0 0 auto; flex-wrap: nowrap; }
+    .kanji-controls .status-filter { flex: 0 0 300px; }
+    .kanji-controls .kanji-chips, .kanji-controls .kanji-count { flex: 1 1 100%; margin-top: 0; }
+    .kanji-layout { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 24px; align-items: start; }
+    .kanji-grid { grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); }
+    .kanji-detail {
+        position: sticky; top: calc(var(--topbar-h, 56px) + var(--controls-h, 150px) + 12px);
+        z-index: auto; max-height: calc(100vh - var(--topbar-h, 56px) - var(--controls-h, 150px) - 28px);
+        padding: 0 20px 20px; border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+        transform: none; visibility: visible; transition: none;
+    }
+    .sheet-backdrop { display: none; }
+    .detail-top .detail-close { display: none; }
+}
+
+/* Quiz */
+.quiz-dialog {
+    width: min(560px, calc(100% - 24px)); max-height: calc(100vh - 24px); margin: auto; padding: 20px;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow-lift); overflow-y: auto;
+}
+.quiz-dialog::backdrop { background: rgba(30, 42, 53, 0.5); }
+.quiz-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.quiz-head h2 { font-size: 1.2rem; }
+.quiz-modes { margin: 12px 0; }
+.quiz-glyph { margin: 16px auto; width: 140px; padding: 10px; text-align: center; font-family: var(--font-serif); font-weight: 700; font-size: 5rem; line-height: 1.15; color: var(--shu-dark); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+.quiz-prompt { text-align: center; color: var(--muted); }
+.quiz-options { display: grid; gap: 8px; margin-top: 16px; }
+.quiz-option {
+    min-height: 52px; padding: 8px 14px; text-align: left;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+    color: var(--ink); font: inherit; font-size: 1.1rem; cursor: pointer;
+}
+.quiz-option:hover:not(:disabled) { background: var(--paper-deep); }
+.quiz-option.correct { background: var(--matcha-tint); border-color: var(--matcha); color: var(--matcha-dark); font-weight: 700; }
+.quiz-option.wrong { background: var(--shu-tint); border-color: var(--shu); color: var(--shu-dark); }
+.quiz-option:disabled { cursor: default; }
+.quiz-foot { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; margin-top: 16px; }
+.quiz-score { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; text-align: center; margin: 12px 0; }
+.quiz-missed { margin: 8px 0 0 1.2em; }
+
 /* ---------- Telas pequenas e toque ---------- */
 @media (pointer: coarse) {
     .chip { min-height: 44px; }
 }
 
 @media (max-width: 480px) {
-    .kanji-glyph { min-width: 70px; font-size: 3rem; }
-    .kanji-card { padding: 16px; }
     .card { padding: 18px; }
     .home-hero-inner { padding: 36px 20px 44px; }
     .feature-card { padding: 20px; }

@@ -18,7 +18,7 @@ Princípios:
 | 3 | Navegação e página inicial (feito) | Cabeçalho compacto com carimbo da lição, abas com URL (`#gramatica`) e ARIA, rótulos de duas linhas (kanji + português), rodapé com anterior/próxima, breadcrumbs. Nova home: faixa com padrão *seigaiha*, mapa das lições, lições "em breve". | 1 |
 | 4 | Progresso local (feito) | Registro de seções e exercícios concluídos, "continue de onde parou", barras de progresso, status por lição (concluída, em andamento, disponível). Tudo via `store.js`. | 2, 3 |
 | 5 | Exercícios (feito) | Feedback que mostra onde a resposta difere, placar e barra de questões, "tentar de novo", teclado romaji→kana, novo formato "montar a frase". | 2, 4 |
-| 6 | Kanji | Grade compacta, painel de detalhes (gaveta no celular), busca e filtros fixos, chips com rolagem horizontal, "já sei" com filtro, quiz. | 2, 4 |
+| 6 | Kanji (feito) | Grade compacta, painel de detalhes (gaveta no celular), busca e filtros fixos, chips com rolagem horizontal, "já sei" com filtro, quiz. | 2, 4 |
 | 7 | Extras | Áudio por Web Speech API, modo escuro, migração da lição 16 para o motor, PWA e uso offline (inclui hospedar as fontes no próprio repositório). | 1 a 6 |
 
 Cada PR deve trazer: descrição do que muda, capturas de tela em celular (390 px) e desktop (1280 px), e a lista de arquivos tocados.
