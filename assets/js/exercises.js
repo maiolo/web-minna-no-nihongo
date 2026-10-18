@@ -85,7 +85,7 @@
 
     /* ---------- comparação ---------- */
 
-    function normalize(str) { return String(str).replace(/[\s　、。！？,.!?]/g, ""); }
+    function normalize(str) { return String(str).replace(/[\s　、。！？,.!?「」『』]/g, ""); }
 
     // Diferença por caractere (maior subsequência comum): "del" = só no que foi digitado,
     // "ins" = só na resposta certa (faltou), "same" = nos dois.

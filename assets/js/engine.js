@@ -27,7 +27,6 @@
 
     // Ordem fixa das abas; seções ausentes nos dados são omitidas.
     var SECTION_ORDER = ["vocab", "bunkei", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai", "montar"];
-    var EXERCISE_SECTIONS = ["renshuuA", "renshuuB", "renshuuC", "mondai", "montar"];
     var E = window.Exercises;
 
     var sections = [];
@@ -147,7 +146,7 @@
             document.body.appendChild(pager);
             pager.addEventListener("click", function (e) {
                 // Avançar a partir de uma seção de leitura conta como concluí-la.
-                if (P && e.target.closest(".pager-next") && CONTENT_SECTIONS.indexOf(currentTab) !== -1) {
+                if (P && e.target.closest(".pager-next") && !isExercise(currentTab)) {
                     P.setSection(lessonNumber, currentTab, true);
                 }
                 var btn = e.target.closest("[data-go]");
@@ -178,7 +177,9 @@
 
     /* ---------- Progresso ---------- */
 
-    var CONTENT_SECTIONS = ["vocab", "bunkei", "gramatica"];
+    // Seção com "exercises" é de exercícios; as demais (vocab, bunkei, gramatica ou
+    // qualquer uma com "content") são de leitura e têm o botão "Marcar como concluída".
+    function isExercise(id) { return Boolean(data[id] && data[id].exercises); }
     var STATE_TEXT = { done: " (concluída)", in_progress: " (em andamento)", todo: "" };
 
     function questionKeys(sectionId) {
@@ -211,7 +212,7 @@
             tab.classList.toggle("seen", status === "in_progress");
             tab.querySelector(".tab-state").textContent = STATE_TEXT[status];
 
-            if (EXERCISE_SECTIONS.indexOf(id) !== -1) {
+            if (isExercise(id)) {
                 var c = syncExerciseSection(id);
                 var holder = document.querySelector("#sec-" + id + " .ex-progress");
                 if (holder) {
@@ -277,7 +278,7 @@
             'aria-label="Progresso da lição" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div></div>');
         sections.forEach(function (id) {
             var panel = document.getElementById("sec-" + id);
-            if (CONTENT_SECTIONS.indexOf(id) !== -1) {
+            if (!isExercise(id)) {
                 panel.insertAdjacentHTML("beforeend",
                     '<div class="section-done"><button type="button" class="btn btn-toggle section-done-btn" ' +
                     'data-action="section-done" aria-pressed="false">Marcar como concluída</button></div>');
@@ -312,12 +313,15 @@
         "</div>";
     }
 
+    // vocab.items (lista simples) ou vocab.groups ([{ title, items }]) para separar por tema.
     function renderVocab() {
+        var groups = data.vocab.groups || [{ items: data.vocab.items || [] }];
         return '<div id="sec-vocab" class="section-container card">' +
             '<h2 class="card-header">' + data.vocab.title + "</h2>" +
-            '<div class="vocab-grid">' +
-                data.vocab.items.map(function (v) { return textBlock(v, "jp-term"); }).join("") +
-            "</div>" +
+            groups.map(function (g) {
+                return (g.title ? '<h3 class="exercise-group-title">' + g.title + "</h3>" : "") +
+                    '<div class="vocab-grid">' + g.items.map(function (v) { return textBlock(v, "jp-term"); }).join("") + "</div>";
+            }).join("") +
         "</div>";
     }
 
@@ -336,8 +340,9 @@
         "</div>";
     }
 
-    function renderGramatica() {
-        return '<div id="sec-gramatica" class="section-container">' + data.gramatica.content + "</div>";
+    // Seção de leitura com HTML pronto (gramática, tabelas de substituição...).
+    function renderContentSection(id) {
+        return '<div id="sec-' + id + '" class="section-container">' + data[id].content + "</div>";
     }
 
     function renderExercises(sectionId) {
@@ -348,6 +353,7 @@
 
         section.exercises.forEach(function (group, groupIdx) {
             html += '<h3 class="exercise-group-title">' + group.desc + "</h3>";
+            if (group.intro) html += '<div class="exercise-intro">' + group.intro + "</div>";
             group.questions.forEach(function (q, qIdx) {
                 html += '<div class="item-box" data-exercise="' + sectionId + ":" + groupIdx + ":" + qIdx + '">' +
                     '<div class="exercise-prompt">' + q.q + "</div>" +
@@ -363,7 +369,7 @@
                     '<div class="answer-box">' +
                         '<div class="jp-row"><div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.a + "</div>" + speakButton(q.a) + "</div>" +
                         '<div class="romaji">' + q.romaji + "</div>" +
-                        '<div class="answer-translation">Tradução: ' + q.pt + "</div>" +
+                        (q.pt ? '<div class="answer-translation">Tradução: ' + q.pt + "</div>" : "") +
                     "</div>" +
                 "</div>";
             });
@@ -410,9 +416,9 @@
         sections.forEach(function (id) {
             if (id === "vocab") html += renderVocab();
             else if (id === "bunkei") html += renderBunkei();
-            else if (id === "gramatica") html += renderGramatica();
+            else if (data[id].content) html += renderContentSection(id);
             else if (id === "montar") html += renderMontar(id);
-            else if (EXERCISE_SECTIONS.indexOf(id) !== -1) html += renderExercises(id);
+            else if (isExercise(id)) html += renderExercises(id);
         });
         document.getElementById("main-container").innerHTML = html;
         wrapTables();
@@ -503,30 +509,35 @@
         var feedback = box.querySelector(".feedback-box");
         if (kanaOn()) input.value = E.finalize(input.value);
         var typed = E.normalize(input.value);
-        var answer = findQuestion(box).a;
-        var base = E.normalize(E.baseOf(answer));
-        var reading = E.normalize(E.toHiragana(E.readingOf(answer)));
+        // Mais de uma resposta aceita: separe com "／" nos dados (ex.: "すぐ／直ぐ").
+        var variants = findQuestion(box).a.split("／").map(function (v) {
+            return { base: E.normalize(E.baseOf(v)), reading: E.normalize(E.toHiragana(E.readingOf(v))) };
+        });
+        var matched = variants.filter(function (v) { return typed === v.base || E.toHiragana(typed) === v.reading; })[0];
 
         if (!typed) {
             say(feedback, false, [html("⚠️ <ruby>入力<rt>にゅうりょく</rt></ruby>してください。(Por favor, digite a resposta)")]);
             return;
         }
-        if (typed === base || E.toHiragana(typed) === reading) {
-            var inKana = typed !== base && base !== reading;
+        if (matched) {
+            var inKana = typed !== matched.base && matched.base !== matched.reading;
             say(feedback, true, [html("⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)")].concat(
-                inKana ? [el("div", "feedback-note", "Em kana. Com kanji: " + base)] : []));
+                inKana ? [el("div", "feedback-note", "Em kana. Com kanji: " + matched.base)] : []));
             recordAnswer(box, true);
             return;
         }
         // Compara com a forma (kanji ou kana) mais parecida com o que a pessoa digitou.
-        var candidates = [base, reading].map(function (c) {
-            var ops = E.diff(c === reading ? E.toHiragana(typed) : typed, c);
-            return { text: c, ops: ops, cost: ops.filter(function (o) { return o.t !== "same"; }).length };
-        });
-        // Empate: quem digitou em kana (sem kanji) é comparado com a leitura.
         var hasKanji = /[一-龯]/.test(typed);
-        var best = candidates[0].cost < candidates[1].cost || (candidates[0].cost === candidates[1].cost && hasKanji)
-            ? candidates[0] : candidates[1];
+        var candidates = [];
+        variants.forEach(function (v) {
+            [[v.base, typed], [v.reading, E.toHiragana(typed)]].forEach(function (pair) {
+                var ops = E.diff(pair[1], pair[0]);
+                // Empate: quem digitou em kana (sem kanji) é comparado com a leitura, quem usou kanji com o texto.
+                candidates.push({ ops: ops, cost: ops.filter(function (o) { return o.t !== "same"; }).length,
+                                  pref: (pair[0] === v.reading) === !hasKanji ? 0 : 1 });
+            });
+        });
+        var best = candidates.sort(function (x, y) { return x.cost - y.cost || x.pref - y.pref; })[0];
         var box1 = el("div", "diff");
         box1.appendChild(diffLine("Você digitou", best.ops, "del"));
         box1.appendChild(diffLine("Esperado", best.ops, "ins"));

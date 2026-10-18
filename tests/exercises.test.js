@@ -74,3 +74,8 @@ test("shuffleSeeded é estável, preserva os itens e muda a ordem", () => {
     assert.notDeepEqual(one, list);
     assert.deepEqual(E.shuffleSeeded(["x"], 1), ["x"]);
 });
+
+test("normalize ignora colchetes japoneses", () => {
+  const E = require("../assets/js/exercises.js");
+  assert.equal(E.normalize("「確認」ボタン"), "確認ボタン");
+});
