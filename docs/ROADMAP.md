@@ -14,7 +14,7 @@ Princípios:
 | PR | Tema | O que entra | Depende de |
 |----|------|-------------|------------|
 | 1 | Base visual Washi | Tokens de cor e tipografia, fontes Noto, foco visível, contraste, `prefers-reduced-motion`, tabelas com rolagem, `lang="pt-BR"`, favicon novo. Restyle dos componentes atuais sem mudar o comportamento. | nada |
-| 2 | Camada de dados e preferências de leitura | `store.js` com adaptador local (e contrato do adaptador de API). Preferências: furigana (ligado, desligado, ao toque), romaji ao toque em cada linha, tamanho do texto. Painel de ajustes. Persistência. | 1 |
+| 2 | Camada de dados e preferências de leitura (`store.js`, `prefs.js`, painel Ajustes, testes com `node --test`) | `store.js` com adaptador local (e contrato do adaptador de API). Preferências: furigana (ligado, desligado, ao toque), romaji ao toque em cada linha, tamanho do texto. Painel de ajustes. Persistência. | 1 |
 | 3 | Navegação e página inicial | Cabeçalho compacto com carimbo da lição, abas com URL (`#gramatica`) e ARIA, rótulos de duas linhas (kanji + português), rodapé com anterior/próxima, breadcrumbs. Nova home: faixa com padrão *seigaiha*, mapa das lições, lições "em breve". | 1 |
 | 4 | Progresso local | Registro de seções e exercícios concluídos, "continue de onde parou", barras de progresso, status por lição (concluída, em andamento, disponível). Tudo via `store.js`. | 2, 3 |
 | 5 | Exercícios | Feedback que mostra onde a resposta difere, placar e barra de questões, "tentar de novo", teclado romaji→kana, novo formato "montar a frase". | 2, 4 |
@@ -31,8 +31,8 @@ O front end já será escrito para consumir estes formatos. Enquanto não houver
 // Preferências do aluno
 {
   "furigana": "on" | "off" | "touch",
-  "romaji": "off" | "touch" | "on",
-  "fontScale": 1.0,            // 0.85 a 1.4
+  "romaji": "touch" | "on" | "off",   // padrão: "touch" (borrado; toque na linha para ler)
+  "fontScale": 1.0,            // 0.9, 1, 1.1, 1.25 ou 1.4
   "theme": "light" | "dark" | "auto",
   "updatedAt": "2026-10-17T15:00:00Z"
 }
@@ -56,10 +56,14 @@ O front end já será escrito para consumir estes formatos. Enquanto não houver
 Interface do adaptador (PR 2):
 
 ```js
-Store.get(key)            // Promise<valor | null>
-Store.set(key, valor)     // Promise<void>
-Store.subscribe(key, fn)  // chamado quando o valor muda (outra aba ou sincronização)
+Store.peek(key)                  // leitura síncrona (aplicar preferências antes da primeira pintura)
+Store.get(key)                   // Promise<valor | null>
+Store.set(key, valor)            // grava no navegador, acrescenta updatedAt e envia ao remoto, se houver
+Store.subscribe(key, fn)         // chamado quando o valor muda (outra aba ou sincronização)
+Store.useRemote(adapter, chaves) // liga o back end; vale o updatedAt mais recente
 ```
+
+Um adaptador remoto é um objeto com `get(chave) -> Promise<valor|null>` e `set(chave, valor) -> Promise`. O `createApiAdapter({ baseUrl, getToken })` já existe em `store.js` e mapeia `prefs` para `/me/preferences` e `progress` para `/me/progress`; ele só será ligado quando houver API. Falha de rede nunca perde o valor local.
 
 Regra de conflito proposta para a sincronização: vale o registro com `updatedAt` mais recente, campo a campo para `exercises` e `kanji`, para não perder progresso feito em dois aparelhos.
 

@@ -13,7 +13,7 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 
 ## Recursos
 
-- Furigana em todos os kanji (`<ruby>`), com botão para mostrar ou ocultar o romaji.
+- Furigana em todos os kanji (`<ruby>`) e painel **Ajustes** nas lições e no kanji: furigana sempre, ao tocar ou oculto; romaji ao tocar na linha, sempre ou oculto; tamanho do texto de 90% a 140%. As escolhas ficam salvas no navegador.
 - Abas por seção: vocabulário, padrões e exemplos, gramática, exercícios (A, B, C) e problemas.
 - Exercícios com verificação de resposta (ignora espaços e pontuação) e botão para revelar o gabarito.
 - Layout responsivo, pensado para uso no celular, com tabelas que rolam na horizontal e foco visível para navegação por teclado.
@@ -25,10 +25,15 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 index.html                  Página inicial com a lista de lições
 assets/
   css/style.css             Estilos compartilhados (tema "Washi"; cores e fontes nas variáveis de :root)
+  js/store.js               Camada de dados do aluno (localStorage hoje; pronta para um back end)
+  js/prefs.js               Preferências de leitura (furigana, romaji, tamanho do texto)
+  js/settings-panel.js      Painel "Ajustes" usado nas lições e na página de kanji
   js/lessons-index.js       Lista central de lições (índice e botões anterior/próxima)
   js/engine.js              Motor que monta a página de uma lição a partir dos dados
   js/jlpt-index.js          Lista de páginas da seção JLPT
   js/kanji-page.js          Monta a página de kanji (cartões, busca, filtros, romaji)
+tests/
+  store-prefs.test.js       Testes da camada de dados e das preferências (node --test)
 docs/
   ROADMAP.md                Divisão da nova interface em PRs e lista de recursos de back end
 lessons/
@@ -49,6 +54,14 @@ Não precisa de servidor: abra o `index.html` no navegador. Se preferir um servi
 ```bash
 python3 -m http.server 8000
 # depois acesse http://localhost:8000
+```
+
+## Testes
+
+A lógica de dados (gravação, mescla com um back end, validação das preferências) tem testes que rodam só com o Node, sem instalar nada:
+
+```bash
+node --test
 ```
 
 ## Publicar no GitHub Pages
@@ -98,6 +111,7 @@ window.lessonData = {
 - Todas as seções são opcionais: a aba só aparece se a seção existir nos dados (a lição 17, por exemplo, não tem `renshuuA`). Se `bunkei` existir, precisa ter `patterns` e `examples`.
 - Em `a` (resposta), o furigana (`<rt>`) é ignorado na correção: o aluno digita só o texto base.
 - Em `gramatica.content`, use as classes de `style.css` (`card`, `card-header`, `item-box`, `grammar-table`, `romaji`).
+- Nas páginas novas, carregue `store.js` e `prefs.js` no `<head>` (aplicam as preferências antes de pintar a tela) e `settings-panel.js` antes do script da página.
 
 ## Adicionar kanji ou uma página JLPT
 

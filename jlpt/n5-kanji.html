@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#F5F0E6">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/store.js"></script>
+    <script src="../assets/js/prefs.js"></script>
 </head>
 <body data-global="JLPT_N5_KANJI" data-level="N5">
 
@@ -25,7 +27,7 @@
                 <h1>JLPT <span id="level-label">N5</span> - <ruby>漢字<rt>かんじ</rt></ruby></h1>
                 <p>Significados, leituras e frases de exemplo</p>
             </div>
-            <button type="button" class="btn btn-toggle" id="romaji-toggle-btn"></button>
+            <div class="settings-slot"></div>
         </div>
     </header>
 
@@ -60,6 +62,7 @@
     <script src="data/n5-kanji-1.js"></script>
     <script src="data/n5-kanji-2.js"></script>
     <script src="data/n5-kanji-3.js"></script>
+    <script src="../assets/js/settings-panel.js"></script>
     <script src="../assets/js/kanji-page.js"></script>
 </body>
 </html>

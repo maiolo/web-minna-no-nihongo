@@ -26,8 +26,6 @@
     var SECTION_ORDER = ["vocab", "bunkei", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai"];
     var EXERCISE_SECTIONS = ["renshuuA", "renshuuB", "renshuuC", "mondai"];
 
-    var romajiVisible = false;
-
     /* ---------- Cabeçalho ---------- */
 
     function lessonLink(lesson, isNext) {
@@ -57,24 +55,11 @@
                         window.lessonLabel(lessonNumber) + "</h1>" +
                     "<p>" + (current ? current.topic : "") + "</p>" +
                 "</div>" +
-                '<button type="button" class="btn btn-toggle" id="romaji-toggle-btn"></button>' +
+                '<div class="settings-slot"></div>' +
             "</div>";
 
-        updateRomajiButton();
-        document.getElementById("romaji-toggle-btn").addEventListener("click", toggleRomaji);
-    }
-
-    function updateRomajiButton() {
-        var btn = document.getElementById("romaji-toggle-btn");
-        btn.innerHTML = romajiVisible
-            ? "👁️‍🗨️ Romaji <ruby>表示<rt>ひょうじ</rt></ruby> (Visível)"
-            : "👁️ Romaji <ruby>隠<rt>かく</rt></ruby>す (Oculto)";
-    }
-
-    function toggleRomaji() {
-        romajiVisible = !romajiVisible;
-        document.body.classList.toggle("show-romaji", romajiVisible);
-        updateRomajiButton();
+        // Furigana, romaji e tamanho do texto (assets/js/settings-panel.js).
+        if (window.SettingsPanel) window.SettingsPanel.mount(header.querySelector(".settings-slot"));
     }
 
     /* ---------- Abas ---------- */

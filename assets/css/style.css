@@ -56,6 +56,9 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Tamanho do texto escolhido em "Ajustes" (veja assets/js/prefs.js). */
+html { font-size: calc(100% * var(--font-scale, 1)); }
+
 body {
     font-family: var(--font-sans);
     background-color: var(--paper);
@@ -89,7 +92,20 @@ rt {
     user-select: none;
 }
 
-/* ---------- Romaji (oculto por padrão) ---------- */
+/* Preferência de furigana (data-furigana no <html>, veja prefs.js).
+   "off" tira a leitura; "touch" a esconde mas reserva o espaço, e ela
+   aparece ao passar o mouse ou tocar (a classe .rt-open vem do prefs.js). */
+html[data-furigana="off"] rt { display: none; }
+html[data-furigana="touch"] rt { visibility: hidden; }
+html[data-furigana="touch"] ruby.rt-open rt { visibility: visible; }
+html[data-furigana="touch"] ruby { cursor: pointer; }
+/* O hover só vale com mouse: no celular ele "gruda" depois do toque e
+   impediria de esconder a leitura tocando de novo. */
+@media (hover: hover) {
+    html[data-furigana="touch"] ruby:hover rt { visibility: visible; }
+}
+
+/* ---------- Romaji (borrado por padrão) ---------- */
 .romaji {
     color: transparent;
     text-shadow: 0 0 8px rgba(85, 97, 108, 0.55);
@@ -107,15 +123,26 @@ rt {
     background-color: var(--indigo-tint);
     text-shadow: none;
 }
-.romaji:hover,
-body.show-romaji .romaji {
+/* Preferência de romaji (data-romaji no <html>): "touch" é o padrão acima,
+   revelado ao passar o mouse ou tocar (.revealed vem do prefs.js). */
+.romaji.revealed,
+html[data-romaji="on"] .romaji {
     color: var(--indigo);
     text-shadow: none;
     background-color: var(--indigo-tint);
 }
+@media (hover: hover) {
+    .romaji:hover {
+        color: var(--indigo);
+        text-shadow: none;
+        background-color: var(--indigo-tint);
+    }
+}
+html[data-romaji="off"] .romaji { display: none; }
 
 /* ---------- Cabeçalho ---------- */
 header {
+    position: relative;
     background-color: var(--surface);
     color: var(--ink);
     padding: 12px 20px;
@@ -606,6 +633,89 @@ ruby.hl { background: var(--hl); border-radius: 4px; padding: 0 2px; }
 }
 
 @media (max-width: 640px) {
-    /* O cabeçalho é alto em telas pequenas; fixo ele tomaria boa parte da tela. */
-    header.sticky { position: static; }
+    /* O cabeçalho é alto em telas pequenas; fixo ele tomaria boa parte da tela.
+       Continua "relative" porque o painel de ajustes se ancora nele. */
+    header.sticky { position: relative; }
 }
+
+/* ---------- Painel de ajustes de leitura ---------- */
+/* O painel se ancora no cabeçalho (position: relative) e se alinha à borda
+   direita do conteúdo, mesmo quando o botão quebra de linha no celular. */
+.settings-panel {
+    position: absolute;
+    top: 100%;
+    right: max(15px, calc((100% - 1100px) / 2 + 15px));
+    z-index: 200;
+    width: min(340px, calc(100vw - 30px));
+    margin-top: 6px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow-lift);
+}
+.settings-group { border: 0; margin-bottom: 14px; min-width: 0; }
+.settings-group legend { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.settings-hint { margin-top: 4px; font-size: 0.8rem; line-height: 1.4; color: var(--muted); }
+
+.segmented {
+    display: flex;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--paper);
+}
+.seg { flex: 1; position: relative; }
+.seg input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+}
+.seg span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 6px;
+    font-size: 0.9rem;
+    color: var(--ink);
+}
+.seg + .seg span { border-left: 1px solid var(--line); }
+.seg input:checked + span { background: var(--ink); color: var(--surface); font-weight: 700; }
+.seg input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: -3px; }
+
+.size-row { display: flex; align-items: center; gap: 12px; }
+.size-btn { min-width: 52px; font-size: 1rem; }
+.size-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.size-value { flex: 1; text-align: center; font-weight: 700; }
+
+.settings-sample {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+}
+.settings-sample .romaji { margin-left: 0; align-self: flex-start; }
+.settings-sample-jp { font-size: 1.15rem; font-weight: 700; }
+
+.settings-reset {
+    min-height: 44px;
+    padding: 0 4px;
+    background: none;
+    border: 0;
+    color: var(--shu);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.settings-reset:hover { color: var(--shu-dark); }

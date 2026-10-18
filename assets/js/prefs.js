@@ -1,0 +1,120 @@
+/*
+ * Preferências de leitura do aluno.
+ *
+ *   furigana   "on" (sempre) | "touch" (aparece ao tocar) | "off" (oculto)
+ *   romaji     "touch" (borrado; toque ou passe o mouse) | "on" (sempre) | "off" (oculto)
+ *   fontScale  tamanho do texto: um dos valores de Prefs.SCALES
+ *
+ * Carregue este arquivo no <head>, logo depois de store.js: as preferências
+ * são aplicadas ao <html> na hora, antes da primeira pintura (sem "piscar").
+ * O estado é guardado pelo Store (chave "prefs"), então vai para o back end
+ * junto com o resto quando ele existir.
+ *
+ * Efeitos no <html>: data-furigana, data-romaji e a variável CSS --font-scale
+ * (os estilos estão em assets/css/style.css).
+ */
+(function (root) {
+    "use strict";
+
+    var KEY = "prefs";
+    var FURIGANA = ["on", "touch", "off"];
+    var ROMAJI = ["touch", "on", "off"];
+    var SCALES = [0.9, 1, 1.1, 1.25, 1.4];
+    var DEFAULTS = { furigana: "on", romaji: "touch", fontScale: 1 };
+
+    function nearestScale(value) {
+        var n = Number(value);
+        if (!isFinite(n)) return DEFAULTS.fontScale;
+        return SCALES.reduce(function (best, s) {
+            return Math.abs(s - n) < Math.abs(best - n) ? s : best;
+        });
+    }
+
+    // Garante valores válidos mesmo se o dado salvo estiver velho ou editado à mão.
+    function sanitize(raw) {
+        var r = raw && typeof raw === "object" ? raw : {};
+        return {
+            furigana: FURIGANA.indexOf(r.furigana) !== -1 ? r.furigana : DEFAULTS.furigana,
+            romaji: ROMAJI.indexOf(r.romaji) !== -1 ? r.romaji : DEFAULTS.romaji,
+            fontScale: nearestScale(r.fontScale === undefined ? DEFAULTS.fontScale : r.fontScale)
+        };
+    }
+
+    function createPrefs(store, doc) {
+        var prefs = {
+            KEY: KEY,
+            SCALES: SCALES,
+            DEFAULTS: DEFAULTS,
+            sanitize: sanitize,
+
+            get: function () { return sanitize(store.peek(KEY)); },
+
+            // Aceita um pedaço ({ furigana: "off" }); chaves desconhecidas
+            // (por exemplo "theme", do futuro modo escuro) são preservadas.
+            set: function (patch) {
+                var current = store.peek(KEY);
+                var merged = Object.assign({}, current && typeof current === "object" ? current : {}, patch);
+                var clean = sanitize(merged);
+                merged.furigana = clean.furigana;
+                merged.romaji = clean.romaji;
+                merged.fontScale = clean.fontScale;
+                var saved = store.set(KEY, merged);
+                prefs.apply();
+                return saved;
+            },
+
+            reset: function () {
+                return prefs.set({ furigana: DEFAULTS.furigana, romaji: DEFAULTS.romaji, fontScale: DEFAULTS.fontScale });
+            },
+
+            subscribe: function (fn) {
+                return store.subscribe(KEY, function () { fn(prefs.get()); });
+            },
+
+            apply: function () {
+                var p = prefs.get();
+                var html = doc.documentElement;
+                html.dataset.furigana = p.furigana;
+                html.dataset.romaji = p.romaji;
+                html.style.setProperty("--font-scale", String(p.fontScale));
+            }
+        };
+
+        // Mudanças vindas de outra aba ou da sincronização também se aplicam.
+        store.subscribe(KEY, prefs.apply);
+        return prefs;
+    }
+
+    /* "Ao toque": tocar numa linha de romaji ou num furigana mostra só aquele. */
+    function bindTouchReveal(doc) {
+        doc.addEventListener("click", function (e) {
+            var target = e.target;
+            if (!target || !target.closest) return;
+            var html = doc.documentElement;
+
+            var romaji = target.closest(".romaji");
+            if (romaji && html.dataset.romaji === "touch") {
+                romaji.classList.toggle("revealed");
+                return;
+            }
+
+            var ruby = target.closest("ruby");
+            if (ruby && html.dataset.furigana === "touch" &&
+                !target.closest("button, a, input, label, select, [role='button']")) {
+                ruby.classList.toggle("rt-open");
+            }
+        });
+    }
+
+    var api = { createPrefs: createPrefs, sanitize: sanitize, SCALES: SCALES, DEFAULTS: DEFAULTS };
+
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = api;
+        return;
+    }
+
+    var prefs = createPrefs(root.Store, root.document);
+    root.Prefs = prefs;
+    prefs.apply();
+    bindTouchReveal(root.document);
+})(typeof window !== "undefined" ? window : globalThis);
