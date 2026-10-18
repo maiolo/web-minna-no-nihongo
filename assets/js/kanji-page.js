@@ -211,6 +211,18 @@
 
     function isKnown(k) { return Boolean(P && P.isKnown(level, k)); }
 
+    var SPEAKER =
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/>' +
+        '<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+
+    // Áudio da frase: leitura em kana; ^は e ^へ são partículas (wa, e).
+    function speakButton(notation) {
+        var text = readingText(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "")
+            .replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return '<button type="button" class="speak-btn" data-speak="' + text + '" aria-label="Ouvir a frase" title="Ouvir">' + SPEAKER + "</button>";
+    }
+
     function renderTile(entry) {
         return '<button type="button" class="kanji-tile" data-kanji="' + entry.k + '" aria-pressed="false">' +
             '<span class="tile-glyph" lang="ja">' + entry.k + "</span>" +
@@ -226,7 +238,7 @@
             var kind = readingKind(e[0]);
             return '<li class="example">' +
                 '<span class="read-tag ' + kind + '">' + e[0] + "</span>" +
-                '<div class="jp-example">' + toRuby(e[1], entry.k) + "</div>" +
+                '<div class="jp-row"><div class="jp-example">' + toRuby(e[1], entry.k) + "</div>" + speakButton(e[1]) + "</div>" +
                 '<div class="romaji">' + sentenceRomaji(e[1]) + "</div>" +
                 '<div class="pt-line">🇧🇷 ' + e[2] + "</div>" +
             "</li>";

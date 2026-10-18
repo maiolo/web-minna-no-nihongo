@@ -28,6 +28,12 @@
         ["off", "Oculto"]
     ];
 
+    var THEME_OPTIONS = [
+        ["auto", "Automático"],
+        ["light", "Claro"],
+        ["dark", "Escuro"]
+    ];
+
     function segmented(name, label, hint, options) {
         return '<fieldset class="settings-group">' +
             "<legend>" + label + "</legend>" +
@@ -56,6 +62,8 @@
                     "“Ao tocar” esconde a leitura; toque no kanji para vê-la.", FURIGANA_OPTIONS) +
                 segmented("romaji-" + uid, "Romaji",
                     "“Ao tocar” deixa a linha borrada; toque nela para ler.", ROMAJI_OPTIONS) +
+                segmented("theme-" + uid, "Tema",
+                    "“Automático” segue o modo claro ou escuro do aparelho.", THEME_OPTIONS) +
                 '<fieldset class="settings-group">' +
                     "<legend>Tamanho do texto</legend>" +
                     '<div class="size-row">' +

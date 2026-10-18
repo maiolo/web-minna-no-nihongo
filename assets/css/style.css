@@ -41,6 +41,16 @@
     --note-line: #D9A126;
 
     --hl: #FFF1B8;             /* destaque do kanji nas frases */
+
+    /* Preenchimentos sólidos (botões, barras) e o texto sobre eles */
+    --shu-solid: #B0281F;
+    --shu-solid-hover: #8A1F18;
+    --matcha-solid: #3F6B4F;
+    --on-solid: #FCFAF5;
+    --hover-tint: rgba(30, 42, 53, 0.04);
+    --focus-ring: rgba(46, 76, 109, 0.22);
+    --blur-shadow: rgba(85, 97, 108, 0.55);
+    color-scheme: light;
     --focus: var(--indigo);
 
     /* Tipografia: Noto Sans JP vem primeiro para os kanji usarem sempre
@@ -52,6 +62,48 @@
     --radius-sm: 8px;
     --shadow: 0 2px 8px rgba(30, 42, 53, 0.06);
     --shadow-lift: 0 8px 20px rgba(30, 42, 53, 0.12);
+}
+
+/* Modo escuro: "tinta sumi". data-theme é resolvido por prefs.js (auto, claro ou escuro). */
+html[data-theme="dark"] {
+    --paper: #14181D;
+    --paper-deep: #1B2128;
+    --surface: #1D232A;
+    --line: #38424C;
+    --line-soft: #2A323A;
+    --ink: #ECE6D8;
+    --muted: #A7B0B8;
+
+    --shu: #F0786C;
+    --shu-dark: #F7988E;
+    --shu-tint: #3A2220;
+    --shu-line: #6B3A35;
+
+    --indigo: #8FB0D6;
+    --indigo-tint: #222E3B;
+
+    --matcha: #5FA075;
+    --matcha-dark: #86C99C;
+    --matcha-tint: #1F2E25;
+    --matcha-line: #3A5A45;
+
+    --amber-ink: #F0C27A;
+    --amber-tint: #3A2E17;
+    --note-bg: #2E2A18;
+    --note-line: #B88A22;
+    --hl: #5A4A12;
+
+    --shu-solid: #B3302A;
+    --shu-solid-hover: #C93A32;
+    --matcha-solid: #3F7A55;
+    --on-solid: #FFFFFF;
+    --hover-tint: rgba(255, 255, 255, 0.06);
+    --focus-ring: rgba(143, 176, 214, 0.35);
+    --blur-shadow: rgba(167, 176, 184, 0.6);
+
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --shadow-lift: 0 8px 20px rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -108,7 +160,7 @@ html[data-furigana="touch"] ruby { cursor: pointer; }
 /* ---------- Romaji (borrado por padrão) ---------- */
 .romaji {
     color: transparent;
-    text-shadow: 0 0 8px rgba(85, 97, 108, 0.55);
+    text-shadow: 0 0 8px var(--blur-shadow);
     transition: color 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
     font-size: 0.85em;
@@ -190,8 +242,8 @@ html[data-romaji="off"] .romaji { display: none; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--shu);
-    color: var(--surface);
+    background: var(--shu-solid);
+    color: var(--on-solid);
     border-radius: 6px;
     font-family: var(--font-serif);
     font-weight: 700;
@@ -289,7 +341,7 @@ main {
 }
 .tab-jp { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; line-height: 1.6; }
 .tab-pt { font-size: 0.75rem; font-weight: 500; line-height: 1.2; }
-.tab-btn:hover { color: var(--ink); background-color: rgba(30, 42, 53, 0.04); }
+.tab-btn:hover { color: var(--ink); background-color: var(--hover-tint); }
 .tab-btn.active {
     color: var(--shu);
     border-bottom-color: var(--shu);
@@ -352,7 +404,7 @@ main {
 .input-text:focus {
     outline: none;
     border-color: var(--indigo);
-    box-shadow: 0 0 0 3px rgba(46, 76, 109, 0.22);
+    box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .btn {
@@ -365,14 +417,14 @@ main {
     font-weight: 700;
     font-size: 0.95rem;
     transition: background-color 0.2s, border-color 0.2s;
-    color: var(--surface);
+    color: var(--on-solid);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
 }
-.btn-check { background-color: var(--shu); }
-.btn-check:hover { background-color: var(--shu-dark); }
+.btn-check { background-color: var(--shu-solid); }
+.btn-check:hover { background-color: var(--shu-solid-hover); }
 .btn-reveal {
     background-color: transparent;
     color: var(--ink);
@@ -565,7 +617,7 @@ footer {
     transition: background-color 0.2s, border-color 0.2s;
 }
 .chip:hover { background: var(--paper-deep); }
-.chip.active { background: var(--shu); border-color: var(--shu); color: var(--surface); font-weight: 700; }
+.chip.active { background: var(--shu-solid); border-color: var(--shu-solid); color: var(--on-solid); font-weight: 700; }
 .kanji-count { margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
 
 .kanji-meaning { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
@@ -645,7 +697,7 @@ ruby.hl { background: var(--hl); border-radius: 4px; padding: 0 2px; }
 .pager-empty { pointer-events: none; }
 .pager-dots { display: flex; align-items: center; gap: 6px; flex: none; }
 .pager-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--line); }
-.pager-dot.current { width: 18px; background: var(--shu); }
+.pager-dot.current { width: 18px; background: var(--shu-solid); }
 
 /* ---------- Página inicial ---------- */
 .home-hero { position: relative; overflow: hidden; background-color: var(--paper); }
@@ -665,6 +717,7 @@ ruby.hl { background: var(--hl); border-radius: 4px; padding: 0 2px; }
 }
 .home-hero-inner { position: relative; max-width: 1100px; margin: 0 auto; padding: 56px 20px 72px; }
 .nowrap { white-space: nowrap; }
+html[data-theme="dark"] .home-hero::before { filter: brightness(2.4); opacity: 0.3; }
 .eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--shu); }
 .home-hero h1 { margin-top: 12px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.25; max-width: 16em; }
 .lead { margin-top: 20px; font-size: 1.1rem; color: var(--muted); max-width: 34em; }
@@ -683,8 +736,8 @@ ruby.hl { background: var(--hl); border-radius: 4px; padding: 0 2px; }
     transition: background-color 0.2s, border-color 0.2s;
 }
 .btn-link:hover { background-color: var(--paper-deep); }
-.btn-link.primary { background: var(--shu); border-color: var(--shu); color: var(--surface); font-weight: 700; }
-.btn-link.primary:hover { background: var(--shu-dark); border-color: var(--shu-dark); }
+.btn-link.primary { background: var(--shu-solid); border-color: var(--shu-solid); color: var(--on-solid); font-weight: 700; }
+.btn-link.primary:hover { background: var(--shu-solid-hover); border-color: var(--shu-solid-hover); }
 
 .volume { margin-top: 40px; }
 .volume-head {
@@ -768,7 +821,7 @@ span.map-cell { border: 1px dashed var(--muted); color: var(--muted); }
 /* ---------- Progresso ---------- */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .progress { height: 8px; background: var(--paper-deep); border: 1px solid var(--line-soft); border-radius: 999px; overflow: hidden; }
-.progress > span { display: block; height: 100%; width: 0; background: var(--matcha); border-radius: 999px; transition: width 0.3s; }
+.progress > span { display: block; height: 100%; width: 0; background: var(--matcha-solid); border-radius: 999px; transition: width 0.3s; }
 .progress.thin { height: 3px; border: 0; border-radius: 0; background: transparent; }
 .progress.thin > span { border-radius: 0; }
 .topbar-progress { position: absolute; left: 0; right: 0; bottom: -1px; }
@@ -802,9 +855,9 @@ span.map-cell { border: 1px dashed var(--muted); color: var(--muted); }
 .lesson-status.done { background: var(--matcha-tint); color: var(--matcha-dark); }
 .lesson-status.in_progress { background: var(--amber-tint); color: var(--amber-ink); }
 .lesson-card .progress { margin-top: 12px; }
-a.map-cell.done { background: var(--matcha); border-color: var(--matcha); color: var(--surface); }
+a.map-cell.done { background: var(--matcha-solid); border-color: var(--matcha-solid); color: var(--on-solid); }
 a.map-cell.in_progress { background: var(--amber-tint); border-color: var(--amber-ink); color: var(--amber-ink); }
-.legend-swatch.done { background: var(--matcha); }
+.legend-swatch.done { background: var(--matcha-solid); }
 .legend-swatch.in_progress { background: var(--amber-tint); border: 2px solid var(--amber-ink); }
 .reset-progress { margin-top: 8px; background: none; border: 0; padding: 12px 0; min-height: 44px; font: inherit; font-size: 0.85rem; color: var(--muted); text-decoration: underline; cursor: pointer; }
 .reset-progress:hover { color: var(--shu-dark); }
@@ -937,6 +990,19 @@ body.sheet-lock { overflow: hidden; }
 .quiz-foot { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; margin-top: 16px; }
 .quiz-score { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; text-align: center; margin: 12px 0; }
 .quiz-missed { margin: 8px 0 0 1.2em; }
+
+/* ---------- Áudio ---------- */
+.jp-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.jp-row > :first-child { min-width: 0; }
+.speak-btn {
+    flex: none; width: 44px; height: 44px; margin: -8px -6px -8px 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: 0; border-radius: 50%;
+    color: var(--indigo); cursor: pointer; transition: background-color 0.2s, color 0.2s;
+}
+.speak-btn:hover { background: var(--indigo-tint); }
+.speak-btn.speaking { background: var(--indigo-tint); color: var(--shu); }
+html[data-speech="off"] .speak-btn { display: none; }
 
 /* ---------- Telas pequenas e toque ---------- */
 @media (pointer: coarse) {
