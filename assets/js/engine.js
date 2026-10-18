@@ -18,7 +18,11 @@
     var lessonNumber = Number(document.body.dataset.lesson);
 
     // Rótulo de cada aba (window.SECTION_LABELS, em lessons-index.js).
-    var LABELS = window.SECTION_LABELS;
+    // Se um rótulo faltar (por exemplo, lessons-index.js antigo em cache), a aba
+    // aparece com o próprio nome da seção em vez de quebrar a página.
+    var LABELS = new Proxy(window.SECTION_LABELS || {}, {
+        get: function (labels, id) { return labels[id] || { jp: String(id), pt: String(id) }; }
+    });
     var P = window.Progress;
 
     // Ordem fixa das abas; seções ausentes nos dados são omitidas.
