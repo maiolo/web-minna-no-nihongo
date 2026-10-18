@@ -11,6 +11,9 @@
  *   Progress.resetSection(lição, seção)    apaga as respostas da seção e a volta para "em andamento"
  *   Progress.sectionStatus(lição, seção)    "done" | "in_progress" | "todo"
  *   Progress.lessonSummary(lição, seções)   { done, total, percent, status }
+ *   Progress.isKnown(nível, kanji)          kanji marcado como "já sei"?
+ *   Progress.setKnown(nível, kanji, sim)    marca/desmarca "já sei"
+ *   Progress.knownCount(nível)              quantos kanji do nível já sei
  *   Progress.last()                         { type, id, section } ou null
  *   Progress.clear()                        apaga tudo
  *   Progress.subscribe(fn)                  mudanças (outra aba, sincronização)
@@ -26,6 +29,7 @@
     function sanitize(raw) {
         var r = isObject(raw) ? raw : {};
         var out = Object.assign({}, r, { lessons: isObject(r.lessons) ? r.lessons : {} });
+        if (r.kanji !== undefined && !isObject(r.kanji)) delete out.kanji;
         if (!(isObject(out.last) && out.last.type === "lesson" && out.last.id && out.last.section)) delete out.last;
         return out;
     }
@@ -134,6 +138,27 @@
                     percent: total ? Math.round(done / total * 100) : 0,
                     status: total && done === total ? "done" : (touched ? "in_progress" : "todo")
                 };
+            },
+
+            isKnown: function (level, k) {
+                var lv = read().kanji && read().kanji[level];
+                return Boolean(isObject(lv) && isObject(lv[k]) && lv[k].known);
+            },
+
+            setKnown: function (level, k, known) {
+                return change(function (data) {
+                    data.kanji = isObject(data.kanji) ? data.kanji : {};
+                    var lv = isObject(data.kanji[level]) ? data.kanji[level] : {};
+                    data.kanji[level] = lv;
+                    if (known) lv[k] = { known: true, updatedAt: clock() };
+                    else delete lv[k];
+                });
+            },
+
+            knownCount: function (level) {
+                var lv = read().kanji && read().kanji[level];
+                if (!isObject(lv)) return 0;
+                return Object.keys(lv).filter(function (k) { return isObject(lv[k]) && lv[k].known; }).length;
             },
 
             clear: function () { return store.set(KEY, { lessons: {} }); },

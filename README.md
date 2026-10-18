@@ -35,8 +35,10 @@ assets/
   js/lessons-index.js       Lista central de lições e volumes (home e botões anterior/próxima)
   js/engine.js              Motor que monta a página de uma lição a partir dos dados
   js/jlpt-index.js          Lista de páginas da seção JLPT
-  js/kanji-page.js          Monta a página de kanji (cartões, busca, filtros, romaji)
+  js/kanji-page.js          Página de kanji (grade, painel de detalhes, busca, filtros, "já sei", quiz)
+  js/kanji-quiz.js          Perguntas do quiz de kanji (funções puras)
 tests/
+  kanji-quiz.test.js        Testes das perguntas do quiz
   exercises.test.js         Testes de romaji→kana, diferença e embaralhar
   progress.test.js          Testes do progresso
   store-prefs.test.js       Testes da camada de dados e das preferências (node --test)

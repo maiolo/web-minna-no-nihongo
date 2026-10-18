@@ -18,28 +18,43 @@
     <header id="page-header"></header>
 
     <main>
-        <section class="card kanji-intro">
-            <h2 class="card-header">Como usar esta página</h2>
-            <p>Cada cartão mostra o kanji, o significado e as leituras. <strong>Clique no kanji (ou na parte de cima do cartão)</strong> para abrir as frases de exemplo, com uma frase para cada leitura principal usada no N5; cada cartão abre e fecha sozinho. O kanji destacado em amarelo nas frases é o do cartão, e a etiqueta acima da frase diz qual leitura está sendo usada.</p>
+        <details class="card kanji-intro">
+            <summary>Como usar esta página</summary>
+            <p>Cada quadrado é um kanji. <strong>Toque em um kanji</strong> para ver o significado, as leituras e as frases de exemplo (no computador o painel fica ao lado; no celular ele sobe de baixo). O kanji destacado em amarelo nas frases é o do quadrado, e a etiqueta acima da frase diz qual leitura está sendo usada.</p>
             <div class="kanji-legend">
                 <div class="legend-item"><span class="read-label on">音 On</span> <strong>On'yomi</strong> (katakana): leitura de origem chinesa. Aparece em palavras formadas por dois ou mais kanji, como 学校 (がっこう).</div>
                 <div class="legend-item"><span class="read-label kun">訓 Kun</span> <strong>Kun'yomi</strong> (hiragana): leitura japonesa. Aparece sozinho ou com okurigana, como 食べる (たべる). O que está entre parênteses é o okurigana: た(べる).</div>
             </div>
+            <p>Marque <strong>Já sei</strong> nos que você domina e use o filtro para focar só no que falta. O botão <strong>Praticar</strong> faz um quiz com os kanji que você ainda não marcou.</p>
             <p>A lista tem <strong>103 kanji</strong>. O JLPT deixou de publicar listas oficiais de kanji em 2010, então esta é uma lista de referência muito usada em materiais de estudo, não uma lista oficial. As frases e explicações são próprias deste projeto.</p>
-        </section>
+        </details>
 
-        <section class="kanji-controls card">
-            <div class="kanji-toolbar">
+        <section class="kanji-controls" id="kanji-controls" aria-label="Busca e filtros">
+            <div class="kanji-searchbar">
                 <input type="search" id="kanji-search" class="input-text" autocomplete="off" autocapitalize="off"
-                       placeholder="Buscar por kanji, significado ou leitura (ex.: água, みず, mizu)">
+                       aria-label="Buscar kanji" placeholder="Buscar por kanji, significado ou leitura (ex.: água, みず, mizu)">
+            </div>
+            <div class="kanji-filters">
+                <div class="segmented status-filter" role="group" aria-label="Mostrar">
+                    <label class="seg"><input type="radio" name="kanji-status" value="all" checked><span>Todos</span></label>
+                    <label class="seg"><input type="radio" name="kanji-status" value="learning"><span>Estudando</span></label>
+                    <label class="seg"><input type="radio" name="kanji-status" value="known"><span>Já sei</span></label>
+                </div>
+                <button type="button" class="btn btn-check" id="quiz-open">Praticar</button>
             </div>
             <div class="kanji-chips" id="kanji-chips"></div>
             <div class="kanji-count" id="kanji-count" aria-live="polite"></div>
         </section>
 
-        <div class="kanji-grid" id="kanji-list"></div>
-        <p class="empty-state" id="kanji-empty" hidden>Nenhum kanji encontrado. Tente outra busca ou escolha "Todos".</p>
+        <div class="kanji-layout">
+            <div class="kanji-grid" id="kanji-list"></div>
+            <aside class="kanji-detail" id="kanji-detail" aria-label="Detalhes do kanji"></aside>
+        </div>
+        <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+        <p class="empty-state" id="kanji-empty" hidden>Nenhum kanji encontrado. Tente outra busca ou outro filtro.</p>
     </main>
+
+    <dialog id="quiz-dialog" class="quiz-dialog" aria-labelledby="quiz-title"></dialog>
 
     <footer>
         みんなの日本語 • versão web para estudo
@@ -48,6 +63,8 @@
     <script src="data/n5-kanji-1.js"></script>
     <script src="data/n5-kanji-2.js"></script>
     <script src="data/n5-kanji-3.js"></script>
+    <script src="../assets/js/progress.js"></script>
+    <script src="../assets/js/kanji-quiz.js"></script>
     <script src="../assets/js/settings-panel.js"></script>
     <script src="../assets/js/site-header.js"></script>
     <script>

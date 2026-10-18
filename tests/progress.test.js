@@ -99,3 +99,22 @@ test("resetSection apaga só as respostas daquela seção e conta tentativas", a
     assert.equal(progress.sectionStatus(17, "renshuuB"), "in_progress");
     assert.equal(progress.correctCount(17, "renshuuC"), 1);
 });
+
+test("kanji: marcar e desmarcar 'já sei' por nível", async () => {
+    const { progress } = setup();
+    assert.equal(progress.isKnown("N5", "食"), false);
+    await progress.setKnown("N5", "食", true);
+    await progress.setKnown("N5", "水", true);
+    await progress.setKnown("N4", "食", true);
+    assert.equal(progress.isKnown("N5", "食"), true);
+    assert.equal(progress.knownCount("N5"), 2);
+    await progress.setKnown("N5", "食", false);
+    assert.equal(progress.isKnown("N5", "食"), false);
+    assert.equal(progress.knownCount("N5"), 1);
+    assert.equal(progress.isKnown("N4", "食"), true);
+    assert.equal(progress.get().kanji.N5["水"].known, true);
+});
+
+test("kanji: dado inválido é ignorado", () => {
+    assert.equal(sanitize({ lessons: {}, kanji: 3 }).kanji, undefined);
+});
