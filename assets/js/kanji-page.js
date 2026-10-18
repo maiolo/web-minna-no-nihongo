@@ -28,7 +28,7 @@
         { id: "sociedade", label: "Lugares, estudo e coisas" }
     ];
 
-    var state = { query: "", category: "all", romajiVisible: false };
+    var state = { query: "", category: "all" };
 
     /* ---------- Kana → romaji (Hepburn simples, sem macron) ---------- */
 
@@ -291,12 +291,6 @@
 
     /* ---------- Cabeçalho e controles ---------- */
 
-    function updateRomajiButton() {
-        document.getElementById("romaji-toggle-btn").innerHTML = state.romajiVisible
-            ? "👁️‍🗨️ Romaji <ruby>表示<rt>ひょうじ</rt></ruby> (Visível)"
-            : "👁️ Romaji <ruby>隠<rt>かく</rt></ruby>す (Oculto)";
-    }
-
     // Abre ou fecha os exemplos de um cartão (cada cartão é independente).
     function toggleCard(card) {
         var open = card.classList.toggle("open");
@@ -304,18 +298,14 @@
     }
 
     function bindEvents() {
-        document.getElementById("romaji-toggle-btn").addEventListener("click", function () {
-            state.romajiVisible = !state.romajiVisible;
-            document.body.classList.toggle("show-romaji", state.romajiVisible);
-            updateRomajiButton();
-        });
-
         // Clique no kanji ou na parte de cima do cartão abre/fecha os exemplos.
         // Se a pessoa estiver selecionando texto (para copiar), não alterna.
+        // Tocar numa leitura em romaji só a revela (veja prefs.js), sem abrir o cartão.
         var list = document.getElementById("kanji-list");
         list.addEventListener("click", function (e) {
             var head = e.target.closest(".kanji-head");
             if (!head) return;
+            if (e.target.closest(".romaji") && document.documentElement.dataset.romaji === "touch") return;
             var selection = window.getSelection && window.getSelection().toString();
             if (selection) return;
             toggleCard(head.closest(".kanji-card"));
@@ -353,7 +343,7 @@
         buildSearchIndex();
         renderChips();
         document.getElementById("kanji-list").innerHTML = kanjiList.map(renderCard).join("");
-        updateRomajiButton();
+        if (window.SettingsPanel) window.SettingsPanel.mount(document.querySelector(".settings-slot"));
         bindEvents();
         applyFilters();
     }
