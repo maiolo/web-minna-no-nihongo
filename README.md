@@ -62,8 +62,6 @@ jlpt/
   data/n5-kanji-*.js        Dados dos kanji (3 arquivos, por categoria)
 ```
 
-A lição 16 (`lessons/lesson-16.html`) ainda é uma página independente, com Tailwind via CDN. Ela será refeita no formato acima.
-
 ## Ver no computador
 
 Não precisa de servidor: abra o `index.html` no navegador. Se preferir um servidor local:
@@ -174,7 +172,7 @@ A lista de 103 kanji segue uma lista de referência muito usada em materiais de 
 ## Próximos passos
 
 - JLPT: kanji do N4, vocabulário do N5, simulados e exercícios de leitura das kanji.
-- Reescrever as lições 16 a 19 e seguir com as próximas, com conteúdo próprio.
+- Reescrever as lições 16 a 19 e seguir com as próximas, com conteúdo próprio (a 16 já usa o mesmo formato das demais e funciona offline).
 - Ilustrações no vocabulário (SVG).
 - Explicações gramaticais mais profundas, com mais exemplos em contextos variados.
 - Exercícios mais dinâmicos e difíceis: ordenar palavras, conjugação sorteada, diálogos em partes e revisão cumulativa.

@@ -1110,3 +1110,15 @@ html[data-speech="off"] .speak-btn { display: none; }
     cursor: pointer;
 }
 .settings-reset:hover { color: var(--shu-dark); }
+
+/* Texto de apoio de um grupo de exercícios (exemplo, diálogo, leitura). */
+.exercise-intro {
+  background: var(--washi-2, rgba(0, 0, 0, .04));
+  border-left: 3px solid var(--shu);
+  border-radius: 6px;
+  padding: .6rem .9rem;
+  margin: .4rem 0 .8rem;
+  line-height: 1.9;
+}
+.exercise-intro p { margin: .25rem 0; }
+.exercise-intro .item-box { background: none; border: 0; padding: 0; margin: 0; }

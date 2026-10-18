@@ -20,7 +20,7 @@ Princípios:
 | 5 | Exercícios (feito) | Feedback que mostra onde a resposta difere, placar e barra de questões, "tentar de novo", teclado romaji→kana, novo formato "montar a frase". | 2, 4 |
 | 6 | Kanji (feito) | Grade compacta, painel de detalhes (gaveta no celular), busca e filtros fixos, chips com rolagem horizontal, "já sei" com filtro, quiz. | 2, 4 |
 | 7a | Modo escuro, áudio e PWA (feito) | Tema automático/claro/escuro (preferência `theme`), áudio por Web Speech API (voz do aparelho, leitura em kana), manifesto, ícones, service worker com uso offline. Fontes continuam no Google Fonts (guardadas no aparelho): hospedá-las no repositório somaria vários MB. | 1 a 6 |
-| 7b | Lição 16 no motor | Migrar `lesson-16.html` (Tailwind via CDN, não funciona offline) para o formato de dados das demais. | 7a |
+| 7b | Lição 16 no motor (feito) | Migrar `lesson-16.html` (Tailwind via CDN, não funciona offline) para o formato de dados das demais. | 7a |
 
 Cada PR deve trazer: descrição do que muda, capturas de tela em celular (390 px) e desktop (1280 px), e a lista de arquivos tocados.
 
