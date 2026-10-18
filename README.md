@@ -27,6 +27,7 @@ assets/
   css/style.css             Estilos compartilhados (tema "Washi"; cores e fontes nas variáveis de :root)
   js/store.js               Camada de dados do aluno (localStorage hoje; pronta para um back end)
   js/prefs.js               Preferências de leitura (furigana, romaji, tamanho do texto)
+  js/progress.js            Progresso do aluno (seções, respostas, "onde parou")
   js/settings-panel.js      Painel "Ajustes" usado nas lições e na página de kanji
   js/site-header.js         Cabeçalho compartilhado (carimbo, migalhas, voltar, Ajustes)
   js/home.js                Página inicial: mapa de lições por volume e cartões

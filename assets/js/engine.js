@@ -17,16 +17,9 @@
     var data = window.lessonData;
     var lessonNumber = Number(document.body.dataset.lesson);
 
-    // Rótulo de cada aba: kanji com furigana em cima, português embaixo.
-    var LABELS = {
-        vocab: { jp: "<ruby>語彙<rt>ごい</rt></ruby>", pt: "Vocabulário" },
-        bunkei: { jp: "<ruby>文型<rt>ぶんけい</rt></ruby>", pt: "Padrões" },
-        gramatica: { jp: "<ruby>文法<rt>ぶんぽう</rt></ruby>", pt: "Gramática" },
-        renshuuA: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> A", pt: "Exercícios" },
-        renshuuB: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> B", pt: "Exercícios" },
-        renshuuC: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> C", pt: "Exercícios" },
-        mondai: { jp: "<ruby>問題<rt>もんだい</rt></ruby>", pt: "Problemas" }
-    };
+    // Rótulo de cada aba (window.SECTION_LABELS, em lessons-index.js).
+    var LABELS = window.SECTION_LABELS;
+    var P = window.Progress;
 
     // Ordem fixa das abas; seções ausentes nos dados são omitidas.
     var SECTION_ORDER = ["vocab", "bunkei", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai"];
@@ -74,6 +67,8 @@
                 'aria-controls="sec-' + id + '" aria-selected="false" tabindex="-1">' +
                 '<span class="tab-jp">' + LABELS[id].jp + "</span>" +
                 '<span class="tab-pt">' + LABELS[id].pt + "</span>" +
+                '<span class="tab-mark" aria-hidden="true"></span>' +
+                '<span class="sr-only tab-state"></span>' +
             "</button>";
         }).join("");
     }
@@ -113,6 +108,7 @@
         });
 
         renderPager();
+        if (P) { P.visit(lessonNumber, id, sections.length); refreshProgress(); }
         if (scroll) window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
     }
 
@@ -145,6 +141,10 @@
             pager.setAttribute("aria-label", "Navegação da lição");
             document.body.appendChild(pager);
             pager.addEventListener("click", function (e) {
+                // Avançar a partir de uma seção de leitura conta como concluí-la.
+                if (P && e.target.closest(".pager-next") && CONTENT_SECTIONS.indexOf(currentTab) !== -1) {
+                    P.setSection(lessonNumber, currentTab, true);
+                }
                 var btn = e.target.closest("[data-go]");
                 if (btn) go(btn.dataset.go);
             });
@@ -169,6 +169,91 @@
         pager.innerHTML = pagerButton(prev, "prev") +
             '<div class="pager-dots" role="img" aria-label="Seção ' + (i + 1) + " de " + sections.length + '">' + dots + "</div>" +
             pagerButton(next, "next");
+    }
+
+    /* ---------- Progresso ---------- */
+
+    var CONTENT_SECTIONS = ["vocab", "bunkei", "gramatica"];
+    var STATE_TEXT = { done: " (concluída)", in_progress: " (em andamento)", todo: "" };
+
+    function questionKeys(sectionId) {
+        var keys = [];
+        data[sectionId].exercises.forEach(function (group, g) {
+            group.questions.forEach(function (q, n) { keys.push(sectionId + ":" + g + ":" + n); });
+        });
+        return keys;
+    }
+
+    // Seção de exercícios conclui sozinha quando todas as questões estão certas.
+    function syncExerciseSection(id) {
+        var total = questionKeys(id).length;
+        var done = P.correctCount(lessonNumber, id);
+        if (total && done === total && P.sectionStatus(lessonNumber, id) !== "done") P.setSection(lessonNumber, id, true);
+        return { done: done, total: total };
+    }
+
+    function progressBar(percent, label) {
+        return '<div class="progress" role="progressbar" aria-label="' + label + '" aria-valuemin="0" aria-valuemax="100" ' +
+            'aria-valuenow="' + percent + '"><span style="width:' + percent + '%"></span></div>';
+    }
+
+    function refreshProgress() {
+        if (!P) return;
+        sections.forEach(function (id) {
+            var status = P.sectionStatus(lessonNumber, id);
+            var tab = document.getElementById("tab-" + id);
+            tab.classList.toggle("done", status === "done");
+            tab.classList.toggle("seen", status === "in_progress");
+            tab.querySelector(".tab-state").textContent = STATE_TEXT[status];
+
+            if (EXERCISE_SECTIONS.indexOf(id) !== -1) {
+                var c = syncExerciseSection(id);
+                var holder = document.querySelector("#sec-" + id + " .ex-progress");
+                if (holder) {
+                    var pct = c.total ? Math.round(c.done / c.total * 100) : 0;
+                    holder.innerHTML = progressBar(pct, "Questões corretas") +
+                        '<span class="ex-progress-text">' + c.done + " de " + c.total + " corretas</span>";
+                }
+                document.querySelectorAll("#sec-" + id + " [data-exercise]").forEach(function (box) {
+                    var ex = P.get().lessons[lessonNumber];
+                    var rec = ex && ex.exercises && ex.exercises[box.dataset.exercise];
+                    box.classList.toggle("answered-ok", Boolean(rec && rec.correct));
+                });
+            } else {
+                var btn = document.querySelector("#sec-" + id + " .section-done-btn");
+                if (btn) {
+                    btn.setAttribute("aria-pressed", status === "done" ? "true" : "false");
+                    btn.textContent = status === "done" ? "✓ Seção concluída" : "Marcar como concluída";
+                }
+            }
+        });
+
+        var sum = P.lessonSummary(lessonNumber, sections);
+        var bar = document.getElementById("lesson-progress");
+        if (bar) {
+            bar.setAttribute("aria-valuenow", sum.percent);
+            bar.firstElementChild.style.width = sum.percent + "%";
+        }
+    }
+
+    function addProgressUi() {
+        if (!P) return;
+        var header = document.getElementById("lesson-header");
+        header.insertAdjacentHTML("beforeend",
+            '<div class="topbar-progress"><div id="lesson-progress" class="progress thin" role="progressbar" ' +
+            'aria-label="Progresso da lição" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div></div>');
+        sections.forEach(function (id) {
+            var panel = document.getElementById("sec-" + id);
+            if (CONTENT_SECTIONS.indexOf(id) !== -1) {
+                panel.insertAdjacentHTML("beforeend",
+                    '<div class="section-done"><button type="button" class="btn btn-toggle section-done-btn" ' +
+                    'data-action="section-done" aria-pressed="false">Marcar como concluída</button></div>');
+            } else {
+                var head = panel.querySelector(".card-header");
+                if (head) head.insertAdjacentHTML("afterend", '<div class="ex-progress"></div>');
+            }
+        });
+        P.subscribe(refreshProgress);
     }
 
     /* ---------- Seções ---------- */
@@ -298,13 +383,16 @@
             feedback.innerHTML = "⚠️ <ruby>入力<rt>にゅうりょく</rt></ruby>してください。(Por favor, digite a resposta)";
             feedback.className = "feedback-box feedback-incorrect";
         } else if (user === correct) {
+            if (P) P.recordAnswer(lessonNumber, box.dataset.exercise.split(":")[0], box.dataset.exercise, true);
             feedback.innerHTML = "⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)";
             feedback.className = "feedback-box feedback-correct";
         } else {
             feedback.innerHTML = "❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(Incorreto). Você digitou: ";
             feedback.appendChild(document.createTextNode(input.value));
             feedback.className = "feedback-box feedback-incorrect";
+            if (P) P.recordAnswer(lessonNumber, box.dataset.exercise.split(":")[0], box.dataset.exercise, false);
         }
+        refreshProgress();
     }
 
     /* ---------- Eventos ---------- */
@@ -340,6 +428,11 @@
         container.addEventListener("click", function (e) {
             var btn = e.target.closest("[data-action]");
             if (!btn) return;
+            if (btn.dataset.action === "section-done") {
+                P.setSection(lessonNumber, currentTab, P.sectionStatus(lessonNumber, currentTab) !== "done");
+                refreshProgress();
+                return;
+            }
             var box = btn.closest("[data-exercise]");
             if (btn.dataset.action === "check") checkAnswer(box);
             else if (btn.dataset.action === "reveal") box.querySelector(".answer-box").classList.toggle("visible");
@@ -364,6 +457,7 @@
         sections = availableSections();
         renderNav();
         renderSections();
+        addProgressUi();
         bindEvents();
         activate(sectionFromHash() || sections[0], false);
     }
