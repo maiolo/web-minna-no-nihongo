@@ -234,5 +234,20 @@ window.lessonData = {
         ]
       }
     ]
+  },
+  montar: {
+    title: "<ruby>組<rt>く</rt></ruby>み<ruby>立<rt>た</rt></ruby>て (Montar a frase)",
+    exercises: [
+      {
+        desc: "Toque nas palavras na ordem certa para montar a frase.",
+        questions: [
+          { tokens: ["<ruby>写<rt>しゃ</rt></ruby><ruby>真<rt>しん</rt></ruby>を", "<ruby>撮<rt>と</rt></ruby>らないで", "ください。"], pt: "Por favor, não tire fotos.", romaji: "Shashin o toranaide kudasai." },
+          { tokens: ["パスポートを", "<ruby>見<rt>み</rt></ruby>せなければ", "なりません。"], pt: "Tenho que mostrar o passaporte.", romaji: "Pasupooto o misenakereba narimasen." },
+          { tokens: ["<ruby>日<rt>にち</rt></ruby><ruby>曜<rt>よう</rt></ruby><ruby>日<rt>び</rt></ruby>は", "<ruby>早<rt>はや</rt></ruby>く", "<ruby>起<rt>お</rt></ruby>きなくても", "いいです。"], pt: "No domingo, não preciso acordar cedo.", romaji: "Nichiyoubi wa hayaku okinakutemo ii desu." },
+          { tokens: ["そこに", "<ruby>入<rt>はい</rt></ruby>らないで", "ください。"], pt: "Por favor, não entre aí.", romaji: "Soko ni hairanaide kudasai." },
+          { tokens: ["この", "<ruby>薬<rt>くすり</rt></ruby>を", "<ruby>飲<rt>の</rt></ruby>まなければ", "なりませんか。"], pt: "Tenho que tomar este remédio?", romaji: "Kono kusuri o nomanakereba narimasen ka." }
+        ]
+      }
+    ]
   }
 };

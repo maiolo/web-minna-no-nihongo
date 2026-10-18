@@ -71,5 +71,6 @@ window.SECTION_LABELS = {
         renshuuA: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> A", pt: "Exercícios" },
         renshuuB: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> B", pt: "Exercícios" },
         renshuuC: { jp: "<ruby>練習<rt>れんしゅう</rt></ruby> C", pt: "Exercícios" },
-        mondai: { jp: "<ruby>問題<rt>もんだい</rt></ruby>", pt: "Problemas" }
+        mondai: { jp: "<ruby>問題<rt>もんだい</rt></ruby>", pt: "Problemas" },
+        montar: { jp: "<ruby>組<rt>く</rt></ruby>み<ruby>立<rt>た</rt></ruby>て", pt: "Montar frase" }
 };

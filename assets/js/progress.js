@@ -8,6 +8,7 @@
  *                                           quantas seções a lição tem (a home usa para a barra)
  *   Progress.setSection(lição, seção, ok)   marca/desmarca a seção como concluída
  *   Progress.recordAnswer(lição, seção, chave, correta)   guarda uma resposta
+ *   Progress.resetSection(lição, seção)    apaga as respostas da seção e a volta para "em andamento"
  *   Progress.sectionStatus(lição, seção)    "done" | "in_progress" | "todo"
  *   Progress.lessonSummary(lição, seções)   { done, total, percent, status }
  *   Progress.last()                         { type, id, section } ou null
@@ -87,6 +88,25 @@
                     if (!l.sections[section]) l.sections[section] = "in_progress";
                     l.updatedAt = clock();
                 });
+            },
+
+            resetSection: function (n, section) {
+                return change(function (data) {
+                    var l = lessonOf(data, n);
+                    Object.keys(l.exercises).forEach(function (k) {
+                        if (k.indexOf(section + ":") === 0) delete l.exercises[k];
+                    });
+                    l.sections[section] = "in_progress";
+                    l.updatedAt = clock();
+                });
+            },
+
+            attemptCount: function (n, section) {
+                var l = read().lessons[n];
+                if (!l || !isObject(l.exercises)) return 0;
+                return Object.keys(l.exercises).reduce(function (sum, k) {
+                    return k.indexOf(section + ":") === 0 ? sum + (l.exercises[k].attempts || 0) : sum;
+                }, 0);
             },
 
             sectionStatus: function (n, section) {

@@ -842,6 +842,37 @@ a.map-cell.in_progress { background: var(--amber-tint); border-color: var(--ambe
 .reset-progress { margin-top: 8px; background: none; border: 0; padding: 12px 0; min-height: 44px; font: inherit; font-size: 0.85rem; color: var(--muted); text-decoration: underline; cursor: pointer; }
 .reset-progress:hover { color: var(--shu-dark); }
 
+/* ---------- Exercícios: feedback, romaji→kana, montar a frase ---------- */
+.ex-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+.ex-tools .btn { min-height: 44px; }
+.kana-toggle[aria-pressed="true"] { background: var(--indigo-tint); border-color: var(--indigo); color: var(--indigo); }
+.feedback-note { margin-top: 4px; font-size: 0.9rem; }
+.feedback-retry { margin-top: 12px; min-height: 44px; }
+.diff { margin-top: 8px; display: grid; gap: 4px; }
+.diff-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.diff-label { min-width: 6.5em; font-size: 0.85rem; color: var(--muted); }
+.diff-text { font-size: 1.15rem; }
+mark.diff-del { background: var(--shu-tint); color: var(--shu-dark); text-decoration: line-through; border-radius: 3px; padding: 0 1px; }
+mark.diff-ins { background: var(--matcha-tint); color: var(--matcha-dark); border-bottom: 2px solid var(--matcha); border-radius: 3px; padding: 0 1px; }
+
+.assemble-answer, .assemble-bank { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.assemble-answer {
+    min-height: 60px; margin: 12px 0; padding: 10px;
+    background: var(--surface); border: 2px dashed var(--line); border-radius: var(--radius);
+}
+.assemble-answer:empty::before { content: "Toque nas palavras abaixo, na ordem certa"; color: var(--muted); font-size: 0.9rem; }
+.assemble-bank { margin-bottom: 8px; }
+.word-chip {
+    min-height: 48px; padding: 4px 14px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+    font-family: var(--font-sans); font-size: 1.1rem; color: var(--ink); cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.word-chip:hover { background: var(--paper-deep); }
+.assemble-answer .word-chip { background: var(--indigo-tint); border-color: var(--indigo); }
+.assemble-answer .word-chip.right { background: var(--matcha-tint); border-color: var(--matcha); }
+.assemble-answer .word-chip.wrong { background: var(--shu-tint); border-color: var(--shu); }
+
 /* ---------- Telas pequenas e toque ---------- */
 @media (pointer: coarse) {
     .chip { min-height: 44px; }

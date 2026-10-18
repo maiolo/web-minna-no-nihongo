@@ -27,6 +27,7 @@ assets/
   css/style.css             Estilos compartilhados (tema "Washi"; cores e fontes nas variáveis de :root)
   js/store.js               Camada de dados do aluno (localStorage hoje; pronta para um back end)
   js/prefs.js               Preferências de leitura (furigana, romaji, tamanho do texto)
+  js/exercises.js           Funções puras dos exercícios (romaji→kana, diferença, embaralhar)
   js/progress.js            Progresso do aluno (seções, respostas, "onde parou")
   js/settings-panel.js      Painel "Ajustes" usado nas lições e na página de kanji
   js/site-header.js         Cabeçalho compartilhado (carimbo, migalhas, voltar, Ajustes)
@@ -36,6 +37,8 @@ assets/
   js/jlpt-index.js          Lista de páginas da seção JLPT
   js/kanji-page.js          Monta a página de kanji (cartões, busca, filtros, romaji)
 tests/
+  exercises.test.js         Testes de romaji→kana, diferença e embaralhar
+  progress.test.js          Testes do progresso
   store-prefs.test.js       Testes da camada de dados e das preferências (node --test)
 docs/
   ROADMAP.md                Divisão da nova interface em PRs e lista de recursos de back end
@@ -107,7 +110,14 @@ window.lessonData = {
   },
   renshuuB: { /* mesmo formato de renshuuA */ },
   renshuuC: { /* idem */ },
-  mondai:   { /* idem */ }
+  mondai:   { /* idem */ },
+  montar: {                      // opcional: exercício "montar a frase"
+    title: "...",
+    exercises: [{
+      desc: "Toque nas palavras na ordem certa.",
+      questions: [{ tokens: ["<ruby>写<rt>しゃ</rt></ruby>…を", "…ください。"], pt: "Tradução", romaji: "..." }]
+    }]
+  }
 };
 ```
 

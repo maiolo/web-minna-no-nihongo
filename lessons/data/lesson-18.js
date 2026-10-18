@@ -269,5 +269,19 @@ window.lessonData = {
         ]
       }
     ]
+  },
+  montar: {
+    title: "<ruby>組<rt>く</rt></ruby>み<ruby>立<rt>た</rt></ruby>て (Montar a frase)",
+    exercises: [
+      {
+        desc: "Toque nas palavras na ordem certa para montar a frase.",
+        questions: [
+          { tokens: ["ミラーさんは", "<ruby>漢<rt>かん</rt></ruby><ruby>字<rt>じ</rt></ruby>を", "<ruby>読<rt>よ</rt></ruby>む", "ことが", "できます。"], pt: "O Sr. Miller consegue ler kanji.", romaji: "Miraa-san wa kanji o yomu koto ga dekimasu." },
+          { tokens: ["わたしの", "<ruby>趣<rt>しゅ</rt></ruby><ruby>味<rt>み</rt></ruby>は", "<ruby>映<rt>えい</rt></ruby><ruby>画<rt>が</rt></ruby>を", "<ruby>見<rt>み</rt></ruby>る", "ことです。"], pt: "Meu passatempo é assistir a filmes.", romaji: "Watashi no shumi wa eiga o miru koto desu." },
+          { tokens: ["<ruby>寝<rt>ね</rt></ruby>る", "<ruby>前<rt>まえ</rt></ruby>に、", "<ruby>日<rt>にっ</rt></ruby><ruby>記<rt>き</rt></ruby>を", "<ruby>書<rt>か</rt></ruby>きます。"], pt: "Antes de dormir, escrevo no diário.", romaji: "Neru mae ni, nikki o kakimasu." },
+          { tokens: ["<ruby>食<rt>しょく</rt></ruby><ruby>事<rt>じ</rt></ruby>の", "<ruby>前<rt>まえ</rt></ruby>に、", "<ruby>手<rt>て</rt></ruby>を", "<ruby>洗<rt>あら</rt></ruby>います。"], pt: "Antes da refeição, lavo as mãos.", romaji: "Shokuji no mae ni, te o araimasu." }
+        ]
+      }
+    ]
   }
 };
