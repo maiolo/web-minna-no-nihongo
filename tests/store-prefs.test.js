@@ -155,15 +155,15 @@ test("createApiAdapter: erro de servidor rejeita a promessa", async () => {
 /* ---------- Preferências ---------- */
 
 test("sanitize: padrões, valores inválidos e tamanho de texto mais próximo", () => {
-    assert.deepEqual(sanitize(null), { furigana: "on", romaji: "touch", fontScale: 1 });
-    assert.deepEqual(sanitize({ furigana: "xyz", romaji: 7, fontScale: "abc" }), { furigana: "on", romaji: "touch", fontScale: 1 });
+    assert.deepEqual(sanitize(null), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto" });
+    assert.deepEqual(sanitize({ furigana: "xyz", romaji: 7, fontScale: "abc" }), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto" });
     assert.equal(sanitize({ fontScale: 1.2 }).fontScale, 1.25);
     assert.equal(sanitize({ fontScale: 99 }).fontScale, 1.4);
     assert.equal(sanitize({ fontScale: 0 }).fontScale, 0.9);
 });
 
 test("Prefs.set grava, aplica no <html> e preserva chaves desconhecidas", async () => {
-    const store = createStore({ storage: fakeStorage({ "mnn:prefs": JSON.stringify({ theme: "dark" }) }) });
+    const store = createStore({ storage: fakeStorage({ "mnn:prefs": JSON.stringify({ kanaInput: "off" }) }) });
     const doc = fakeDoc();
     const prefs = createPrefs(store, doc);
     prefs.apply();
@@ -174,8 +174,8 @@ test("Prefs.set grava, aplica no <html> e preserva chaves desconhecidas", async 
     await prefs.set({ furigana: "touch", fontScale: 1.25 });
     assert.equal(doc.documentElement.dataset.furigana, "touch");
     assert.equal(doc.props["--font-scale"], "1.25");
-    assert.equal(store.peek("prefs").theme, "dark");
-    assert.deepEqual(prefs.get(), { furigana: "touch", romaji: "touch", fontScale: 1.25 });
+    assert.equal(store.peek("prefs").kanaInput, "off");
+    assert.deepEqual(prefs.get(), { furigana: "touch", romaji: "touch", fontScale: 1.25, theme: "auto" });
 });
 
 test("Prefs.set com valor inválido volta ao padrão em vez de gravar lixo", async () => {
@@ -191,7 +191,7 @@ test("Prefs.reset restaura os padrões; mudança externa no Store também é apl
     const prefs = createPrefs(store, doc);
     await prefs.set({ furigana: "off", romaji: "on", fontScale: 1.4 });
     await prefs.reset();
-    assert.deepEqual(prefs.get(), { furigana: "on", romaji: "touch", fontScale: 1 });
+    assert.deepEqual(prefs.get(), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto" });
 
     await store.set("prefs", { furigana: "off" });
     assert.equal(doc.documentElement.dataset.furigana, "off");
@@ -204,4 +204,41 @@ test("Prefs.subscribe entrega as preferências já validadas", async () => {
     prefs.subscribe((p) => seen.push(p.furigana));
     await prefs.set({ furigana: "off" });
     assert.deepEqual(seen, ["off"]);
+});
+
+/* ---------- Tema ---------- */
+
+function fakeMedia(dark) {
+    const listeners = [];
+    const query = { matches: dark, addEventListener: (_, fn) => listeners.push(fn) };
+    return { query, listeners, fn: () => query };
+}
+
+test("theme: padrão auto, valor inválido volta ao padrão", () => {
+    assert.equal(sanitize({}).theme, "auto");
+    assert.equal(sanitize({ theme: "neon" }).theme, "auto");
+    assert.equal(sanitize({ theme: "dark" }).theme, "dark");
+});
+
+test("theme auto segue o aparelho; claro e escuro ignoram o aparelho", async () => {
+    const media = fakeMedia(true);
+    const doc = fakeDoc();
+    const prefs = createPrefs(createStore({ storage: fakeStorage() }), doc, media.fn);
+    prefs.apply();
+    assert.equal(doc.documentElement.dataset.theme, "dark");
+    await prefs.set({ theme: "light" });
+    assert.equal(doc.documentElement.dataset.theme, "light");
+    await prefs.set({ theme: "auto" });
+    media.query.matches = false;
+    media.listeners.forEach((fn) => fn());
+    assert.equal(doc.documentElement.dataset.theme, "light");
+    media.query.matches = true;
+    media.listeners.forEach((fn) => fn());
+    assert.equal(doc.documentElement.dataset.theme, "dark");
+});
+
+test("theme sem matchMedia cai em claro", () => {
+    const doc = fakeDoc();
+    createPrefs(createStore({ storage: fakeStorage() }), doc).apply();
+    assert.equal(doc.documentElement.dataset.theme, "light");
 });

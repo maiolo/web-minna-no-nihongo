@@ -292,9 +292,21 @@
 
     /* ---------- Seções ---------- */
 
+    var SPEAKER =
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/>' +
+        '<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+
+    // Botão de áudio: fala a leitura em kana (do furigana), que não erra o kanji.
+    function speakButton(html) {
+        var text = E.readingOf(html.replace(/<br\s*\/?>/gi, " "))
+            .replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return '<button type="button" class="speak-btn" data-speak="' + text + '" aria-label="Ouvir" title="Ouvir">' + SPEAKER + "</button>";
+    }
+
     function textBlock(item, jpClass) {
         return '<div class="item-box">' +
-            '<div class="' + jpClass + '">' + item.jp + "</div>" +
+            '<div class="jp-row"><div class="' + jpClass + '">' + item.jp + "</div>" + speakButton(item.jp) + "</div>" +
             '<div class="romaji">' + item.romaji + "</div>" +
             '<div class="pt-line">🇧🇷 ' + item.pt + "</div>" +
         "</div>";
@@ -349,7 +361,7 @@
                     "</div>" +
                     '<div class="feedback-box"></div>' +
                     '<div class="answer-box">' +
-                        '<div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.a + "</div>" +
+                        '<div class="jp-row"><div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.a + "</div>" + speakButton(q.a) + "</div>" +
                         '<div class="romaji">' + q.romaji + "</div>" +
                         '<div class="answer-translation">Tradução: ' + q.pt + "</div>" +
                     "</div>" +
@@ -384,7 +396,7 @@
                     "</div>" +
                     '<div class="feedback-box"></div>' +
                     '<div class="answer-box">' +
-                        '<div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.tokens.join("") + "</div>" +
+                        '<div class="jp-row"><div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.tokens.join("") + "</div>" + speakButton(q.tokens.join("")) + "</div>" +
                         '<div class="romaji">' + q.romaji + "</div>" +
                     "</div>" +
                 "</div>";

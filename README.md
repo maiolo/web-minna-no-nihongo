@@ -23,8 +23,13 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 
 ```
 index.html                  Página inicial com a lista de lições
+manifest.webmanifest        Manifesto do PWA (nome, cores, ícones)
+sw.js                       Service worker: guarda o site para uso offline
 assets/
+  icons/                    Ícones do aplicativo
   css/style.css             Estilos compartilhados (tema "Washi"; cores e fontes nas variáveis de :root)
+  js/speech.js              Áudio com a voz do navegador (Web Speech API)
+  js/pwa.js                 Registra o service worker (uso offline)
   js/store.js               Camada de dados do aluno (localStorage hoje; pronta para um back end)
   js/prefs.js               Preferências de leitura (furigana, romaji, tamanho do texto)
   js/exercises.js           Funções puras dos exercícios (romaji→kana, diferença, embaralhar)
@@ -38,10 +43,14 @@ assets/
   js/kanji-page.js          Página de kanji (grade, painel de detalhes, busca, filtros, "já sei", quiz)
   js/kanji-quiz.js          Perguntas do quiz de kanji (funções puras)
 tests/
+  speech.test.js            Testes das funções do áudio
+  sw.test.js                Confere se sw.js está em dia com os arquivos do site
   kanji-quiz.test.js        Testes das perguntas do quiz
   exercises.test.js         Testes de romaji→kana, diferença e embaralhar
   progress.test.js          Testes do progresso
   store-prefs.test.js       Testes da camada de dados e das preferências (node --test)
+scripts/
+  update-sw.js              Atualiza a lista de arquivos e a versão do cache em sw.js
 docs/
   ROADMAP.md                Divisão da nova interface em PRs e lista de recursos de back end
 lessons/
@@ -154,13 +163,20 @@ window.lessonData = {
 
 A lista de 103 kanji segue uma lista de referência muito usada em materiais de estudo: o JLPT deixou de publicar listas oficiais em 2010. As frases e explicações são próprias do projeto.
 
+## Modo escuro, áudio e uso offline
+
+- **Tema:** em Ajustes, escolha Automático (segue o aparelho), Claro ou Escuro.
+- **Áudio:** o botão de alto-falante usa a voz japonesa do próprio aparelho (sem enviar nada a servidor) e fala a leitura em kana. Se o aparelho não tiver voz em japonês, os botões somem.
+- **Offline / instalar:** o site se instala como aplicativo e funciona sem internet depois da primeira visita (service worker em `sw.js`). Com internet ele sempre busca a versão nova.
+- **Ao mudar arquivos do site**, rode `node scripts/update-sw.js` antes do commit (atualiza a lista de arquivos e a versão do cache; `node --test` avisa se esquecer).
+- As fontes ainda vêm do Google Fonts (guardadas no aparelho na primeira visita). Hospedá-las no repositório não compensa: as fontes japonesas completas somam vários MB.
+
 ## Próximos passos
 
 - JLPT: kanji do N4, vocabulário do N5, simulados e exercícios de leitura das kanji.
 - Reescrever as lições 16 a 19 e seguir com as próximas, com conteúdo próprio.
 - Ilustrações no vocabulário (SVG).
 - Explicações gramaticais mais profundas, com mais exemplos em contextos variados.
-- Exercícios mais dinâmicos e difíceis: ordenar palavras, conjugação sorteada, áudio, diálogos em partes e revisão cumulativa.
-- Ajustes de layout para celular, modo escuro, progresso salvo no navegador e instalação como PWA.
+- Exercícios mais dinâmicos e difíceis: ordenar palavras, conjugação sorteada, diálogos em partes e revisão cumulativa.
 
 O plano de implementação da nova interface, dividido em PRs, está em [`docs/ROADMAP.md`](docs/ROADMAP.md), junto com a lista dos recursos que dependem de back end.
