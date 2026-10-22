@@ -9,7 +9,7 @@
  * - As fontes do Google são guardadas na primeira visita e reaproveitadas depois.
  */
 // ASSETS:START
-const VERSION = "8205037b29";
+const VERSION = "7b1b2d9d0f";
 const ASSETS = [
   "./",
   "assets/css/style.css",
@@ -19,6 +19,7 @@ const ASSETS = [
   "assets/icons/icon-maskable-512.png",
   "assets/icons/icon-maskable.svg",
   "assets/icons/icon.svg",
+  "assets/js/attempts.js",
   "assets/js/engine.js",
   "assets/js/exercises.js",
   "assets/js/grammar-page.js",
@@ -28,9 +29,12 @@ const ASSETS = [
   "assets/js/kanji-quiz.js",
   "assets/js/lessons-index.js",
   "assets/js/notation.js",
+  "assets/js/practice-page.js",
+  "assets/js/practice.js",
   "assets/js/prefs.js",
   "assets/js/progress.js",
   "assets/js/pwa.js",
+  "assets/js/question-bank.js",
   "assets/js/settings-panel.js",
   "assets/js/site-header.js",
   "assets/js/speech.js",
@@ -42,10 +46,12 @@ const ASSETS = [
   "jlpt/data/n5-kanji-1.js",
   "jlpt/data/n5-kanji-2.js",
   "jlpt/data/n5-kanji-3.js",
+  "jlpt/data/n5-questions.js",
   "jlpt/data/n5-verbs.js",
   "jlpt/index.html",
   "jlpt/n5-grammar.html",
   "jlpt/n5-kanji.html",
+  "jlpt/n5-practice.html",
   "jlpt/n5-verbs.html",
   "lessons/data/lesson-16.js",
   "lessons/data/lesson-17.js",

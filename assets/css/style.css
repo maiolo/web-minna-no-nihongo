@@ -1205,3 +1205,41 @@ html[data-speech="off"] .speak-btn { display: none; }
 .gram-item .example .romaji { margin-left: 0; }
 .lesson-link { display: inline-block; margin-top: 12px; font-weight: 700; color: var(--shu); min-height: 44px; line-height: 44px; }
 .lesson-link:hover { color: var(--shu-dark); }
+
+/* ---------- JLPT: treino ---------- */
+.practice-setup, .practice-card { max-width: 640px; margin: 20px auto 0; }
+.practice-lead { color: var(--muted); margin: 6px 0 14px; }
+.practice-field { border: 0; margin: 0 0 16px; padding: 0; min-width: 0; }
+.practice-field legend { font-weight: 700; margin-bottom: 8px; padding: 0; }
+.topic-check {
+    display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 12px; margin-bottom: 6px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 10px; cursor: pointer;
+}
+.topic-check input { width: 20px; height: 20px; accent-color: var(--shu-solid); flex: none; }
+.topic-name { flex: 1; min-width: 0; }
+.topic-count { color: var(--muted); font-size: 0.85rem; }
+.practice-error { color: var(--shu-dark); font-weight: 700; margin-bottom: 10px; }
+.practice-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.practice-actions .btn { min-height: 48px; }
+.practice-last { margin-top: 14px; color: var(--muted); font-size: 0.92rem; }
+.practice-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 0.92rem; }
+.practice-bar { height: 6px; background: var(--paper-deep); border-radius: 999px; margin: 10px 0 6px; overflow: hidden; }
+.practice-bar span { display: block; height: 100%; background: var(--shu-solid); border-radius: 999px; transition: width 0.3s; }
+.practice-prompt { text-align: center; margin-top: 14px; font-size: 1.05rem; }
+.practice-sentence { text-align: center; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; line-height: 2.1; margin: 12px 0 4px; }
+.practice-sentence .blank { display: inline-block; min-width: 2.2em; border-bottom: 2px solid var(--shu); color: var(--shu); }
+.practice-sentence .blank.filled { border-bottom-color: var(--matcha); color: var(--matcha-dark); }
+.practice-hint { text-align: center; }
+.quiz-option { display: flex; align-items: center; gap: 12px; width: 100%; }
+.opt-key { flex: none; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 6px; background: var(--paper-deep); color: var(--muted); font-size: 0.8rem; font-weight: 700; }
+.practice-feedback { margin-top: 14px; }
+.feedback-line.ok { color: var(--matcha-dark); }
+.feedback-line.bad { color: var(--shu-dark); }
+.practice-feedback .kanji-note { margin-top: 8px; }
+.practice-feedback .jp-row { margin-top: 10px; align-items: center; }
+.practice-sub { margin-top: 18px; font-size: 1.05rem; }
+.missed-item > summary { min-height: 48px; }
+.missed-item .verb-pt { color: var(--ink); }
+.missed-glyph { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--shu-dark); }
+.missed-line { margin-top: 6px; }
+.wrong-text { color: var(--shu-dark); text-decoration: line-through; }

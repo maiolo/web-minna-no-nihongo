@@ -36,6 +36,11 @@
         return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
     }
 
+    // Notação -> <ruby>, mantendo os espaços (textos explicativos).
+    function rubyText(text) {
+        return text.replace(/\^/g, "").replace(/\{([^|}]+)\|([^}]+)\}/g, "<ruby>$1<rt>$2</rt></ruby>");
+    }
+
     function speakButton(notation) {
         var text = N.readingText(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "");
         return '<button type="button" class="speak-btn" data-speak="' + esc(text) + '" aria-label="Ouvir" title="Ouvir">' + SPEAKER + "</button>";
@@ -111,7 +116,7 @@
                 '<div class="pt-line">🇧🇷 ' + esc(v.ex[1]) + "</div>" +
             "</div>";
         }
-        var note = v.note ? '<div class="kanji-note">' + esc(v.note) + "</div>" : "";
+        var note = v.note ? '<div class="kanji-note">' + rubyText(esc(v.note)) + "</div>" : "";
         var rows = V.FORMS.map(function (f) {
             var out = V.conjugate(v, f.id);
             if (out === null) {

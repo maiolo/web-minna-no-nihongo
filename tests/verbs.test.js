@@ -105,6 +105,12 @@ test("dados: todo verbo é válido, único e tem exemplo com furigana completo",
     });
 });
 
+test("dados: a nota de cada verbo também tem furigana completo", () => {
+    VERBS.filter((v) => v.note).forEach((v) => {
+        assert.ok(!/[一-鿿]/.test(v.note.replace(/\{[^}]*\}/g, "")), "kanji sem furigana na nota de " + v.jp);
+    });
+});
+
 test("dados: o exemplo contém o verbo (em alguma forma) e dá para gerar o romaji", () => {
     VERBS.forEach((v) => {
         const sentence = N.plainText(v.ex[0]);

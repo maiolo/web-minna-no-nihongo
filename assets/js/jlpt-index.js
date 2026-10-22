@@ -45,9 +45,8 @@ window.JLPT_PAGES = [
         group: "praticar",
         level: "N5",
         file: "n5-practice.html",
-        status: "soon",
         topic: "Treino",
-        description: "Gere um treino de verbos, gramática e kanji no tamanho que quiser e veja a resposta na hora."
+        description: "Escolha os temas (gramática, verbos, kanji) e a quantidade. Cada resposta é corrigida na hora, com explicação, e o resultado fica salvo."
     },
     {
         group: "praticar",
