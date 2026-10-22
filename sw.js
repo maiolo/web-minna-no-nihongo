@@ -9,7 +9,7 @@
  * - As fontes do Google são guardadas na primeira visita e reaproveitadas depois.
  */
 // ASSETS:START
-const VERSION = "bcc10b008a";
+const VERSION = "275e36dd06";
 const ASSETS = [
   "./",
   "assets/css/style.css",
@@ -26,6 +26,7 @@ const ASSETS = [
   "assets/js/kanji-page.js",
   "assets/js/kanji-quiz.js",
   "assets/js/lessons-index.js",
+  "assets/js/notation.js",
   "assets/js/prefs.js",
   "assets/js/progress.js",
   "assets/js/pwa.js",
@@ -33,12 +34,16 @@ const ASSETS = [
   "assets/js/site-header.js",
   "assets/js/speech.js",
   "assets/js/store.js",
+  "assets/js/verbs-page.js",
+  "assets/js/verbs.js",
   "index.html",
   "jlpt/data/n5-kanji-1.js",
   "jlpt/data/n5-kanji-2.js",
   "jlpt/data/n5-kanji-3.js",
+  "jlpt/data/n5-verbs.js",
   "jlpt/index.html",
   "jlpt/n5-kanji.html",
+  "jlpt/n5-verbs.html",
   "lessons/data/lesson-16.js",
   "lessons/data/lesson-17.js",
   "lessons/data/lesson-18.js",

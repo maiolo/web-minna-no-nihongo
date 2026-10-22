@@ -21,6 +21,11 @@ Princípios:
 | 6 | Kanji (feito) | Grade compacta, painel de detalhes (gaveta no celular), busca e filtros fixos, chips com rolagem horizontal, "já sei" com filtro, quiz. | 2, 4 |
 | 7a | Modo escuro, áudio e PWA (feito) | Tema automático/claro/escuro (preferência `theme`), áudio por Web Speech API (voz do aparelho, leitura em kana), manifesto, ícones, service worker com uso offline. Fontes continuam no Google Fonts (guardadas no aparelho): hospedá-las no repositório somaria vários MB. | 1 a 6 |
 | 7b | Lição 16 no motor (feito) | Migrar `lesson-16.html` (Tailwind via CDN, não funciona offline) para o formato de dados das demais. | 7a |
+| 8a | JLPT: hub e verbos (feito) | Hub agrupado (Estudo, Praticar) com cartões "em breve"; página de verbos N5 (~100) com as 12 formas geradas por `verbs.js` (testado), busca e filtro por grupo; `notation.js` extraído da página de kanji. | 6, 7a |
+| 8b | JLPT: gramática | Cartões curtos próprios por ponto gramatical, com "ver na lição" só quando a lição existe (sem duplicar a explicação). | 8a |
+| 8c | JLPT: banco de questões e treino | Questões com id, tipo, resposta e explicação; gerador de treino por tema e quantidade, usando `shuffleSeeded`. | 8a, 8b |
+| 8d | JLPT: simulados | Prova completa com tempo, nota estimada, correção com explicação de cada erro e histórico (contrato abaixo). | 8c |
+| 8e | JLPT: complemento | Escuta com a voz do aparelho, pontos fracos, exportar/importar JSON. | 8d |
 
 Cada PR deve trazer: descrição do que muda, capturas de tela em celular (390 px) e desktop (1280 px), e a lista de arquivos tocados.
 
@@ -69,6 +74,19 @@ Store.useRemote(adapter, chaves) // liga o back end; vale o updatedAt mais recen
 Um adaptador remoto é um objeto com `get(chave) -> Promise<valor|null>` e `set(chave, valor) -> Promise`. O `createApiAdapter({ baseUrl, getToken })` já existe em `store.js` e mapeia `prefs` para `/me/preferences` e `progress` para `/me/progress`; ele só será ligado quando houver API. Falha de rede nunca perde o valor local.
 
 Regra de conflito proposta para a sincronização: vale o registro com `updatedAt` mais recente, campo a campo para `exercises` e `kanji`, para não perder progresso feito em dois aparelhos.
+
+**Histórico de treinos e simulados (proposto para o PR 8d).** Chave `attempts` no `Store`, guardando só as últimas ~50 tentativas:
+
+```json
+"attempts": [
+  { "id": "2026-10-21T18:00:00Z", "kind": "mock", "level": "N5",
+    "seed": 1729, "startedAt": "2026-10-21T18:00:00Z", "seconds": 1710,
+    "items": [ { "q": "v-te-0042", "answer": 2, "correct": true } ],
+    "score": { "knowledge": 84, "total": 84, "estimated": true },
+    "updatedAt": "2026-10-21T18:28:30Z" } ]
+```
+
+Guarda-se só o id da questão e a resposta, nunca o enunciado: a correção é remontada do banco, que pode ser corrigido sem invalidar o histórico. A nota é sempre marcada como **estimada** (a oficial do JLPT é equalizada). No N5 a prova oficial vale 0 a 120 em língua e leitura (mínimo 38), 0 a 60 em audição (mínimo 19), total 180, aprovação com 80. Na futura API: `GET/POST /api/v1/me/attempts`, com a mesma regra de conflito por `updatedAt`.
 
 ## Recursos que dependem de back end (para outro momento)
 
