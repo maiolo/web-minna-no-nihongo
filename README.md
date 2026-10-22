@@ -9,7 +9,7 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 ## Seções
 
 - **Lições** (`lessons/`): o conteúdo do *Minna no Nihongo*, lição por lição.
-- **JLPT** (`jlpt/`): material de apoio para o exame. Tem a **lista dos 103 kanji do N5** e a página de **verbos do N5** (cerca de 100, nos três grupos, com as 12 formas conjugadas; abre-se um verbo por vez ou vários). Gramática, treinos e simulados estão a caminho. Na lista de kanji, com significado, leituras on'yomi e kun'yomi e frases de exemplo para as principais leituras. Dá para buscar (por kanji, português, kana ou romaji), filtrar por categoria e abrir, com um clique no kanji, os exemplos de cada cartão (um por vez ou vários ao mesmo tempo).
+- **JLPT** (`jlpt/`): material de apoio para o exame. Tem a **lista dos 103 kanji do N5** e a página de **verbos do N5** (cerca de 100, nos três grupos, com as 12 formas conjugadas; abre-se um verbo por vez ou vários). A página de **gramática do N5** tem 42 cartões curtos, com exemplos e link para a lição do site quando ela existe. Treinos e simulados estão a caminho. Na lista de kanji, com significado, leituras on'yomi e kun'yomi e frases de exemplo para as principais leituras. Dá para buscar (por kanji, português, kana ou romaji), filtrar por categoria e abrir, com um clique no kanji, os exemplos de cada cartão (um por vez ou vários ao mesmo tempo).
 
 ## Recursos
 
@@ -43,6 +43,7 @@ assets/
   js/notation.js            Notação {漢字|かんじ}: ruby, romaji e espaçamento (funções puras)
   js/verbs.js               Conjugador de verbos (funções puras)
   js/verbs-page.js          Página de verbos (busca, grupos, tabela de formas)
+  js/grammar-page.js        Página de gramática (busca, categorias, cartões, link para a lição)
   js/kanji-page.js          Página de kanji (grade, painel de detalhes, busca, filtros, "já sei", quiz)
   js/kanji-quiz.js          Perguntas do quiz de kanji (funções puras)
 tests/
@@ -51,6 +52,7 @@ tests/
   kanji-quiz.test.js        Testes das perguntas do quiz
   notation.test.js          Testes da notação e do romaji
   verbs.test.js             Testes do conjugador e dos dados dos verbos
+  grammar.test.js           Testes dos cartões de gramática (furigana, lições citadas)
   exercises.test.js         Testes de romaji→kana, diferença e embaralhar
   progress.test.js          Testes do progresso
   store-prefs.test.js       Testes da camada de dados e das preferências (node --test)
@@ -67,6 +69,8 @@ jlpt/
   data/n5-kanji-*.js        Dados dos kanji (3 arquivos, por categoria)
   n5-verbs.html             Lista de verbos do N5
   data/n5-verbs.js          Dados dos verbos
+  n5-grammar.html           Gramática do N5
+  data/n5-grammar.js        Dados dos cartões de gramática
 ```
 
 ## Ver no computador
@@ -165,6 +169,8 @@ window.lessonData = {
 - Cada leitura listada em `on` e `kun` deve ter ao menos uma frase de exemplo; leituras raras demais para o N5 ficam de fora.
 
 **Verbo novo** em `jlpt/data/n5-verbs.js`: `{ jp: "{書|か}く", g: 1, pt: "escrever", ex: [frase, tradução] }`. Informe sempre o grupo `g` (帰る, 入る, 走る… são do grupo 1) e, se alguma forma não se usa (ある não tem 〜たい), `skip: ["tai"]`. As formas são geradas; `node --test tests/*.test.js` valida o verbo, o furigana da frase e as 12 formas.
+
+**Ponto de gramática novo** em `jlpt/data/n5-grammar.js` (campos explicados no topo do arquivo). Todo kanji, inclusive nos textos explicativos, vai em `{漢字|かんじ}`. Se a lição do site explica o ponto, informe `lesson: N`; o teste confere que a lição existe e trata do tema (acrescente a palavra-chave em `tests/grammar.test.js`).
 
 **Página nova na seção JLPT** (ex.: kanji do N4): crie a página e os dados em `jlpt/`, reutilize `assets/js/kanji-page.js` (ele lê `data-global` e `data-level` do `<body>`) e acrescente a página em `assets/js/jlpt-index.js` (`group` e, se ainda não existir, `status: "soon"`).
 

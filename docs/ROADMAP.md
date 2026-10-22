@@ -22,7 +22,7 @@ Princípios:
 | 7a | Modo escuro, áudio e PWA (feito) | Tema automático/claro/escuro (preferência `theme`), áudio por Web Speech API (voz do aparelho, leitura em kana), manifesto, ícones, service worker com uso offline. Fontes continuam no Google Fonts (guardadas no aparelho): hospedá-las no repositório somaria vários MB. | 1 a 6 |
 | 7b | Lição 16 no motor (feito) | Migrar `lesson-16.html` (Tailwind via CDN, não funciona offline) para o formato de dados das demais. | 7a |
 | 8a | JLPT: hub e verbos (feito) | Hub agrupado (Estudo, Praticar) com cartões "em breve"; página de verbos N5 (~100) com as 12 formas geradas por `verbs.js` (testado), busca e filtro por grupo; `notation.js` extraído da página de kanji. | 6, 7a |
-| 8b | JLPT: gramática | Cartões curtos próprios por ponto gramatical, com "ver na lição" só quando a lição existe (sem duplicar a explicação). | 8a |
+| 8b | JLPT: gramática (feito) | 42 cartões (partículas, frases, formas verbais, adjetivos) com busca, filtro e link #id; "Ver na lição" só quando a lição existe (testado contra o conteúdo da lição). Cartões curtos próprios por ponto gramatical, com "ver na lição" só quando a lição existe (sem duplicar a explicação). | 8a |
 | 8c | JLPT: banco de questões e treino | Questões com id, tipo, resposta e explicação; gerador de treino por tema e quantidade, usando `shuffleSeeded`. | 8a, 8b |
 | 8d | JLPT: simulados | Prova completa com tempo, nota estimada, correção com explicação de cada erro e histórico (contrato abaixo). | 8c |
 | 8e | JLPT: complemento | Escuta com a voz do aparelho, pontos fracos, exportar/importar JSON. | 8d |

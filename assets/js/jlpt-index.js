@@ -38,9 +38,8 @@ window.JLPT_PAGES = [
         group: "estudo",
         level: "N5",
         file: "n5-grammar.html",
-        status: "soon",
         topic: "<ruby>文法<rt>ぶんぽう</rt></ruby> (Gramática)",
-        description: "Os pontos de gramática do N5 em cartões curtos, com link para a lição do Minna no Nihongo onde cada um é explicado."
+        description: "Os pontos de gramática do N5 em cartões curtos, com exemplos e link para a lição do Minna no Nihongo quando ela existe."
     },
     {
         group: "praticar",

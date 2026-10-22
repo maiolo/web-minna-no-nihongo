@@ -1192,3 +1192,16 @@ html[data-speech="off"] .speak-btn { display: none; }
     .group-cards { grid-template-columns: repeat(3, 1fr); }
     .form-label { flex-basis: 32%; }
 }
+
+/* ---------- JLPT: gramática ---------- */
+.gram-item > summary { align-items: flex-start; padding-top: 10px; padding-bottom: 10px; }
+.gram-head { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.gram-pat { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; overflow-wrap: anywhere; }
+.gram-title { color: var(--muted); font-size: 0.92rem; }
+.gram-item > summary .group-badge { flex: none; margin-top: 4px; }
+.gram-mean { margin-top: 12px; border-top: 1px solid var(--line-soft); padding-top: 12px; }
+.gram-rule { margin-top: 6px; font-size: 0.95rem; }
+.gram-item .example-list { margin-top: 8px; }
+.gram-item .example .romaji { margin-left: 0; }
+.lesson-link { display: inline-block; margin-top: 12px; font-weight: 700; color: var(--shu); min-height: 44px; line-height: 44px; }
+.lesson-link:hover { color: var(--shu-dark); }
