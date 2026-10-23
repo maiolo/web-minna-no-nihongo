@@ -24,7 +24,7 @@ Princípios:
 | 8a | JLPT: hub e verbos (feito) | Hub agrupado (Estudo, Praticar) com cartões "em breve"; página de verbos N5 (~100) com as 12 formas geradas por `verbs.js` (testado), busca e filtro por grupo; `notation.js` extraído da página de kanji. | 6, 7a |
 | 8b | JLPT: gramática (feito) | 42 cartões (partículas, frases, formas verbais, adjetivos) com busca, filtro e link #id; "Ver na lição" só quando a lição existe (testado contra o conteúdo da lição). Cartões curtos próprios por ponto gramatical, com "ver na lição" só quando a lição existe (sem duplicar a explicação). | 8a |
 | 8c | JLPT: banco de questões e treino (feito) | Banco com ids estáveis (gramática escrita à mão; verbos e kanji gerados dos dados, com erros típicos como alternativas), sorteio por tema com semente, página de treino com correção e explicação na hora e histórico no `Store` (`attempts`). O simulado reaproveita o mesmo banco. | 8a, 8b |
-| 8d | JLPT: simulados | Prova completa com tempo, nota estimada, correção com explicação de cada erro e histórico (contrato abaixo). | 8c |
+| 8d | JLPT: simulados (feito) | Prova de 34 questões (curta: 18) em duas seções (kanji e vocabulário; gramática e verbos), sem correção até o fim, cronômetro opcional, navegação livre, rascunho no `Store` (`mockdraft`) para continuar depois, nota estimada de língua e leitura (0 a 120, mínimo 38), correção explicada com filtros e histórico (`attempts`, `kind: "mock"`). A correção do histórico é remontada do banco. Sem escuta. | 8c |
 | 8e | JLPT: complemento | Escuta com a voz do aparelho, pontos fracos, exportar/importar JSON. | 8d |
 
 Cada PR deve trazer: descrição do que muda, capturas de tela em celular (390 px) e desktop (1280 px), e a lista de arquivos tocados.
@@ -85,7 +85,7 @@ Regra de conflito proposta para a sincronização: vale o registro com `updatedA
     "score": { "correct": 8, "total": 10 } } ]
 ```
 
-Guarda-se só o id da questão e a resposta, nunca o enunciado: a correção é remontada do banco, que pode ser corrigido sem invalidar o histórico (por isso os ids não devem mudar depois de publicados). No simulado, `kind` é `"mock"` e o `score` ganha `knowledge`, `listening` e `estimated: true`: a nota é sempre marcada como **estimada** (a oficial do JLPT é equalizada). No N5 a prova oficial vale 0 a 120 em língua e leitura (mínimo 38), 0 a 60 em audição (mínimo 19), total 180, aprovação com 80. Na futura API: `GET/POST /api/v1/me/attempts`, com a mesma regra de conflito por `updatedAt`.
+Guarda-se só o id da questão e a resposta, nunca o enunciado: a correção é remontada do banco, que pode ser corrigido sem invalidar o histórico (por isso os ids não devem mudar depois de publicados). No simulado (PR 8d), `kind` é `"mock"` e o `score` ganha `knowledge`, `estimated: true` e `sections` (`listening` entra com a escuta, no 8e). O simulado em andamento fica em `mockdraft` (`{ active, id, seed, size, ids, answers, startedAt, deadline }`) e é apagado (`{ active: false }`) ao terminar. A nota: a nota é sempre marcada como **estimada** (a oficial do JLPT é equalizada). No N5 a prova oficial vale 0 a 120 em língua e leitura (mínimo 38), 0 a 60 em audição (mínimo 19), total 180, aprovação com 80. Na futura API: `GET/POST /api/v1/me/attempts`, com a mesma regra de conflito por `updatedAt`.
 
 ## Recursos que dependem de back end (para outro momento)
 

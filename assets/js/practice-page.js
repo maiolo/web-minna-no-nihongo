@@ -15,43 +15,22 @@
     var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS });
     var COUNTS = [5, 10, 20];
 
-    var SPEAKER =
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/>' +
-        '<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
-
     var settings = { topics: bank.topics.map(function (t) { return t.id; }), count: 10 };
+    // n5-practice.html?topics=gramatica,verbo-forma abre com esses temas marcados (links do simulado).
+    (function () {
+        var match = /[?&]topics=([^&]*)/.exec(location.search);
+        if (!match) return;
+        var wanted = decodeURIComponent(match[1]).split(",").filter(function (id) { return settings.topics.indexOf(id) !== -1; });
+        if (wanted.length) settings.topics = wanted;
+    })();
     var run = null;   // { ids, index, answers: [{id, chosen}], startedAt, seed, label }
     var view = "setup";
 
-    /* ---------- Utilidades ---------- */
+    /* ---------- Utilidades (trechos compartilhados com o simulado: quiz-view.js) ---------- */
 
-    function esc(s) {
-        return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-    // Notação -> <ruby>, mantendo os espaços (enunciados, alternativas e explicações).
-    function rubyText(text) {
-        return esc(text).replace(/\^/g, "").replace(/\{([^|}]+)\|([^}]+)\}/g, "<ruby>$1<rt>$2</rt></ruby>");
-    }
-    function speakButton(notation) {
-        var text = N.readingText(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "");
-        return '<button type="button" class="speak-btn" data-speak="' + esc(text) + '" aria-label="Ouvir" title="Ouvir">' + SPEAKER + "</button>";
-    }
+    var QV = window.QuizView;
+    var esc = QV.esc, rubyText = QV.rubyText, speakButton = QV.speakButton, sentenceHtml = QV.sentenceHtml, linkFor = QV.linkFor;
     function attemptsDoc() { return window.Store ? window.Store.peek("attempts") : null; }
-
-    function sentenceHtml(q, filled) {
-        var parts = q.sentence.split("＿＿");
-        var middle = filled === null
-            ? '<span class="blank" aria-label="lacuna">＿＿</span>'
-            : '<span class="blank filled">' + N.toRuby(filled) + "</span>";
-        return N.toRuby(parts[0]) + middle + N.toRuby(parts[1] || "");
-    }
-
-    function linkFor(q) {
-        if (q.ref) return '<a class="lesson-link" href="n5-grammar.html#' + encodeURIComponent(q.ref) + '">Ver o ponto de gramática →</a>';
-        if (q.topic.indexOf("verbo") === 0) return '<a class="lesson-link" href="n5-verbs.html">Ver a página de verbos →</a>';
-        return '<a class="lesson-link" href="n5-kanji.html">Ver a lista de kanji →</a>';
-    }
 
     /* ---------- Início ---------- */
 
@@ -197,15 +176,7 @@
         var message = percent === 100 ? "Perfeito!" : percent >= 70 ? "Muito bem!" : percent >= 40 ? "Está no caminho." : "Vale rever com calma.";
 
         var list = missed.map(function (it) {
-            var q = bank.get(it.id);
-            return '<details class="verb-item missed-item" open><summary><span class="verb-pt">' + rubyText(q.prompt) + (q.sentence ? "" : "") + "</span></summary>" +
-                '<div class="verb-body">' +
-                (q.glyph ? '<div class="missed-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
-                (q.sentence ? '<div class="practice-sentence" lang="ja">' + sentenceHtml(q, q.options[q.answer]) + "</div>" : "") +
-                '<p class="missed-line">Você respondeu: <span class="wrong-text" lang="ja">' + (it.chosen === null ? "(em branco)" : rubyText(q.options[it.chosen])) + "</span></p>" +
-                '<p class="missed-line">Certa: <strong lang="ja">' + rubyText(q.options[q.answer]) + "</strong></p>" +
-                '<div class="kanji-note">' + rubyText(q.explain) + "</div>" + linkFor(q) +
-                "</div></details>";
+            return QV.reviewItem(bank.get(it.id), it.chosen, { open: true });
         }).join("");
 
         root.innerHTML =
