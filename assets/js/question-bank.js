@@ -7,14 +7,18 @@
  *   bank.get(id)                monta a questão, sempre igual para o mesmo id (ou null)
  *
  * Questão:
- *   { id, topic, ref?, prompt, sentence?, hint?, glyph?, options: [texto], answer: índice, explain, fixed? }
+ *   { id, topic, ref?, prompt, sentence?, hint?, glyph?, speak?, heard?, options: [texto], answer: índice, explain, fixed? }
  *
  * Todo texto usa a notação das frases ({漢字|かんじ}). A questão é remontada pelo id,
  * então o histórico (treinos e simulados) guarda só ids e respostas: se uma explicação
  * for corrigida, a correção antiga melhora junto.
  *
  * Ids: "vte:{書|か}く" (forma て), "vta:", "vnai:", "vmasu:", "vgrp:", "vmean:",
- *      "kmean:食", "kread:食", "q:wa-topico" (gramática, jlpt/data/n5-questions.js).
+ *      "kmean:食", "kread:食", "q:wa-topico" (gramática, jlpt/data/n5-questions.js),
+ *      "lw:{書|か}く" (escuta: ouvir a palavra) e "ls:{書|か}く" (escuta: ouvir a frase de exemplo).
+ *
+ * Questões de escuta têm `speak` (texto em kana para a voz do aparelho; o japonês escrito não
+ * aparece na pergunta) e `heard` (a notação, mostrada só na correção).
  */
 (function (root) {
     "use strict";
@@ -27,7 +31,9 @@
         { id: "verbo-grupo", label: "Verbos: grupos" },
         { id: "verbo-significado", label: "Verbos: significado" },
         { id: "kanji-significado", label: "Kanji: significado" },
-        { id: "kanji-leitura", label: "Kanji: leitura" }
+        { id: "kanji-leitura", label: "Kanji: leitura" },
+        { id: "escuta-palavra", label: "Escuta: palavras", listening: true },
+        { id: "escuta-frase", label: "Escuta: frases", listening: true }
     ];
 
     var FORM_TYPES = { vte: "te", vta: "ta", vnai: "nai", vmasu: "masu" };
@@ -177,6 +183,40 @@
         });
     }
 
+    /* ---------- Escuta (voz do aparelho) ---------- */
+
+    // Notação -> texto em kana para falar (^は = わ, ^へ = え).
+    function spoken(notation) {
+        return V.reading(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "");
+    }
+
+    function listenWord(verb, verbs) {
+        var id = "lw:" + verb.jp;
+        var pool = verbs.filter(function (v) { return v !== verb && v.pt !== verb.pt && !overlaps(v.pt, verb.pt); }).map(function (v) { return v.pt; });
+        var picked = shuffle(Array.from(new Set(pool)), hash(id + "w")).slice(0, 3);
+        return finish({
+            id: id, topic: "escuta-palavra",
+            prompt: "Ouça a palavra e escolha o significado.",
+            speak: spoken(verb.jp), heard: verb.jp,
+            correct: verb.pt, wrong: picked,
+            explain: "Você ouviu " + verb.jp + ", que significa «" + verb.pt + "»."
+        });
+    }
+
+    function listenSentence(verb, verbs) {
+        var id = "ls:" + verb.jp;
+        var correct = verb.ex[1];
+        var pool = verbs.filter(function (v) { return v !== verb && v.ex && v.ex[1] !== correct && !overlaps(v.ex[1], correct); }).map(function (v) { return v.ex[1]; });
+        var picked = shuffle(Array.from(new Set(pool)), hash(id + "w")).slice(0, 3);
+        return finish({
+            id: id, topic: "escuta-frase",
+            prompt: "Ouça a frase e escolha a tradução.",
+            speak: spoken(verb.ex[0]), heard: verb.ex[0],
+            correct: correct, wrong: picked,
+            explain: "Você ouviu: " + verb.ex[0] + " («" + correct + "»)."
+        });
+    }
+
     /* ---------- Kanji ---------- */
 
     function cleanReading(r) { return String(r).replace(/[()]/g, ""); }
@@ -250,7 +290,7 @@
             id: b.id, topic: b.topic, prompt: b.prompt,
             options: order, answer: order.indexOf(b.correct), explain: b.explain
         };
-        ["ref", "sentence", "hint", "glyph"].forEach(function (k) { if (b[k]) q[k] = b[k]; });
+        ["ref", "sentence", "hint", "glyph", "speak", "heard"].forEach(function (k) { if (b[k]) q[k] = b[k]; });
         return q;
     }
 
@@ -274,6 +314,8 @@
             });
             add("verbo-grupo", "vgrp:" + v.jp, function () { return groupQuestion(v); });
             add("verbo-significado", "vmean:" + v.jp, function () { return meaningQuestion(v, verbs); });
+            add("escuta-palavra", "lw:" + v.jp, function () { return listenWord(v, verbs); });
+            if (v.ex) add("escuta-frase", "ls:" + v.jp, function () { return listenSentence(v, verbs); });
         });
         kanji.forEach(function (e) {
             add("kanji-significado", "kmean:" + e.k, function () { return kanjiMeaning(e, kanji); });
@@ -287,7 +329,7 @@
         };
     }
 
-    var api = { create: create, TOPICS: TOPICS, hash: hash, shuffle: shuffle };
+    var api = { create: create, TOPICS: TOPICS, hash: hash, shuffle: shuffle, spoken: spoken };
 
     if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
     root.QuestionBank = api;

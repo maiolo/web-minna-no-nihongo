@@ -9,7 +9,7 @@
  * - As fontes do Google são guardadas na primeira visita e reaproveitadas depois.
  */
 // ASSETS:START
-const VERSION = "f038c093ae";
+const VERSION = "17861020ec";
 const ASSETS = [
   "./",
   "assets/css/style.css",
@@ -20,6 +20,7 @@ const ASSETS = [
   "assets/icons/icon-maskable.svg",
   "assets/icons/icon.svg",
   "assets/js/attempts.js",
+  "assets/js/backup.js",
   "assets/js/engine.js",
   "assets/js/exercises.js",
   "assets/js/grammar-page.js",
@@ -34,6 +35,7 @@ const ASSETS = [
   "assets/js/practice-page.js",
   "assets/js/practice.js",
   "assets/js/prefs.js",
+  "assets/js/progress-page.js",
   "assets/js/progress.js",
   "assets/js/pwa.js",
   "assets/js/question-bank.js",
@@ -41,6 +43,7 @@ const ASSETS = [
   "assets/js/settings-panel.js",
   "assets/js/site-header.js",
   "assets/js/speech.js",
+  "assets/js/stats.js",
   "assets/js/store.js",
   "assets/js/verbs-page.js",
   "assets/js/verbs.js",
@@ -56,6 +59,7 @@ const ASSETS = [
   "jlpt/n5-kanji.html",
   "jlpt/n5-mock.html",
   "jlpt/n5-practice.html",
+  "jlpt/n5-progress.html",
   "jlpt/n5-verbs.html",
   "lessons/data/lesson-16.js",
   "lessons/data/lesson-17.js",

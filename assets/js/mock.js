@@ -1,7 +1,7 @@
 /*
  * Simulado do JLPT (funções puras, testadas com node --test).
  *
- *   Mock.build(bank, { size, seed, avoid })     { size, seed, sections: [{ id, label, jp, ids }], ids }
+ *   Mock.build(bank, { size, seed, avoid, listening })   { size, seed, listening, sections: [{ id, label, jp, ids }], ids }
  *   Mock.summarize(bank, items)                 correção e nota estimada; items = [{ id, chosen }]
  *   Mock.verdict(summary)                       leitura da nota em relação ao mínimo oficial
  *   Mock.newDraft(plan, { timed }, agora)       simulado em andamento (guardado no Store)
@@ -9,9 +9,10 @@
  *   Mock.remainingMs(draft, agora)              tempo que falta (null se sem cronômetro)
  *   Mock.sectionOf(tema)                        id da seção a que o tema pertence
  *
- * A prova segue a ideia do N5 (palavras e gramática), mas é menor e SEM escuta por enquanto.
+ * A prova segue a ideia do N5 (palavras e gramática), mas é menor. A seção de escuta é opcional:
+ * usa a voz do aparelho (só faz sentido se houver voz em japonês) e uma só voz, sem ruído.
  * A nota é só uma ESTIMATIVA: a do JLPT é equalizada (depende da dificuldade de cada aplicação).
- * Aqui, língua e leitura = acertos/total x 120.
+ * Aqui, língua e leitura = acertos/total x 120 e escuta = acertos/total x 60.
  */
 (function (root) {
     "use strict";
@@ -23,8 +24,14 @@
         { id: "vocab", label: "Kanji e vocabulário", jp: "{文字|もじ}・{語彙|ごい}",
           parts: [{ topic: "kanji-leitura", n: 6 }, { topic: "kanji-significado", n: 4 }, { topic: "verbo-significado", n: 4 }] },
         { id: "gramatica", label: "Gramática e verbos", jp: "{文法|ぶんぽう}",
-          parts: [{ topic: "gramatica", n: 12 }, { topic: "verbo-forma", n: 5 }, { topic: "verbo-grupo", n: 3 }] }
+          parts: [{ topic: "gramatica", n: 12 }, { topic: "verbo-forma", n: 5 }, { topic: "verbo-grupo", n: 3 }] },
+        { id: "escuta", label: "Escuta", jp: "{聴解|ちょうかい}", optional: true,
+          parts: [{ topic: "escuta-palavra", n: 4 }, { topic: "escuta-frase", n: 4 }] }
     ];
+
+    function activeBlueprint(listening) {
+        return BLUEPRINT.filter(function (sec) { return !sec.optional || listening; });
+    }
 
     var SIZES = {
         full: { label: "Completo", minutes: 30, half: false },
@@ -37,8 +44,13 @@
     function keyOf(id) { return id.slice(id.indexOf(":") + 1); }
     function partCount(n, size) { return SIZES[size].half ? Math.ceil(n / 2) : n; }
 
-    function totalFor(size) {
-        return BLUEPRINT.reduce(function (sum, sec) {
+    // Minutos: a escuta acrescenta tempo (8 min na prova completa, 4 na curta).
+    function minutesFor(size, listening) {
+        return SIZES[size].minutes + (listening ? (SIZES[size].half ? 4 : 8) : 0);
+    }
+
+    function totalFor(size, listening) {
+        return activeBlueprint(listening).reduce(function (sum, sec) {
             return sum + sec.parts.reduce(function (s, p) { return s + partCount(p.n, size); }, 0);
         }, 0);
     }
@@ -57,7 +69,8 @@
         var size = SIZES[o.size] ? o.size : "full";
         var seed = o.seed || 1;
         var usedKeys = {};
-        var sections = BLUEPRINT.map(function (sec, si) {
+        var listening = Boolean(o.listening);
+        var sections = activeBlueprint(listening).map(function (sec, si) {
             var ids = [];
             sec.parts.forEach(function (part, pi) {
                 var n = partCount(part.n, size);
@@ -76,7 +89,7 @@
         });
         var all = [];
         sections.forEach(function (s) { all = all.concat(s.ids); });
-        return { size: size, seed: seed, sections: sections, ids: all };
+        return { size: size, seed: seed, listening: listening, sections: sections, ids: all };
     }
 
     function summarize(bank, items) {
@@ -95,16 +108,31 @@
             }
         });
         var blank = graded.items.filter(function (it) { return it.chosen === null; }).length;
+        var lT = sections.escuta.total, lC = sections.escuta.correct;
+        var kT = graded.total - lT, kC = graded.correct - lC;
+        var knowledge = kT ? Math.round(OFFICIAL.knowledgeMax * kC / kT) : 0;
+        var listening = lT ? Math.round(OFFICIAL.listeningMax * lC / lT) : null;
         return {
             correct: graded.correct, total: graded.total, blank: blank,
-            knowledge: graded.total ? Math.round(OFFICIAL.knowledgeMax * graded.correct / graded.total) : 0,
+            knowledge: knowledge, listening: listening,
+            totalEstimate: listening === null ? null : knowledge + listening,
             estimated: true,
             sections: sections, topics: topics, items: graded.items
         };
     }
 
     function verdict(summary) {
-        return { knowledge: summary.knowledge, min: OFFICIAL.knowledgeMin, aboveMin: summary.knowledge >= OFFICIAL.knowledgeMin };
+        var hasListening = summary.listening !== null && summary.listening !== undefined;
+        var aboveMin = summary.knowledge >= OFFICIAL.knowledgeMin;
+        var listeningOk = hasListening ? summary.listening >= OFFICIAL.listeningMin : null;
+        var total = hasListening ? summary.knowledge + summary.listening : null;
+        return {
+            knowledge: summary.knowledge, min: OFFICIAL.knowledgeMin, aboveMin: aboveMin,
+            hasListening: hasListening, listening: hasListening ? summary.listening : null,
+            listeningMin: OFFICIAL.listeningMin, listeningOk: listeningOk,
+            total: total, passMin: OFFICIAL.pass,
+            passEstimate: hasListening ? (aboveMin && listeningOk && total >= OFFICIAL.pass) : null
+        };
     }
 
     /* ---------- Simulado em andamento ---------- */
@@ -117,7 +145,8 @@
             seed: plan.seed, size: plan.size, ids: plan.ids.slice(),
             answers: plan.ids.map(function () { return null; }),
             startedAt: new Date(now).toISOString(),
-            deadline: timed ? now + SIZES[plan.size].minutes * 60000 : null
+            listening: Boolean(plan.listening),
+            deadline: timed ? now + minutesFor(plan.size, plan.listening) * 60000 : null
         };
     }
 
@@ -139,7 +168,7 @@
 
     var api = {
         BLUEPRINT: BLUEPRINT, SIZES: SIZES, OFFICIAL: OFFICIAL,
-        build: build, summarize: summarize, verdict: verdict, totalFor: totalFor, sectionOf: sectionOf,
+        build: build, summarize: summarize, verdict: verdict, totalFor: totalFor, minutesFor: minutesFor, sectionOf: sectionOf,
         newDraft: newDraft, setAnswer: setAnswer, remainingMs: remainingMs, formatClock: formatClock
     };
 

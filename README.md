@@ -50,6 +50,9 @@ assets/
   js/practice-page.js       Página de treino
   js/quiz-view.js           Trechos de HTML da correção, compartilhados por treino e simulado (funções puras)
   js/mock.js                Simulado: montagem da prova, nota estimada, rascunho (funções puras)
+  js/stats.js               Desempenho e pontos fracos a partir do histórico (funções puras)
+  js/backup.js              Exportar/importar/mesclar dados em JSON (funções puras)
+  js/progress-page.js       Página Meu desempenho
   js/mock-page.js           Página de simulados (prova, resultado, correção, histórico)
   js/kanji-page.js          Página de kanji (grade, painel de detalhes, busca, filtros, "já sei", quiz)
   js/kanji-quiz.js          Perguntas do quiz de kanji (funções puras)
@@ -83,6 +86,7 @@ jlpt/
   n5-practice.html          Treino do N5
   data/n5-questions.js      Questões de gramática (completar a frase)
   n5-mock.html              Simulado do N5
+  n5-progress.html          Meu desempenho: pontos fracos, simulados e backup
 ```
 
 ## Ver no computador

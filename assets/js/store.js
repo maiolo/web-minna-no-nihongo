@@ -117,13 +117,13 @@
 
     /*
      * Adaptador de API (ainda não usado pelo site). Mapeia cada chave para um
-     * endpoint REST: prefs -> /me/preferences, progress -> /me/progress.
+     * endpoint REST: prefs -> /me/preferences, progress -> /me/progress, attempts -> /me/attempts.
      * getToken() pode devolver o token de login (ou null).
      */
     function createApiAdapter(config) {
         var base = String(config.baseUrl || "").replace(/\/$/, "");
         var fetchFn = config.fetch || root.fetch;
-        var paths = { prefs: "/me/preferences", progress: "/me/progress" };
+        var paths = { prefs: "/me/preferences", progress: "/me/progress", attempts: "/me/attempts" };
 
         function request(key, method, body) {
             var headers = { "Content-Type": "application/json" };

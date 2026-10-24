@@ -35,7 +35,9 @@ test("build: tamanhos, seções e quantidade por tema", () => {
 
     const counts = {};
     full.ids.forEach((id) => { const t = bank.get(id).topic; counts[t] = (counts[t] || 0) + 1; });
-    Mock.BLUEPRINT.forEach((sec) => sec.parts.forEach((p) => assert.equal(counts[p.topic], p.n, p.topic)));
+    Mock.BLUEPRINT.filter((sec) => !sec.optional).forEach((sec) => sec.parts.forEach((p) => assert.equal(counts[p.topic], p.n, p.topic)));
+    assert.equal(full.listening, false);
+    assert.equal(counts["escuta-palavra"], undefined, "sem escuta, nada de escuta");
 });
 
 test("build: sem ids repetidos, sem o mesmo verbo ou kanji duas vezes, cada questão na seção certa", () => {
@@ -175,4 +177,59 @@ test("QuizView.reviewItem funciona para toda questão do banco, em qualquer resp
             assert.ok(!html.includes("undefined"), id + ": 'undefined' no HTML");
         });
     });
+});
+
+/* ---------- escuta ---------- */
+
+test("com escuta: seção extra, tamanhos e tempo", () => {
+    const plan = Mock.build(bank, { size: "full", seed: 6, listening: true });
+    assert.equal(plan.listening, true);
+    assert.deepEqual(plan.sections.map((s) => s.id), ["vocab", "gramatica", "escuta"]);
+    assert.equal(plan.ids.length, 42);
+    assert.equal(plan.ids.length, Mock.totalFor("full", true));
+    assert.equal(Mock.totalFor("short", true), 22);
+    plan.sections[2].ids.forEach((id) => assert.ok(bank.get(id).speak, id + ": sem áudio"));
+    assert.equal(Mock.minutesFor("full", false), 30);
+    assert.equal(Mock.minutesFor("full", true), 38);
+    assert.equal(Mock.minutesFor("short", true), 19);
+    const draft = Mock.newDraft(plan, { timed: true }, 0);
+    assert.equal(draft.listening, true);
+    assert.equal(draft.deadline, 38 * 60000);
+});
+
+test("nota com escuta: língua e leitura (x120), escuta (x60) e total (x180)", () => {
+    const plan = Mock.build(bank, { size: "full", seed: 8, listening: true });
+    const all = Mock.summarize(bank, plan.ids.map((id) => ({ id, chosen: bank.get(id).answer })));
+    assert.equal(all.knowledge, 120); assert.equal(all.listening, 60); assert.equal(all.totalEstimate, 180);
+
+    // acerta tudo em língua e leitura e nada em escuta
+    const onlyK = Mock.summarize(bank, plan.ids.map((id) => ({ id, chosen: bank.get(id).topic.startsWith("escuta") ? null : bank.get(id).answer })));
+    assert.equal(onlyK.knowledge, 120); assert.equal(onlyK.listening, 0); assert.equal(onlyK.totalEstimate, 120);
+    assert.equal(onlyK.sections.escuta.total, 8);
+
+    // sem escuta: listening é null e o total não existe
+    const plain = Mock.build(bank, { size: "full", seed: 8 });
+    const s = Mock.summarize(bank, plain.ids.map((id) => ({ id, chosen: null })));
+    assert.equal(s.listening, null); assert.equal(s.totalEstimate, null);
+});
+
+test("verdict com escuta: mínimos de 38 e 19 e 80 no total", () => {
+    const v = (knowledge, listening) => Mock.verdict({ knowledge, listening });
+    assert.equal(v(60, 30).passEstimate, true);
+    assert.equal(v(60, 18).passEstimate, false, "escuta abaixo de 19");
+    assert.equal(v(37, 60).passEstimate, false, "língua abaixo de 38");
+    assert.equal(v(40, 20).passEstimate, false, "total 60 < 80");
+    assert.equal(v(60, 20).passEstimate, true, "total exatamente 80");
+    assert.equal(v(60, 20).total, 80);
+    assert.equal(Mock.verdict({ knowledge: 100, listening: null }).passEstimate, null, "sem escuta não dá para estimar a aprovação");
+    assert.equal(Mock.verdict({ knowledge: 100 }).hasListening, false);
+});
+
+test("QuizView.listenHtml não revela o texto e reviewItem de escuta mostra o que foi ouvido", () => {
+    const q = bank.get("ls:{書|か}く");
+    const html = QV.listenHtml(q);
+    assert.ok(html.includes('data-speak="' + q.speak + '"'));
+    assert.ok(!html.includes("書") && !html.includes("手紙"), "o japonês não pode aparecer na pergunta");
+    const rev = QV.reviewItem(q, q.answer);
+    assert.ok(rev.includes("<ruby>手紙<rt>てがみ</rt></ruby>"), "a correção mostra a frase ouvida");
 });
