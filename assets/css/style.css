@@ -1238,8 +1238,50 @@ html[data-speech="off"] .speak-btn { display: none; }
 .practice-feedback .kanji-note { margin-top: 8px; }
 .practice-feedback .jp-row { margin-top: 10px; align-items: center; }
 .practice-sub { margin-top: 18px; font-size: 1.05rem; }
-.missed-item > summary { min-height: 48px; }
-.missed-item .verb-pt { color: var(--ink); }
+.review-item > summary { min-height: 48px; }
+.review-item .verb-pt { color: var(--ink); }
 .missed-glyph { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--shu-dark); }
 .missed-line { margin-top: 6px; }
 .wrong-text { color: var(--shu-dark); text-decoration: line-through; }
+
+/* ---------- JLPT: simulado ---------- */
+.mock-facts { margin: 0 0 14px 1.2em; font-size: 0.95rem; }
+.mock-facts li { margin-bottom: 4px; }
+.mock-resume { border-color: var(--shu); }
+.history-list { list-style: none; margin-top: 10px; }
+.history-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line-soft); }
+.history-main { display: flex; align-items: baseline; gap: 10px; }
+.history-est { color: var(--muted); font-size: 0.9rem; }
+.history-meta { grid-column: 1; color: var(--muted); font-size: 0.85rem; }
+.history-row .btn { grid-column: 2; grid-row: 1 / span 2; min-height: 44px; }
+.mock-timer { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--ink); }
+.mock-timer.low { color: var(--shu-dark); }
+.mock-count { color: var(--muted); font-size: 0.9rem; text-align: center; margin-top: 4px; }
+.quiz-option.selected { background: var(--indigo-tint); border-color: var(--indigo); color: var(--indigo); font-weight: 700; }
+.mock-nav-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; }
+.mock-nav-row .btn { min-height: 48px; flex: 1; }
+.mock-nav-row .btn:disabled { opacity: 0.4; cursor: default; }
+.nav-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.nav-dot { min-width: 44px; min-height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font: inherit; font-size: 0.9rem; cursor: pointer; }
+.nav-dot.answered { background: var(--indigo-tint); border-color: var(--indigo); color: var(--indigo); font-weight: 700; }
+.nav-dot.current { outline: 3px solid var(--shu); outline-offset: 1px; }
+.mock-timeup { background: var(--note-bg); border-left: 4px solid var(--note-line); padding: 10px 12px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-bottom: 8px; }
+.mock-estimate { text-align: center; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; margin-top: 12px; }
+.estimate-num { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--shu-dark); }
+.estimate-num span { font-size: 1.1rem; color: var(--muted); }
+.estimate-label { font-weight: 700; }
+.estimate-note { color: var(--muted); font-size: 0.85rem; margin-top: 8px; text-align: left; }
+.score-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(60px, 1fr) auto; gap: 4px 10px; align-items: center; padding: 6px 0; }
+.score-label { font-size: 0.92rem; }
+.score-label span { color: var(--muted); }
+.score-bar { height: 8px; background: var(--paper-deep); border-radius: 999px; overflow: hidden; }
+.score-bar span { display: block; height: 100%; background: var(--matcha); border-radius: 999px; }
+.score-num { font-variant-numeric: tabular-nums; font-size: 0.9rem; min-width: 3.2em; text-align: right; }
+.topic-train { font-size: 0.85rem; font-weight: 700; color: var(--shu); margin-left: 6px; white-space: nowrap; }
+.review-filters { margin: 8px 0 12px; }
+.review-num { flex: none; min-width: 1.6em; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+.review-mark { flex: none; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 50%; font-weight: 700; font-size: 0.85rem; }
+.review-mark.ok { background: var(--matcha-tint); color: var(--matcha-dark); }
+.review-mark.bad { background: var(--shu-tint); color: var(--shu-dark); }
+.review-mark.blank { background: var(--paper-deep); color: var(--muted); }
+.right-text { color: var(--matcha-dark); font-weight: 700; }

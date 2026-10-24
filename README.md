@@ -9,7 +9,7 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 ## Seções
 
 - **Lições** (`lessons/`): o conteúdo do *Minna no Nihongo*, lição por lição.
-- **JLPT** (`jlpt/`): material de apoio para o exame. Tem a **lista dos 103 kanji do N5** e a página de **verbos do N5** (cerca de 100, nos três grupos, com as 12 formas conjugadas; abre-se um verbo por vez ou vários). A página de **gramática do N5** tem 42 cartões curtos, com exemplos e link para a lição do site quando ela existe. O **treino** gera perguntas de gramática, formas e grupos de verbos, significados e leituras de kanji, com correção e explicação na hora, e guarda o histórico no navegador. Simulados estão a caminho. Na lista de kanji, com significado, leituras on'yomi e kun'yomi e frases de exemplo para as principais leituras. Dá para buscar (por kanji, português, kana ou romaji), filtrar por categoria e abrir, com um clique no kanji, os exemplos de cada cartão (um por vez ou vários ao mesmo tempo).
+- **JLPT** (`jlpt/`): material de apoio para o exame. Tem a **lista dos 103 kanji do N5** e a página de **verbos do N5** (cerca de 100, nos três grupos, com as 12 formas conjugadas; abre-se um verbo por vez ou vários). A página de **gramática do N5** tem 42 cartões curtos, com exemplos e link para a lição do site quando ela existe. O **treino** gera perguntas de gramática, formas e grupos de verbos, significados e leituras de kanji, com correção e explicação na hora, e guarda o histórico no navegador. O **simulado** é uma prova com cronômetro e sem correção até o fim; depois mostra a nota estimada (língua e leitura, 0 a 120) e explica cada erro, e guarda o histórico no navegador (dá para sair e continuar depois). Escuta, pontos fracos e exportar/importar estão a caminho. Na lista de kanji, com significado, leituras on'yomi e kun'yomi e frases de exemplo para as principais leituras. Dá para buscar (por kanji, português, kana ou romaji), filtrar por categoria e abrir, com um clique no kanji, os exemplos de cada cartão (um por vez ou vários ao mesmo tempo).
 
 ## Recursos
 
@@ -48,6 +48,9 @@ assets/
   js/practice.js            Sorteio do treino por tema e correção (funções puras)
   js/attempts.js            Histórico de tentativas (funções puras; quem grava é o Store)
   js/practice-page.js       Página de treino
+  js/quiz-view.js           Trechos de HTML da correção, compartilhados por treino e simulado (funções puras)
+  js/mock.js                Simulado: montagem da prova, nota estimada, rascunho (funções puras)
+  js/mock-page.js           Página de simulados (prova, resultado, correção, histórico)
   js/kanji-page.js          Página de kanji (grade, painel de detalhes, busca, filtros, "já sei", quiz)
   js/kanji-quiz.js          Perguntas do quiz de kanji (funções puras)
 tests/
@@ -58,6 +61,7 @@ tests/
   verbs.test.js             Testes do conjugador e dos dados dos verbos
   grammar.test.js           Testes dos cartões de gramática (furigana, lições citadas)
   question-bank.test.js     Testes do banco de questões, do sorteio e do histórico
+  mock.test.js              Testes do simulado, da nota estimada e da correção
   exercises.test.js         Testes de romaji→kana, diferença e embaralhar
   progress.test.js          Testes do progresso
   store-prefs.test.js       Testes da camada de dados e das preferências (node --test)
@@ -78,6 +82,7 @@ jlpt/
   data/n5-grammar.js        Dados dos cartões de gramática
   n5-practice.html          Treino do N5
   data/n5-questions.js      Questões de gramática (completar a frase)
+  n5-mock.html              Simulado do N5
 ```
 
 ## Ver no computador
@@ -195,7 +200,7 @@ A lista de 103 kanji segue uma lista de referência muito usada em materiais de 
 
 ## Próximos passos
 
-- JLPT: simulados do N5 com correção explicada, escuta e pontos fracos (plano em `docs/ROADMAP.md`), depois kanji do N4.
+- JLPT: escuta (voz do aparelho), pontos fracos e exportar/importar o histórico (plano em `docs/ROADMAP.md`), depois kanji do N4.
 - Reescrever as lições 16 a 19 e seguir com as próximas, com conteúdo próprio (a 16 já usa o mesmo formato das demais e funciona offline).
 - Ilustrações no vocabulário (SVG).
 - Explicações gramaticais mais profundas, com mais exemplos em contextos variados.

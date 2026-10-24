@@ -52,8 +52,7 @@ window.JLPT_PAGES = [
         group: "praticar",
         level: "N5",
         file: "n5-mock.html",
-        status: "soon",
         topic: "Simulados",
-        description: "Faça uma prova completa, receba a nota estimada e a correção com a explicação de cada erro. Seu histórico fica salvo."
+        description: "Faça uma prova com cronômetro, sem ver a correção. No fim, receba a nota estimada e a explicação de cada erro. Seu histórico fica salvo."
     }
 ];
