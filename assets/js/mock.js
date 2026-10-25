@@ -72,7 +72,20 @@
                   instr: "みぎの ページを みて、したの しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
                   pt: "Veja a página (tabela ou aviso) e responda à pergunta. Escolha a melhor resposta entre 1, 2, 3 e 4." }
             ] },
-            { id: "choukai", label: "Escuta", jp: "聴解", minutes: 30, ready: false, mondai: [] }
+            { id: "choukai", label: "Escuta", jp: "聴解", minutes: 30, ready: true, needsSpeech: true, mondai: [
+                { id: "l1", topic: "prova-choukai1", n: 7, no: 1, name: "課題理解",
+                  instr: "はじめに しつもんを きいて ください。それから はなしを きいて、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Primeiro ouça a pergunta, depois a conversa. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                { id: "l2", topic: "prova-choukai2", n: 6, no: 2, name: "ポイント理解",
+                  instr: "はじめに しつもんを きいて ください。それから はなしを きいて、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Primeiro ouça a pergunta, depois a conversa, atento ao ponto perguntado. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                { id: "l3", topic: "prova-choukai3", n: 5, no: 3, name: "発話表現",
+                  instr: "えを みながら しつもんを きいて ください。なんと いいますか。1・2・3から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Olhe a figura e ouça a situação. O que se diz? Escolha a melhor fala entre 1, 2 e 3 (só em áudio)." },
+                { id: "l4", topic: "prova-choukai4", n: 6, no: 4, name: "即時応答",
+                  instr: "ぶんを きいて ください。その ぶんに たいする へんじを 1・2・3から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Ouça a frase e escolha a melhor resposta entre 1, 2 e 3 (só em áudio)." }
+            ] }
         ]
     };
     var REAL_LISTENING = { choukai: true };

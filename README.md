@@ -87,6 +87,7 @@ jlpt/
   data/n5-questions.js      Questões de gramática (completar a frase)
   data/n5-exam-vocab.js     Questões da prova no formato JLPT (vocabulário), só em japonês
   data/n5-exam-bunpo.js     Questões da prova no formato JLPT (gramática e leitura)
+  data/n5-exam-choukai.js   Questões da prova no formato JLPT (escuta, com a voz do aparelho)
   n5-mock.html              Simulado do N5
   n5-progress.html          Meu desempenho: pontos fracos, simulados e backup
 ```

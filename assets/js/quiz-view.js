@@ -14,6 +14,7 @@
  *   QuizView.examInstruction(mondai)     enunciado do mondai em japonês (＿＿＿ vira um sublinhado em branco)
  *   QuizView.examSentenceHtml(q, furigana) frase de uma questão "ex:" (sublinhada ou com lacuna)
  *   QuizView.examPassageHtml(q, furigana)  texto, tabela e pergunta de uma questão de leitura ou de texto com lacunas
+ *   QuizView.examScriptHtml(q)             transcrição de uma questão de escuta (pergunta e falas), para a correção
  */
 (function (root) {
     "use strict";
@@ -61,7 +62,18 @@
         return html;
     }
 
+    // Transcrição de uma questão de escuta: ♀ vira 女 e ♂ vira 男. Só aparece na correção (furigana ligado).
+    function examScriptHtml(q) {
+        if (!q.transcriptQ && !(q.script && q.script.length)) return "";
+        var lines = (q.script || []).map(function (line) {
+            var m = /^([♀♂])\s*(.*)$/.exec(line);
+            return "<p>" + (m ? '<b class="who">' + (m[1] === "♀" ? "女" : "男") + "</b> " : "") + examText(m ? m[2] : line, true) + "</p>";
+        }).join("");
+        return '<div class="exam-script" lang="ja"><p class="exam-script-q">' + examText(q.transcriptQ || "", true) + "</p>" + lines + "</div>";
+    }
+
     function examSummary(q) {
+        if (q.speak && q.transcriptQ) return examText(q.transcriptQ, true);
         if (q.sentence) return examSentenceHtml(q, true);
         if (q.blankNo) return "［" + q.blankNo + "］ " + examText(q.passage.split("\n")[0].slice(0, 14), true) + "…";
         return examText(q.question, true);
@@ -109,7 +121,7 @@
             '<summary>' + (options && options.number ? '<span class="review-num">' + options.number + "</span>" : "") +
             '<span class="review-mark ' + status + '" role="img" aria-label="' + STATUS_TEXT[status] + '">' + MARK[status] + "</span>" +
             '<span class="verb-pt" lang="ja">' + examSummary(q) + "</span></summary>" +
-            '<div class="verb-body">' + examPassageHtml(q, true) +
+            '<div class="verb-body">' + (q.scene ? '<div class="exam-scene" aria-hidden="true">' + q.scene + "</div>" : "") + examScriptHtml(q) + examPassageHtml(q, true) +
                 (q.sentence ? '<div class="practice-sentence" lang="ja">' + examSentenceHtml(q, true) + "</div>" : "") +
                 '<ol class="review-options" lang="ja">' + q.options.map(function (o, i) {
                     return '<li class="' + (i === q.answer ? "is-right" : (i === chosen ? "is-wrong" : "")) + '">' + examText(o, true) + "</li>";
@@ -146,7 +158,7 @@
 
     var api = {
         esc: esc, rubyText: rubyText, speakButton: speakButton, sentenceHtml: sentenceHtml, listenHtml: listenHtml, linkFor: linkFor,
-        reviewItem: reviewItem, statusOf: statusOf, setKnown: setKnown, examText: examText, examInstruction: examInstruction, examSentenceHtml: examSentenceHtml, examPassageHtml: examPassageHtml
+        reviewItem: reviewItem, statusOf: statusOf, setKnown: setKnown, examText: examText, examInstruction: examInstruction, examSentenceHtml: examSentenceHtml, examPassageHtml: examPassageHtml, examScriptHtml: examScriptHtml
     };
 
     if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }

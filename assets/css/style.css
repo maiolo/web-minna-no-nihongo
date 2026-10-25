@@ -1334,3 +1334,8 @@ html[data-speech="off"] .speak-btn { display: none; }
 .p-blank.is-current { background: var(--shu-tint); color: var(--shu-dark); border-radius: 4px; padding: 0 4px; }
 .o-blank { display: inline-block; min-width: 2.2em; border-bottom: 2px solid currentColor; margin: 0 3px; }
 .o-star { display: inline-block; min-width: 2.2em; text-align: center; border-bottom: 2px solid currentColor; margin: 0 3px; color: var(--shu-dark); font-weight: 700; }
+.exam-scene { font-size: 4.5rem; line-height: 1.2; text-align: center; margin: 10px 0; }
+.exam-script { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; margin: 10px 0; line-height: 1.9; }
+.exam-script .who { display: inline-block; min-width: 1.6em; color: var(--shu-dark); }
+.exam-script-q { font-weight: 700; margin-bottom: 4px; }
+.opt-hidden { color: var(--muted); font-style: italic; font-size: 0.95rem; }
