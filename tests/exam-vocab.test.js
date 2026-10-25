@@ -18,7 +18,7 @@ function load(files) {
     files.forEach((f) => vm.runInContext(fs.readFileSync(path.join(__dirname, "..", f), "utf8"), ctx));
     return ctx.window;
 }
-const W = load(["jlpt/data/n5-kanji-1.js", "jlpt/data/n5-kanji-2.js", "jlpt/data/n5-kanji-3.js", "jlpt/data/n5-exam-vocab.js", "jlpt/data/n5-exam-bunpo.js"]);
+const W = load(["jlpt/data/n5-kanji-1.js", "jlpt/data/n5-kanji-2.js", "jlpt/data/n5-kanji-3.js", "jlpt/data/n5-exam-vocab.js", "jlpt/data/n5-exam-bunpo.js", "jlpt/data/n5-exam-choukai.js"]);
 const EXAM = W.JLPT_N5_EXAM;
 const KNOWN = W.JLPT_N5_KANJI.map((e) => e.k).join("");
 const bank = QB.create({ verbs: [], kanji: [], grammar: [], exam: EXAM });
@@ -29,6 +29,9 @@ const textsOf = (kind, it) => {
     if (kind === "search") return [it.lead, it.q, it.a].concat(it.w, it.table.head, it.table.rows.reduce((a, r) => a.concat(r), []));
     if (kind === "order") return [it.pre, it.post].concat(it.parts);
     if (kind === "short") return [it.text, it.q, it.a].concat(it.w);
+    if (kind === "task" || kind === "point") return [it.q, it.a].concat(it.script, it.w);
+    if (kind === "utter") return [it.say, it.a].concat(it.w);
+    if (kind === "quick") return [it.say, it.a].concat(it.w);
     return [it.s, it.a].concat(it.w || []);
 };
 QV.setKnown(KNOWN);
@@ -44,7 +47,7 @@ test("há questões de sobra para cada mondai da prova (12, 8, 10 e 5)", () => {
 test("ids únicos e no formato esperado", () => {
     const ids = items.map((x) => x.it.id);
     assert.equal(new Set(ids).size, ids.length);
-    ids.forEach((id) => assert.match(id, /^[yhbigotrs]\d\d$/));
+    ids.forEach((id) => assert.match(id, /^[yhbigotrskpuq]\d\d$/));
 });
 
 test("todo texto usa só kanji do N5 com furigana na notação (o resto vai em hiragana, como na prova)", () => {
@@ -54,7 +57,7 @@ test("todo texto usa só kanji do N5 com furigana na notação (o resto vai em h
         texts.forEach((t) => {
             assert.ok(!KANJI.test(t.replace(/\{[^}]*\}/g, "")), it.id + ": kanji sem notação em " + t);
             (t.match(/\{([^|}]+)\|/g) || []).forEach((m) => {
-                m.slice(1, -1).split("").forEach((c) => assert.ok(KNOWN.includes(c), it.id + ": kanji fora do N5 (" + c + ") em " + t));
+                m.slice(1, -1).split("").forEach((c) => assert.ok(!KANJI.test(c) || KNOWN.includes(c), it.id + ": kanji fora do N5 (" + c + ") em " + t));
             });
         });
     });
@@ -99,11 +102,12 @@ test("o banco monta todas as questões, sempre iguais, com resposta válida", ()
     bank.ids().forEach((id) => {
         const q = bank.get(id);
         assert.deepEqual(q, bank.get(id));
-        assert.equal(q.options.length, 4, id);
-        assert.equal(new Set(q.options).size, 4, id);
-        assert.ok(q.answer >= 0 && q.answer < 4, id);
+        const n = q.hideOptions ? 3 : 4;
+        assert.equal(q.options.length, n, id);
+        assert.equal(new Set(q.options).size, n, id);
+        assert.ok(q.answer >= 0 && q.answer < n, id);
         assert.ok(q.exam && q.exam.mondai >= 1 && q.exam.mondai <= 6, id);
-        assert.ok((q.sentence || q.passage || q.question) && q.explain, id);
+        assert.ok((q.sentence || q.passage || q.question || q.speak) && q.explain, id);
         assert.equal(q.prompt, undefined, id + ": o enunciado vem do mondai");
     });
     const y = bank.get("ex:y01");
@@ -147,7 +151,7 @@ test("buildReal: ordem dos mondai, quantidades, sem repetir e determinístico", 
     a.sections[0].mondai.forEach((m, i) => m.ids.forEach((id) => assert.equal(bank.get(id).exam.mondai, i + 1)));
     assert.deepEqual(a, Mock.buildReal(bank, { parts: ["moji"], seed: 5 }));
     assert.notDeepEqual(a.ids, Mock.buildReal(bank, { parts: ["moji"], seed: 6 }).ids);
-    assert.equal(Mock.buildReal(bank, { parts: ["choukai"], seed: 1 }).ids.length, 0, "parte ainda indisponível não entra");
+    assert.equal(Mock.buildReal(bank, { parts: ["xyz"], seed: 1 }).ids.length, 0, "parte inexistente não entra");
     assert.equal(Mock.realMinutes(["moji"]), 20);
 });
 
@@ -203,7 +207,7 @@ test("QuizView: enunciado em japonês com sublinhado em branco e correção com 
 
 test("itens da prova não entram no treino (tema real) e têm rótulo", () => {
     const real = bank.topics.filter((t) => t.real);
-    assert.equal(real.length, 10);
+    assert.equal(real.length, 14);
     real.forEach((t) => assert.ok(t.label && bank.ids(t.id).length > 0));
 });
 
@@ -282,4 +286,47 @@ test("QuizView: texto com lacuna em destaque, tabela, pergunta e correção de l
     const r = QV.reviewItem(bank.get("ex:r11:1"), null);
     assert.match(r, /exam-passage/);
     assert.match(r, /em branco/);
+});
+
+test("escuta: dados completos (4 alternativas nas tarefas e pontos, 3 nas falas e respostas)", () => {
+    ["task", "point"].forEach((k) => EXAM[k].forEach((it) => {
+        assert.equal(new Set([it.a].concat(it.w)).size, 4, it.id);
+        assert.ok(it.q && it.script.length >= 2 && it.why, it.id);
+        it.script.forEach((l) => assert.match(l, /^[♀♂] /, it.id));
+    }));
+    ["utter", "quick"].forEach((k) => EXAM[k].forEach((it) => {
+        assert.equal(new Set([it.a].concat(it.w)).size, 3, it.id);
+        assert.ok(it.say && it.why, it.id);
+    }));
+    EXAM.utter.forEach((it) => assert.ok(it.scene, it.id));
+    assert.ok(EXAM.task.length >= 7 && EXAM.point.length >= 6 && EXAM.utter.length >= 5 && EXAM.quick.length >= 6);
+});
+
+test("Speech.segments: pausas e tom de quem fala", () => {
+    const Sp = require("../assets/js/speech.js");
+    const segs = Sp.segments("ぜんぶ¦¦♀はい。¦♂いいえ。");
+    assert.ok(segs.length >= 3);
+    assert.ok(segs.some((x) => x.pitch && x.pitch > 1) && segs.some((x) => x.pitch && x.pitch < 1));
+});
+
+test("escuta: monta 24 questões (7/6/5/6) e a prova completa tem 91 questões, 90 min e nota 180", () => {
+    const plan = Mock.buildReal(bank, { parts: ["choukai"], seed: 3 });
+    assert.equal(plan.ids.length, 24);
+    assert.deepEqual(plan.sections[0].mondai.map((m) => m.ids.length), [7, 6, 5, 6]);
+    plan.ids.forEach((id) => assert.ok(bank.get(id).speak, id));
+    assert.ok(bank.get(plan.sections[0].mondai[2].ids[0]).hideOptions);
+    const full = Mock.buildReal(bank, { parts: ["moji", "bunpo", "choukai"], seed: 5 });
+    assert.equal(full.ids.length, 91);
+    assert.equal(Mock.realMinutes(["moji", "bunpo", "choukai"]), 90);
+    const all = Mock.summarize(bank, full.ids.map((id) => ({ id, chosen: bank.get(id).answer })));
+    assert.equal(all.knowledge, 120);
+    assert.equal(all.listening, 60);
+    assert.equal(all.totalEstimate, 180);
+    assert.ok(Mock.verdict(all).passEstimate !== undefined);
+});
+
+test("QuizView: transcrição da escuta com 女 e 男", () => {
+    const html = QV.examScriptHtml(bank.get("ex:k01"));
+    assert.match(html, /exam-script/);
+    assert.match(html, /<b class="who">[女男]<\/b>/);
 });

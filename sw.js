@@ -9,7 +9,7 @@
  * - As fontes do Google são guardadas na primeira visita e reaproveitadas depois.
  */
 // ASSETS:START
-const VERSION = "5b21ae16d9";
+const VERSION = "b5dce1eead";
 const ASSETS = [
   "./",
   "assets/css/style.css",
@@ -49,6 +49,7 @@ const ASSETS = [
   "assets/js/verbs.js",
   "index.html",
   "jlpt/data/n5-exam-bunpo.js",
+  "jlpt/data/n5-exam-choukai.js",
   "jlpt/data/n5-exam-vocab.js",
   "jlpt/data/n5-grammar.js",
   "jlpt/data/n5-kanji-1.js",

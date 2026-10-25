@@ -20,7 +20,7 @@
     var topicLabel = {}, realTopic = {};
     bank.topics.forEach(function (t) { topicLabel[t.id] = t.label; realTopic[t.id] = Boolean(t.real); });
 
-    var settings = { format: "real", parts: ["moji", "bunpo"], furigana: false, size: "full", timed: true, listening: true };
+    var settings = { format: "real", parts: ["moji", "bunpo", "choukai"], furigana: false, size: "full", timed: true, listening: true };
     var exam = null;        // simulado em andamento (rascunho)
     var cur = 0;            // questão exibida
     var view = "home";
@@ -83,9 +83,11 @@
         var setup;
         if (settings.format === "real") {
             var parts = Mock.REAL.sections.map(function (sec) {
-                var on = sec.ready && settings.parts.indexOf(sec.id) !== -1;
-                return '<label class="topic-check' + (sec.ready ? "" : " is-disabled") + '"><input type="checkbox" name="part" value="' + sec.id + '"' + (on ? " checked" : "") + (sec.ready ? "" : " disabled") + ">" +
-                    '<span class="topic-name"><span lang="ja">' + esc(sec.jp) + "</span> <small>" + esc(sec.label) + (sec.ready ? "" : " (em breve)") + "</small></span>" +
+                var usable = sec.ready && !(sec.needsSpeech && speechOff());
+                var on = usable && settings.parts.indexOf(sec.id) !== -1;
+                return '<label class="topic-check' + (usable ? "" : " is-disabled") + '"><input type="checkbox" name="part" value="' + sec.id + '"' + (on ? " checked" : "") + (usable ? "" : " disabled") + ">" +
+                    '<span class="topic-name"><span lang="ja">' + esc(sec.jp) + "</span> <small>" + esc(sec.label) +
+                        (!sec.ready ? " (em breve)" : (!usable ? " (precisa de voz em japonês no aparelho)" : "")) + "</small></span>" +
                     '<span class="topic-count">' + sec.minutes + " min</span></label>";
             }).join("");
             setup = '<p class="practice-lead">Igual à prova do N5: <strong>enunciados e alternativas em japonês</strong>, os kanji do N5 <strong>sem furigana</strong>, as mesmas partes (もんだい) e a mesma quantidade de questões. Você responde tudo, sem ver a correção, e só no fim recebe o resultado com a explicação de cada erro.</p>' +
@@ -118,9 +120,18 @@
 
     function listeningOn() { return settings.listening && !speechOff(); }
 
+    // Partes da prova real que valem agora: a escuta precisa de voz em japonês no aparelho.
+    function activeParts() {
+        var parts = settings.parts.filter(function (id) {
+            var sec = Mock.REAL.sections.filter(function (s) { return s.id === id; })[0];
+            return sec && sec.ready && !(sec.needsSpeech && speechOff());
+        });
+        return parts.length ? parts : ["moji"];
+    }
+
     function updateMinutes() {
         var el = document.getElementById("mock-minutes");
-        if (el) el.textContent = (settings.format === "real" ? Mock.realMinutes(settings.parts) : Mock.minutesFor(settings.size, listeningOn())) + " min";
+        if (el) el.textContent = (settings.format === "real" ? Mock.realMinutes(activeParts()) : Mock.minutesFor(settings.size, listeningOn())) + " min";
         Object.keys(Mock.SIZES).forEach(function (id) {
             var label = document.getElementById("size-label-" + id);
             if (label) label.textContent = Mock.SIZES[id].label + " (" + Mock.totalFor(id, listeningOn()) + ")";
@@ -148,7 +159,7 @@
         readSetup();
         var avoid = Attempts.recentIds(attemptsDoc(), 3);
         var plan = settings.format === "real"
-            ? Mock.buildReal(bank, { parts: settings.parts, seed: newSeed(), avoid: avoid })
+            ? Mock.buildReal(bank, { parts: activeParts(), seed: newSeed(), avoid: avoid })
             : Mock.build(bank, { size: settings.size, seed: newSeed(), avoid: avoid, listening: listeningOn() });
         exam = Mock.newDraft(plan, { timed: settings.timed, furigana: settings.furigana }, Date.now());
         cur = 0;
@@ -186,7 +197,11 @@
             '<details class="exam-trans"><summary>Tradução do enunciado</summary><p>' + esc(m.pt) + "</p></details></div>";
     }
 
-    function optionHtml(q, o) { return q.exam ? QV.examText(o, exam.furigana) : rubyText(o); }
+    // Nas questões só de áudio (もんだい 3 e 4) o texto das alternativas fica escondido, como na prova.
+    function optionHtml(q, o) {
+        if (q.hideOptions && !exam.showText) return '<span class="opt-hidden">somente em áudio</span>';
+        return q.exam ? QV.examText(o, exam.furigana) : rubyText(o);
+    }
 
     function renderExam() {
         view = "exam";
@@ -206,6 +221,7 @@
                 '<div class="practice-bar" aria-hidden="true"><span style="width:' + pct(answered, total) + '%"></span></div>' +
                 '<p class="mock-count">Questão ' + (cur + 1) + " de " + total + " • " + answered + " respondida" + (answered === 1 ? "" : "s") + "</p>" +
                 (q.exam ? mondaiHtml(q) : "") +
+                (q.scene ? '<div class="exam-scene" role="img" aria-label="figura da situação">' + q.scene + "</div>" : "") +
                 (q.glyph ? '<div class="quiz-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
                 (q.prompt ? '<p class="practice-prompt">' + rubyText(q.prompt) + "</p>" : "") +
                 (q.speak ? QV.listenHtml(q) : "") +
@@ -224,6 +240,7 @@
             "</section>" +
             '<section class="card practice-card mock-map"><h3 class="practice-sub">Questões</h3><div class="nav-grid">' + nav + "</div>" +
                 '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="finish">Finalizar simulado</button>' +
+                (exam.format === "real" && exam.parts.indexOf("choukai") !== -1 ? '<button type="button" class="btn btn-reveal" data-act="showtext" aria-pressed="' + Boolean(exam.showText) + '">' + (exam.showText ? "Esconder texto das alternativas" : "Mostrar texto das alternativas") + "</button>" : "") +
                 (exam.format === "real" ? '<button type="button" class="btn btn-reveal" data-act="furigana" aria-pressed="' + Boolean(exam.furigana) + '">' + (exam.furigana ? "Esconder furigana" : "Mostrar furigana") + "</button>" : "") +
                 '<button type="button" class="btn btn-reveal" data-act="pause">Sair e continuar depois</button></div></section>';
         tick();
@@ -400,6 +417,7 @@
             case "next": go(cur + 1); break;
             case "finish": finish(false); break;
             case "pause": stopTimer(); renderHome(); break;
+            case "showtext": exam.showText = !exam.showText; saveDraft(); renderExam(); break;
             case "furigana": exam.furigana = !exam.furigana; saveDraft(); renderExam(); break;
             case "review": {
                 var mocks = Attempts.list(attemptsDoc()).filter(function (x) { return x.kind === "mock"; });

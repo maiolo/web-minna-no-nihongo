@@ -49,7 +49,11 @@
         { id: "prova-bunpo3", label: "Prova: gramática em texto (文章の文法)", real: true },
         { id: "prova-dokkai-tan", label: "Prova: leitura, texto curto (内容理解 短文)", real: true },
         { id: "prova-dokkai-chu", label: "Prova: leitura, texto médio (内容理解 中文)", real: true },
-        { id: "prova-dokkai-joho", label: "Prova: leitura, busca de informação (情報検索)", real: true }
+        { id: "prova-dokkai-joho", label: "Prova: leitura, busca de informação (情報検索)", real: true },
+        { id: "prova-choukai1", label: "Prova: escuta, tarefa (課題理解)", real: true },
+        { id: "prova-choukai2", label: "Prova: escuta, ponto (ポイント理解)", real: true },
+        { id: "prova-choukai3", label: "Prova: escuta, o que dizer (発話表現)", real: true },
+        { id: "prova-choukai4", label: "Prova: escuta, resposta rápida (即時応答)", real: true }
     ];
 
     var FORM_TYPES = { vte: "te", vta: "ta", vnai: "nai", vmasu: "masu" };
@@ -391,6 +395,40 @@
         return finish(b);
     }
 
+    // Escuta (jlpt/data/n5-exam-choukai.js). O áudio é uma sequência de falas separadas por "¦" (veja speech.js).
+    var BAN = ["いちばん", "にばん", "さんばん"];
+
+    function lineAudio(line) {
+        var m = /^([♀♂])\s*(.*)$/.exec(line);
+        return (m ? m[1] : "") + spoken(m ? m[2] : line);
+    }
+
+    // Conversa: a pergunta primeiro, uma pausa maior e depois as falas.
+    function examListenDialogue(topic, mondai, item) {
+        var q = finish({
+            id: "ex:" + item.id, topic: topic, exam: { mondai: mondai }, correct: item.a, wrong: item.w, explain: item.why
+        });
+        q.speak = [spoken(item.q), ""].concat(item.script.map(lineAudio)).join("¦");
+        q.transcriptQ = item.q;
+        q.script = item.script;
+        return q;
+    }
+
+    // Situação ou frase curta e 3 alternativas só em áudio (o texto das alternativas fica escondido na prova).
+    function examListenOptions(topic, mondai, item, head) {
+        var q = finish({
+            id: "ex:" + item.id, topic: topic, exam: { mondai: mondai }, correct: item.a, wrong: item.w, explain: item.why
+        });
+        var parts = [head.map(spoken).join("¦"), ""];
+        q.options.forEach(function (o, i) { parts.push(BAN[i], spoken(o), ""); });
+        q.speak = parts.slice(0, -1).join("¦");
+        q.transcriptQ = head.join(" ");
+        q.script = [];
+        q.hideOptions = true;
+        if (item.scene) q.scene = item.scene;
+        return q;
+    }
+
     function examChoice(topic, mondai, item) {
         return finish({
             id: "ex:" + item.id, topic: topic, exam: { mondai: mondai }, sentence: item.s,
@@ -460,6 +498,14 @@
             var ids = it.qs.map(function (q, i) { return "ex:" + it.id + ":" + (i + 1); });
             ids.forEach(function (id, i) { add("prova-dokkai-chu", id, function () { return examRead("prova-dokkai-chu", 5, it, it.qs[i], i + 1); }); });
             addGroup("prova-dokkai-chu", ids);
+        });
+        (exam.task || []).forEach(function (it) { add("prova-choukai1", "ex:" + it.id, function () { return examListenDialogue("prova-choukai1", 1, it); }); });
+        (exam.point || []).forEach(function (it) { add("prova-choukai2", "ex:" + it.id, function () { return examListenDialogue("prova-choukai2", 2, it); }); });
+        (exam.utter || []).forEach(function (it) {
+            add("prova-choukai3", "ex:" + it.id, function () { return examListenOptions("prova-choukai3", 3, it, [it.say, "なんと いいますか。"]); });
+        });
+        (exam.quick || []).forEach(function (it) {
+            add("prova-choukai4", "ex:" + it.id, function () { return examListenOptions("prova-choukai4", 4, it, [it.say]); });
         });
         (exam.search || []).forEach(function (it) { add("prova-dokkai-joho", "ex:" + it.id, function () { return examRead("prova-dokkai-joho", 6, it, it); }); });
 

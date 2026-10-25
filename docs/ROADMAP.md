@@ -124,7 +124,7 @@ Pedido do aluno: o simulado deve ser o mais próximo possível da prova real do 
 |----|----------|
 | 9a (feito) | Motor da prova (`Mock.REAL`, `Mock.buildReal`), `Notation.toExam` (furigana só fora da lista do N5), tela com formato JLPT e simulado rápido, e a parte 文字・語彙 completa (4 mondai) |
 | 9b (feito) | 文法 (3 mondai: completar 16, ordenar ★ 5, texto com lacunas 5) e 読解 (3 mondai: curto 3, médio 2, busca de informação 1) em `n5-exam-bunpo.js`; com as duas partes de língua e leitura (67 questões, 60 min) há nota estimada de 0 a 120 |
-| 9c | 聴解 (4 mondai) e nota estimada da prova completa |
+| 9c (feito) | 聴解 (4 mondai: 7 + 6 + 5 + 6 = 24 questões, 30 min) em `n5-exam-choukai.js`, com a voz do aparelho (homem/mulher só pelo tom, pausas entre as falas, alternativas de もんだい 3 e 4 só em áudio, com botão para mostrar o texto) e transcrição na correção. Prova completa: 91 questões, 90 min, nota estimada de 0 a 180 |
 
 As perguntas são escritas para o projeto (as da prova oficial não podem ser copiadas) em `jlpt/data/n5-exam-*.js`, com ids fixos (`ex:y01`, `ex:h01`, `ex:b01`, `ex:i01`). Só kanji da lista do N5 entram nos textos (um teste confere); o resto vai em hiragana. Na prova a nota estimada só aparece com todas as partes de língua e leitura; antes disso, os acertos por mondai.
 
