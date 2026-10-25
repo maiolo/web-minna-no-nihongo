@@ -15,7 +15,9 @@
  *   Notation.toExam(notação, { furigana, known })
  *                                       HTML no estilo da prova: kanji da lista `known` (texto com os kanji do N5)
  *                                       aparecem SEM furigana; os outros, e todos se furigana for true, ganham <ruby>.
- *                                       *texto* vira <u>, ＿＿ vira （　　） e os espaços ficam (como no N5 em hiragana)
+ *                                       *texto* vira <u>, ＿＿ vira （　　） e os espaços ficam (como no N5 em hiragana);
+ *                                       □ e ★ (ordenar peças) viram caixas e ［1］ a ［5］ (lacunas de texto) viram marcas;
+ *                                       com { current: n } a lacuna n do texto fica em destaque
  *   Notation.katakanaToHiragana(texto)
  */
 (function (root) {
@@ -153,7 +155,12 @@
                 return easy ? base : "<ruby>" + base + "<rt>" + reading + "</rt></ruby>";
             })
             .replace(/\*([^*]+)\*/g, "<u>$1</u>")
-            .replace(/＿＿/g, '<span class="blank" aria-label="lacuna">（　　）</span>');
+            .replace(/＿＿/g, '<span class="blank" aria-label="lacuna">（　　）</span>')
+            .replace(/□/g, '<span class="o-blank" aria-label="peça">　　</span>')
+            .replace(/★/g, '<span class="o-star" aria-label="estrela">★</span>')
+            .replace(/［(\d)］/g, function (_, n) {
+                return '<span class="p-blank' + (Number(n) === o.current ? " is-current" : "") + '">［' + n + "］</span>";
+            });
     }
 
     // Separa as palavras do romaji com regras simples (partículas depois de

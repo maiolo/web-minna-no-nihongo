@@ -43,7 +43,13 @@
         { id: "prova-yomi", label: "Prova: leitura de kanji (漢字読み)", real: true },
         { id: "prova-hyouki", label: "Prova: escrita da palavra (表記)", real: true },
         { id: "prova-bunmyaku", label: "Prova: vocabulário em contexto (文脈規定)", real: true },
-        { id: "prova-iikae", label: "Prova: frase equivalente (言い換え類義)", real: true }
+        { id: "prova-iikae", label: "Prova: frase equivalente (言い換え類義)", real: true },
+        { id: "prova-bunpo1", label: "Prova: gramática, completar (文の文法1)", real: true },
+        { id: "prova-bunpo2", label: "Prova: gramática, ordenar (文の文法2)", real: true },
+        { id: "prova-bunpo3", label: "Prova: gramática em texto (文章の文法)", real: true },
+        { id: "prova-dokkai-tan", label: "Prova: leitura, texto curto (内容理解 短文)", real: true },
+        { id: "prova-dokkai-chu", label: "Prova: leitura, texto médio (内容理解 中文)", real: true },
+        { id: "prova-dokkai-joho", label: "Prova: leitura, busca de informação (情報検索)", real: true }
     ];
 
     var FORM_TYPES = { vte: "te", vta: "ta", vnai: "nai", vmasu: "masu" };
@@ -357,6 +363,34 @@
         });
     }
 
+    // Gramática e leitura (jlpt/data/n5-exam-bunpo.js).
+    // もんだい 2: as 4 peças vêm na ordem certa; a 3ª fica em ★. Mostra "pre □ □ ★ □ post".
+    function examOrder(item) {
+        return finish({
+            id: "ex:" + item.id, topic: "prova-bunpo2", exam: { mondai: 2 },
+            sentence: [item.pre, "□ □ ★ □", item.post].filter(Boolean).join(" "),
+            correct: item.parts[2], wrong: [item.parts[0], item.parts[1], item.parts[3]],
+            explain: item.why
+        });
+    }
+
+    function examBlank(text, item, n) {
+        var blank = item.blanks[n - 1];
+        return finish({
+            id: "ex:" + item.id + ":" + n, topic: "prova-bunpo3", exam: { mondai: 3 }, group: item.id,
+            passage: text, blankNo: n, correct: blank.a, wrong: blank.w, explain: blank.why
+        });
+    }
+
+    function examRead(topic, mondai, item, q, n) {
+        var b = {
+            id: "ex:" + item.id + (n ? ":" + n : ""), topic: topic, exam: { mondai: mondai }, group: item.id,
+            passage: item.text, question: q.q, correct: q.a, wrong: q.w, explain: q.why
+        };
+        if (item.table) { b.table = item.table; b.passage = item.lead; }
+        return finish(b);
+    }
+
     function examChoice(topic, mondai, item) {
         return finish({
             id: "ex:" + item.id, topic: topic, exam: { mondai: mondai }, sentence: item.s,
@@ -374,7 +408,7 @@
             id: b.id, topic: b.topic, prompt: b.prompt,
             options: order, answer: order.indexOf(b.correct), explain: b.explain
         };
-        ["ref", "sentence", "hint", "glyph", "speak", "heard", "exam"].forEach(function (k) { if (b[k]) q[k] = b[k]; });
+        ["ref", "sentence", "hint", "glyph", "speak", "heard", "exam", "passage", "table", "question", "blankNo", "group"].forEach(function (k) { if (b[k]) q[k] = b[k]; });
         return q;
     }
 
@@ -386,6 +420,7 @@
 
         var byId = {};
         var idsByTopic = {};
+        var groupsByTopic = {};   // temas com várias perguntas sobre o mesmo texto: [[id, id], ...]
         TOPICS.forEach(function (t) { idsByTopic[t.id] = []; });
         function add(topic, id, make) {
             byId[id] = make;
@@ -412,9 +447,30 @@
         (exam.bunmyaku || []).forEach(function (it) { add("prova-bunmyaku", "ex:" + it.id, function () { return examChoice("prova-bunmyaku", 3, it); }); });
         (exam.iikae || []).forEach(function (it) { add("prova-iikae", "ex:" + it.id, function () { return examChoice("prova-iikae", 4, it); }); });
 
+        function addGroup(topic, ids) { (groupsByTopic[topic] = groupsByTopic[topic] || []).push(ids); }
+        (exam.grammar1 || []).forEach(function (it) { add("prova-bunpo1", "ex:" + it.id, function () { return examChoice("prova-bunpo1", 1, it); }); });
+        (exam.order || []).forEach(function (it) { add("prova-bunpo2", "ex:" + it.id, function () { return examOrder(it); }); });
+        (exam.text || []).forEach(function (it) {
+            var ids = it.blanks.map(function (b, i) { return "ex:" + it.id + ":" + (i + 1); });
+            ids.forEach(function (id, i) { add("prova-bunpo3", id, function () { return examBlank(it.text, it, i + 1); }); });
+            addGroup("prova-bunpo3", ids);
+        });
+        (exam.short || []).forEach(function (it) { add("prova-dokkai-tan", "ex:" + it.id, function () { return examRead("prova-dokkai-tan", 4, it, it); }); });
+        (exam.mid || []).forEach(function (it) {
+            var ids = it.qs.map(function (q, i) { return "ex:" + it.id + ":" + (i + 1); });
+            ids.forEach(function (id, i) { add("prova-dokkai-chu", id, function () { return examRead("prova-dokkai-chu", 5, it, it.qs[i], i + 1); }); });
+            addGroup("prova-dokkai-chu", ids);
+        });
+        (exam.search || []).forEach(function (it) { add("prova-dokkai-joho", "ex:" + it.id, function () { return examRead("prova-dokkai-joho", 6, it, it); }); });
+
         return {
             topics: TOPICS.slice(),
             ids: function (topicId) { return topicId ? (idsByTopic[topicId] || []).slice() : Object.keys(byId); },
+            // Grupos de questões que dividem um texto (os outros temas: cada questão é um grupo).
+            groups: function (topicId) {
+                return groupsByTopic[topicId] ? groupsByTopic[topicId].map(function (g) { return g.slice(); })
+                    : (idsByTopic[topicId] || []).map(function (id) { return [id]; });
+            },
             get: function (id) { return byId[id] ? byId[id]() : null; }
         };
     }

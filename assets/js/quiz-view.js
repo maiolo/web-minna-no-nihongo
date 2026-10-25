@@ -13,6 +13,7 @@
  *   QuizView.examText(notação, furigana) texto no estilo da prova (Notation.toExam com os kanji conhecidos)
  *   QuizView.examInstruction(mondai)     enunciado do mondai em japonês (＿＿＿ vira um sublinhado em branco)
  *   QuizView.examSentenceHtml(q, furigana) frase de uma questão "ex:" (sublinhada ou com lacuna)
+ *   QuizView.examPassageHtml(q, furigana)  texto, tabela e pergunta de uma questão de leitura ou de texto com lacunas
  */
 (function (root) {
     "use strict";
@@ -40,7 +41,31 @@
         // ＿＿＿ do enunciado é um sublinhado em branco (o ＿＿ de lacuna só vale nas frases das questões).
         return N.toExam(mondai.instr.replace(/＿＿＿/g, "\u0001"), { furigana: false, known: known }).replace(/\u0001/g, '<u class="blank-u">　　　</u>');
     }
-    function examSentenceHtml(q, furigana) { return examText(q.sentence, furigana); }
+    function examSentenceHtml(q, furigana) { return q.sentence ? examText(q.sentence, furigana) : ""; }
+
+    // Texto (parágrafos), tabela e pergunta. Nos textos com lacunas, a lacuna da questão fica em destaque.
+    function examPassageHtml(q, furigana) {
+        var html = "";
+        if (q.passage) {
+            html += '<div class="exam-passage" lang="ja">' + String(q.passage).split("\n").map(function (line) {
+                return "<p>" + N.toExam(line, { furigana: Boolean(furigana), known: known, current: q.blankNo }) + "</p>";
+            }).join("") + "</div>";
+        }
+        if (q.table) {
+            html += '<div class="exam-table-wrap" lang="ja"><table class="exam-table"><thead><tr>' + q.table.head.map(function (h) { return "<th>" + examText(h, furigana) + "</th>"; }).join("") +
+                "</tr></thead><tbody>" + q.table.rows.map(function (r) {
+                    return "<tr>" + r.map(function (c) { return "<td>" + examText(c, furigana) + "</td>"; }).join("") + "</tr>";
+                }).join("") + "</tbody></table></div>";
+        }
+        if (q.question) html += '<p class="exam-question" lang="ja">' + examText(q.question, furigana) + "</p>";
+        return html;
+    }
+
+    function examSummary(q) {
+        if (q.sentence) return examSentenceHtml(q, true);
+        if (q.blankNo) return "［" + q.blankNo + "］ " + examText(q.passage.split("\n")[0].slice(0, 14), true) + "…";
+        return examText(q.question, true);
+    }
 
     function speakButton(notation) {
         var text = N.readingText(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "");
@@ -83,9 +108,9 @@
         return '<details class="verb-item review-item ' + status + '"' + (open ? " open" : "") + ">" +
             '<summary>' + (options && options.number ? '<span class="review-num">' + options.number + "</span>" : "") +
             '<span class="review-mark ' + status + '" role="img" aria-label="' + STATUS_TEXT[status] + '">' + MARK[status] + "</span>" +
-            '<span class="verb-pt" lang="ja">' + examSentenceHtml(q, true) + "</span></summary>" +
-            '<div class="verb-body">' +
-                '<div class="practice-sentence" lang="ja">' + examSentenceHtml(q, true) + "</div>" +
+            '<span class="verb-pt" lang="ja">' + examSummary(q) + "</span></summary>" +
+            '<div class="verb-body">' + examPassageHtml(q, true) +
+                (q.sentence ? '<div class="practice-sentence" lang="ja">' + examSentenceHtml(q, true) + "</div>" : "") +
                 '<ol class="review-options" lang="ja">' + q.options.map(function (o, i) {
                     return '<li class="' + (i === q.answer ? "is-right" : (i === chosen ? "is-wrong" : "")) + '">' + examText(o, true) + "</li>";
                 }).join("") + "</ol>" +
@@ -121,7 +146,7 @@
 
     var api = {
         esc: esc, rubyText: rubyText, speakButton: speakButton, sentenceHtml: sentenceHtml, listenHtml: listenHtml, linkFor: linkFor,
-        reviewItem: reviewItem, statusOf: statusOf, setKnown: setKnown, examText: examText, examInstruction: examInstruction, examSentenceHtml: examSentenceHtml
+        reviewItem: reviewItem, statusOf: statusOf, setKnown: setKnown, examText: examText, examInstruction: examInstruction, examSentenceHtml: examSentenceHtml, examPassageHtml: examPassageHtml
     };
 
     if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }

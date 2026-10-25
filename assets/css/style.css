@@ -1323,3 +1323,14 @@ html[data-speech="off"] .speak-btn { display: none; }
 .review-options { margin: 10px 0 10px 1.6em; display: grid; gap: 4px; }
 .review-options li.is-right { color: var(--matcha-dark); font-weight: 700; }
 .review-options li.is-wrong { color: var(--shu-dark); text-decoration: line-through; }
+.exam-passage { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin: 10px 0; font-size: 1.05rem; line-height: 2; }
+.exam-passage p + p { margin-top: 6px; }
+.exam-question { font-weight: 700; margin: 12px 0 8px; line-height: 1.8; }
+.exam-table-wrap { overflow-x: auto; margin: 10px 0; }
+.exam-table { border-collapse: collapse; width: 100%; font-size: 1rem; }
+.exam-table th, .exam-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.exam-table th { background: var(--paper); }
+.p-blank { font-weight: 700; }
+.p-blank.is-current { background: var(--shu-tint); color: var(--shu-dark); border-radius: 4px; padding: 0 4px; }
+.o-blank { display: inline-block; min-width: 2.2em; border-bottom: 2px solid currentColor; margin: 0 3px; }
+.o-star { display: inline-block; min-width: 2.2em; text-align: center; border-bottom: 2px solid currentColor; margin: 0 3px; color: var(--shu-dark); font-weight: 700; }
