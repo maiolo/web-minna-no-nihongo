@@ -12,6 +12,10 @@
  *   Notation.readingText(notação)       só as leituras (kana), sem marcadores de partícula tratados
  *   Notation.toRuby(notação, alvo)      HTML com <ruby>; o bloco que contém "alvo" ganha class="hl"
  *   Notation.spaceWords(notação)        insere espaços entre palavras (usado pelo sentenceRomaji)
+ *   Notation.toExam(notação, { furigana, known })
+ *                                       HTML no estilo da prova: kanji da lista `known` (texto com os kanji do N5)
+ *                                       aparecem SEM furigana; os outros, e todos se furigana for true, ganham <ruby>.
+ *                                       *texto* vira <u>, ＿＿ vira （　　） e os espaços ficam (como no N5 em hiragana)
  *   Notation.katakanaToHiragana(texto)
  */
 (function (root) {
@@ -135,6 +139,23 @@
             });
     }
 
+    function escapeHtml(text) {
+        return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function toExam(notation, options) {
+        var o = options || {};
+        var known = o.known || "";
+        return escapeHtml(notation)
+            .replace(/\^/g, "")
+            .replace(/\{([^|}]+)\|([^}]+)\}/g, function (_, base, reading) {
+                var easy = !o.furigana && base.split("").every(function (c) { return known.indexOf(c) !== -1 || !/[一-鿿]/.test(c); });
+                return easy ? base : "<ruby>" + base + "<rt>" + reading + "</rt></ruby>";
+            })
+            .replace(/\*([^*]+)\*/g, "<u>$1</u>")
+            .replace(/＿＿/g, '<span class="blank" aria-label="lacuna">（　　）</span>');
+    }
+
     // Separa as palavras do romaji com regras simples (partículas depois de
     // um bloco {kanji|leitura}, です/ください, pontuação). Não é perfeito, mas
     // deixa a leitura bem mais fácil do que um bloco colado.
@@ -177,6 +198,7 @@
         plainText: plainText,
         readingText: readingText,
         toRuby: toRuby,
+        toExam: toExam,
         spaceWords: spaceWords,
         sentenceRomaji: sentenceRomaji
     };

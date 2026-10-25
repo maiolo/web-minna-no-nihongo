@@ -85,6 +85,7 @@ jlpt/
   data/n5-grammar.js        Dados dos cartões de gramática
   n5-practice.html          Treino do N5
   data/n5-questions.js      Questões de gramática (completar a frase)
+  data/n5-exam-vocab.js     Questões da prova no formato JLPT (vocabulário), só em japonês
   n5-mock.html              Simulado do N5
   n5-progress.html          Meu desempenho: pontos fracos, simulados e backup
 ```
@@ -189,6 +190,8 @@ window.lessonData = {
 **Ponto de gramática novo** em `jlpt/data/n5-grammar.js` (campos explicados no topo do arquivo). Todo kanji, inclusive nos textos explicativos, vai em `{漢字|かんじ}`. Se a lição do site explica o ponto, informe `lesson: N`; o teste confere que a lição existe e trata do tema (acrescente a palavra-chave em `tests/grammar.test.js`).
 
 **Questão de gramática nova** em `jlpt/data/n5-questions.js` (formato no topo do arquivo): informe `ref` (cartão que explica o ponto), a frase com ＿＿, a certa e **três erradas que sejam realmente erradas naquela frase**, e a explicação. O `id` é guardado no histórico dos alunos, então não o mude depois de publicado. As questões de verbos e kanji saem dos dados sozinhas.
+
+**Questão nova da prova no formato JLPT** em `jlpt/data/n5-exam-vocab.js` (formato no topo do arquivo): só kanji da lista do N5, com `{漢字|かんじ}`; o resto em hiragana. Um teste confere. Não mude ids publicados.
 
 **Página nova na seção JLPT** (ex.: kanji do N4): crie a página e os dados em `jlpt/`, reutilize `assets/js/kanji-page.js` (ele lê `data-global` e `data-level` do `<body>`) e acrescente a página em `assets/js/jlpt-index.js` (`group` e, se ainda não existir, `status: "soon"`).
 

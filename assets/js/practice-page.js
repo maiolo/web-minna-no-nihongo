@@ -12,10 +12,12 @@
     var N = window.Notation, QB = window.QuestionBank, Practice = window.Practice, Attempts = window.Attempts;
     var level = document.body.dataset.level || "N5";
 
-    var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS });
+    var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS, exam: window.JLPT_N5_EXAM });
+    // Os temas "prova" (formato JLPT) são só do simulado; o treino usa os outros.
+    var practiceTopics = bank.topics.filter(function (t) { return !t.real; });
     var COUNTS = [5, 10, 20];
 
-    var settings = { topics: bank.topics.map(function (t) { return t.id; }), count: 10 };
+    var settings = { topics: practiceTopics.map(function (t) { return t.id; }), count: 10 };
     // n5-practice.html?topics=gramatica,verbo-forma abre com esses temas marcados (links do simulado).
     (function () {
         var match = /[?&]topics=([^&]*)/.exec(location.search);
@@ -34,7 +36,7 @@
     // Sem voz em japonês no aparelho, as questões de escuta não funcionam (speech.js marca data-speech="off").
     function speechOff() { return document.documentElement.dataset.speech === "off"; }
     function listeningTopic(id) { return bank.topics.filter(function (t) { return t.id === id; })[0].listening === true; }
-    function playable(id) { return !(speechOff() && bank.get(id).speak); }
+    function playable(id) { var q = bank.get(id); return Boolean(q) && !q.exam && !(speechOff() && q.speak); }
 
     /* ---------- Início ---------- */
 
@@ -45,7 +47,7 @@
         var missed = Attempts.missedIds(doc).filter(function (id) { return bank.get(id) && playable(id); });
         var weak = window.Stats ? window.Stats.compute(doc, bank).weakIds.filter(playable) : [];
 
-        var topics = bank.topics.map(function (t) {
+        var topics = practiceTopics.map(function (t) {
             var off = t.listening && speechOff();
             var checked = !off && settings.topics.indexOf(t.id) !== -1;
             return '<label class="topic-check' + (off ? " is-disabled" : "") + '"><input type="checkbox" name="topic" value="' + t.id + '"' + (checked ? " checked" : "") + (off ? " disabled" : "") + ">" +

@@ -27,7 +27,7 @@ const bank = QB.create({ verbs: W.JLPT_N5_VERBS, kanji: W.JLPT_N5_KANJI, grammar
 const hasBareKanji = (s) => /[一-鿿]/.test(s.replace(/\{[^}]*\}/g, ""));
 
 test("o banco tem questões em todos os temas", () => {
-    QB.TOPICS.forEach((t) => assert.ok(bank.ids(t.id).length >= 30, t.id + ": " + bank.ids(t.id).length));
+    QB.TOPICS.filter((t) => !t.real).forEach((t) => assert.ok(bank.ids(t.id).length >= 30, t.id + ": " + bank.ids(t.id).length));
     assert.equal(bank.ids().length, new Set(bank.ids()).size, "ids repetidos");
 });
 

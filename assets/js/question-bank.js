@@ -15,7 +15,11 @@
  *
  * Ids: "vte:{書|か}く" (forma て), "vta:", "vnai:", "vmasu:", "vgrp:", "vmean:",
  *      "kmean:食", "kread:食", "q:wa-topico" (gramática, jlpt/data/n5-questions.js),
- *      "lw:{書|か}く" (escuta: ouvir a palavra) e "ls:{書|か}く" (escuta: ouvir a frase de exemplo).
+ *      "lw:{書|か}く" (escuta: ouvir a palavra) e "ls:{書|か}く" (escuta: ouvir a frase de exemplo),
+ *      "ex:y01", "ex:h01", "ex:b01", "ex:i01" (prova no formato JLPT; o texto está em jlpt/data/n5-exam-*.js).
+ *
+ * Questões "ex:" têm `exam: { mondai }` e `sentence` com a notação da prova (*sublinhado*, ＿＿ lacuna);
+ * não têm `prompt`: o enunciado é o do mondai (veja Mock.REAL). As alternativas erradas de leitura são geradas.
  *
  * Questões de escuta têm `speak` (texto em kana para a voz do aparelho; o japonês escrito não
  * aparece na pergunta) e `heard` (a notação, mostrada só na correção).
@@ -24,6 +28,7 @@
     "use strict";
 
     var V = typeof module !== "undefined" && module.exports ? require("./verbs.js") : root.Verbs;
+    var N = typeof module !== "undefined" && module.exports ? require("./notation.js") : root.Notation;
 
     var TOPICS = [
         { id: "gramatica", label: "Gramática: partículas, frases e formas" },
@@ -33,7 +38,12 @@
         { id: "kanji-significado", label: "Kanji: significado" },
         { id: "kanji-leitura", label: "Kanji: leitura" },
         { id: "escuta-palavra", label: "Escuta: palavras", listening: true },
-        { id: "escuta-frase", label: "Escuta: frases", listening: true }
+        { id: "escuta-frase", label: "Escuta: frases", listening: true },
+        // Questões no formato da prova real (só aparecem no simulado, não no treino): jlpt/data/n5-exam-*.js
+        { id: "prova-yomi", label: "Prova: leitura de kanji (漢字読み)", real: true },
+        { id: "prova-hyouki", label: "Prova: escrita da palavra (表記)", real: true },
+        { id: "prova-bunmyaku", label: "Prova: vocabulário em contexto (文脈規定)", real: true },
+        { id: "prova-iikae", label: "Prova: frase equivalente (言い換え類義)", real: true }
     ];
 
     var FORM_TYPES = { vte: "te", vta: "ta", vnai: "nai", vmasu: "masu" };
@@ -280,6 +290,80 @@
         });
     }
 
+    /* ---------- Prova no formato JLPT (jlpt/data/n5-exam-vocab.js) ---------- */
+
+    // Sons parecidos que a prova usa como alternativas erradas: som duplo (っ), vogal longa e dakuten.
+    var VOICED = { "か": "が", "き": "ぎ", "く": "ぐ", "け": "げ", "こ": "ご", "さ": "ざ", "し": "じ", "す": "ず", "せ": "ぜ", "そ": "ぞ",
+                   "た": "だ", "て": "で", "と": "ど", "は": "ば", "ひ": "び", "ふ": "ぶ", "へ": "べ", "ほ": "ぼ" };
+    var UNVOICED = {};
+    Object.keys(VOICED).forEach(function (k) { UNVOICED[VOICED[k]] = k; });
+    var O_COLUMN = "おこそとのほもよろをごぞどぼぽょ", E_COLUMN = "えけせてねへめれげぜでべぺ";
+    var SMALL_TSU_NEXT = "かきくけこさしすせそたちつてとぱぴぷぺぽ";
+
+    // Todas as variações de uma só mudança na leitura (sem repetir e sem a própria leitura).
+    function soundVariants(r) {
+        var out = [];
+        function push(t) { if (t !== r && out.indexOf(t) === -1) out.push(t); }
+        var chars = r.split("");
+        chars.forEach(function (c, i) {
+            var head = r.slice(0, i), tail = r.slice(i + 1);
+            var afterTsu = i > 0 && chars[i - 1] === "っ";
+            if (VOICED[c] && !afterTsu) push(head + VOICED[c] + tail);
+            if (UNVOICED[c] && !afterTsu) push(head + UNVOICED[c] + tail);
+            if (c === "は" || c === "ひ" || c === "ふ" || c === "へ" || c === "ほ") push(head + String.fromCharCode(c.charCodeAt(0) + 2) + tail);
+            if (c === "っ") push(head + tail);
+            if (i > 0 && c !== "っ" && c !== "ー" && SMALL_TSU_NEXT.indexOf(c) !== -1 && chars[i - 1] !== "っ" && chars[i - 1] !== "ん") push(head + "っ" + c + tail);
+            if (i > 0 && i < chars.length - 1 && O_COLUMN.indexOf(c) !== -1 && chars[i + 1] !== "う") push(head + c + "う" + tail);
+            if (i > 0 && i < chars.length - 1 && E_COLUMN.indexOf(c) !== -1 && chars[i + 1] !== "い") push(head + c + "い" + tail);
+            if ((c === "う" || c === "い") && i > 0 && (O_COLUMN.indexOf(chars[i - 1]) !== -1 || E_COLUMN.indexOf(chars[i - 1]) !== -1)) push(head + tail);
+        });
+        return out;
+    }
+
+    function underlined(sentence) {
+        var m = /\*([^*]+)\*/.exec(sentence);
+        return m ? m[1] : "";
+    }
+
+    function examYomi(item) {
+        var id = "ex:" + item.id;
+        var word = underlined(item.s);
+        var right = N.readingText(word);
+        var seed = hash(id);
+        var first = soundVariants(right);
+        // Se faltar variação (palavra curta), muda mais uma vez a partir das que já existem.
+        if (item.w) {   // palavras curtas: alternativas escritas à mão
+            return finish({
+                id: id, topic: "prova-yomi", exam: { mondai: 1 }, sentence: item.s, correct: right, wrong: item.w,
+                explain: N.plainText(word) + " lê-se " + right + " (" + item.pt + ")." + (item.note ? " " + item.note : "")
+            });
+        }
+        var pool = first.slice();
+        first.forEach(function (v) { soundVariants(v).forEach(function (t) { if (t !== right && pool.indexOf(t) === -1) pool.push(t); }); });
+        var wrong = shuffle(first, seed).concat(shuffle(pool.filter(function (t) { return first.indexOf(t) === -1; }), seed + 1)).slice(0, 3);
+        return finish({
+            id: id, topic: "prova-yomi", exam: { mondai: 1 }, sentence: item.s,
+            correct: right, wrong: wrong,
+            explain: N.plainText(word) + " lê-se " + right + " (" + item.pt + ")." + (item.note ? " " + item.note : "")
+        });
+    }
+
+    function examHyouki(item) {
+        var id = "ex:" + item.id;
+        return finish({
+            id: id, topic: "prova-hyouki", exam: { mondai: 2 }, sentence: item.s,
+            correct: item.a, wrong: item.w,
+            explain: underlined(item.s) + " (" + item.pt + ") escreve-se " + N.plainText(item.a) + "."
+        });
+    }
+
+    function examChoice(topic, mondai, item) {
+        return finish({
+            id: "ex:" + item.id, topic: topic, exam: { mondai: mondai }, sentence: item.s,
+            correct: item.a, wrong: item.w, explain: item.why
+        });
+    }
+
     /* ---------- Montagem ---------- */
 
     // Embaralha as alternativas (sempre do mesmo jeito para o mesmo id) e marca a certa.
@@ -290,7 +374,7 @@
             id: b.id, topic: b.topic, prompt: b.prompt,
             options: order, answer: order.indexOf(b.correct), explain: b.explain
         };
-        ["ref", "sentence", "hint", "glyph", "speak", "heard"].forEach(function (k) { if (b[k]) q[k] = b[k]; });
+        ["ref", "sentence", "hint", "glyph", "speak", "heard", "exam"].forEach(function (k) { if (b[k]) q[k] = b[k]; });
         return q;
     }
 
@@ -298,6 +382,7 @@
         var verbs = (data && data.verbs) || [];
         var kanji = (data && data.kanji) || [];
         var grammar = (data && data.grammar) || [];
+        var exam = (data && data.exam) || {};
 
         var byId = {};
         var idsByTopic = {};
@@ -322,6 +407,11 @@
             if (readingsOf(e).length) add("kanji-leitura", "kread:" + e.k, function () { return kanjiReading(e, kanji); });
         });
 
+        (exam.yomi || []).forEach(function (it) { add("prova-yomi", "ex:" + it.id, function () { return examYomi(it); }); });
+        (exam.hyouki || []).forEach(function (it) { add("prova-hyouki", "ex:" + it.id, function () { return examHyouki(it); }); });
+        (exam.bunmyaku || []).forEach(function (it) { add("prova-bunmyaku", "ex:" + it.id, function () { return examChoice("prova-bunmyaku", 3, it); }); });
+        (exam.iikae || []).forEach(function (it) { add("prova-iikae", "ex:" + it.id, function () { return examChoice("prova-iikae", 4, it); }); });
+
         return {
             topics: TOPICS.slice(),
             ids: function (topicId) { return topicId ? (idsByTopic[topicId] || []).slice() : Object.keys(byId); },
@@ -329,7 +419,7 @@
         };
     }
 
-    var api = { create: create, TOPICS: TOPICS, hash: hash, shuffle: shuffle, spoken: spoken };
+    var api = { create: create, TOPICS: TOPICS, hash: hash, shuffle: shuffle, spoken: spoken, soundVariants: soundVariants };
 
     if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
     root.QuestionBank = api;
