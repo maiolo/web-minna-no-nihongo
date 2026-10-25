@@ -1310,3 +1310,16 @@ html[data-speech="off"] .speak-btn { display: none; }
 .backup-notice { margin-top: 10px; font-weight: 700; }
 .backup-preview { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line-soft); }
 .backup-file { cursor: pointer; display: inline-flex; align-items: center; }
+
+/* ===== JLPT: prova no formato oficial ===== */
+.exam-mondai { border-left: 4px solid var(--shu-solid); padding: 4px 0 4px 12px; margin: 10px 0 14px; }
+.exam-mondai-no { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--shu-dark); }
+.exam-instr { font-size: 1rem; line-height: 1.8; margin: 4px 0; }
+.exam-trans { color: var(--muted); font-size: 0.85rem; }
+.exam-trans summary { cursor: pointer; min-height: 32px; display: flex; align-items: center; }
+.exam-sentence { font-size: 1.3rem; line-height: 2; }
+.exam-sentence u, .exam-instr u, .review-options u, .practice-sentence u { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.blank-u { text-decoration: underline; text-underline-offset: 4px; }
+.review-options { margin: 10px 0 10px 1.6em; display: grid; gap: 4px; }
+.review-options li.is-right { color: var(--matcha-dark); font-weight: 700; }
+.review-options li.is-wrong { color: var(--shu-dark); text-decoration: line-through; }

@@ -9,7 +9,7 @@
 
     var root = document.getElementById("progress-root");
     var QB = window.QuestionBank, Stats = window.Stats, Backup = window.Backup;
-    var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS });
+    var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS, exam: window.JLPT_N5_EXAM });
     var grammar = {};
     (window.JLPT_N5_GRAMMAR || []).forEach(function (p) { grammar[p.id] = p; });
     var pending = null;     // arquivo lido, esperando o aluno escolher mesclar/substituir
@@ -39,7 +39,7 @@
         var rows = bank.topics.filter(function (t) { return st.topics[t.id] && st.topics[t.id].total > 0; }).map(function (t) {
             var s = st.topics[t.id], p = pct(s.correct, s.total);
             return '<li class="perf-row"><div class="perf-head"><span>' + esc(t.label) + '</span><span class="perf-num">' + s.correct + "/" + s.total + " · " + p + "%</span></div>" +
-                bar(p) + '<a class="lesson-link" href="n5-practice.html?topics=' + t.id + '">Treinar este tema →</a></li>';
+                bar(p) + (t.real ? '<a class="lesson-link" href="n5-mock.html">Fazer um simulado →</a>' : '<a class="lesson-link" href="n5-practice.html?topics=' + t.id + '">Treinar este tema →</a>') + "</li>";
         }).join("");
         return '<section class="card perf-section"><h2>Por tema</h2><ul class="perf-list">' + rows + "</ul></section>";
     }
@@ -51,8 +51,10 @@
             return '<li class="perf-row"><div class="perf-head"><span>' + (g ? '<a href="n5-grammar.html#' + esc(w.ref) + '">' + esc(title) + "</a>" : esc(title)) +
                 '</span><span class="perf-num">' + w.correct + "/" + w.total + " · " + w.pct + "%</span></div>" + bar(w.pct) + "</li>";
         }).join("");
-        var train = st.weakIds.length
-            ? '<p><a class="btn btn-reveal" href="n5-practice.html?weak=1">Treinar pontos fracos (' + st.weakIds.length + ")</a></p>" : "";
+        // Questões da prova no formato JLPT não entram no treino: só as dos outros temas.
+        var trainable = st.weakIds.filter(function (id) { var q = bank.get(id); return q && !q.exam; });
+        var train = trainable.length
+            ? '<p><a class="btn btn-reveal" href="n5-practice.html?weak=1">Treinar pontos fracos (' + trainable.length + ")</a></p>" : "";
         var body = rows ? '<ul class="perf-list">' + rows + "</ul>" : '<p class="practice-last">Nenhum ponto de gramática abaixo de 70% por enquanto.</p>';
         return '<section class="card perf-section"><h2>Pontos fracos</h2>' + body + train + "</section>";
     }
@@ -60,12 +62,14 @@
     function trendHtml(st) {
         if (!st.trend.length) return "";
         var rows = st.trend.map(function (m) {
-            var value = m.totalEstimate !== null && m.totalEstimate !== undefined ? m.totalEstimate : m.knowledge;
-            var max = m.totalEstimate !== null && m.totalEstimate !== undefined ? 180 : 120;
-            return '<li class="trend-row"><span class="trend-date">' + dateLabel(m.startedAt) + "</span>" + bar(pct(value, max)) +
-                '<span class="perf-num">≈ ' + value + " / " + max + "</span></li>";
+            var hasTotal = m.totalEstimate !== null && m.totalEstimate !== undefined;
+            var hasKnowledge = m.knowledge !== null && m.knowledge !== undefined;
+            var label = hasTotal ? "≈ " + m.totalEstimate + " / 180" : (hasKnowledge ? "≈ " + m.knowledge + " / 120" : m.correct + " / " + m.total);
+            var share = hasTotal ? pct(m.totalEstimate, 180) : (hasKnowledge ? pct(m.knowledge, 120) : pct(m.correct, m.total));
+            return '<li class="trend-row"><span class="trend-date">' + dateLabel(m.startedAt) + "</span>" + bar(share) +
+                '<span class="perf-num">' + label + "</span></li>";
         }).join("");
-        return '<section class="card perf-section"><h2>Simulados</h2><p class="practice-last">Notas estimadas, não oficiais (a prova real é equalizada).</p><ul class="trend-list">' + rows + "</ul></section>";
+        return '<section class="card perf-section"><h2>Simulados</h2><p class="practice-last">Notas estimadas, não oficiais (a prova real é equalizada). Quando a prova teve só uma parte, aparecem os acertos.</p><ul class="trend-list">' + rows + "</ul></section>";
     }
 
     function backupHtml() {

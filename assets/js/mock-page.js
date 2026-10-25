@@ -13,13 +13,14 @@
     var root = document.getElementById("mock-root");
     var QB = window.QuestionBank, Mock = window.Mock, Attempts = window.Attempts, QV = window.QuizView;
     var level = document.body.dataset.level || "N5";
-    var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS });
+    var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS, exam: window.JLPT_N5_EXAM });
     var esc = QV.esc, rubyText = QV.rubyText;
+    QV.setKnown((window.JLPT_N5_KANJI || []).map(function (e) { return e.k; }).join(""));
 
-    var topicLabel = {};
-    bank.topics.forEach(function (t) { topicLabel[t.id] = t.label; });
+    var topicLabel = {}, realTopic = {};
+    bank.topics.forEach(function (t) { topicLabel[t.id] = t.label; realTopic[t.id] = Boolean(t.real); });
 
-    var settings = { size: "full", timed: true, listening: true };
+    var settings = { format: "real", parts: ["moji"], furigana: false, size: "full", timed: true, listening: true };
     var exam = null;        // simulado em andamento (rascunho)
     var cur = 0;            // questão exibida
     var view = "home";
@@ -69,22 +70,46 @@
         var rows = history.slice(0, 8).map(function (a, i) {
             return '<li class="history-row"><div class="history-main"><strong>' + a.score.correct + " de " + a.score.total + "</strong>" +
                 '<span class="history-est">' + (a.score.totalEstimate !== undefined && a.score.totalEstimate !== null
-                    ? "≈ " + a.score.totalEstimate + " / 180" : "≈ " + a.score.knowledge + " / 120") + "</span></div>" +
-                '<div class="history-meta">' + esc(fmtDate(a.startedAt)) + " • " + fmtDuration(a.seconds) + (a.size === "short" ? " • curto" : "") + "</div>" +
+                    ? "≈ " + a.score.totalEstimate + " / 180"
+                    : (a.score.knowledge !== undefined && a.score.knowledge !== null ? "≈ " + a.score.knowledge + " / 120" : pct(a.score.correct, a.score.total) + "%")) + "</span></div>" +
+                '<div class="history-meta">' + esc(fmtDate(a.startedAt)) + " • " + fmtDuration(a.seconds) + (a.format === "real" ? " • formato JLPT" : (a.size === "short" ? " • curto" : "")) + "</div>" +
                 '<button type="button" class="btn btn-reveal" data-act="review" data-index="' + i + '">Ver correção</button></li>';
         }).join("");
 
-        root.innerHTML = resume +
-            '<section class="card practice-setup">' +
-                "<h2>Simulado " + level + "</h2>" +
-                '<p class="practice-lead">Uma prova de verdade: você responde tudo, <strong>sem ver a correção</strong>, e só no fim recebe o resultado com a explicação de cada erro. Pode voltar às questões, mudar respostas e deixar em branco.</p>' +
-                '<ul class="mock-facts"><li><strong>Seções:</strong> ' + Mock.BLUEPRINT.map(function (s) { return rubyText(s.jp) + " (" + esc(s.label.toLowerCase()) + ")"; }).join(" e ") + ".</li>" +
+        var formats = [["real", "Formato da prova JLPT"], ["quick", "Simulado rápido"]].map(function (f) {
+            return '<label class="seg"><input type="radio" name="format" value="' + f[0] + '"' + (settings.format === f[0] ? " checked" : "") + "><span>" + f[1] + "</span></label>";
+        }).join("");
+
+        var setup;
+        if (settings.format === "real") {
+            var parts = Mock.REAL.sections.map(function (sec) {
+                var on = sec.ready && settings.parts.indexOf(sec.id) !== -1;
+                return '<label class="topic-check' + (sec.ready ? "" : " is-disabled") + '"><input type="checkbox" name="part" value="' + sec.id + '"' + (on ? " checked" : "") + (sec.ready ? "" : " disabled") + ">" +
+                    '<span class="topic-name"><span lang="ja">' + esc(sec.jp) + "</span> <small>" + esc(sec.label) + (sec.ready ? "" : " (em breve)") + "</small></span>" +
+                    '<span class="topic-count">' + sec.minutes + " min</span></label>";
+            }).join("");
+            setup = '<p class="practice-lead">Igual à prova do N5: <strong>enunciados e alternativas em japonês</strong>, os kanji do N5 <strong>sem furigana</strong>, as mesmas partes (もんだい) e a mesma quantidade de questões. Você responde tudo, sem ver a correção, e só no fim recebe o resultado com a explicação de cada erro.</p>' +
+                '<fieldset class="practice-field"><legend>Partes da prova</legend>' + parts + "</fieldset>" +
+                '<label class="topic-check"><input type="checkbox" id="mock-timed"' + (settings.timed ? " checked" : "") + '><span class="topic-name">Cronometrar (tempo da prova real)</span><span class="topic-count" id="mock-minutes"></span></label>' +
+                '<label class="topic-check"><input type="checkbox" id="mock-furigana"' + (settings.furigana ? " checked" : "") + '><span class="topic-name">Mostrar furigana (ajuda)</span></label>' +
+                '<ul class="mock-facts"><li><strong>Fiel à prova:</strong> as perguntas seguem o formato do JLPT, mas não são as da prova oficial (que não podem ser copiadas). Foram escritas aqui.</li>' +
+                "<li><strong>Nota:</strong> a nota estimada só aparece com a prova completa (todas as partes). Antes disso você vê os acertos por mondai.</li></ul>";
+        } else {
+            setup = '<p class="practice-lead">Uma prova menor, com explicações em português: você responde tudo, <strong>sem ver a correção</strong>, e só no fim recebe o resultado com a explicação de cada erro. Pode voltar às questões, mudar respostas e deixar em branco.</p>' +
+                '<ul class="mock-facts"><li><strong>Seções:</strong> ' + Mock.BLUEPRINT.map(function (sec) { return rubyText(sec.jp) + " (" + esc(sec.label.toLowerCase()) + ")"; }).join(" e ") + ".</li>" +
                 "<li><strong>Escuta:</strong> opcional. Usa a voz japonesa do seu aparelho (uma voz só, sem ruído de ambiente), então é mais fácil que a prova real.</li>" +
                 "<li><strong>Nota:</strong> é uma <em>estimativa</em>. A do JLPT é equalizada, então a nota real pode variar.</li></ul>" +
                 '<fieldset class="practice-field"><legend>Tamanho (questões)</legend><div class="segmented" role="group">' + sizes + "</div></fieldset>" +
                 '<label class="topic-check"><input type="checkbox" id="mock-timed"' + (settings.timed ? " checked" : "") + '><span class="topic-name">Cronometrar</span><span class="topic-count" id="mock-minutes"></span></label>' +
                 '<label class="topic-check' + (speechOff() ? " is-disabled" : "") + '"><input type="checkbox" id="mock-listening"' + (listeningOn() ? " checked" : "") + (speechOff() ? " disabled" : "") + '><span class="topic-name">Incluir escuta' +
-                    (speechOff() ? ' <small>(precisa de voz em japonês no aparelho)</small>' : "") + "</span></label>" +
+                    (speechOff() ? ' <small>(precisa de voz em japonês no aparelho)</small>' : "") + "</span></label>";
+        }
+
+        root.innerHTML = resume +
+            '<section class="card practice-setup">' +
+                "<h2>Simulado " + level + "</h2>" +
+                '<fieldset class="practice-field"><legend>Tipo de simulado</legend><div class="segmented" role="group">' + formats + "</div></fieldset>" +
+                setup +
                 '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="start">Começar o simulado</button></div>' +
             "</section>" +
             (rows ? '<section class="card practice-setup"><h2>Seus simulados</h2><ul class="history-list">' + rows + "</ul></section>" : "");
@@ -95,7 +120,7 @@
 
     function updateMinutes() {
         var el = document.getElementById("mock-minutes");
-        if (el) el.textContent = Mock.minutesFor(settings.size, listeningOn()) + " min";
+        if (el) el.textContent = (settings.format === "real" ? Mock.realMinutes(settings.parts) : Mock.minutesFor(settings.size, listeningOn())) + " min";
         Object.keys(Mock.SIZES).forEach(function (id) {
             var label = document.getElementById("size-label-" + id);
             if (label) label.textContent = Mock.SIZES[id].label + " (" + Mock.totalFor(id, listeningOn()) + ")";
@@ -103,22 +128,34 @@
     }
 
     function readSetup() {
-        var size = (root.querySelector('input[name="size"]:checked') || {}).value || "full";
+        var format = (root.querySelector('input[name="format"]:checked') || {}).value || settings.format;
+        var size = (root.querySelector('input[name="size"]:checked') || {}).value || settings.size;
         var timed = document.getElementById("mock-timed");
         var listening = document.getElementById("mock-listening");
-        settings = { size: size, timed: timed ? timed.checked : true, listening: listening && !listening.disabled ? listening.checked : settings.listening };
+        var furigana = document.getElementById("mock-furigana");
+        var parts = Array.prototype.slice.call(root.querySelectorAll('input[name="part"]:checked')).map(function (i) { return i.value; });
+        settings = {
+            format: format, size: size, timed: timed ? timed.checked : settings.timed,
+            listening: listening && !listening.disabled ? listening.checked : settings.listening,
+            furigana: furigana ? furigana.checked : settings.furigana,
+            parts: root.querySelector('input[name="part"]') ? (parts.length ? parts : settings.parts) : settings.parts
+        };
     }
 
     /* ---------- Prova ---------- */
 
     function start() {
         readSetup();
-        var plan = Mock.build(bank, { size: settings.size, seed: newSeed(), avoid: Attempts.recentIds(attemptsDoc(), 3), listening: listeningOn() });
-        exam = Mock.newDraft(plan, { timed: settings.timed }, Date.now());
+        var avoid = Attempts.recentIds(attemptsDoc(), 3);
+        var plan = settings.format === "real"
+            ? Mock.buildReal(bank, { parts: settings.parts, seed: newSeed(), avoid: avoid })
+            : Mock.build(bank, { size: settings.size, seed: newSeed(), avoid: avoid, listening: listeningOn() });
+        exam = Mock.newDraft(plan, { timed: settings.timed, furigana: settings.furigana }, Date.now());
         cur = 0;
         saveDraft();
         renderExam();
         startTimer();
+        window.scrollTo(0, 0);
     }
 
     function resume() {
@@ -133,9 +170,23 @@
 
     function sectionLabel(q) {
         var id = Mock.sectionOf(q.topic);
+        var real = Mock.realMondaiOf(q.topic);
+        if (real) return real.section.jp;
         var sec = Mock.BLUEPRINT.filter(function (s) { return s.id === id; })[0];
         return sec ? sec.label : "";
     }
+
+    // Cabeçalho do mondai (como na prova): "もんだい 1" + enunciado em japonês + tradução recolhida.
+    function mondaiHtml(q) {
+        var real = Mock.realMondaiOf(q.topic);
+        if (!real) return "";
+        var m = real.mondai;
+        return '<div class="exam-mondai"><div class="exam-mondai-no" lang="ja">もんだい ' + m.no + "</div>" +
+            '<p class="exam-instr" lang="ja">' + QV.examInstruction(m) + "</p>" +
+            '<details class="exam-trans"><summary>Tradução do enunciado</summary><p>' + esc(m.pt) + "</p></details></div>";
+    }
+
+    function optionHtml(q, o) { return q.exam ? QV.examText(o, exam.furigana) : rubyText(o); }
 
     function renderExam() {
         view = "exam";
@@ -151,18 +202,20 @@
 
         root.innerHTML =
             '<section class="card practice-card mock-exam">' +
-                '<div class="practice-top"><span>' + esc(sectionLabel(q)) + '</span><span class="mock-timer" id="mock-timer" role="timer"></span></div>' +
+                '<div class="practice-top"><span lang="ja">' + esc(sectionLabel(q)) + '</span><span class="mock-timer" id="mock-timer" role="timer"></span></div>' +
                 '<div class="practice-bar" aria-hidden="true"><span style="width:' + pct(answered, total) + '%"></span></div>' +
                 '<p class="mock-count">Questão ' + (cur + 1) + " de " + total + " • " + answered + " respondida" + (answered === 1 ? "" : "s") + "</p>" +
+                (q.exam ? mondaiHtml(q) : "") +
                 (q.glyph ? '<div class="quiz-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
-                '<p class="practice-prompt">' + rubyText(q.prompt) + "</p>" +
+                (q.prompt ? '<p class="practice-prompt">' + rubyText(q.prompt) + "</p>" : "") +
                 (q.speak ? QV.listenHtml(q) : "") +
-                (q.sentence ? '<div class="practice-sentence" lang="ja">' + QV.sentenceHtml(q, null) + "</div>" : "") +
+                (q.exam ? '<div class="practice-sentence exam-sentence" lang="ja">' + QV.examSentenceHtml(q, exam.furigana) + "</div>"
+                    : (q.sentence ? '<div class="practice-sentence" lang="ja">' + QV.sentenceHtml(q, null) + "</div>" : "")) +
                 (q.hint ? '<div class="pt-line practice-hint">🇧🇷 ' + esc(q.hint) + "</div>" : "") +
                 '<div class="quiz-options">' + q.options.map(function (o, i) {
                     var on = exam.answers[cur] === i;
                     return '<button type="button" class="quiz-option' + (on ? " selected" : "") + '" data-option="' + i + '" aria-pressed="' + on + '" lang="ja">' +
-                        '<span class="opt-key" aria-hidden="true">' + (i + 1) + "</span>" + rubyText(o) + "</button>";
+                        '<span class="opt-key" aria-hidden="true">' + (i + 1) + "</span>" + optionHtml(q, o) + "</button>";
                 }).join("") + "</div>" +
                 '<div class="mock-nav-row">' +
                     '<button type="button" class="btn btn-reveal" data-act="prev"' + (cur === 0 ? " disabled" : "") + ">← Anterior</button>" +
@@ -171,6 +224,7 @@
             "</section>" +
             '<section class="card practice-card mock-map"><h3 class="practice-sub">Questões</h3><div class="nav-grid">' + nav + "</div>" +
                 '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="finish">Finalizar simulado</button>' +
+                (exam.format === "real" ? '<button type="button" class="btn btn-reveal" data-act="furigana" aria-pressed="' + Boolean(exam.furigana) + '">' + (exam.furigana ? "Esconder furigana" : "Mostrar furigana") + "</button>" : "") +
                 '<button type="button" class="btn btn-reveal" data-act="pause">Sair e continuar depois</button></div></section>';
         tick();
     }
@@ -224,6 +278,7 @@
             score: { correct: summary.correct, total: summary.total, knowledge: summary.knowledge, estimated: true,
                      sections: summary.sections }
         };
+        if (summary.format === "real") { attempt.format = "real"; attempt.parts = exam.parts; attempt.score.mondai = summary.mondai; }
         if (summary.listening !== null) { attempt.score.listening = summary.listening; attempt.score.totalEstimate = summary.totalEstimate; }
         if (store()) { try { store().set("attempts", Attempts.add(attemptsDoc(), attempt)); } catch (e) { /* segue sem salvar */ } }
         clearDraft();
@@ -243,7 +298,14 @@
         return '<div class="score-bar" role="img" aria-label="' + correct + ' de ' + total + '"><span style="width:' + pct(correct, total) + '%"></span></div>';
     }
 
+    // Prova real com poucas partes: sem nota estimada (ela exige língua, leitura e escuta).
+    function partialHtml() {
+        return '<div class="mock-estimate"><p class="estimate-note">A nota estimada aparece quando a prova tem todas as partes (língua e leitura, e escuta). ' +
+            "Nesta tentativa, veja os acertos por parte e por mondai. A nota do JLPT é equalizada, então qualquer número aqui seria só uma estimativa.</p></div>";
+    }
+
     function estimateHtml(v) {
+        if (v.partial) return partialHtml();
         var intro = v.hasListening
             ? '<div class="estimate-grid"><div><div class="estimate-num">≈ ' + v.knowledge + " <span>/ " + Mock.OFFICIAL.knowledgeMax + '</span></div><div class="estimate-label">Língua e leitura</div></div>' +
                 '<div><div class="estimate-num">≈ ' + v.listening + " <span>/ " + Mock.OFFICIAL.listeningMax + '</span></div><div class="estimate-label">Escuta</div></div>' +
@@ -269,18 +331,25 @@
         var counts = { all: s.total, wrong: wrong, blank: s.blank, right: s.correct };
         var FILTERS = [["wrong", "Erradas"], ["blank", "Em branco"], ["right", "Certas"], ["all", "Todas"]];
 
-        var sections = Mock.BLUEPRINT.filter(function (sec) { return s.sections[sec.id].total > 0; }).map(function (sec) {
+        var sections = Mock.BLUEPRINT.concat(Mock.REAL.sections).filter(function (sec) { return s.sections[sec.id].total > 0; }).map(function (sec) {
             var st = s.sections[sec.id];
-            return '<div class="score-row"><div class="score-label">' + rubyText(sec.jp) + " <span>" + esc(sec.label) + '</span></div>' +
+            return '<div class="score-row"><div class="score-label"><span lang="ja">' + rubyText(sec.jp) + "</span> <span>" + esc(sec.label) + '</span></div>' +
                 bar(st.correct, st.total) + '<div class="score-num">' + st.correct + "/" + st.total + "</div></div>";
         }).join("");
+
+        var mondaiRows = s.format === "real" ? Mock.REAL.sections.reduce(function (all, sec) { return all.concat(sec.mondai); }, [])
+            .filter(function (m) { return s.mondai[m.id] && s.mondai[m.id].total > 0; }).map(function (m) {
+                var st = s.mondai[m.id];
+                return '<div class="score-row"><div class="score-label"><span lang="ja">もんだい ' + m.no + " " + esc(m.name) + "</span></div>" +
+                    bar(st.correct, st.total) + '<div class="score-num">' + st.correct + "/" + st.total + "</div></div>";
+            }).join("") : "";
 
         var topics = Object.keys(s.topics).sort(function (x, y) {
             return pct(s.topics[x].correct, s.topics[x].total) - pct(s.topics[y].correct, s.topics[y].total);
         }).map(function (t) {
             var st = s.topics[t], p = pct(st.correct, st.total);
             return '<div class="score-row"><div class="score-label">' + esc(topicLabel[t] || t) +
-                (p < 70 ? ' <a class="topic-train" href="n5-practice.html?topics=' + encodeURIComponent(t) + '">Treinar</a>' : "") + "</div>" +
+                (p < 70 && !realTopic[t] ? ' <a class="topic-train" href="n5-practice.html?topics=' + encodeURIComponent(t) + '">Treinar</a>' : "") + "</div>" +
                 bar(st.correct, st.total) + '<div class="score-num">' + st.correct + "/" + st.total + "</div></div>";
         }).join("");
 
@@ -298,7 +367,7 @@
                 '<p class="practice-prompt">' + pct(s.correct, s.total) + "% de acertos • " + fmtDuration(a.seconds) + "</p>" +
                 estimateHtml(v) +
                 '<h3 class="practice-sub">Por seção</h3>' + sections +
-                '<h3 class="practice-sub">Por tema</h3>' + topics +
+                (mondaiRows ? '<h3 class="practice-sub">Por mondai</h3>' + mondaiRows : '<h3 class="practice-sub">Por tema</h3>' + topics) +
             "</section>" +
             '<section class="card practice-card"><h3 class="practice-sub">Correção</h3>' +
                 '<div class="kanji-chips review-filters" role="group" aria-label="Filtrar a correção">' + FILTERS.map(function (f) {
@@ -330,6 +399,7 @@
             case "next": go(cur + 1); break;
             case "finish": finish(false); break;
             case "pause": stopTimer(); renderHome(); break;
+            case "furigana": exam.furigana = !exam.furigana; saveDraft(); renderExam(); break;
             case "review": {
                 var mocks = Attempts.list(attemptsDoc()).filter(function (x) { return x.kind === "mock"; });
                 showResult(mocks[Number(btn.dataset.index)], false, false);
@@ -340,7 +410,8 @@
     });
 
     root.addEventListener("change", function (e) {
-        if (e.target.name === "size" || e.target.id === "mock-timed" || e.target.id === "mock-listening") { readSetup(); updateMinutes(); }
+        if (e.target.name === "format") { readSetup(); renderHome(); }
+        else if (e.target.name === "size" || e.target.name === "part" || e.target.id === "mock-timed" || e.target.id === "mock-listening" || e.target.id === "mock-furigana") { readSetup(); updateMinutes(); }
     });
 
     document.addEventListener("keydown", function (e) {

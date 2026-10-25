@@ -116,6 +116,18 @@ Guarda-se só o id da questão e a resposta, nunca o enunciado: a correção é 
 14. Busca no servidor, se o conteúdo crescer a ponto de ficar pesado no navegador.
 
 
+### Simulado no formato da prova real (9a–9c)
+
+Pedido do aluno: o simulado deve ser o mais próximo possível da prova real do N5 (enunciados e alternativas em japonês, kanji do N5 sem furigana, furigana só em kanji fora da lista). Estrutura oficial (jlpt.jp, 試験科目と問題の構成): 言語知識（文字・語彙）20 min: 漢字読み 12, 表記 8, 文脈規定 10, 言い換え類義 5; 言語知識（文法）・読解 40 min: 文の文法1 16, 文の文法2 (並べ替え ★) 5, 文章の文法 5, 内容理解 短文 3, 中文 2, 情報検索 1; 聴解 30 min: 課題理解 7, ポイント理解 6, 発話表現 5, 即時応答 6.
+
+| PR | Conteúdo |
+|----|----------|
+| 9a (feito) | Motor da prova (`Mock.REAL`, `Mock.buildReal`), `Notation.toExam` (furigana só fora da lista do N5), tela com formato JLPT e simulado rápido, e a parte 文字・語彙 completa (4 mondai) |
+| 9b | 文法 (3 mondai) e 読解 (3 mondai) |
+| 9c | 聴解 (4 mondai) e nota estimada da prova completa |
+
+As perguntas são escritas para o projeto (as da prova oficial não podem ser copiadas) em `jlpt/data/n5-exam-*.js`, com ids fixos (`ex:y01`, `ex:h01`, `ex:b01`, `ex:i01`). Só kanji da lista do N5 entram nos textos (um teste confere); o resto vai em hiragana. Na prova a nota estimada só aparece com todas as partes de língua e leitura; antes disso, os acertos por mondai.
+
 ### Backup em JSON (8e)
 
 Arquivo `minna-backup-AAAA-MM-DD.json`: `{ app: "minna-no-nihongo", version: 1, exportedAt, data: { prefs, progress, attempts } }`. O simulado em andamento (`mockdraft`) não entra. Ao importar, só as chaves conhecidas passam, tentativas inválidas são descartadas e o aluno escolhe **Mesclar** (tentativas por id, progresso concluído de qualquer lado, preferências mais recentes) ou **Substituir**. Questões de escuta (`lw:`, `ls:`) usam a voz japonesa do aparelho; sem ela os temas ficam desativados.
