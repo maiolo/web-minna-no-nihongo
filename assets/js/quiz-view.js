@@ -6,6 +6,7 @@
  *   QuizView.rubyText(notação)           {漢字|かんじ} -> <ruby>, mantendo os espaços
  *   QuizView.sentenceHtml(q, preenchida) frase da questão; lacuna vazia ou preenchida
  *   QuizView.speakButton(notação)        botão de áudio (veja speech.js)
+ *   QuizView.listenHtml(q)               botão grande "Ouvir" das questões de escuta (o japonês fica escondido)
  *   QuizView.linkFor(q)                  "Ver o ponto de gramática →" etc.
  *   QuizView.reviewItem(q, escolhida, { open, number })   um item da correção (certo, errado ou em branco)
  */
@@ -41,6 +42,12 @@
         return N.toRuby(parts[0]) + middle + N.toRuby(parts[1] || "");
     }
 
+    function listenHtml(q) {
+        return '<div class="listen-box"><button type="button" class="speak-btn listen-btn" data-speak="' + esc(q.speak) + '" aria-label="Ouvir">' +
+            SPEAKER + "<span>Ouvir</span></button>" +
+            '<p class="listen-hint">Toque para ouvir. Toque de novo para repetir.</p></div>';
+    }
+
     function linkFor(q) {
         if (q.ref) return '<a class="lesson-link" href="n5-grammar.html#' + encodeURIComponent(q.ref) + '">Ver o ponto de gramática →</a>';
         if (q.topic.indexOf("verbo") === 0) return '<a class="lesson-link" href="n5-verbs.html">Ver a página de verbos →</a>';
@@ -58,8 +65,8 @@
     function reviewItem(q, chosen, options) {
         var status = statusOf(q, chosen);
         var open = options && options.open !== undefined ? options.open : status !== "ok";
-        var filled = q.sentence ? q.sentence.replace("＿＿", q.options[q.answer]) : null;
-        var summary = q.sentence ? '<span class="verb-pt" lang="ja">' + sentenceHtml(q, null) + "</span>" : '<span class="verb-pt">' + rubyText(q.prompt) + "</span>";
+        var filled = q.sentence ? q.sentence.replace("＿＿", q.options[q.answer]) : (q.heard || null);
+        var summary = q.speak ? '<span class="verb-pt">' + rubyText(q.prompt) + "</span>" : q.sentence ? '<span class="verb-pt" lang="ja">' + sentenceHtml(q, null) + "</span>" : '<span class="verb-pt">' + rubyText(q.prompt) + "</span>";
         var yours = status === "blank"
             ? "(em branco)"
             : rubyText(q.options[chosen]);
@@ -69,6 +76,7 @@
                 (q.glyph ? '<div class="missed-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
                 (q.sentence ? '<div class="practice-sentence" lang="ja">' + sentenceHtml(q, q.options[q.answer]) + "</div>" : "") +
                 (q.hint ? '<div class="pt-line">🇧🇷 ' + esc(q.hint) + "</div>" : "") +
+                (q.heard ? '<div class="practice-sentence" lang="ja">' + N.toRuby(q.heard) + "</div>" : "") +
                 '<p class="missed-line">Você respondeu: <span class="' + (status === "ok" ? "right-text" : "wrong-text") + '" lang="ja">' + yours + "</span></p>" +
                 (status === "ok" ? "" : '<p class="missed-line">Certa: <strong lang="ja">' + rubyText(q.options[q.answer]) + "</strong></p>") +
                 '<div class="kanji-note">' + rubyText(q.explain) + "</div>" +
@@ -77,7 +85,7 @@
             "</div></details>";
     }
 
-    var api = { esc: esc, rubyText: rubyText, speakButton: speakButton, sentenceHtml: sentenceHtml, linkFor: linkFor, reviewItem: reviewItem, statusOf: statusOf };
+    var api = { esc: esc, rubyText: rubyText, speakButton: speakButton, sentenceHtml: sentenceHtml, listenHtml: listenHtml, linkFor: linkFor, reviewItem: reviewItem, statusOf: statusOf };
 
     if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
     root.QuizView = api;

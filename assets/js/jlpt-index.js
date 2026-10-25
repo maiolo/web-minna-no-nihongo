@@ -54,5 +54,12 @@ window.JLPT_PAGES = [
         file: "n5-mock.html",
         topic: "Simulados",
         description: "Faça uma prova com cronômetro, sem ver a correção. No fim, receba a nota estimada e a explicação de cada erro. Seu histórico fica salvo."
+    },
+    {
+        group: "praticar",
+        level: "N5",
+        file: "n5-progress.html",
+        topic: "<ruby>成績<rt>せいせき</rt></ruby> (Meu desempenho)",
+        description: "Veja onde você mais erra, treine seus pontos fracos e acompanhe a nota dos simulados. Também exporta e importa seus dados em um arquivo."
     }
 ];

@@ -31,6 +31,10 @@
     var QV = window.QuizView;
     var esc = QV.esc, rubyText = QV.rubyText, speakButton = QV.speakButton, sentenceHtml = QV.sentenceHtml, linkFor = QV.linkFor;
     function attemptsDoc() { return window.Store ? window.Store.peek("attempts") : null; }
+    // Sem voz em japonês no aparelho, as questões de escuta não funcionam (speech.js marca data-speech="off").
+    function speechOff() { return document.documentElement.dataset.speech === "off"; }
+    function listeningTopic(id) { return bank.topics.filter(function (t) { return t.id === id; })[0].listening === true; }
+    function playable(id) { return !(speechOff() && bank.get(id).speak); }
 
     /* ---------- Início ---------- */
 
@@ -38,12 +42,14 @@
         view = "setup";
         var doc = attemptsDoc();
         var last = Attempts.list(doc).filter(function (a) { return a.kind === "practice"; })[0];
-        var missed = Attempts.missedIds(doc).filter(function (id) { return bank.get(id); });
+        var missed = Attempts.missedIds(doc).filter(function (id) { return bank.get(id) && playable(id); });
+        var weak = window.Stats ? window.Stats.compute(doc, bank).weakIds.filter(playable) : [];
 
         var topics = bank.topics.map(function (t) {
-            var checked = settings.topics.indexOf(t.id) !== -1;
-            return '<label class="topic-check"><input type="checkbox" name="topic" value="' + t.id + '"' + (checked ? " checked" : "") + ">" +
-                '<span class="topic-name">' + esc(t.label) + '</span><span class="topic-count">' + bank.ids(t.id).length + "</span></label>";
+            var off = t.listening && speechOff();
+            var checked = !off && settings.topics.indexOf(t.id) !== -1;
+            return '<label class="topic-check' + (off ? " is-disabled" : "") + '"><input type="checkbox" name="topic" value="' + t.id + '"' + (checked ? " checked" : "") + (off ? " disabled" : "") + ">" +
+                '<span class="topic-name">' + esc(t.label) + (off ? ' <small>(precisa de voz em japonês no aparelho)</small>' : "") + '</span><span class="topic-count">' + bank.ids(t.id).length + "</span></label>";
         }).join("");
         var counts = COUNTS.map(function (n) {
             return '<label class="seg"><input type="radio" name="count" value="' + n + '"' + (settings.count === n ? " checked" : "") + "><span>" + n + "</span></label>";
@@ -57,8 +63,10 @@
                 '<fieldset class="practice-field"><legend>Quantidade de perguntas</legend><div class="segmented" role="group">' + counts + "</div></fieldset>" +
                 '<p class="practice-error" id="practice-error" role="alert" hidden>Marque pelo menos um tema.</p>' +
                 '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="start">Começar</button>' +
+                    (weak.length ? '<button type="button" class="btn btn-reveal" data-act="weak">Treinar pontos fracos (' + weak.length + ")</button>" : "") +
                     (missed.length ? '<button type="button" class="btn btn-reveal" data-act="missed">Refazer erros anteriores (' + missed.length + ")</button>" : "") +
                 "</div>" +
+                '<p class="practice-last"><a class="lesson-link" href="n5-progress.html">Ver meu desempenho →</a></p>' +
                 (last ? '<p class="practice-last">Último treino: <strong>' + last.score.correct + " de " + last.score.total + "</strong>, " + esc(new Date(last.startedAt).toLocaleDateString("pt-BR")) + ".</p>" : "") +
             "</section>";
     }
@@ -86,8 +94,14 @@
         run.seed = seed;
     }
 
+    function startWeak() {
+        var ids = window.Stats.compute(attemptsDoc(), bank).weakIds.filter(playable).slice(0, settings.count || 10);
+        if (!ids.length) return renderSetup();
+        startRun(QB.shuffle(ids, newSeed()), "pontos fracos");
+    }
+
     function startMissed() {
-        var ids = Attempts.missedIds(attemptsDoc()).filter(function (id) { return bank.get(id); }).slice(0, 20);
+        var ids = Attempts.missedIds(attemptsDoc()).filter(function (id) { return bank.get(id) && playable(id); }).slice(0, 20);
         startRun(QB.shuffle(ids, newSeed()), "erros anteriores");
     }
 
@@ -105,6 +119,7 @@
                 '<div class="practice-bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" aria-valuenow="' + run.index + '"><span style="width:' + percent + '%"></span></div>' +
                 (q.glyph ? '<div class="quiz-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
                 '<p class="practice-prompt">' + rubyText(q.prompt) + "</p>" +
+                (q.speak ? QV.listenHtml(q) : "") +
                 (q.sentence ? '<div class="practice-sentence" lang="ja">' + sentenceHtml(q, null) + "</div>" : "") +
                 (q.hint ? '<div class="pt-line practice-hint">🇧🇷 ' + esc(q.hint) + "</div>" : "") +
                 '<div class="quiz-options" id="practice-options">' + q.options.map(function (o, i) {
@@ -129,7 +144,7 @@
             root.querySelector(".practice-sentence").innerHTML = sentenceHtml(q, q.options[q.answer]);
         }
 
-        var filled = q.sentence ? q.sentence.replace("＿＿", q.options[q.answer]) : null;
+        var filled = q.sentence ? q.sentence.replace("＿＿", q.options[q.answer]) : (q.heard || null);
         var speakText = filled || (q.topic === "verbo-forma" ? q.options[q.answer] : null);
         var last = run.index + 1 >= run.ids.length;
         document.getElementById("practice-feedback").innerHTML =
@@ -203,6 +218,7 @@
         switch (btn.dataset.act) {
             case "start": startFromSetup(); break;
             case "missed": startMissed(); break;
+            case "weak": startWeak(); break;
             case "next": next(); break;
             case "quit": if (window.confirm("Sair do treino? O progresso desta rodada não será salvo.")) renderSetup(); break;
             case "again": {
@@ -233,5 +249,10 @@
         }
     });
 
-    renderSetup();
+    // O aparelho só diz se tem voz japonesa depois de carregar as vozes: refaz o início se mudar.
+    new MutationObserver(function () { if (view === "setup") renderSetup(); })
+        .observe(document.documentElement, { attributes: true, attributeFilter: ["data-speech"] });
+
+    if (/[?&]weak=1/.test(location.search) && window.Stats && window.Stats.compute(attemptsDoc(), bank).weakIds.filter(playable).length) startWeak();
+    else renderSetup();
 })();
