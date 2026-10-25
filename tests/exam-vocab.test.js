@@ -18,14 +18,23 @@ function load(files) {
     files.forEach((f) => vm.runInContext(fs.readFileSync(path.join(__dirname, "..", f), "utf8"), ctx));
     return ctx.window;
 }
-const W = load(["jlpt/data/n5-kanji-1.js", "jlpt/data/n5-kanji-2.js", "jlpt/data/n5-kanji-3.js", "jlpt/data/n5-exam-vocab.js"]);
+const W = load(["jlpt/data/n5-kanji-1.js", "jlpt/data/n5-kanji-2.js", "jlpt/data/n5-kanji-3.js", "jlpt/data/n5-exam-vocab.js", "jlpt/data/n5-exam-bunpo.js"]);
 const EXAM = W.JLPT_N5_EXAM;
 const KNOWN = W.JLPT_N5_KANJI.map((e) => e.k).join("");
 const bank = QB.create({ verbs: [], kanji: [], grammar: [], exam: EXAM });
 const KANJI = /[一-鿿]/;
+const textsOf = (kind, it) => {
+    if (kind === "text") return [it.text].concat(it.blanks.reduce((a, b) => a.concat(b.a, b.w), []));
+    if (kind === "mid") return [it.text].concat(it.qs.reduce((a, q) => a.concat(q.q, q.a, q.w), []));
+    if (kind === "search") return [it.lead, it.q, it.a].concat(it.w, it.table.head, it.table.rows.reduce((a, r) => a.concat(r), []));
+    if (kind === "order") return [it.pre, it.post].concat(it.parts);
+    if (kind === "short") return [it.text, it.q, it.a].concat(it.w);
+    return [it.s, it.a].concat(it.w || []);
+};
 QV.setKnown(KNOWN);
 
 const items = Object.keys(EXAM).reduce((all, k) => all.concat(EXAM[k].map((it) => ({ kind: k, it }))), []);
+const ITEM_COUNT = items.reduce((n, x) => n + (x.kind === "text" ? x.it.blanks.length : x.kind === "mid" ? x.it.qs.length : 1), 0);
 
 test("há questões de sobra para cada mondai da prova (12, 8, 10 e 5)", () => {
     assert.ok(EXAM.yomi.length >= 36 && EXAM.hyouki.length >= 24 && EXAM.bunmyaku.length >= 30 && EXAM.iikae.length >= 15,
@@ -35,12 +44,13 @@ test("há questões de sobra para cada mondai da prova (12, 8, 10 e 5)", () => {
 test("ids únicos e no formato esperado", () => {
     const ids = items.map((x) => x.it.id);
     assert.equal(new Set(ids).size, ids.length);
-    ids.forEach((id) => assert.match(id, /^[yhbi]\d\d$/));
+    ids.forEach((id) => assert.match(id, /^[yhbigotrs]\d\d$/));
 });
 
 test("todo texto usa só kanji do N5 com furigana na notação (o resto vai em hiragana, como na prova)", () => {
-    items.forEach(({ it }) => {
-        const texts = [it.s].concat(it.a ? [it.a] : [], it.kind === "iikae" ? it.w : []);
+    items.forEach(({ kind, it }) => {
+        // escrita (hyouki): as alternativas erradas são kanji parecidos de propósito, sem furigana
+        const texts = textsOf(kind, it).filter(Boolean).filter((t) => kind !== "hyouki" || !it.w.includes(t));
         texts.forEach((t) => {
             assert.ok(!KANJI.test(t.replace(/\{[^}]*\}/g, "")), it.id + ": kanji sem notação em " + t);
             (t.match(/\{([^|}]+)\|/g) || []).forEach((m) => {
@@ -85,15 +95,15 @@ test("bunmyaku e iikae: formato certo, 4 alternativas diferentes e explicação"
 });
 
 test("o banco monta todas as questões, sempre iguais, com resposta válida", () => {
-    assert.equal(bank.ids().length, items.length);
+    assert.equal(bank.ids().length, ITEM_COUNT);
     bank.ids().forEach((id) => {
         const q = bank.get(id);
         assert.deepEqual(q, bank.get(id));
         assert.equal(q.options.length, 4, id);
         assert.equal(new Set(q.options).size, 4, id);
         assert.ok(q.answer >= 0 && q.answer < 4, id);
-        assert.ok(q.exam && q.exam.mondai >= 1 && q.exam.mondai <= 4, id);
-        assert.ok(q.sentence && q.explain, id);
+        assert.ok(q.exam && q.exam.mondai >= 1 && q.exam.mondai <= 6, id);
+        assert.ok((q.sentence || q.passage || q.question) && q.explain, id);
         assert.equal(q.prompt, undefined, id + ": o enunciado vem do mondai");
     });
     const y = bank.get("ex:y01");
@@ -137,7 +147,7 @@ test("buildReal: ordem dos mondai, quantidades, sem repetir e determinístico", 
     a.sections[0].mondai.forEach((m, i) => m.ids.forEach((id) => assert.equal(bank.get(id).exam.mondai, i + 1)));
     assert.deepEqual(a, Mock.buildReal(bank, { parts: ["moji"], seed: 5 }));
     assert.notDeepEqual(a.ids, Mock.buildReal(bank, { parts: ["moji"], seed: 6 }).ids);
-    assert.equal(Mock.buildReal(bank, { parts: ["bunpo"], seed: 1 }).ids.length, 0, "parte ainda indisponível não entra");
+    assert.equal(Mock.buildReal(bank, { parts: ["choukai"], seed: 1 }).ids.length, 0, "parte ainda indisponível não entra");
     assert.equal(Mock.realMinutes(["moji"]), 20);
 });
 
@@ -193,6 +203,83 @@ test("QuizView: enunciado em japonês com sublinhado em branco e correção com 
 
 test("itens da prova não entram no treino (tema real) e têm rótulo", () => {
     const real = bank.topics.filter((t) => t.real);
-    assert.deepEqual(real.map((t) => t.id).sort(), ["prova-bunmyaku", "prova-hyouki", "prova-iikae", "prova-yomi"]);
+    assert.equal(real.length, 10);
     real.forEach((t) => assert.ok(t.label && bank.ids(t.id).length > 0));
+});
+
+test("bunpo: dados de cada tipo de questão estão completos", () => {
+    EXAM.grammar1.forEach((it) => {
+        assert.equal((it.s.match(/＿＿/g) || []).length, 1, it.id);
+        assert.equal(new Set([it.a].concat(it.w)).size, 4, it.id);
+        assert.ok(it.why.length > 10, it.id);
+    });
+    EXAM.order.forEach((it) => {
+        assert.equal(it.parts.length, 4, it.id);
+        assert.equal(new Set(it.parts.map((p) => N.plainText(p))).size, 4, it.id + ": peças repetidas");
+        assert.ok(it.why.includes("★"), it.id);
+        const q = bank.get("ex:" + it.id);
+        assert.equal(q.options[q.answer], it.parts[2], it.id + ": ★ é a 3ª peça");
+        assert.match(q.sentence, /□ □ ★ □/, it.id);
+    });
+    EXAM.text.forEach((it) => {
+        for (let n = 1; n <= 5; n++) assert.equal((it.text.match(new RegExp("［" + n + "］", "g")) || []).length, 1, it.id + " lacuna " + n);
+        assert.equal(it.blanks.length, 5, it.id);
+        it.blanks.forEach((b, i) => assert.equal(new Set([b.a].concat(b.w)).size, 4, it.id + ":" + (i + 1)));
+    });
+    EXAM.short.forEach((it) => { assert.ok(it.q && it.text, it.id); assert.equal(new Set([it.a].concat(it.w)).size, 4, it.id); });
+    EXAM.mid.forEach((it) => {
+        assert.equal(it.qs.length, 2, it.id);
+        assert.ok(it.text.length >= 150, it.id + ": texto médio curto demais (" + it.text.length + ")");
+        it.qs.forEach((q, i) => assert.equal(new Set([q.a].concat(q.w)).size, 4, it.id + ":" + (i + 1)));
+    });
+    EXAM.search.forEach((it) => {
+        it.table.rows.forEach((r) => assert.equal(r.length, it.table.head.length, it.id));
+        assert.equal(new Set([it.a].concat(it.w)).size, 4, it.id);
+    });
+});
+
+test("quantidade suficiente para cada mondai de gramática e leitura (16, 5, 5, 3, 2 e 1)", () => {
+    assert.ok(EXAM.grammar1.length >= 32 && EXAM.order.length >= 10 && EXAM.text.length >= 2 && EXAM.short.length >= 6 && EXAM.mid.length >= 2 && EXAM.search.length >= 2);
+});
+
+test("buildReal da parte de gramática e leitura: 32 questões, textos inteiros e na ordem dos mondai", () => {
+    const plan = Mock.buildReal(bank, { parts: ["bunpo"], seed: 9 });
+    assert.deepEqual(plan.parts, ["bunpo"]);
+    assert.deepEqual(plan.sections[0].mondai.map((m) => m.ids.length), [16, 5, 5, 3, 2, 1]);
+    assert.equal(plan.ids.length, 32);
+    assert.equal(new Set(plan.ids).size, 32);
+    const g3 = plan.sections[0].mondai[2].ids;
+    assert.equal(new Set(g3.map((id) => id.split(":")[1])).size, 1, "um texto só");
+    assert.deepEqual(g3.map((id) => id.split(":")[2]), ["1", "2", "3", "4", "5"]);
+    const r5 = plan.sections[0].mondai[4].ids;
+    assert.equal(new Set(r5.map((id) => id.split(":")[1])).size, 1);
+    assert.deepEqual(plan, Mock.buildReal(bank, { parts: ["bunpo"], seed: 9 }));
+    assert.equal(Mock.realMinutes(["moji", "bunpo"]), 60);
+});
+
+test("com as duas partes de língua e leitura há nota estimada de 0 a 120 (sem escuta, sem total)", () => {
+    const plan = Mock.buildReal(bank, { parts: ["moji", "bunpo"], seed: 4 });
+    assert.equal(plan.ids.length, 67);
+    const all = Mock.summarize(bank, plan.ids.map((id) => ({ id, chosen: bank.get(id).answer })));
+    assert.equal(all.knowledge, 120);
+    assert.equal(all.listening, null);
+    assert.equal(all.totalEstimate, null);
+    const half = Mock.summarize(bank, plan.ids.map((id, i) => ({ id, chosen: i < 34 ? bank.get(id).answer : null })));
+    assert.equal(half.knowledge, Math.round(120 * 34 / 67));
+});
+
+test("QuizView: texto com lacuna em destaque, tabela, pergunta e correção de leitura", () => {
+    const g3 = bank.get("ex:t01:3");
+    const html = QV.examPassageHtml(g3, false);
+    assert.match(html, /<span class="p-blank is-current">［3］<\/span>/);
+    assert.match(html, /<span class="p-blank">［1］<\/span>/);
+    const tab = QV.examPassageHtml(bank.get("ex:s01"), false);
+    assert.match(tab, /<table class="exam-table">/);
+    assert.match(tab, /17:00 - 19:00/);
+    assert.match(QV.examPassageHtml(bank.get("ex:r01"), false), /exam-question/);
+    const order = bank.get("ex:o01");
+    assert.match(QV.examSentenceHtml(order, false), /o-star/);
+    const r = QV.reviewItem(bank.get("ex:r11:1"), null);
+    assert.match(r, /exam-passage/);
+    assert.match(r, /em branco/);
 });

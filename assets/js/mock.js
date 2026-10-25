@@ -52,7 +52,26 @@
                   instr: "＿＿＿の ぶんと だいたい おなじ いみの ぶんが あります。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
                   pt: "Há uma frase com quase o mesmo sentido da frase sublinhada. Escolha a melhor entre 1, 2, 3 e 4." }
             ] },
-            { id: "bunpo", label: "Gramática e leitura", jp: "言語知識（文法）・読解", minutes: 40, ready: false, mondai: [] },
+            { id: "bunpo", label: "Gramática e leitura", jp: "言語知識（文法）・読解", minutes: 40, ready: true, mondai: [
+                { id: "g1", topic: "prova-bunpo1", n: 16, no: 1, name: "文の文法1",
+                  instr: "（　　）に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "O que entra em (  )? Escolha a melhor entre 1, 2, 3 e 4." },
+                { id: "g2", topic: "prova-bunpo2", n: 5, no: 2, name: "文の文法2",
+                  instr: "★に はいる ものは どれですか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Qual peça entra em ★? Ordene as quatro peças para formar a frase e escolha a que fica em ★." },
+                { id: "g3", topic: "prova-bunpo3", n: 5, per: 5, no: 3, name: "文章の文法",
+                  instr: "つぎの ぶんしょうを よんで、ぶんしょう ぜんたいの ないようを かんがえて、［1］から［5］に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Leia o texto e pense no conteúdo todo. O que entra em [1] a [5]? Escolha a melhor entre 1, 2, 3 e 4." },
+                { id: "r4", topic: "prova-dokkai-tan", n: 3, no: 4, name: "内容理解（短文）",
+                  instr: "つぎの ぶんしょうを よんで、しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Leia o texto curto e responda. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                { id: "r5", topic: "prova-dokkai-chu", n: 2, per: 2, no: 5, name: "内容理解（中文）",
+                  instr: "つぎの ぶんしょうを よんで、しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Leia o texto médio e responda às duas perguntas. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                { id: "r6", topic: "prova-dokkai-joho", n: 1, no: 6, name: "情報検索",
+                  instr: "みぎの ページを みて、したの しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
+                  pt: "Veja a página (tabela ou aviso) e responda à pergunta. Escolha a melhor resposta entre 1, 2, 3 e 4." }
+            ] },
             { id: "choukai", label: "Escuta", jp: "聴解", minutes: 30, ready: false, mondai: [] }
         ]
     };
@@ -73,6 +92,20 @@
             .reduce(function (sum, sec) { return sum + sec.minutes; }, 0);
     }
 
+    // Mondai com vários itens sobre o mesmo texto: sorteia textos inteiros (as perguntas do texto ficam juntas).
+    function pickGroups(bank, mondai, seed, avoid) {
+        var recent = avoid || [];
+        var groups = QB.shuffle(bank.groups(mondai.topic), seed);
+        groups.sort(function (a, b) {   // textos feitos há pouco por último (a ordem do sorteio se mantém dentro de cada grupo)
+            var wa = a.some(function (id) { return recent.indexOf(id) !== -1; }) ? 1 : 0;
+            var wb = b.some(function (id) { return recent.indexOf(id) !== -1; }) ? 1 : 0;
+            return wa - wb;
+        });
+        var out = [];
+        for (var i = 0; i < groups.length && out.length < mondai.n; i++) out = out.concat(groups[i]);
+        return out.slice(0, mondai.n);
+    }
+
     function buildReal(bank, options) {
         var o = options || {};
         var seed = o.seed || 1;
@@ -82,7 +115,9 @@
         var sections = REAL.sections.filter(function (sec) { return parts.indexOf(sec.id) !== -1; }).map(function (sec, si) {
             var ids = [];
             var mondai = sec.mondai.map(function (m, mi) {
-                var picked = Practice.pick(bank, { topics: [m.topic], count: m.n, seed: seed + si * 101 + mi * 13, avoid: o.avoid });
+                var picked = m.per
+                    ? pickGroups(bank, m, seed + si * 101 + mi * 13, o.avoid)
+                    : Practice.pick(bank, { topics: [m.topic], count: m.n, seed: seed + si * 101 + mi * 13, avoid: o.avoid });
                 ids = ids.concat(picked);
                 return { id: m.id, ids: picked };
             });

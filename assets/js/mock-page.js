@@ -20,7 +20,7 @@
     var topicLabel = {}, realTopic = {};
     bank.topics.forEach(function (t) { topicLabel[t.id] = t.label; realTopic[t.id] = Boolean(t.real); });
 
-    var settings = { format: "real", parts: ["moji"], furigana: false, size: "full", timed: true, listening: true };
+    var settings = { format: "real", parts: ["moji", "bunpo"], furigana: false, size: "full", timed: true, listening: true };
     var exam = null;        // simulado em andamento (rascunho)
     var cur = 0;            // questão exibida
     var view = "home";
@@ -209,7 +209,7 @@
                 (q.glyph ? '<div class="quiz-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
                 (q.prompt ? '<p class="practice-prompt">' + rubyText(q.prompt) + "</p>" : "") +
                 (q.speak ? QV.listenHtml(q) : "") +
-                (q.exam ? '<div class="practice-sentence exam-sentence" lang="ja">' + QV.examSentenceHtml(q, exam.furigana) + "</div>"
+                (q.exam ? QV.examPassageHtml(q, exam.furigana) + (q.sentence ? '<div class="practice-sentence exam-sentence" lang="ja">' + QV.examSentenceHtml(q, exam.furigana) + "</div>" : "")
                     : (q.sentence ? '<div class="practice-sentence" lang="ja">' + QV.sentenceHtml(q, null) + "</div>" : "")) +
                 (q.hint ? '<div class="pt-line practice-hint">🇧🇷 ' + esc(q.hint) + "</div>" : "") +
                 '<div class="quiz-options">' + q.options.map(function (o, i) {
@@ -321,7 +321,8 @@
                 "A aprovação oficial no N5 também exige " + v.listeningMin + " em escuta e " + v.passMin + " no total (de " + Mock.OFFICIAL.total + "). Este simulado não teve escuta. ";
         }
         return '<div class="mock-estimate">' + intro + '<p class="estimate-note">' + verdict +
-            "É só uma estimativa: a nota do JLPT é equalizada, e aqui a escuta usa uma voz limpa, sem ruído, então tende a ser mais fácil que a real.</p></div>";
+            (v.hasListening ? "É só uma estimativa: a nota do JLPT é equalizada, e aqui a escuta usa uma voz limpa, sem ruído, então tende a ser mais fácil que a real."
+                : "É só uma estimativa: a nota do JLPT é equalizada.") + "</p></div>";
     }
 
     function renderResult() {
