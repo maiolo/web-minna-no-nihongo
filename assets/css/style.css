@@ -324,6 +324,67 @@ main {
 /* Espaço extra acima de um título de seção na página inicial. */
 .section-gap { margin-top: 40px; }
 
+/* ---------- Gramática por pontos (cartões com exemplos, contraste e armadilhas) ---------- */
+.gp { scroll-margin-top: calc(var(--topbar-h, 56px) + 76px); }
+.gp .card-header { display: flex; align-items: flex-start; gap: 10px; }
+.gp-title { min-width: 0; }
+.gp-num {
+    flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.7em; height: 1.7em;
+    border-radius: 50%;
+    background: var(--shu-solid); color: var(--on-solid);
+    font-size: .8em; font-weight: 700; line-height: 1;
+}
+.gp-pattern {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 6px 14px;
+    background: var(--shu-tint);
+    border: 1px solid var(--shu-line);
+    border-radius: var(--radius-sm);
+    color: var(--shu-dark);
+    font-size: 1.15rem; font-weight: 700;
+}
+.gp-mean { font-weight: 600; margin: 0 0 8px; }
+.gp-sub {
+    margin: 22px 0 10px;
+    font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted);
+}
+.gp-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.gp-cmp { padding: 12px 14px; background: var(--paper); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); }
+.gp-form { display: grid; gap: 10px; margin: 12px 0 4px; }
+.gp-form-text { line-height: 2; }
+.gp-cmp-label { margin-bottom: 6px; font-size: .85rem; font-weight: 700; color: var(--shu-dark); }
+.gp-cmp .jp-example { font-size: 1.05rem; }
+.gp-contrast-note { margin: 10px 0 0; color: var(--muted); }
+.gp-trap, .gp-note {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--note-bg);
+    border-left: 4px solid var(--note-line);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.gp-trap ul { margin: 6px 0 0 18px; padding: 0; }
+.gp-trap li { margin: 4px 0; }
+
+/* Resumo no topo da aba: um botão por ponto. */
+.gp-index { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.gp-jump {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; min-height: 48px;
+    padding: 8px 12px;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+    font: inherit; text-align: left; cursor: pointer;
+}
+.gp-jump:hover { border-color: var(--shu-line); }
+.gp-jump:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; }
+.gp-jump-text { display: flex; flex-direction: column; min-width: 0; }
+.gp-jump .gp-pat { font-weight: 700; color: var(--shu-dark); }
+.gp-jump .gp-short { color: var(--muted); font-size: .92rem; }
+
 /* ---------- Abas das lições ---------- */
 .main-nav {
     max-width: 1100px;
