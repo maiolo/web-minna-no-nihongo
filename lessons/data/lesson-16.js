@@ -1,190 +1,190 @@
 // Dados da lição 16. Formato descrito no README.md.
 window.lessonData = {
   "vocab": {
-    "title": "<ruby>語<rt>ご</rt></ruby><ruby>彙<rt>い</rt></ruby> (Vocabulário)",
+    "title": "{語彙|ごい} (Vocabulário)",
     "groups": [
       {
-        "title": "動詞 (Verbos)",
+        "title": "{動詞|どうし} (Verbos)",
         "items": [
           {
-            "jp": "<ruby>乗<rt>の</rt></ruby>ります [<ruby>電<rt>でん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>に〜]",
+            "jp": "{乗|の}ります [{電車|でんしゃ}に〜]",
             "romaji": "norimasu [densha ni~]",
             "pt": "Andar / Subir (no trem)"
           },
           {
-            "jp": "<ruby>降<rt>お</rt></ruby>ります [<ruby>電<rt>でん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>を〜]",
+            "jp": "{降|お}ります [{電車|でんしゃ}を〜]",
             "romaji": "orimasu [densha o~]",
             "pt": "Descer / Sair (do trem)"
           },
           {
-            "jp": "<ruby>乗<rt>の</rt></ruby>り<ruby>換<rt>か</rt></ruby>えます",
+            "jp": "{乗|の}り{換|か}えます",
             "romaji": "norikaemasu",
             "pt": "Fazer baldeação / Trocar de condução"
           },
           {
-            "jp": "<ruby>浴<rt>あ</rt></ruby>びます [シャワーを〜]",
+            "jp": "{浴|あ}びます [シャワーを〜]",
             "romaji": "abimasu [shawaa o~]",
             "pt": "Tomar (ducha/banho)"
           },
           {
-            "jp": "<ruby>入<rt>い</rt></ruby>れます",
+            "jp": "{入|い}れます",
             "romaji": "iremasu",
             "pt": "Colocar / Inserir"
           },
           {
-            "jp": "<ruby>出<rt>だ</rt></ruby>します",
+            "jp": "{出|だ}します",
             "romaji": "dashimasu",
             "pt": "Tirar / Retirar / Entregar"
           },
           {
-            "jp": "<ruby>下<rt>お</rt></ruby>ろします [お<ruby>金<rt>かね</rt></ruby>を〜]",
+            "jp": "{下|お}ろします [お{金|かね}を〜]",
             "romaji": "oroshimasu [okane o~]",
             "pt": "Sacar (dinheiro)"
           },
           {
-            "jp": "<ruby>入<rt>はい</rt></ruby>ります [<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>に〜]",
+            "jp": "{入|はい}ります [{大学|だいがく}に〜]",
             "romaji": "hairimasu [daigaku ni~]",
             "pt": "Entrar (na universidade)"
           },
           {
-            "jp": "<ruby>出<rt>で</rt></ruby>ます [<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>を〜]",
+            "jp": "{出|で}ます [{大学|だいがく}を〜]",
             "romaji": "demasu [daigaku o~]",
             "pt": "Formar-se / Sair (da universidade)"
           },
           {
-            "jp": "<ruby>押<rt>お</rt></ruby>します",
+            "jp": "{押|お}します",
             "romaji": "oshimasu",
             "pt": "Apertar / Empurrar"
           },
           {
-            "jp": "<ruby>飲<rt>の</rt></ruby>みます [お<ruby>酒<rt>さけ</rt></ruby>を〜]",
+            "jp": "{飲|の}みます [お{酒|さけ}を〜]",
             "romaji": "nomimasu [osake o~]",
             "pt": "Beber (bebida alcoólica)"
           },
           {
-            "jp": "<ruby>始<rt>はじ</rt></ruby>めます",
+            "jp": "{始|はじ}めます",
             "romaji": "hajimemasu",
             "pt": "Começar / Iniciar"
           },
           {
-            "jp": "<ruby>見<rt>けん</rt></ruby><ruby>学<rt>がく</rt></ruby>します",
+            "jp": "{見学|けんがく}します",
             "romaji": "kengaku shimasu",
             "pt": "Fazer visita de estudo"
           },
           {
-            "jp": "<ruby>電<rt>でん</rt></ruby><ruby>話<rt>わ</rt></ruby>します",
+            "jp": "{電話|でんわ}します",
             "romaji": "denwa shimasu",
             "pt": "Telefonar"
           }
         ]
       },
       {
-        "title": "形容詞 (Adjetivos)",
+        "title": "{形容詞|けいようし} (Adjetivos)",
         "items": [
           {
-            "jp": "<ruby>若<rt>わか</rt></ruby>い",
+            "jp": "{若|わか}い",
             "romaji": "wakai",
             "pt": "Jovem"
           },
           {
-            "jp": "<ruby>長<rt>なが</rt></ruby>い",
+            "jp": "{長|なが}い",
             "romaji": "nagai",
             "pt": "Longo / Comprido"
           },
           {
-            "jp": "<ruby>短<rt>みじか</rt></ruby>い",
+            "jp": "{短|みじか}い",
             "romaji": "mijikai",
             "pt": "Curto"
           },
           {
-            "jp": "<ruby>明<rt>あか</rt></ruby>るい",
+            "jp": "{明|あか}るい",
             "romaji": "akarui",
             "pt": "Claro / Iluminado / Alegre"
           },
           {
-            "jp": "<ruby>暗<rt>くら</rt></ruby>い",
+            "jp": "{暗|くら}い",
             "romaji": "kurai",
             "pt": "Escuro"
           },
           {
-            "jp": "<ruby>背<rt>せ</rt></ruby>が<ruby>高<rt>たか</rt></ruby>い",
+            "jp": "{背|せ}が{高|たか}い",
             "romaji": "se ga takai",
             "pt": "Alto (estatura)"
           },
           {
-            "jp": "<ruby>頭<rt>あたま</rt></ruby>がいい",
+            "jp": "{頭|あたま}がいい",
             "romaji": "atama ga ii",
             "pt": "Inteligente / Esperto"
           }
         ]
       },
       {
-        "title": "体の部位 (Partes do Corpo)",
+        "title": "{体|からだ}の{部位|ぶい} (Partes do Corpo)",
         "items": [
           {
-            "jp": "<ruby>体<rt>からだ</rt></ruby>",
+            "jp": "{体|からだ}",
             "romaji": "karada",
             "pt": "Corpo"
           },
           {
-            "jp": "<ruby>頭<rt>あたま</rt></ruby>",
+            "jp": "{頭|あたま}",
             "romaji": "atama",
             "pt": "Cabeça"
           },
           {
-            "jp": "<ruby>髪<rt>かみ</rt></ruby>",
+            "jp": "{髪|かみ}",
             "romaji": "kami",
             "pt": "Cabelo"
           },
           {
-            "jp": "<ruby>顔<rt>かお</rt></ruby>",
+            "jp": "{顔|かお}",
             "romaji": "kao",
             "pt": "Rosto"
           },
           {
-            "jp": "<ruby>目<rt>め</rt></ruby>",
+            "jp": "{目|め}",
             "romaji": "me",
             "pt": "Olho"
           },
           {
-            "jp": "<ruby>耳<rt>みみ</rt></ruby>",
+            "jp": "{耳|みみ}",
             "romaji": "mimi",
             "pt": "Orelha / Ouvido"
           },
           {
-            "jp": "<ruby>鼻<rt>はな</rt></ruby>",
+            "jp": "{鼻|はな}",
             "romaji": "hana",
             "pt": "Nariz"
           },
           {
-            "jp": "<ruby>口<rt>くち</rt></ruby>",
+            "jp": "{口|くち}",
             "romaji": "kuchi",
             "pt": "Boca"
           },
           {
-            "jp": "<ruby>歯<rt>は</rt></ruby>",
+            "jp": "{歯|は}",
             "romaji": "ha",
             "pt": "Dente"
           },
           {
-            "jp": "お<ruby>腹<rt>なか</rt></ruby>",
+            "jp": "お{腹|なか}",
             "romaji": "onaka",
             "pt": "Barriga"
           },
           {
-            "jp": "<ruby>足<rt>あし</rt></ruby>",
+            "jp": "{足|あし}",
             "romaji": "ashi",
             "pt": "Pé / Perna"
           },
           {
-            "jp": "<ruby>背<rt>せ</rt></ruby>",
+            "jp": "{背|せ}",
             "romaji": "se",
             "pt": "Altura (corporal)"
           }
         ]
       },
       {
-        "title": "名詞・その他 (Substantivos e Outros)",
+        "title": "{名詞|めいし}・その{他|た} (Substantivos e Outros)",
         "items": [
           {
             "jp": "サービス",
@@ -202,22 +202,22 @@ window.lessonData = {
             "pt": "Ducha / Chuveiro"
           },
           {
-            "jp": "<ruby>緑<rt>みどり</rt></ruby>",
+            "jp": "{緑|みどり}",
             "romaji": "midori",
             "pt": "Verde / Vegetação"
           },
           {
-            "jp": "お<ruby>寺<rt>てら</rt></ruby>",
+            "jp": "お{寺|てら}",
             "romaji": "otera",
             "pt": "Templo budista"
           },
           {
-            "jp": "<ruby>神<rt>じん</rt></ruby><ruby>社<rt>じゃ</rt></ruby>",
+            "jp": "{神社|じんじゃ}",
             "romaji": "jinja",
             "pt": "Santuário xintoísta"
           },
           {
-            "jp": "<ruby>留<rt>りゅう</rt></ruby><ruby>学<rt>がく</rt></ruby><ruby>生<rt>せい</rt></ruby>",
+            "jp": "{留学生|りゅうがくせい}",
             "romaji": "ryuugakusei",
             "pt": "Estudante estrangeiro"
           },
@@ -247,7 +247,7 @@ window.lessonData = {
             "pt": "Ainda falta muito (modéstia)"
           },
           {
-            "jp": "お<ruby>引<rt>ひ</rt></ruby>き<ruby>出<rt>だ</rt></ruby>し",
+            "jp": "お{引|ひ}き{出|だ}し",
             "romaji": "ohikidashi",
             "pt": "Saque bancário"
           },
@@ -257,7 +257,7 @@ window.lessonData = {
             "pt": "Em primeiro lugar"
           },
           {
-            "jp": "<ruby>次<rt>つぎ</rt></ruby>に",
+            "jp": "{次|つぎ}に",
             "romaji": "tsugi ni",
             "pt": "Em seguida"
           },
@@ -267,17 +267,17 @@ window.lessonData = {
             "pt": "Cartão magnético bancário"
           },
           {
-            "jp": "<ruby>暗<rt>あん</rt></ruby><ruby>証<rt>しょう</rt></ruby><ruby>番<rt>ばん</rt></ruby><ruby>号<rt>ごう</rt></ruby>",
+            "jp": "{暗証番号|あんしょうばんごう}",
             "romaji": "anshoubangou",
             "pt": "Senha / Número secreto"
           },
           {
-            "jp": "<ruby>金<rt>きん</rt></ruby><ruby>額<rt>がく</rt></ruby>",
+            "jp": "{金額|きんがく}",
             "romaji": "kingaku",
             "pt": "Quantia / Valor"
           },
           {
-            "jp": "<ruby>確<rt>かく</rt></ruby><ruby>認<rt>にん</rt></ruby>",
+            "jp": "{確認|かくにん}",
             "romaji": "kakunin",
             "pt": "Confirmação"
           },
@@ -292,60 +292,60 @@ window.lessonData = {
   },
   "bunkei": {
     "patterns": {
-      "title": "<ruby>文<rt>ぶん</rt></ruby><ruby>型<rt>けい</rt></ruby> (Padrões de Frase)",
+      "title": "{文型|ぶんけい} (Padrões de Frase)",
       "items": [
         {
-          "jp": "<ruby>朝<rt>あさ</rt></ruby>ジョギングをして、シャワーをあびて、<ruby>会<rt>かい</rt></ruby><ruby>社<rt>しゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。",
+          "jp": "{朝|あさ}ジョギングをして、シャワーをあびて、{会社|かいしゃ}へ{行|い}きます。",
           "romaji": "Asa jogingu o shite, shawaa o abite, kaisha e ikimasu.",
           "pt": "De manhã faço corrida, tomo uma ducha e vou para a empresa."
         },
         {
-          "jp": "コンサートが<ruby>終<rt>お</rt></ruby>わってから、レストランで<ruby>食<rt>しょく</rt></ruby><ruby>事<rt>じ</rt></ruby>をしました。",
+          "jp": "コンサートが{終|お}わってから、レストランで{食事|しょくじ}をしました。",
           "romaji": "Konsaato ga owatte kara, resutoran de shokuji o shimashita.",
           "pt": "Depois que o concerto terminou, jantei num restaurante."
         },
         {
-          "jp": "<ruby>大<rt>おお</rt></ruby><ruby>阪<rt>さか</rt></ruby>は<ruby>食<rt>た</rt></ruby>べ<ruby>物<rt>もの</rt></ruby>がおいしいです。",
+          "jp": "{大阪|おおさか}は{食|た}べ{物|もの}がおいしいです。",
           "romaji": "Osaka wa tabemono ga oishii desu.",
           "pt": "Osaka tem uma comida deliciosa (Em Osaka, a comida é gostosa)."
         },
         {
-          "jp": "この<ruby>部<rt>へ</rt></ruby><ruby>屋<rt>や</rt></ruby>は<ruby>広<rt>ひろ</rt></ruby>くて、<ruby>明<rt>あか</rt></ruby>るいです。",
+          "jp": "この{部屋|へや}は{広|ひろ}くて、{明|あか}るいです。",
           "romaji": "Kono heya wa hirokute, akarui desu.",
           "pt": "Este quarto é amplo e iluminado."
         }
       ]
     },
     "examples": {
-      "title": "<ruby>例<rt>れい</rt></ruby><ruby>文<rt>ぶん</rt></ruby> (Exemplos)",
+      "title": "{例文|れいぶん} (Exemplos)",
       "items": [
         {
-          "jp": "<ruby>昨日<rt>きのう</rt></ruby>何をしましたか。<br>— <ruby>京<rt>きょう</rt></ruby><ruby>都<rt>と</rt></ruby>へ<ruby>行<rt>い</rt></ruby>って、<ruby>友<rt>とも</rt></ruby><ruby>達<rt>だち</rt></ruby>に<ruby>会<rt>あ</rt></ruby>って、<ruby>映<rt>えい</rt></ruby><ruby>画<rt>が</rt></ruby>を<ruby>見<rt>み</rt></ruby>ました。",
+          "jp": "{昨日|きのう}{何|なに}をしましたか。<br>— {京都|きょうと}へ{行|い}って、{友達|ともだち}に{会|あ}って、{映画|えいが}を{見|み}ました。",
           "romaji": "Kinou nani o shimashita ka. — Kyoto e itte, tomodachi ni atte, eiga o mimashita.",
           "pt": "O que você fez ontem? — Fui a Kyoto, encontrei um amigo e assisti a um filme."
         },
         {
-          "jp": "<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。<br>— <ruby>京<rt>きょう</rt></ruby><ruby>都<rt>と</rt></ruby><ruby>駅<rt>えき</rt></ruby>から16<ruby>番<rt>ばん</rt></ruby>のバスに<ruby>乗<rt>の</rt></ruby>って、<ruby>大<rt>だい</rt></ruby><ruby>学<rt>がく</rt></ruby><ruby>前<rt>まえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。",
+          "jp": "{大学|だいがく}までどうやって{行|い}きますか。<br>— {京都駅|きょうとえき}から16{番|ばん}のバスに{乗|の}って、{大学前|だいがくまえ}で{降|お}ります。",
           "romaji": "Daigaku made douyatte ikimasu ka. — Kyoto-eki kara juuroku-ban no basu ni notte, Daigaku-mae de orimasu.",
           "pt": "Como você vai até a universidade? — Da Estação de Kyoto, pego o ônibus nº 16 e desço em frente à universidade."
         },
         {
-          "jp": "<ruby>今<rt>いま</rt></ruby>から<ruby>大<rt>おお</rt></ruby><ruby>阪<rt>さか</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きますか。<br>— いいえ、お<ruby>昼<rt>ひる</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べてから、<ruby>行<rt>い</rt></ruby>きます。",
+          "jp": "{今|いま}から{大阪|おおさか}へ{行|い}きますか。<br>— いいえ、お{昼|ひる}ごはんを{食|た}べてから、{行|い}きます。",
           "romaji": "Ima kara Osaka e ikimasu ka. — Iie, ohirugohan o tabete kara, ikimasu.",
           "pt": "Você vai para Osaka agora? — Não, vou depois que almoçar."
         },
         {
-          "jp": "マリアさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。<br>— あの<ruby>髪<rt>かみ</rt></ruby>が<ruby>長<rt>なが</rt></ruby>い<ruby>人<rt>ひと</rt></ruby>です。",
+          "jp": "マリアさんはどの{人|ひと}ですか。<br>— あの{髪|かみ}が{長|なが}い{人|ひと}です。",
           "romaji": "Maria-san wa dono hito desu ka. — Ano kami ga nagai hito desu.",
           "pt": "Qual pessoa é a Maria-san? — É aquela pessoa de cabelo comprido."
         },
         {
-          "jp": "たろうちゃんの<ruby>自<rt>じ</rt></ruby><ruby>転<rt>てん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>はどれですか。<br>— あの<ruby>青<rt>あお</rt></ruby>くて、<ruby>新<rt>あたら</rt></ruby>しい<ruby>自<rt>じ</rt></ruby><ruby>転<rt>てん</rt></ruby><ruby>車<rt>しゃ</rt></ruby>です。",
+          "jp": "たろうちゃんの{自転車|じてんしゃ}はどれですか。<br>— あの{青|あお}くて、{新|あたら}しい{自転車|じてんしゃ}です。",
           "romaji": "Taro-chan no jitensha wa dore desu ka. — Ano aokute, atarashii jitensha desu.",
           "pt": "Qual é a bicicleta do Taro-chan? — É aquela bicicleta azul e nova."
         },
         {
-          "jp": "<ruby>奈<rt>な</rt></ruby><ruby>良<rt>ら</rt></ruby>はどんな<ruby>町<rt>まち</rt></ruby>ですか。<br>— <ruby>静<rt>しず</rt></ruby>かで、<ruby>緑<rt>みどり</rt></ruby>が<ruby>多<rt>おお</rt></ruby>い<ruby>町<rt>まち</rt></ruby>です。",
+          "jp": "{奈良|なら}はどんな{町|まち}ですか。<br>— {静|しず}かで、{緑|みどり}が{多|おお}い{町|まち}です。",
           "romaji": "Nara wa donna machi desu ka. — Shizuka de, midori ga ooi machi desu.",
           "pt": "Que tipo de cidade é Nara? — É uma cidade calma e com muita vegetação."
         }
@@ -353,71 +353,71 @@ window.lessonData = {
     }
   },
   "gramatica": {
-    "title": "<ruby>文法<rt>ぶんぽう</rt></ruby> (Gramática)",
-    "content": "\n<div class=\"card\">\n    <h3 class=\"card-header\">1. <ruby>動詞<rt>どうし</rt></ruby>て<ruby>形<rt>けい</rt></ruby>、<ruby>動詞<rt>どうし</rt></ruby>て<ruby>形<rt>けい</rt></ruby>、〜 (Sequência de ações)</h3>\n    <p>Conecta dois ou mais verbos na ordem cronológica em que as ações acontecem. O tempo verbal da frase inteira é dado pelo último verbo.</p>\n    <div class=\"item-box\"><div class=\"jp-example\"><ruby>朝<rt>あさ</rt></ruby>7<ruby>時<rt>じ</rt></ruby>に<ruby>起<rt>お</rt></ruby>きて、パンを<ruby>食<rt>た</rt></ruby>べて、<ruby>学校<rt>がっこう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</div><div class=\"pt-line\">🇧🇷 Acordo às 7 da manhã, como pão e vou para a escola.</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">2. <ruby>動詞<rt>どうし</rt></ruby>て<ruby>形<rt>けい</rt></ruby> ＋ から、〜 (Depois de fazer X, faço Y)</h3>\n    <p>Indica que a segunda ação só começa depois que a primeira terminou por completo. Enfatiza a conclusão prévia de X.</p>\n    <div class=\"item-box\"><div class=\"jp-example\"><ruby>国<rt>くに</rt></ruby>へ<ruby>帰<rt>かえ</rt></ruby>ってから、<ruby>父<rt>ちち</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>で<ruby>働<rt>はたら</rt></ruby>きます。</div><div class=\"pt-line\">🇧🇷 Depois que eu voltar para o meu país, vou trabalhar na empresa do meu pai.</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">3. N1 は N2 が [adjetivo] です (Características)</h3>\n    <p>N1 é o tópico da frase e N2 é uma parte ou característica dele, descrita pelo adjetivo.</p>\n    <div class=\"item-box\"><div class=\"jp-example\">マリアさんは<ruby>髪<rt>かみ</rt></ruby>が<ruby>長<rt>なが</rt></ruby>いです。</div><div class=\"pt-line\">🇧🇷 A Maria tem o cabelo comprido (quanto à Maria, o cabelo é comprido).</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">4. <ruby>形容詞<rt>けいようし</rt></ruby>・<ruby>名詞<rt>めいし</rt></ruby>の<ruby>接続<rt>せつぞく</rt></ruby> (Ligando descrições)</h3>\n    <p>Para unir vários adjetivos ou substantivos na mesma frase:</p>\n    <table class=\"grammar-table\">\n        <tr>\n            <th>い-<ruby>形容詞<rt>けいようし</rt></ruby></th>\n            <td>Troca-se o い final por <strong>〜くて</strong>.<br><ruby>大<rt>おお</rt></ruby>きい ➔ <ruby>大<rt>おお</rt></ruby>きくて<br><em>Exceção:</em> いい ➔ <strong>よくて</strong></td>\n        </tr>\n        <tr>\n            <th>な-<ruby>形容詞<rt>けいようし</rt></ruby></th>\n            <td>Troca-se o な por <strong>〜で</strong>.<br><ruby>親切<rt>しんせつ</rt></ruby>な ➔ <ruby>親切<rt>しんせつ</rt></ruby>で</td>\n        </tr>\n        <tr>\n            <th><ruby>名詞<rt>めいし</rt></ruby></th>\n            <td>Acrescenta-se <strong>〜で</strong>.<br>28<ruby>歳<rt>さい</rt></ruby> ➔ 28<ruby>歳<rt>さい</rt></ruby>で</td>\n        </tr>\n    </table>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">5. Interrogativos: どうやって / どの＋N / どれ</h3>\n    <table class=\"grammar-table\">\n        <tr><th>どうやって</th><td>Pergunta o meio ou o passo a passo para fazer algo.<br><ruby>駅<rt>えき</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。 (Como vou até a estação?)</td></tr>\n        <tr><th>どの＋<ruby>名詞<rt>めいし</rt></ruby></th><td>&ldquo;Qual [substantivo]?&rdquo; Escolhe entre 3 ou mais opções, e o substantivo vem logo depois.<br>どの<ruby>人<rt>ひと</rt></ruby>ですか。 (Qual pessoa?)</td></tr>\n        <tr><th>どれ</th><td>&ldquo;Qual?&rdquo; Para objetos, sem o substantivo depois.<br>あなたのカバンはどれですか。 (Qual é a sua bolsa?)</td></tr>\n    </table>\n</div>\n"
+    "title": "{文法|ぶんぽう} (Gramática)",
+    "content": "\n<div class=\"card\">\n    <h3 class=\"card-header\">1. {動詞|どうし}て{形|けい}、{動詞|どうし}て{形|けい}、〜 (Sequência de ações)</h3>\n    <p>Conecta dois ou mais verbos na ordem cronológica em que as ações acontecem. O tempo verbal da frase inteira é dado pelo último verbo.</p>\n    <div class=\"item-box\"><div class=\"jp-example\">{朝|あさ}7{時|じ}に{起|お}きて、パンを{食|た}べて、{学校|がっこう}へ{行|い}きます。</div><div class=\"pt-line\">🇧🇷 Acordo às 7 da manhã, como pão e vou para a escola.</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">2. {動詞|どうし}て{形|けい} ＋ から、〜 (Depois de fazer X, faço Y)</h3>\n    <p>Indica que a segunda ação só começa depois que a primeira terminou por completo. Enfatiza a conclusão prévia de X.</p>\n    <div class=\"item-box\"><div class=\"jp-example\">{国|くに}へ{帰|かえ}ってから、{父|ちち}の{会社|かいしゃ}で{働|はたら}きます。</div><div class=\"pt-line\">🇧🇷 Depois que eu voltar para o meu país, vou trabalhar na empresa do meu pai.</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">3. N1 は N2 が [adjetivo] です (Características)</h3>\n    <p>N1 é o tópico da frase e N2 é uma parte ou característica dele, descrita pelo adjetivo.</p>\n    <div class=\"item-box\"><div class=\"jp-example\">マリアさんは{髪|かみ}が{長|なが}いです。</div><div class=\"pt-line\">🇧🇷 A Maria tem o cabelo comprido (quanto à Maria, o cabelo é comprido).</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">4. {形容詞|けいようし}・{名詞|めいし}の{接続|せつぞく} (Ligando descrições)</h3>\n    <p>Para unir vários adjetivos ou substantivos na mesma frase:</p>\n    <table class=\"grammar-table\">\n        <tr>\n            <th>い-{形容詞|けいようし}</th>\n            <td>Troca-se o い final por <strong>〜くて</strong>.<br>{大|おお}きい ➔ {大|おお}きくて<br><em>Exceção:</em> いい ➔ <strong>よくて</strong></td>\n        </tr>\n        <tr>\n            <th>な-{形容詞|けいようし}</th>\n            <td>Troca-se o な por <strong>〜で</strong>.<br>{親切|しんせつ}な ➔ {親切|しんせつ}で</td>\n        </tr>\n        <tr>\n            <th>{名詞|めいし}</th>\n            <td>Acrescenta-se <strong>〜で</strong>.<br>28{歳|さい} ➔ 28{歳|さい}で</td>\n        </tr>\n    </table>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">5. Interrogativos: どうやって / どの＋N / どれ</h3>\n    <table class=\"grammar-table\">\n        <tr><th>どうやって</th><td>Pergunta o meio ou o passo a passo para fazer algo.<br>{駅|えき}までどうやって{行|い}きますか。 (Como vou até a estação?)</td></tr>\n        <tr><th>どの＋{名詞|めいし}</th><td>&ldquo;Qual [substantivo]?&rdquo; Escolhe entre 3 ou mais opções, e o substantivo vem logo depois.<br>どの{人|ひと}ですか。 (Qual pessoa?)</td></tr>\n        <tr><th>どれ</th><td>&ldquo;Qual?&rdquo; Para objetos, sem o substantivo depois.<br>あなたのカバンはどれですか。 (Qual é a sua bolsa?)</td></tr>\n    </table>\n</div>\n"
   },
   "renshuuA": {
-    "title": "<ruby>練習<rt>れんしゅう</rt></ruby> A",
-    "content": "\n<div class=\"card\">\n    <h2 class=\"card-header\"><ruby>練習<rt>れんしゅう</rt></ruby> A (Tabelas de substituição)</h2>\n    <p class=\"page-intro\">Leia em voz alta cada linha; troque as partes para criar frases novas.</p>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">1. <ruby>動詞<rt>どうし</rt></ruby>て<ruby>形<rt>けい</rt></ruby>の<ruby>接続<rt>せつぞく</rt></ruby> (Sequência)</h3>\n    <table class=\"grammar-table\">\n        <tr><th>Ação 1</th><th>Ação 2</th><th>Ação final</th></tr>\n        <tr><td><ruby>朝<rt>あさ</rt></ruby>ジョギングをして、</td><td>シャワーをあびて、</td><td><ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</td></tr>\n        <tr><td><ruby>神戸<rt>こうべ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>って、</td><td><ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>て、</td><td>お<ruby>茶<rt>ちゃ</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みました。</td></tr>\n    </table>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">2. 〜てから、〜 (Depois de X)</h3>\n    <table class=\"grammar-table\">\n        <tr><td><ruby>仕事<rt>しごと</rt></ruby>が<ruby>終<rt>お</rt></ruby>わってから、</td><td>プールで<ruby>泳<rt>およ</rt></ruby>ぎます。</td></tr>\n        <tr><td><ruby>電話<rt>でんわ</rt></ruby>をかけてから、</td><td><ruby>友達<rt>ともだち</rt></ruby>の<ruby>家<rt>うち</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</td></tr>\n    </table>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">3. <ruby>形容詞<rt>けいようし</rt></ruby>の<ruby>接続<rt>せつぞく</rt></ruby> (Ligando adjetivos)</h3>\n    <div class=\"item-box\">\n        <p>• この<ruby>部屋<rt>へや</rt></ruby>は<ruby>広<rt>ひろ</rt></ruby>くて、<ruby>明<rt>あか</rt></ruby>るいです。</p>\n        <p>• ミラーさんは<ruby>若<rt>わか</rt></ruby>くて、<ruby>元気<rt>げんき</rt></ruby>です。</p>\n        <p>• <ruby>奈良<rt>なら</rt></ruby>は<ruby>静<rt>しず</rt></ruby>かで、きれいな<ruby>町<rt>まち</rt></ruby>です。</p>\n        <p>• カリナさんは<ruby>学生<rt>がくせい</rt></ruby>で、<ruby>富士大学<rt>ふじだいがく</rt></ruby>の<ruby>留学生<rt>りゅうがくせい</rt></ruby>です。</p>\n    </div>\n</div>\n"
+    "title": "{練習|れんしゅう} A",
+    "content": "\n<div class=\"card\">\n    <h2 class=\"card-header\">{練習|れんしゅう} A (Tabelas de substituição)</h2>\n    <p class=\"page-intro\">Leia em voz alta cada linha; troque as partes para criar frases novas.</p>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">1. {動詞|どうし}て{形|けい}の{接続|せつぞく} (Sequência)</h3>\n    <table class=\"grammar-table\">\n        <tr><th>Ação 1</th><th>Ação 2</th><th>Ação final</th></tr>\n        <tr><td>{朝|あさ}ジョギングをして、</td><td>シャワーをあびて、</td><td>{会社|かいしゃ}へ{行|い}きます。</td></tr>\n        <tr><td>{神戸|こうべ}へ{行|い}って、</td><td>{映画|えいが}を{見|み}て、</td><td>お{茶|ちゃ}を{飲|の}みました。</td></tr>\n    </table>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">2. 〜てから、〜 (Depois de X)</h3>\n    <table class=\"grammar-table\">\n        <tr><td>{仕事|しごと}が{終|お}わってから、</td><td>プールで{泳|およ}ぎます。</td></tr>\n        <tr><td>{電話|でんわ}をかけてから、</td><td>{友達|ともだち}の{家|うち}へ{行|い}きます。</td></tr>\n    </table>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">3. {形容詞|けいようし}の{接続|せつぞく} (Ligando adjetivos)</h3>\n    <div class=\"item-box\">\n        <p>• この{部屋|へや}は{広|ひろ}くて、{明|あか}るいです。</p>\n        <p>• ミラーさんは{若|わか}くて、{元気|げんき}です。</p>\n        <p>• {奈良|なら}は{静|しず}かで、きれいな{町|まち}です。</p>\n        <p>• カリナさんは{学生|がくせい}で、{富士大学|ふじだいがく}の{留学生|りゅうがくせい}です。</p>\n    </div>\n</div>\n"
   },
   "renshuuB": {
-    "title": "<ruby>練習<rt>れんしゅう</rt></ruby> B (Exercícios do livro)",
+    "title": "{練習|れんしゅう} B (Exercícios do livro)",
     "exercises": [
       {
-        "desc": "1. <ruby>例<rt>れい</rt></ruby>のように<ruby>文<rt>ぶん</rt></ruby>をつなげてください (V-て、V-て)",
-        "intro": "<ruby>例<rt>れい</rt></ruby>: ジョギングをします。シャワーをあびます。<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。➔ <strong>ジョギングをして、シャワーをあびて、<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</strong>",
+        "desc": "1. {例|れい}のように{文|ぶん}をつなげてください (V-て、V-て)",
+        "intro": "{例|れい}: ジョギングをします。シャワーをあびます。{会社|かいしゃ}へ{行|い}きます。➔ <strong>ジョギングをして、シャワーをあびて、{会社|かいしゃ}へ{行|い}きます。</strong>",
         "questions": [
           {
-            "q": "<ruby>銀行<rt>ぎんこう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。お<ruby>金<rt>かね</rt></ruby>を<ruby>下<rt>お</rt></ruby>ろします。<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>します。",
-            "a": "<ruby>銀行<rt>ぎんこう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>って、お<ruby>金<rt>かね</rt></ruby>を<ruby>下<rt>お</rt></ruby>ろして、<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>します。",
+            "q": "{銀行|ぎんこう}へ{行|い}きます。お{金|かね}を{下|お}ろします。{買|か}い{物|もの}します。",
+            "a": "{銀行|ぎんこう}へ{行|い}って、お{金|かね}を{下|お}ろして、{買|か}い{物|もの}します。",
             "romaji": "Ginkou e itte, okane o oroshite, kaimono shimasu.",
             "pt": "Vou ao banco, saco dinheiro e faço compras."
           },
           {
-            "q": "みなみ<ruby>駅<rt>えき</rt></ruby>で<ruby>電車<rt>でんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>ります。<ruby>緑<rt>みどり</rt></ruby><ruby>駅<rt>えき</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。",
-            "a": "みなみ<ruby>駅<rt>えき</rt></ruby>で<ruby>電車<rt>でんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>って、<ruby>緑<rt>みどり</rt></ruby><ruby>駅<rt>えき</rt></ruby>で<ruby>降<rt>お</rt></ruby>りて、<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。",
+            "q": "みなみ{駅|えき}で{電車|でんしゃ}に{乗|の}ります。{緑駅|みどりえき}で{降|お}ります。{会社|かいしゃ}へ{行|い}きます。",
+            "a": "みなみ{駅|えき}で{電車|でんしゃ}に{乗|の}って、{緑駅|みどりえき}で{降|お}りて、{会社|かいしゃ}へ{行|い}きます。",
             "romaji": "Minami-eki de densha ni notte, Midori-eki de orite, kaisha e ikimasu.",
             "pt": "Pego o trem na estação Minami, desço na estação Midori e vou para a empresa."
           },
           {
-            "q": "<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>みます。<ruby>音楽<rt>おんがく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>きます。<ruby>寝<rt>ね</rt></ruby>ます。",
-            "a": "<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>音楽<rt>おんがく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて、<ruby>寝<rt>ね</rt></ruby>ます。",
+            "q": "{本|ほん}を{読|よ}みます。{音楽|おんがく}を{聞|き}きます。{寝|ね}ます。",
+            "a": "{本|ほん}を{読|よ}んで、{音楽|おんがく}を{聞|き}いて、{寝|ね}ます。",
             "romaji": "Hon o yonde, ongaku o kiite, nemasu.",
             "pt": "Leio um livro, ouço música e durmo."
           },
           {
-            "q": "<ruby>土曜日<rt>どようび</rt></ruby>の<ruby>朝<rt>あさ</rt></ruby>、<ruby>神戸<rt>こうべ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きました。<ruby>友達<rt>ともだち</rt></ruby>に<ruby>会<rt>あ</rt></ruby>いました。<ruby>中華街<rt>ちゅうかがい</rt></ruby>で<ruby>昼<rt>ひる</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べました。",
-            "a": "<ruby>土曜日<rt>どようび</rt></ruby>の<ruby>朝<rt>あさ</rt></ruby>、<ruby>神戸<rt>こうべ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>って、<ruby>友達<rt>ともだち</rt></ruby>に<ruby>会<rt>あ</rt></ruby>って、<ruby>中華街<rt>ちゅうかがい</rt></ruby>で<ruby>昼<rt>ひる</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べました。",
+            "q": "{土曜日|どようび}の{朝|あさ}、{神戸|こうべ}へ{行|い}きました。{友達|ともだち}に{会|あ}いました。{中華街|ちゅうかがい}で{昼|ひる}ごはんを{食|た}べました。",
+            "a": "{土曜日|どようび}の{朝|あさ}、{神戸|こうべ}へ{行|い}って、{友達|ともだち}に{会|あ}って、{中華街|ちゅうかがい}で{昼|ひる}ごはんを{食|た}べました。",
             "romaji": "Doyoubi no asa, Koube e itte, tomodachi ni atte, chuukagai de hirugohan o tabemashita.",
             "pt": "No sábado de manhã fui a Kobe, encontrei um amigo e almocei em Chinatown."
           }
         ]
       },
       {
-        "desc": "2. <ruby>例<rt>れい</rt></ruby>のように「〜てから」を<ruby>使<rt>つか</rt></ruby>って<ruby>文<rt>ぶん</rt></ruby>をつくりなさい",
-        "intro": "<ruby>例<rt>れい</rt></ruby>: コンサートが<ruby>終<rt>お</rt></ruby>わります。レストランで<ruby>食事<rt>しょくじ</rt></ruby>します。➔ <strong>コンサートが<ruby>終<rt>お</rt></ruby>わってから、レストランで<ruby>食事<rt>しょくじ</rt></ruby>します。</strong>",
+        "desc": "2. {例|れい}のように「〜てから」を{使|つか}って{文|ぶん}をつくりなさい",
+        "intro": "{例|れい}: コンサートが{終|お}わります。レストランで{食事|しょくじ}します。➔ <strong>コンサートが{終|お}わってから、レストランで{食事|しょくじ}します。</strong>",
         "questions": [
           {
-            "q": "<ruby>国<rt>くに</rt></ruby>へ<ruby>帰<rt>かえ</rt></ruby>ります。<ruby>父<rt>ちち</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>で<ruby>働<rt>はたら</rt></ruby>きます。",
-            "a": "<ruby>国<rt>くに</rt></ruby>へ<ruby>帰<rt>かえ</rt></ruby>ってから、<ruby>父<rt>ちち</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>で<ruby>働<rt>はたら</rt></ruby>きます。",
+            "q": "{国|くに}へ{帰|かえ}ります。{父|ちち}の{会社|かいしゃ}で{働|はたら}きます。",
+            "a": "{国|くに}へ{帰|かえ}ってから、{父|ちち}の{会社|かいしゃ}で{働|はたら}きます。",
             "romaji": "Kuni e kaette kara, chichi no kaisha de hatarakimasu.",
             "pt": "Depois de voltar para o meu país, vou trabalhar na empresa do meu pai."
           },
           {
-            "q": "コンサートが<ruby>終<rt>お</rt></ruby>わります。レストランで<ruby>食事<rt>しょくじ</rt></ruby>します。",
-            "a": "コンサートが<ruby>終<rt>お</rt></ruby>わってから、レストランで<ruby>食事<rt>しょくじ</rt></ruby>します。",
+            "q": "コンサートが{終|お}わります。レストランで{食事|しょくじ}します。",
+            "a": "コンサートが{終|お}わってから、レストランで{食事|しょくじ}します。",
             "romaji": "Konsaato ga owatte kara, resutoran de shokuji shimasu.",
             "pt": "Depois que o concerto terminar, vou comer num restaurante."
           },
           {
-            "q": "お<ruby>金<rt>かね</rt></ruby>を<ruby>下<rt>お</rt></ruby>ろします。<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>に<ruby>行<rt>い</rt></ruby>きます。",
-            "a": "お<ruby>金<rt>かね</rt></ruby>を<ruby>下<rt>お</rt></ruby>ろしてから、<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>に<ruby>行<rt>い</rt></ruby>きます。",
+            "q": "お{金|かね}を{下|お}ろします。{買|か}い{物|もの}に{行|い}きます。",
+            "a": "お{金|かね}を{下|お}ろしてから、{買|か}い{物|もの}に{行|い}きます。",
             "romaji": "Okane o oroshite kara, kaimono ni ikimasu.",
             "pt": "Depois de sacar dinheiro, vou fazer compras."
           },
           {
-            "q": "<ruby>仕事<rt>しごと</rt></ruby>が<ruby>終<rt>お</rt></ruby>わります。プールで<ruby>泳<rt>およ</rt></ruby>ぎます。",
-            "a": "<ruby>仕事<rt>しごと</rt></ruby>が<ruby>終<rt>お</rt></ruby>わってから、プールで<ruby>泳<rt>およ</rt></ruby>ぎます。",
+            "q": "{仕事|しごと}が{終|お}わります。プールで{泳|およ}ぎます。",
+            "a": "{仕事|しごと}が{終|お}わってから、プールで{泳|およ}ぎます。",
             "romaji": "Shigoto ga owatte kara, puuru de oyogimasu.",
             "pt": "Depois que o trabalho terminar, vou nadar na piscina."
           }
@@ -425,87 +425,87 @@ window.lessonData = {
       },
       {
         "desc": "3. N1 は N2 が [adjetivo] です",
-        "intro": "<ruby>例<rt>れい</rt></ruby>: マリアさん、<ruby>髪<rt>かみ</rt></ruby>、<ruby>長<rt>なが</rt></ruby>い ➔ <strong>マリアさんは<ruby>髪<rt>かみ</rt></ruby>が<ruby>長<rt>なが</rt></ruby>いです。</strong>",
+        "intro": "{例|れい}: マリアさん、{髪|かみ}、{長|なが}い ➔ <strong>マリアさんは{髪|かみ}が{長|なが}いです。</strong>",
         "questions": [
           {
-            "q": "<ruby>大阪<rt>おおさか</rt></ruby>、<ruby>食<rt>た</rt></ruby>べ<ruby>物<rt>もの</rt></ruby>、おいしい",
-            "a": "<ruby>大阪<rt>おおさか</rt></ruby>は<ruby>食<rt>た</rt></ruby>べ<ruby>物<rt>もの</rt></ruby>がおいしいです。",
+            "q": "{大阪|おおさか}、{食|た}べ{物|もの}、おいしい",
+            "a": "{大阪|おおさか}は{食|た}べ{物|もの}がおいしいです。",
             "romaji": "Osaka wa tabemono ga oishii desu.",
             "pt": "Em Osaka a comida é gostosa."
           },
           {
-            "q": "サントスさん、<ruby>体<rt>からだ</rt></ruby>、<ruby>大<rt>おお</rt></ruby>きい",
-            "a": "サントスさんは<ruby>体<rt>からだ</rt></ruby>が<ruby>大<rt>おお</rt></ruby>きいです。",
+            "q": "サントスさん、{体|からだ}、{大|おお}きい",
+            "a": "サントスさんは{体|からだ}が{大|おお}きいです。",
             "romaji": "Santosu-san wa karada ga ookii desu.",
             "pt": "O Santos tem o corpo grande."
           },
           {
-            "q": "マリアさん、<ruby>目<rt>め</rt></ruby>、きれい",
-            "a": "マリアさんは<ruby>目<rt>め</rt></ruby>がきれいです。／マリアさんは<ruby>目<rt>め</rt></ruby>が<ruby>綺麗<rt>きれい</rt></ruby>です。",
+            "q": "マリアさん、{目|め}、きれい",
+            "a": "マリアさんは{目|め}がきれいです。／マリアさんは{目|め}が{綺麗|きれい}です。",
             "romaji": "Maria-san wa me ga kirei desu.",
             "pt": "A Maria tem olhos bonitos."
           },
           {
-            "q": "<ruby>日本<rt>にほん</rt></ruby>、<ruby>食<rt>た</rt></ruby>べ<ruby>物<rt>もの</rt></ruby>、<ruby>高<rt>たか</rt></ruby>い",
-            "a": "<ruby>日本<rt>にほん</rt></ruby>は<ruby>食<rt>た</rt></ruby>べ<ruby>物<rt>もの</rt></ruby>が<ruby>高<rt>たか</rt></ruby>いです。",
+            "q": "{日本|にほん}、{食|た}べ{物|もの}、{高|たか}い",
+            "a": "{日本|にほん}は{食|た}べ{物|もの}が{高|たか}いです。",
             "romaji": "Nihon wa tabemono ga takai desu.",
             "pt": "No Japão a comida é cara."
           }
         ]
       },
       {
-        "desc": "4. <ruby>形容詞<rt>けいようし</rt></ruby>をつなげてください (〜くて / 〜で)",
-        "intro": "<ruby>例<rt>れい</rt></ruby>: この<ruby>部屋<rt>へや</rt></ruby>、<ruby>広<rt>ひろ</rt></ruby>い、<ruby>明<rt>あか</rt></ruby>るい ➔ <strong>この<ruby>部屋<rt>へや</rt></ruby>は<ruby>広<rt>ひろ</rt></ruby>くて、<ruby>明<rt>あか</rt></ruby>るいです。</strong>",
+        "desc": "4. {形容詞|けいようし}をつなげてください (〜くて / 〜で)",
+        "intro": "{例|れい}: この{部屋|へや}、{広|ひろ}い、{明|あか}るい ➔ <strong>この{部屋|へや}は{広|ひろ}くて、{明|あか}るいです。</strong>",
         "questions": [
           {
-            "q": "ミラーさん、<ruby>若<rt>わか</rt></ruby>いです、<ruby>元気<rt>げんき</rt></ruby>です",
-            "a": "ミラーさんは<ruby>若<rt>わか</rt></ruby>くて、<ruby>元気<rt>げんき</rt></ruby>です。",
+            "q": "ミラーさん、{若|わか}いです、{元気|げんき}です",
+            "a": "ミラーさんは{若|わか}くて、{元気|げんき}です。",
             "romaji": "Miraa-san wa wakakute, genki desu.",
             "pt": "O Sr. Miller é jovem e animado."
           },
           {
-            "q": "<ruby>昨日<rt>きのう</rt></ruby>の<ruby>天気<rt>てんき</rt></ruby>、いいです、あたたかいです (passado)",
-            "a": "<ruby>昨日<rt>きのう</rt></ruby>の<ruby>天気<rt>てんき</rt></ruby>はよくて、あたたかかったです。",
+            "q": "{昨日|きのう}の{天気|てんき}、いいです、あたたかいです (passado)",
+            "a": "{昨日|きのう}の{天気|てんき}はよくて、あたたかかったです。",
             "romaji": "Kinou no tenki wa yokute, atatakakatta desu.",
             "pt": "O tempo de ontem estava bom e quente."
           },
           {
-            "q": "<ruby>奈良<rt>なら</rt></ruby>、<ruby>静<rt>しず</rt></ruby>かです、<ruby>緑<rt>みどり</rt></ruby>が<ruby>多<rt>おお</rt></ruby>い<ruby>町<rt>まち</rt></ruby>です",
-            "a": "<ruby>奈良<rt>なら</rt></ruby>は<ruby>静<rt>しず</rt></ruby>かで、<ruby>緑<rt>みどり</rt></ruby>が<ruby>多<rt>おお</rt></ruby>い<ruby>町<rt>まち</rt></ruby>です。",
+            "q": "{奈良|なら}、{静|しず}かです、{緑|みどり}が{多|おお}い{町|まち}です",
+            "a": "{奈良|なら}は{静|しず}かで、{緑|みどり}が{多|おお}い{町|まち}です。",
             "romaji": "Nara wa shizuka de, midori ga ooi machi desu.",
             "pt": "Nara é calma e uma cidade com muito verde."
           },
           {
-            "q": "カリナさん、ブラジル<ruby>人<rt>じん</rt></ruby>です、<ruby>富士大学<rt>ふじだいがく</rt></ruby>の<ruby>留学生<rt>りゅうがくせい</rt></ruby>です",
-            "a": "カリナさんはブラジル<ruby>人<rt>じん</rt></ruby>で、<ruby>富士大学<rt>ふじだいがく</rt></ruby>の<ruby>留学生<rt>りゅうがくせい</rt></ruby>です。",
+            "q": "カリナさん、ブラジル{人|じん}です、{富士大学|ふじだいがく}の{留学生|りゅうがくせい}です",
+            "a": "カリナさんはブラジル{人|じん}で、{富士大学|ふじだいがく}の{留学生|りゅうがくせい}です。",
             "romaji": "Karina-san wa Buraziru-jin de, Fuji-daigaku no ryuugakusei desu.",
             "pt": "A Karina é brasileira e estudante estrangeira da Universidade Fuji."
           }
         ]
       },
       {
-        "desc": "5. <ruby>適切<rt>てきせつ</rt></ruby>な<ruby>形<rt>かたち</rt></ruby>に<ruby>変<rt>か</rt></ruby>えて<ruby>文<rt>ぶん</rt></ruby>を<ruby>完成<rt>かんせい</rt></ruby>させてください",
+        "desc": "5. {適切|てきせつ}な{形|かたち}に{変|か}えて{文|ぶん}を{完成|かんせい}させてください",
         "questions": [
           {
-            "q": "この<ruby>辞書<rt>じしょ</rt></ruby>は（いい ➔ ＿）、<ruby>役<rt>やく</rt></ruby>に<ruby>立<rt>た</rt></ruby>ちます。",
+            "q": "この{辞書|じしょ}は（いい ➔ ＿）、{役|やく}に{立|た}ちます。",
             "a": "よくて",
             "romaji": "yokute",
             "pt": "Este dicionário é bom e é útil."
           },
           {
-            "q": "ワンさんは（<ruby>親切<rt>しんせつ</rt></ruby> ➔ ＿）、おもしろい<ruby>人<rt>ひと</rt></ruby>です。",
-            "a": "<ruby>親切<rt>しんせつ</rt></ruby>で",
+            "q": "ワンさんは（{親切|しんせつ} ➔ ＿）、おもしろい{人|ひと}です。",
+            "a": "{親切|しんせつ}で",
             "romaji": "shinsetsu de",
             "pt": "O Wang é gentil e uma pessoa divertida."
           },
           {
-            "q": "<ruby>沖縄<rt>おきなわ</rt></ruby>の<ruby>海<rt>うみ</rt></ruby>は（<ruby>青<rt>あお</rt></ruby>い ➔ ＿）、<ruby>綺麗<rt>きれい</rt></ruby>でした。",
-            "a": "<ruby>青<rt>あお</rt></ruby>くて",
+            "q": "{沖縄|おきなわ}の{海|うみ}は（{青|あお}い ➔ ＿）、きれいでした。",
+            "a": "{青|あお}くて",
             "romaji": "aokute",
             "pt": "O mar de Okinawa era azul e lindo."
           },
           {
-            "q": "シュミットさんは（エンジニア ➔ ＿）、<ruby>会社<rt>かいしゃ</rt></ruby>の<ruby>社長<rt>しゃちょう</rt></ruby>です。",
+            "q": "シュミットさんは（エンジニア ➔ ＿）、{会社|かいしゃ}の{社長|しゃちょう}です。",
             "a": "エンジニアで",
             "romaji": "enjinia de",
             "pt": "O Schmidt é engenheiro e presidente da empresa."
@@ -513,88 +513,88 @@ window.lessonData = {
         ]
       },
       {
-        "desc": "6. 「どうやって」を<ruby>使<rt>つか</rt></ruby>って<ruby>質問<rt>しつもん</rt></ruby>に<ruby>答<rt>こた</rt></ruby>えなさい",
-        "intro": "<ruby>例<rt>れい</rt></ruby>: <ruby>京都駅<rt>きょうとえき</rt></ruby>から<ruby>大学<rt>だいがく</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。(16<ruby>番<rt>ばん</rt></ruby>のバスに<ruby>乗<rt>の</rt></ruby>ります / <ruby>大学前<rt>だいがくまえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります) ➔ <strong>16<ruby>番<rt>ばん</rt></ruby>のバスに<ruby>乗<rt>の</rt></ruby>って、<ruby>大学前<rt>だいがくまえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。</strong>",
+        "desc": "6. 「どうやって」を{使|つか}って{質問|しつもん}に{答|こた}えなさい",
+        "intro": "{例|れい}: {京都駅|きょうとえき}から{大学|だいがく}までどうやって{行|い}きますか。(16{番|ばん}のバスに{乗|の}ります / {大学前|だいがくまえ}で{降|お}ります) ➔ <strong>16{番|ばん}のバスに{乗|の}って、{大学前|だいがくまえ}で{降|お}ります。</strong>",
         "questions": [
           {
-            "q": "<ruby>大阪駅<rt>おおさかえき</rt></ruby>から<ruby>病院<rt>びょういん</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。(JRに<ruby>乗<rt>の</rt></ruby>ります / <ruby>新大阪<rt>しんおおさか</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります)",
-            "a": "JRに<ruby>乗<rt>の</rt></ruby>って、<ruby>新大阪<rt>しんおおさか</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。",
+            "q": "{大阪駅|おおさかえき}から{病院|びょういん}までどうやって{行|い}きますか。(JRに{乗|の}ります / {新大阪|しんおおさか}で{降|お}ります)",
+            "a": "JRに{乗|の}って、{新大阪|しんおおさか}で{降|お}ります。",
             "romaji": "JR ni notte, Shin-Osaka de orimasu.",
             "pt": "Pego o JR e desço em Shin-Osaka."
           },
           {
-            "q": "ホテルから<ruby>地下鉄<rt>ちかてつ</rt></ruby>の<ruby>駅<rt>えき</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。(<ruby>橋<rt>はし</rt></ruby>を<ruby>渡<rt>わた</rt></ruby>ります / すぐ<ruby>曲<rt>ま</rt></ruby>がります)",
-            "a": "<ruby>橋<rt>はし</rt></ruby>を<ruby>渡<rt>わた</rt></ruby>って、すぐ<ruby>曲<rt>ま</rt></ruby>がります。／<ruby>橋<rt>はし</rt></ruby>を<ruby>渡<rt>わた</rt></ruby>って、<ruby>直<rt>す</rt></ruby>ぐ<ruby>曲<rt>ま</rt></ruby>がります。",
+            "q": "ホテルから{地下鉄|ちかてつ}の{駅|えき}までどうやって{行|い}きますか。({橋|はし}を{渡|わた}ります / すぐ{曲|ま}がります)",
+            "a": "{橋|はし}を{渡|わた}って、すぐ{曲|ま}がります。／{橋|はし}を{渡|わた}って、{直|す}ぐ{曲|ま}がります。",
             "romaji": "Hashi o watatte, sugu magarimasu.",
             "pt": "Atravesso a ponte e viro logo em seguida."
           },
           {
-            "q": "<ruby>東京駅<rt>とうきょうえき</rt></ruby>から<ruby>美術館<rt>びじゅつかん</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。(2<ruby>番<rt>ばん</rt></ruby>のバスに<ruby>乗<rt>の</rt></ruby>ります / <ruby>美術館前<rt>びじゅつかんまえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります)",
-            "a": "2<ruby>番<rt>ばん</rt></ruby>のバスに<ruby>乗<rt>の</rt></ruby>って、<ruby>美術館前<rt>びじゅつかんまえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。",
+            "q": "{東京駅|とうきょうえき}から{美術館|びじゅつかん}までどうやって{行|い}きますか。(2{番|ばん}のバスに{乗|の}ります / {美術館前|びじゅつかんまえ}で{降|お}ります)",
+            "a": "2{番|ばん}のバスに{乗|の}って、{美術館前|びじゅつかんまえ}で{降|お}ります。",
             "romaji": "Ni-ban no basu ni notte, Bijutsukan-mae de orimasu.",
             "pt": "Pego o ônibus número 2 e desço em frente ao museu."
           },
           {
-            "q": "<ruby>役所<rt>やくしょ</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。(1<ruby>番<rt>ばん</rt></ruby>の<ruby>電車<rt>でんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>ります / <ruby>市役所前<rt>しやくしょまえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります)",
-            "a": "1<ruby>番<rt>ばん</rt></ruby>の<ruby>電車<rt>でんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>って、<ruby>市役所前<rt>しやくしょまえ</rt></ruby>で<ruby>降<rt>お</rt></ruby>ります。",
+            "q": "{役所|やくしょ}までどうやって{行|い}きますか。(1{番|ばん}の{電車|でんしゃ}に{乗|の}ります / {市役所前|しやくしょまえ}で{降|お}ります)",
+            "a": "1{番|ばん}の{電車|でんしゃ}に{乗|の}って、{市役所前|しやくしょまえ}で{降|お}ります。",
             "romaji": "Ichi-ban no densha ni notte, Shiyakusho-mae de orimasu.",
             "pt": "Pego o trem número 1 e desço em frente à prefeitura."
           }
         ]
       },
       {
-        "desc": "7. 「どの〜」を<ruby>使<rt>つか</rt></ruby>って<ruby>人<rt>ひと</rt></ruby>を<ruby>特定<rt>とくてい</rt></ruby>しなさい",
+        "desc": "7. 「どの〜」を{使|つか}って{人|ひと}を{特定|とくてい}しなさい",
         "questions": [
           {
-            "q": "サントスさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。(<ruby>背<rt>せ</rt></ruby>が<ruby>高<rt>たか</rt></ruby>い / <ruby>髪<rt>かみ</rt></ruby>が<ruby>黒<rt>くろ</rt></ruby>い)",
-            "a": "あの<ruby>背<rt>せ</rt></ruby>が<ruby>高<rt>たか</rt></ruby>くて、<ruby>髪<rt>かみ</rt></ruby>が<ruby>黒<rt>くろ</rt></ruby>い<ruby>人<rt>ひと</rt></ruby>です。",
+            "q": "サントスさんはどの{人|ひと}ですか。({背|せ}が{高|たか}い / {髪|かみ}が{黒|くろ}い)",
+            "a": "あの{背|せ}が{高|たか}くて、{髪|かみ}が{黒|くろ}い{人|ひと}です。",
             "romaji": "Ano se ga takakute, kami ga kuroi hito desu.",
             "pt": "É aquela pessoa alta e de cabelo preto."
           },
           {
-            "q": "カリナさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。(<ruby>目<rt>め</rt></ruby>が<ruby>大<rt>おお</rt></ruby>きい / <ruby>髪<rt>かみ</rt></ruby>が<ruby>短<rt>みじか</rt></ruby>い)",
-            "a": "あの<ruby>目<rt>め</rt></ruby>が<ruby>大<rt>おお</rt></ruby>きくて、<ruby>髪<rt>かみ</rt></ruby>が<ruby>短<rt>みじか</rt></ruby>い<ruby>人<rt>ひと</rt></ruby>です。",
+            "q": "カリナさんはどの{人|ひと}ですか。({目|め}が{大|おお}きい / {髪|かみ}が{短|みじか}い)",
+            "a": "あの{目|め}が{大|おお}きくて、{髪|かみ}が{短|みじか}い{人|ひと}です。",
             "romaji": "Ano me ga ookikute, kami ga mijikai hito desu.",
             "pt": "É aquela pessoa de olhos grandes e cabelo curto."
           },
           {
-            "q": "ミラーさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。(<ruby>若<rt>わか</rt></ruby>いです / <ruby>親切<rt>しんせつ</rt></ruby>です)",
-            "a": "あの<ruby>若<rt>わか</rt></ruby>くて、<ruby>親切<rt>しんせつ</rt></ruby>な<ruby>人<rt>ひと</rt></ruby>です。",
+            "q": "ミラーさんはどの{人|ひと}ですか。({若|わか}いです / {親切|しんせつ}です)",
+            "a": "あの{若|わか}くて、{親切|しんせつ}な{人|ひと}です。",
             "romaji": "Ano wakakute, shinsetsu na hito desu.",
             "pt": "É aquela pessoa jovem e gentil."
           },
           {
-            "q": "ヤマダさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。(<ruby>綺麗<rt>きれい</rt></ruby>です / <ruby>白<rt>しろ</rt></ruby>い<ruby>服<rt>ふく</rt></ruby>を<ruby>着<rt>き</rt></ruby>ています)",
-            "a": "あの<ruby>綺麗<rt>きれい</rt></ruby>で、<ruby>白<rt>しろ</rt></ruby>い<ruby>服<rt>ふく</rt></ruby>を<ruby>着<rt>き</rt></ruby>ている<ruby>人<rt>ひと</rt></ruby>です。",
+            "q": "ヤマダさんはどの{人|ひと}ですか。(きれいです / {白|しろ}い{服|ふく}を{着|き}ています)",
+            "a": "あのきれいで、{白|しろ}い{服|ふく}を{着|き}ている{人|ひと}です。／あの{綺麗|きれい}で、{白|しろ}い{服|ふく}を{着|き}ている{人|ひと}です。",
             "romaji": "Ano kirei de, shiroi fuku o kite iru hito desu.",
             "pt": "É aquela pessoa bonita, que está de roupa branca."
           }
         ]
       },
       {
-        "desc": "8. 「どれ」を<ruby>使<rt>つか</rt></ruby>って<ruby>物<rt>もの</rt></ruby>を<ruby>特定<rt>とくてい</rt></ruby>しなさい",
+        "desc": "8. 「どれ」を{使|つか}って{物|もの}を{特定|とくてい}しなさい",
         "questions": [
           {
-            "q": "たろうちゃんの<ruby>傘<rt>かさ</rt></ruby>はどれですか。(<ruby>青<rt>あお</rt></ruby>い / <ruby>新<rt>あたら</rt></ruby>しい)",
-            "a": "あの<ruby>青<rt>あお</rt></ruby>くて、<ruby>新<rt>あたら</rt></ruby>しい<ruby>傘<rt>かさ</rt></ruby>です。",
+            "q": "たろうちゃんの{傘|かさ}はどれですか。({青|あお}い / {新|あたら}しい)",
+            "a": "あの{青|あお}くて、{新|あたら}しい{傘|かさ}です。",
             "romaji": "Ano aokute, atarashii kasa desu.",
             "pt": "É aquele guarda-chuva azul e novo."
           },
           {
-            "q": "ヤマダさんの<ruby>鞄<rt>かばん</rt></ruby>はどれですか。(<ruby>黒<rt>くろ</rt></ruby>い / <ruby>大<rt>おお</rt></ruby>きい)",
-            "a": "あの<ruby>黒<rt>くろ</rt></ruby>くて、<ruby>大<rt>おお</rt></ruby>きい<ruby>鞄<rt>かばん</rt></ruby>です。",
+            "q": "ヤマダさんの{鞄|かばん}はどれですか。({黒|くろ}い / {大|おお}きい)",
+            "a": "あの{黒|くろ}くて、{大|おお}きい{鞄|かばん}です。",
             "romaji": "Ano kurokute, ookii kaban desu.",
             "pt": "É aquela bolsa preta e grande."
           },
           {
-            "q": "<ruby>会社<rt>かいしゃ</rt></ruby>のカメラはどれですか。(<ruby>小<rt>ちい</rt></ruby>さい / <ruby>白<rt>しろ</rt></ruby>い)",
-            "a": "あの<ruby>小<rt>ちい</rt></ruby>さくて、<ruby>白<rt>しろ</rt></ruby>いカメラです。",
+            "q": "{会社|かいしゃ}のカメラはどれですか。({小|ちい}さい / {白|しろ}い)",
+            "a": "あの{小|ちい}さくて、{白|しろ}いカメラです。",
             "romaji": "Ano chiisakute, shiroi kamera desu.",
             "pt": "É aquela câmera pequena e branca."
           },
           {
-            "q": "あなたの<ruby>自転車<rt>じてんしゃ</rt></ruby>はどれですか。(<ruby>赤<rt>あか</rt></ruby>い / <ruby>古<rt>ふる</rt></ruby>い)",
-            "a": "あの<ruby>赤<rt>あか</rt></ruby>くて、<ruby>古<rt>ふる</rt></ruby>い<ruby>自転車<rt>じてんしゃ</rt></ruby>です。",
+            "q": "あなたの{自転車|じてんしゃ}はどれですか。({赤|あか}い / {古|ふる}い)",
+            "a": "あの{赤|あか}くて、{古|ふる}い{自転車|じてんしゃ}です。",
             "romaji": "Ano akakute, furui jitensha desu.",
             "pt": "É aquela bicicleta vermelha e velha."
           }
@@ -603,39 +603,39 @@ window.lessonData = {
     ]
   },
   "renshuuC": {
-    "title": "<ruby>練習<rt>れんしゅう</rt></ruby> C・<ruby>会話<rt>かいわ</rt></ruby> (Conversação)",
+    "title": "{練習|れんしゅう} C・{会話|かいわ} (Conversação)",
     "exercises": [
       {
-        "desc": "1. <ruby>毎朝<rt>まいあさ</rt></ruby><ruby>何<rt>なに</rt></ruby>をしますか",
-        "intro": "<div class=\"item-box\"><p><strong>A:</strong> <ruby>毎朝<rt>まいあさ</rt></ruby><ruby>何<rt>なに</rt></ruby>をしますか。</p><p><strong>B:</strong> ジョギングをして、シャワーをあびて、<ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。</p><p><strong>A:</strong> そうですか。<ruby>大変<rt>たいへん</rt></ruby>ですね。</p></div>",
+        "desc": "1. {毎朝|まいあさ}{何|なに}をしますか",
+        "intro": "<div class=\"item-box\"><p><strong>A:</strong> {毎朝|まいあさ}{何|なに}をしますか。</p><p><strong>B:</strong> ジョギングをして、シャワーをあびて、{朝|あさ}ごはんを{食|た}べます。</p><p><strong>A:</strong> そうですか。{大変|たいへん}ですね。</p></div>",
         "questions": [
           {
-            "q": "<ruby>置換練習<rt>ちかんれんしゅう</rt></ruby> 1: [<ruby>新聞<rt>しんぶん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>む / コーヒーを<ruby>飲<rt>の</rt></ruby>む / <ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>く]",
-            "a": "<ruby>新聞<rt>しんぶん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、コーヒーを<ruby>飲<rt>の</rt></ruby>んで、<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。",
+            "q": "{置換練習|ちかんれんしゅう} 1: [{新聞|しんぶん}を{読|よ}む / コーヒーを{飲|の}む / {会社|かいしゃ}へ{行|い}く]",
+            "a": "{新聞|しんぶん}を{読|よ}んで、コーヒーを{飲|の}んで、{会社|かいしゃ}へ{行|い}きます。",
             "romaji": "Shinbun o yonde, koohii o nonde, kaisha e ikimasu.",
             "pt": "Leio o jornal, tomo café e vou para a empresa."
           }
         ]
       },
       {
-        "desc": "2. <ruby>道順<rt>みちじゅん</rt></ruby>の<ruby>案内<rt>あんない</rt></ruby> (Como chegar)",
-        "intro": "<div class=\"item-box\"><p><strong>A:</strong> すみません。<ruby>甲南大学<rt>こうなんだいがく</rt></ruby>までどうやって<ruby>行<rt>い</rt></ruby>きますか。</p><p><strong>B:</strong> <ruby>梅田<rt>うめだ</rt></ruby>から<ruby>阪急電車<rt>はんきゅうでんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>って、<ruby>岡本<rt>おかもと</rt></ruby>で<ruby>降<rt>お</rt></ruby>りてください。</p><p><strong>A:</strong> <ruby>岡本<rt>おかもと</rt></ruby>ですね。ありがとうございました。</p></div>",
+        "desc": "2. {道順|みちじゅん}の{案内|あんない} (Como chegar)",
+        "intro": "<div class=\"item-box\"><p><strong>A:</strong> すみません。{甲南大学|こうなんだいがく}までどうやって{行|い}きますか。</p><p><strong>B:</strong> {梅田|うめだ}から{阪急電車|はんきゅうでんしゃ}に{乗|の}って、{岡本|おかもと}で{降|お}りてください。</p><p><strong>A:</strong> {岡本|おかもと}ですね。ありがとうございました。</p></div>",
         "questions": [
           {
-            "q": "<ruby>置換練習<rt>ちかんれんしゅう</rt></ruby> 2: [JRに<ruby>乗<rt>の</rt></ruby>る / さくら<ruby>宮<rt>みや</rt></ruby>で<ruby>降<rt>お</rt></ruby>りる]",
-            "a": "JRに<ruby>乗<rt>の</rt></ruby>って、さくら<ruby>宮<rt>みや</rt></ruby>で<ruby>降<rt>お</rt></ruby>りてください。",
+            "q": "{置換練習|ちかんれんしゅう} 2: [JRに{乗|の}る / さくら{宮|みや}で{降|お}りる]",
+            "a": "JRに{乗|の}って、さくら{宮|みや}で{降|お}りてください。",
             "romaji": "JR ni notte, Sakuramiya de orite kudasai.",
             "pt": "Pegue o JR e desça em Sakuramiya."
           }
         ]
       },
       {
-        "desc": "3. <ruby>人<rt>ひと</rt></ruby>の<ruby>特定<rt>とくてい</rt></ruby> (Identificando pessoas)",
-        "intro": "<div class=\"item-box\"><p><strong>A:</strong> サントスさんはどの<ruby>人<rt>ひと</rt></ruby>ですか。</p><p><strong>B:</strong> あの<ruby>背<rt>せ</rt></ruby>が<ruby>高<rt>たか</rt></ruby>くて、<ruby>髪<rt>かみ</rt></ruby>が<ruby>黒<rt>くろ</rt></ruby>い<ruby>人<rt>ひと</rt></ruby>です。</p><p><strong>A:</strong> ああ、あの<ruby>人<rt>ひと</rt></ruby>ですか。どうも。</p></div>",
+        "desc": "3. {人|ひと}の{特定|とくてい} (Identificando pessoas)",
+        "intro": "<div class=\"item-box\"><p><strong>A:</strong> サントスさんはどの{人|ひと}ですか。</p><p><strong>B:</strong> あの{背|せ}が{高|たか}くて、{髪|かみ}が{黒|くろ}い{人|ひと}です。</p><p><strong>A:</strong> ああ、あの{人|ひと}ですか。どうも。</p></div>",
         "questions": [
           {
-            "q": "<ruby>置換練習<rt>ちかんれんしゅう</rt></ruby> 3: [メガネをかけている / <ruby>背<rt>せ</rt></ruby>が<ruby>低<rt>ひく</rt></ruby>い]",
-            "a": "あのメガネをかけていて、<ruby>背<rt>せ</rt></ruby>が<ruby>低<rt>ひく</rt></ruby>い<ruby>人<rt>ひと</rt></ruby>です。",
+            "q": "{置換練習|ちかんれんしゅう} 3: [メガネをかけている / {背|せ}が{低|ひく}い]",
+            "a": "あのメガネをかけていて、{背|せ}が{低|ひく}い{人|ひと}です。",
             "romaji": "Ano megane o kakete ite, se ga hikui hito desu.",
             "pt": "É aquela pessoa de óculos e baixa."
           }
@@ -644,25 +644,25 @@ window.lessonData = {
     ]
   },
   "mondai": {
-    "title": "<ruby>問題<rt>もんだい</rt></ruby> (Problemas)",
+    "title": "{問題|もんだい} (Problemas)",
     "exercises": [
       {
-        "desc": "1. <ruby>助詞<rt>じょし</rt></ruby>（は、が、で、に、を、から、まで）を<ruby>入<rt>い</rt></ruby>れなさい",
+        "desc": "1. {助詞|じょし}（は、が、で、に、を、から、まで）を{入|い}れなさい",
         "questions": [
           {
-            "q": "シャワー（　）あびてから、<ruby>出<rt>で</rt></ruby>かけます。",
+            "q": "シャワー（　）あびてから、{出|で}かけます。",
             "a": "を",
             "romaji": "o",
             "pt": "Partícula 'o' (objeto da ação)"
           },
           {
-            "q": "<ruby>京都駅<rt>きょうとえき</rt></ruby>（　）JR（　）<ruby>乗<rt>の</rt></ruby>って、<ruby>大阪<rt>おおさか</rt></ruby>（　）<ruby>降<rt>お</rt></ruby>ります。 (3 partículas, separe com 、)",
+            "q": "{京都駅|きょうとえき}（　）JR（　）{乗|の}って、{大阪|おおさか}（　）{降|お}ります。 (3 partículas, separe com 、)",
             "a": "から、に、で",
             "romaji": "kara, ni, de",
             "pt": "Partida: から; embarque: に; local onde desce: で"
           },
           {
-            "q": "マリアさん（　）<ruby>髪<rt>かみ</rt></ruby>（　）<ruby>長<rt>なが</rt></ruby>いですか。 (2 partículas, separe com 、)",
+            "q": "マリアさん（　）{髪|かみ}（　）{長|なが}いですか。 (2 partículas, separe com 、)",
             "a": "は、が",
             "romaji": "wa, ga",
             "pt": "Tópico: は; característica: が"
@@ -670,7 +670,7 @@ window.lessonData = {
         ]
       },
       {
-        "desc": "2. <ruby>動詞<rt>どうし</rt></ruby>を<ruby>適切<rt>てきせつ</rt></ruby>な<ruby>形<rt>かたち</rt></ruby>にしなさい",
+        "desc": "2. {動詞|どうし}を{適切|てきせつ}な{形|かたち}にしなさい",
         "questions": [
           {
             "q": "ジョギングを（します ➔ ＿）、シャワーをあびます。",
@@ -679,36 +679,36 @@ window.lessonData = {
             "pt": "Forma て de します"
           },
           {
-            "q": "お<ruby>金<rt>かね</rt></ruby>を（<ruby>下<rt>お</rt></ruby>ろします ➔ ＿）から、<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>に<ruby>行<rt>い</rt></ruby>きます。",
-            "a": "<ruby>下<rt>お</rt></ruby>ろして",
+            "q": "お{金|かね}を（{下|お}ろします ➔ ＿）から、{買|か}い{物|もの}に{行|い}きます。",
+            "a": "{下|お}ろして",
             "romaji": "oroshite",
             "pt": "Forma て de {下|お}ろします"
           },
           {
-            "q": "<ruby>銀行<rt>ぎんこう</rt></ruby>へ（<ruby>行<rt>い</rt></ruby>きます ➔ ＿）、お<ruby>金<rt>かね</rt></ruby>を<ruby>下<rt>お</rt></ruby>ろします。",
-            "a": "<ruby>行<rt>い</rt></ruby>って",
+            "q": "{銀行|ぎんこう}へ（{行|い}きます ➔ ＿）、お{金|かね}を{下|お}ろします。",
+            "a": "{行|い}って",
             "romaji": "itte",
             "pt": "Forma て de {行|い}きます"
           }
         ]
       },
       {
-        "desc": "3. <ruby>形容詞<rt>けいようし</rt></ruby>を<ruby>正<rt>ただ</rt></ruby>しい<ruby>接続形<rt>せつぞくけい</rt></ruby>にしなさい",
+        "desc": "3. {形容詞|けいようし}を{正|ただ}しい{接続形|せつぞくけい}にしなさい",
         "questions": [
           {
-            "q": "この<ruby>部屋<rt>へや</rt></ruby>は（<ruby>広<rt>ひろ</rt></ruby>い ➔ ＿）、<ruby>明<rt>あか</rt></ruby>るいです。",
-            "a": "<ruby>広<rt>ひろ</rt></ruby>くて",
+            "q": "この{部屋|へや}は（{広|ひろ}い ➔ ＿）、{明|あか}るいです。",
+            "a": "{広|ひろ}くて",
             "romaji": "hirokute",
             "pt": "い-adjetivo: い vira くて"
           },
           {
-            "q": "<ruby>奈良<rt>なら</rt></ruby>は（<ruby>静<rt>しず</rt></ruby>か ➔ ＿）、いい<ruby>町<rt>まち</rt></ruby>です。",
-            "a": "<ruby>静<rt>しず</rt></ruby>かで",
+            "q": "{奈良|なら}は（{静|しず}か ➔ ＿）、いい{町|まち}です。",
+            "a": "{静|しず}かで",
             "romaji": "shizuka de",
             "pt": "な-adjetivo: な vira で"
           },
           {
-            "q": "<ruby>昨日<rt>きのう</rt></ruby>の<ruby>天気<rt>てんき</rt></ruby>は（いい ➔ ＿）、あたたかかったです。",
+            "q": "{昨日|きのう}の{天気|てんき}は（いい ➔ ＿）、あたたかかったです。",
             "a": "よくて",
             "romaji": "yokute",
             "pt": "Exceção: いい vira よくて"
@@ -716,30 +716,30 @@ window.lessonData = {
         ]
       },
       {
-        "desc": "4. <ruby>読解<rt>どっかい</rt></ruby>1：「マリアさんの<ruby>一日<rt>いちにち</rt></ruby>」",
-        "intro": "<p>マリアさんは<ruby>毎朝<rt>まいあさ</rt></ruby>6<ruby>時<rt>じ</rt></ruby>に<ruby>起<rt>お</rt></ruby>きます。<ruby>顔<rt>かお</rt></ruby>を<ruby>洗<rt>あら</rt></ruby>って、シャワーをあびてから、<ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。7<ruby>時半<rt>じはん</rt></ruby>に<ruby>家<rt>うち</rt></ruby>を<ruby>出<rt>で</rt></ruby>て、<ruby>電車<rt>でんしゃ</rt></ruby>で<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。<ruby>会社<rt>かいしゃ</rt></ruby>は9<ruby>時<rt>じ</rt></ruby>から5<ruby>時<rt>じ</rt></ruby>までです。<ruby>仕事<rt>しごと</rt></ruby>が<ruby>終<rt>お</rt></ruby>わってから、レストランで<ruby>晩<rt>ばん</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。<ruby>家<rt>うち</rt></ruby>へ<ruby>帰<rt>かえ</rt></ruby>って、<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んでから、11<ruby>時<rt>じ</rt></ruby>に<ruby>寝<rt>ね</rt></ruby>ます。</p>",
+        "desc": "4. {読解|どっかい}1：「マリアさんの{一日|いちにち}」",
+        "intro": "<p>マリアさんは{毎朝|まいあさ}6{時|じ}に{起|お}きます。{顔|かお}を{洗|あら}って、シャワーをあびてから、{朝|あさ}ごはんを{食|た}べます。7{時半|じはん}に{家|うち}を{出|で}て、{電車|でんしゃ}で{会社|かいしゃ}へ{行|い}きます。{会社|かいしゃ}は9{時|じ}から5{時|じ}までです。{仕事|しごと}が{終|お}わってから、レストランで{晩|ばん}ごはんを{食|た}べます。{家|うち}へ{帰|かえ}って、{本|ほん}を{読|よ}んでから、11{時|じ}に{寝|ね}ます。</p>",
         "questions": [
           {
-            "q": "マリアさんはシャワーをあびてから、<ruby>何<rt>なに</rt></ruby>をしますか。(<ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べる)",
-            "a": "<ruby>朝<rt>あさ</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。",
+            "q": "マリアさんはシャワーをあびてから、{何|なに}をしますか。({朝|あさ}ごはんを{食|た}べる)",
+            "a": "{朝|あさ}ごはんを{食|た}べます。",
             "romaji": "Asagohan o tabemasu.",
             "pt": "Toma o café da manhã."
           },
           {
-            "q": "マリアさんは<ruby>仕事<rt>しごと</rt></ruby>が<ruby>終<rt>お</rt></ruby>わってから、<ruby>何<rt>なに</rt></ruby>をしますか。(<ruby>晩<rt>ばん</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べる)",
-            "a": "レストランで<ruby>晩<rt>ばん</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べます。",
+            "q": "マリアさんは{仕事|しごと}が{終|お}わってから、{何|なに}をしますか。({晩|ばん}ごはんを{食|た}べる)",
+            "a": "レストランで{晩|ばん}ごはんを{食|た}べます。",
             "romaji": "Resutoran de bangohan o tabemasu.",
             "pt": "Janta num restaurante."
           }
         ]
       },
       {
-        "desc": "5. <ruby>読解<rt>どっかい</rt></ruby>2：「ATMの<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>（お<ruby>引<rt>ひ</rt></ruby>き<ruby>出<rt>だ</rt></ruby>し）」",
+        "desc": "5. {読解|どっかい}2：「ATMの{使|つか}い{方|かた}（お{引|ひ}き{出|だ}し）」",
         "intro": "<p><strong>【お{引|ひ}き{出|だ}しの{手順|てじゅん}】</strong></p><p>① まず「お{引|ひ}き{出|だ}し」ボタンを{押|お}してください。</p><p>② {次|つぎ}にキャッシュカードを{入|い}れてください。</p><p>③ {暗証番号|あんしょうばんごう}を{押|お}してください。</p><p>④ {金額|きんがく}を{押|お}して、「{確認|かくにん}」ボタンを{押|お}してください。</p>",
         "questions": [
           {
-            "q": "<ruby>暗証番号<rt>あんしょうばんごう</rt></ruby>を<ruby>押<rt>お</rt></ruby>してから、<ruby>何<rt>なに</rt></ruby>をしますか。",
-            "a": "<ruby>金額<rt>きんがく</rt></ruby>を<ruby>押<rt>お</rt></ruby>して、「<ruby>確認<rt>かくにん</rt></ruby>」ボタンを<ruby>押<rt>お</rt></ruby>します。",
+            "q": "{暗証番号|あんしょうばんごう}を{押|お}してから、{何|なに}をしますか。",
+            "a": "{金額|きんがく}を{押|お}して、「{確認|かくにん}」ボタンを{押|お}します。",
             "romaji": "Kingaku o oshite, [kakunin] botan o oshimasu.",
             "pt": "Aperta o valor e depois o botão de confirmação."
           }

@@ -308,6 +308,22 @@ main {
     margin-bottom: 18px;
 }
 
+/* Lista dentro de um cartão de gramática (no lugar de style= nos dados). */
+.grammar-list { margin: 8px 0 0 20px; line-height: 2; }
+
+/* Texto de leitura dentro de um exercício (usa as cores de dica do tema, claro e escuro). */
+.reading-box {
+    padding: 15px;
+    background: var(--note-bg);
+    border: 1px solid var(--note-line);
+    border-radius: var(--radius-sm);
+    margin-bottom: 15px;
+    line-height: 1.9;
+}
+
+/* Espaço extra acima de um título de seção na página inicial. */
+.section-gap { margin-top: 40px; }
+
 /* ---------- Abas das lições ---------- */
 .main-nav {
     max-width: 1100px;

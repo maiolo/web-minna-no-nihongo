@@ -19,6 +19,9 @@
  *                                       □ e ★ (ordenar peças) viram caixas e ［1］ a ［5］ (lacunas de texto) viram marcas;
  *                                       com { current: n } a lacuna n do texto fica em destaque
  *   Notation.katakanaToHiragana(texto)
+ *   Notation.toHtml(texto)              só troca {漢字|かんじ} por <ruby>; o resto do texto (HTML, espaços) fica como está.
+ *                                       É o formato único dos dados de lição: os arquivos em lessons/data/ não levam <ruby>
+ *   Notation.convertDeep(dados)         cópia de um objeto/lista com toHtml aplicado a todos os textos (o motor das lições usa)
  */
 (function (root) {
     "use strict";
@@ -141,6 +144,21 @@
             });
     }
 
+    function toHtml(text) {
+        return String(text).replace(/\{([^|}]+)\|([^}]+)\}/g, "<ruby>$1<rt>$2</rt></ruby>");
+    }
+
+    function convertDeep(value) {
+        if (typeof value === "string") return toHtml(value);
+        if (Array.isArray(value)) return value.map(convertDeep);
+        if (value && typeof value === "object") {
+            var out = {};
+            Object.keys(value).forEach(function (k) { out[k] = convertDeep(value[k]); });
+            return out;
+        }
+        return value;
+    }
+
     function escapeHtml(text) {
         return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
@@ -205,6 +223,8 @@
         plainText: plainText,
         readingText: readingText,
         toRuby: toRuby,
+        toHtml: toHtml,
+        convertDeep: convertDeep,
         toExam: toExam,
         spaceWords: spaceWords,
         sentenceRomaji: sentenceRomaji
