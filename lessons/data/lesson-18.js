@@ -33,95 +33,138 @@ window.lessonData = {
       { jp: "ぜひ", romaji: "zehi", pt: "Sem falta / Com certeza" }
     ]
   },
-  bunkei: {
-    patterns: {
-      title: "{文型|ぶんけい} (Padrões)",
-      items: [
-        { jp: "ミラーさんは {漢字|かんじ}を {読|よ}む ことが できます。", romaji: "Miraa-san wa kanji o yomu koto ga dekimasu.", pt: "O Sr. Miller consegue ler kanji." },
-        { jp: "わたしの {趣味|しゅみ}は {映画|えいが}を {見|み}る ことです。", romaji: "Watashi no shumi wa eiga o miru koto desu.", pt: "Meu passatempo é assistir a filmes." },
-        { jp: "{寝|ね}る {前|まえ}に、{日記|にっき}を {書|か}きます。", romaji: "Neru mae ni, nikki o kakimasu.", pt: "Antes de dormir, escrevo no diário." }
-      ]
-    },
-    examples: {
-      title: "{例文|れいぶん} (Exemplos)",
-      items: [
-        { jp: "スキーが できますか。<br>…はい、できます。でも、あまり {上手|じょうず}じゃありません。", romaji: "Sukii ga dekimasu ka. ...Hai, dekimasu. Demo, amari jouzu ja arimasen.", pt: "Você sabe esquiar? ...Sim, sei. Mas não sou muito bom." },
-        { jp: "マリアさんは パソコンを {使|つか}う ことが できますか。<br>…いいえ、できません。", romaji: "Maria-san wa pasokon o tsukau koto ga dekimasu ka. ...Iie, dekimasen.", pt: "A Sra. Maria sabe usar o computador? ...Não, não sabe." },
-        { jp: "{大阪城|おおさかじょう}まで {電車|でんしゃ}で {行|い}く ことが できますか。<br>…はい、できます。", romaji: "Oosakajou made densha de iku koto ga dekimasu ka. ...Hai, dekimasu.", pt: "É possível ir até o Castelo de Osaka de trem? ...Sim, é possível." },
-        { jp: "ここで {辞書|じしょ}を {借|か}りる ことが できますか。<br>…いいえ、できません。", romaji: "Koko de jisho o kariru koto ga dekimasu ka. ...Iie, dekimasen.", pt: "É possível pegar um dicionário emprestado aqui? ...Não, não é possível." },
-        { jp: "{鈴木|すずき}さんの {趣味|しゅみ}は {何|なん}ですか。<br>…{古|ふる}い {時計|とけい}を {集|あつ}める ことです。", romaji: "Suzuki-san no shumi wa nan desu ka. ...Furui tokei o atsumeru koto desu.", pt: "Qual é o passatempo do Sr. Suzuki? ...É colecionar relógios antigos." },
-        { jp: "{日本|にほん}の {子供|こども}は {学校|がっこう}に {入|はい}る {前|まえ}に、ひらがなを {覚|おぼ}えなければなりませんか。<br>…いいえ、{覚|おぼ}えなくてもいいです。", romaji: "Nihon no kodomo wa gakkou ni hairu mae ni, hiragana o oboenakereba narimasen ka. ...Iie, oboenakutemo ii desu.", pt: "As crianças japonesas têm que aprender hiragana antes de entrar na escola? ...Não, não precisam aprender." },
-        { jp: "{食事|しょくじ}の {前|まえ}に、{手|て}を {洗|あら}います。", romaji: "Shokuji no mae ni, te o araimasu.", pt: "Antes da refeição, lavo as mãos." }
-      ]
-    }
-  },
   gramatica: {
     title: "{文法|ぶんぽう} (Gramática)",
-    content: `
-                    <div class="card">
-                        <h3 class="card-header">1. {辞書形|じしょけい} (Forma de Dicionário)</h3>
-                        <p>É a forma básica dos verbos, encontrada nos dicionários. É o equivalente ao nosso infinitivo (comer, beber, falar).</p>
-                        <table class="grammar-table">
-                            <tr>
-                                <th>{第|だい}１グループ (Grupo 1)</th>
-                                <td>A sílaba antes do ます (coluna <strong>i</strong>) muda para a coluna <strong>u</strong>.<br>
-                                    {書|か}<strong>き</strong>ます ➔ {書|か}<strong>く</strong><br>
-                                    {読|よ}<strong>み</strong>ます ➔ {読|よ}<strong>む</strong><br>
-                                    {買|か}<strong>い</strong>ます ➔ {買|か}<strong>う</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{第|だい}２グループ (Grupo 2)</th>
-                                <td>Troca-se o ます por <strong>る</strong>.<br>
-                                    {食|た}べます ➔ {食|た}べ<strong>る</strong><br>
-                                    {見|み}ます ➔ {見|み}<strong>る</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{第|だい}３グループ (Grupo 3)</th>
-                                <td>Irregulares.<br>
-                                    します ➔ <strong>する</strong><br>
-                                    {来|き}ます ➔ <strong>{来|く}る</strong>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">2. {名詞|めいし} / {動詞辞書形|どうしじしょけい} こと ＋ が できます</h3>
-                        <p>Significa <strong>"Poder / Conseguir / Ser capaz de"</strong>. Expressa habilidade pessoal ou possibilidade de situação.</p>
-                        <p class="item-box">
-                            <strong>Habilidade:</strong> わたしは {車|くるま}を {運転|うんてん}する <strong>ことが できます</strong>。<br>
-                            <span class="romaji">Watashi wa kuruma o unten suru koto ga dekimasu.</span><br>
-                            <em>(Eu consigo/sei dirigir o carro.)</em>
-                        </p>
-                        <p class="item-box">
-                            <strong>Possibilidade:</strong> ここで {切符|きっぷ}を {買|か}う <strong>ことが できます</strong>。<br>
-                            <span class="romaji">Koko de kippu o kau koto ga dekimasu.</span><br>
-                            <em>(É possível comprar o bilhete aqui.)</em>
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">3. わたしの {趣味|しゅみ}は {名詞|めいし} / {動詞辞書形|どうしじしょけい} こと です</h3>
-                        <p>Para dizer <strong>"Meu hobby/passatempo é..."</strong>. O "こと" transforma o verbo em substantivo (ex: o ato de ler).</p>
-                        <p class="item-box">
-                            わたしの {趣味|しゅみ}は <strong>{本|ほん}を {読|よ}む ことです</strong>。<br>
-                            <span class="romaji">Watashi no shumi wa hon o yomu koto desu.</span><br>
-                            <em>(Meu hobby é ler livros.)</em>
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">4. {動詞辞書形|どうしじしょけい} / {名詞|めいし}の / {数詞|すうし} ＋ {前|まえ}に、〜</h3>
-                        <p>Significa <strong>"Antes de..."</strong>. Indica que a ação B ocorre após a ação A descrita antes do {前|まえ}に.</p>
-                        <ul class="grammar-list">
-                            <li><strong>Verbo:</strong> {寝|ね}る <strong>{前|まえ}に</strong>、{本|ほん}を {読|よ}みます。(Antes de dormir...)</li>
-                            <li><strong>Subst.:</strong> {食事|しょくじ} <strong>の {前|まえ}に</strong>、{手|て}を {洗|あら}います。(Antes da refeição...)</li>
-                            <li><strong>Número:</strong> 5{年|ねん} <strong>{前|まえ}に</strong>、{日本|にほん}へ {来|き}ました。(Há 5 anos / 5 anos antes...)</li>
-                        </ul>
-                    </div>
-                `
+    intro: "Quatro pontos nesta lição. A forma de dicionário vem primeiro, porque os três pontos seguintes precisam dela.",
+    points: [
+      {
+        id: "jisho-kei",
+        title: "{辞書形|じしょけい} (forma de dicionário)",
+        pat: "V-ます ➔ V-{辞書形|じしょけい}",
+        short: "a forma básica do verbo, base dos pontos seguintes",
+        mean: "É a forma que aparece nos dicionários e a que entra em ことが できます, 〜ことです e 〜{前|まえ}に. Também é o presente informal: 「{飲|の}む」 = tomo, vou tomar.",
+        rule: "Parta da forma ます: no grupo 1, a sílaba antes de ます (coluna i) passa para a coluna u.",
+        form: [
+          { label: "{第|だい}１グループ (Grupo 1)", text: "Troque a sílaba da coluna i pela da coluna u.", ex: [
+            { tag: "い ➔ う", jp: "{買|か}います ➔ {買|か}<strong>う</strong>", pt: "comprar" },
+            { tag: "き ➔ く", jp: "{書|か}きます ➔ {書|か}<strong>く</strong>", pt: "escrever" },
+            { tag: "ぎ ➔ ぐ", jp: "{急|いそ}ぎます ➔ {急|いそ}<strong>ぐ</strong>", pt: "apressar-se" },
+            { tag: "し ➔ す", jp: "{話|はな}します ➔ {話|はな}<strong>す</strong>", pt: "falar" },
+            { tag: "ち ➔ つ", jp: "{待|ま}ちます ➔ {待|ま}<strong>つ</strong>", pt: "esperar" },
+            { tag: "み ➔ む", jp: "{読|よ}みます ➔ {読|よ}<strong>む</strong>", pt: "ler" },
+            { tag: "び ➔ ぶ", jp: "{呼|よ}びます ➔ {呼|よ}<strong>ぶ</strong>", pt: "chamar" },
+            { tag: "り ➔ る", jp: "{帰|かえ}ります ➔ {帰|かえ}<strong>る</strong>", pt: "voltar" }
+          ] },
+          { label: "{第|だい}２グループ (Grupo 2)", text: "Troque ます por <strong>る</strong>.", ex: [
+            { jp: "{食|た}べます ➔ {食|た}べ<strong>る</strong>", pt: "comer" },
+            { jp: "{見|み}ます ➔ {見|み}<strong>る</strong>", pt: "ver" }
+          ] },
+          { label: "{第|だい}３グループ (Grupo 3)", text: "Irregulares: só dois verbos.", ex: [
+            { jp: "します ➔ <strong>する</strong>", pt: "fazer" },
+            { jp: "{来|き}ます ➔ {来|く}<strong>る</strong>", pt: "vir (o kanji muda de きます para くる)" }
+          ] }
+        ],
+        ex: [
+          { jp: "{毎朝|まいあさ} コーヒーを {飲|の}む。", pt: "Todas as manhãs tomo café. (informal)" },
+          { jp: "{友|とも}だちと {映画|えいが}を {見|み}る。", pt: "Vou ver um filme com um amigo. (informal)" },
+          { jp: "{来週|らいしゅう}、{日本|にほん}^へ {行|い}く。", romaji: "Raishuu, Nihon e iku.", pt: "Semana que vem vou ao Japão. (informal)" }
+        ],
+        contrast: {
+          rows: [
+            { label: "{丁寧形|ていねいけい} (ます)", jp: "{毎朝|まいあさ} コーヒーを {飲|の}みます。", pt: "Educado: com desconhecidos, no trabalho." },
+            { label: "{辞書形|じしょけい} (informal)", jp: "{毎朝|まいあさ} コーヒーを {飲|の}む。", pt: "Informal: com amigos e família. É também a forma que entra nos pontos seguintes." }
+          ],
+          note: "No dicionário, procure sempre {食|た}べる, nunca {食|た}べます."
+        },
+        trap: [
+          "O grupo 2 costuma ter a coluna e antes de ます ({食|た}<strong>べ</strong>ます). Com a coluna i (き, み, り…), em geral é grupo 1, mas há exceções do grupo 2 que valem decorar: {見|み}る, {起|お}きる, {借|か}りる, {浴|あ}びる, {降|お}りる.",
+          "{帰|かえ}る, {入|はい}る e {走|はし}る parecem do grupo 2, mas são do grupo 1: {帰|かえ}ります ➔ {帰|かえ}る."
+        ]
+      },
+      {
+        id: "koto-ga-dekiru",
+        title: "{動詞辞書形|どうしじしょけい} ＋ ことが できます",
+        pat: "V-{辞書形|じしょけい} ことが できます",
+        short: "saber fazer / ser possível fazer",
+        mean: "Expressa habilidade (“sei dirigir”) ou possibilidade (“aqui é possível comprar o bilhete”). O contexto diz qual das duas é.",
+        rule: "Verbo na forma de dicionário + こと ＋ が できます. Com um substantivo que já é uma atividade, não precisa do verbo: スキーが できます. Negativa: できません.",
+        ex: [
+          { jp: "ミラーさんは {漢字|かんじ}を {読|よ}む ことが できます。", romaji: "Miraa-san wa kanji o yomu koto ga dekimasu.", pt: "O Sr. Miller consegue ler kanji." },
+          { jp: "わたしは {車|くるま}を {運転|うんてん}する ことが できます。", romaji: "Watashi wa kuruma o unten suru koto ga dekimasu.", pt: "Eu sei dirigir. (habilidade)" },
+          { jp: "ここで {切符|きっぷ}を {買|か}う ことが できます。", romaji: "Koko de kippu o kau koto ga dekimasu.", pt: "Aqui é possível comprar o bilhete. (possibilidade)" },
+          { jp: "スキーが できますか。<br>…はい、できます。でも、あまり {上手|じょうず}じゃありません。", romaji: "Sukii ga dekimasu ka. ...Hai, dekimasu. Demo, amari jouzu ja arimasen.", pt: "Você sabe esquiar? ...Sim, sei. Mas não sou muito bom." },
+          { jp: "マリアさんは パソコンを {使|つか}う ことが できますか。<br>…いいえ、できません。", romaji: "Maria-san wa pasokon o tsukau koto ga dekimasu ka. ...Iie, dekimasen.", pt: "A Sra. Maria sabe usar o computador? ...Não, não sabe." },
+          { jp: "{大阪城|おおさかじょう}まで {電車|でんしゃ}で {行|い}く ことが できますか。<br>…はい、できます。", romaji: "Oosakajou made densha de iku koto ga dekimasu ka. ...Hai, dekimasu.", pt: "É possível ir até o Castelo de Osaka de trem? ...Sim, é possível." },
+          { jp: "ここで {辞書|じしょ}を {借|か}りる ことが できますか。<br>…いいえ、できません。", romaji: "Koko de jisho o kariru koto ga dekimasu ka. ...Iie, dekimasen.", pt: "É possível pegar um dicionário emprestado aqui? ...Não, não é possível." }
+        ],
+        contrast: {
+          rows: [
+            { label: "substantivo ＋ が できます", jp: "スキーが できます。", pt: "Sei esquiar." },
+            { label: "verbo ＋ ことが できます", jp: "{泳|およ}ぐ ことが できます。", pt: "Sei nadar." }
+          ],
+          note: "Com verbo, o こと é obrigatório: ele transforma a ação em substantivo, para poder receber が."
+        },
+        trap: [
+          "O verbo fica na forma de dicionário, não na forma ます. Errado: {読|よ}みます ことが できます。 Certo: {読|よ}む ことが できます。",
+          "Em português “poder” e “saber” viram a mesma estrutura. “Sei nadar” e “posso nadar aqui” são ambos 〜ことが できます: quem dá o sentido é o contexto."
+        ]
+      },
+      {
+        id: "shumi",
+        title: "{趣味|しゅみ}は ＋ {動詞辞書形|どうしじしょけい} ことです",
+        pat: "わたしの {趣味|しゅみ}は V-{辞書形|じしょけい} ことです",
+        short: "meu passatempo é…",
+        mean: "Diz qual é o seu passatempo. O こと transforma o verbo em substantivo, como o infinitivo do português (“ver filmes”).",
+        rule: "Com substantivo, a frase vai direto: {趣味|しゅみ}は {映画|えいが}です。 Com verbo, a forma de dicionário + ことです.",
+        ex: [
+          { jp: "わたしの {趣味|しゅみ}は {映画|えいが}を {見|み}る ことです。", romaji: "Watashi no shumi wa eiga o miru koto desu.", pt: "Meu passatempo é assistir a filmes." },
+          { jp: "わたしの {趣味|しゅみ}は {本|ほん}を {読|よ}む ことです。", romaji: "Watashi no shumi wa hon o yomu koto desu.", pt: "Meu passatempo é ler livros." },
+          { jp: "わたしの {趣味|しゅみ}は {写真|しゃしん}を {撮|と}る ことです。", romaji: "Watashi no shumi wa shashin o toru koto desu.", pt: "Meu passatempo é tirar fotos." },
+          { jp: "{鈴木|すずき}さんの {趣味|しゅみ}は {何|なん}ですか。<br>…{古|ふる}い {時計|とけい}を {集|あつ}める ことです。", romaji: "Suzuki-san no shumi wa nan desu ka. ...Furui tokei o atsumeru koto desu.", pt: "Qual é o passatempo do Sr. Suzuki? ...É colecionar relógios antigos." }
+        ],
+        contrast: {
+          rows: [
+            { label: "substantivo", jp: "わたしの {趣味|しゅみ}は {映画|えいが}です。", pt: "Meu passatempo é cinema." },
+            { label: "verbo ＋ こと", jp: "わたしの {趣味|しゅみ}は {映画|えいが}を {見|み}る ことです。", pt: "Meu passatempo é assistir a filmes." }
+          ],
+          note: "Use a primeira quando o passatempo é uma coisa (música, cinema); use a segunda quando é uma ação, com objeto e tudo."
+        },
+        trap: [
+          "Não termine o verbo em ます: errado {趣味|しゅみ}は {映画|えいが}を {見|み}ます。 Certo: {趣味|しゅみ}は {映画|えいが}を {見|み}る ことです。",
+          "Para perguntar, use {何|なん}ですか (não {何|なに}です): {趣味|しゅみ}は {何|なん}ですか。"
+        ]
+      },
+      {
+        id: "mae-ni",
+        title: "〜{前|まえ}に (antes de…)",
+        pat: "V-{辞書形|じしょけい} {前|まえ}に、〜",
+        short: "antes de fazer…",
+        mean: "A ação principal acontece antes da ação marcada com {前|まえ}に: “antes de dormir, escrevo o diário”.",
+        form: [
+          { label: "Três construções", text: "O que vem antes de {前|まえ}に muda conforme a palavra.", ex: [
+            { tag: "verbo", jp: "{寝|ね}る <strong>{前|まえ}に</strong>、{本|ほん}を {読|よ}みます。", pt: "Antes de dormir, leio." },
+            { tag: "substantivo ＋ の", jp: "{食事|しょくじ} <strong>の {前|まえ}に</strong>、{手|て}を {洗|あら}います。", pt: "Antes da refeição, lavo as mãos." },
+            { tag: "número", jp: "5{年|ねん} <strong>{前|まえ}に</strong>、{日本|にほん}へ {来|き}ました。", pt: "Há cinco anos vim ao Japão." }
+          ] }
+        ],
+        ex: [
+          { jp: "{寝|ね}る {前|まえ}に、{日記|にっき}を {書|か}きます。", romaji: "Neru mae ni, nikki o kakimasu.", pt: "Antes de dormir, escrevo no diário." },
+          { jp: "{食事|しょくじ}の {前|まえ}に、{手|て}を {洗|あら}います。", romaji: "Shokuji no mae ni, te o araimasu.", pt: "Antes da refeição, lavo as mãos." },
+          { jp: "{日本|にほん}の {子供|こども}は {学校|がっこう}に {入|はい}る {前|まえ}に、ひらがなを {覚|おぼ}えなければなりませんか。<br>…いいえ、{覚|おぼ}えなくてもいいです。", romaji: "Nihon no kodomo wa gakkou ni hairu mae ni, hiragana o oboenakereba narimasen ka. ...Iie, oboenakutemo ii desu.", pt: "As crianças japonesas têm que aprender hiragana antes de entrar na escola? ...Não, não precisam aprender." }
+        ],
+        contrast: {
+          rows: [
+            { label: "〜{前|まえ}に (antes de)", jp: "{寝|ね}る {前|まえ}に、{日記|にっき}を {書|か}きます。", pt: "Escrevo o diário antes de dormir (o diário vem primeiro)." },
+            { label: "V-て から (depois de)", jp: "{日記|にっき}を {書|か}いてから、{寝|ね}ます。", pt: "Escrevo o diário e depois durmo (a mesma ordem, contada em sequência)." }
+          ],
+          note: "Com 〜{前|まえ}に, a ação escrita primeiro na frase acontece depois. Com 〜てから, ela acontece primeiro."
+        },
+        trap: [
+          "O verbo antes de {前|まえ}に fica sempre na forma de dicionário, mesmo que a frase esteja no passado. Certo: {寝|ね}る {前|まえ}に、{日記|にっき}を {書|か}きました。 Errado: {寝|ね}た {前|まえ}に。",
+          "Com substantivo, não esqueça o の: {食事|しょくじ}<strong>の</strong> {前|まえ}に. Com número, sem の: 5{年|ねん} {前|まえ}に (e o sentido passa a ser “há 5 anos”)."
+        ]
+      }
+    ]
   },
   renshuuA: {
     title: "{練習|れんしゅう} A",
