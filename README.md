@@ -40,7 +40,7 @@ assets/
   js/lessons-index.js       Lista central de lições e volumes (home e botões anterior/próxima)
   js/engine.js              Motor que monta a página de uma lição a partir dos dados
   js/jlpt-index.js          Grupos e páginas da seção JLPT (cartões do hub, "em breve")
-  js/notation.js            Notação {漢字|かんじ}: ruby, romaji e espaçamento (funções puras)
+  js/notation.js            Notação {漢字|かんじ}: ruby (toHtml, convertDeep), romaji e espaçamento (funções puras)
   js/verbs.js               Conjugador de verbos (funções puras)
   js/verbs-page.js          Página de verbos (busca, grupos, tabela de formas)
   js/grammar-page.js        Página de gramática (busca, categorias, cartões, link para a lição)
@@ -61,6 +61,7 @@ tests/
   sw.test.js                Confere se sw.js está em dia com os arquivos do site
   kanji-quiz.test.js        Testes das perguntas do quiz
   notation.test.js          Testes da notação e do romaji
+  lessons.test.js           Padrão dos dados das lições (sem <ruby> nem style=, todo kanji com furigana)
   verbs.test.js             Testes do conjugador e dos dados dos verbos
   grammar.test.js           Testes dos cartões de gramática (furigana, lições citadas)
   question-bank.test.js     Testes do banco de questões, do sorteio e do histórico
@@ -119,7 +120,7 @@ Todos os links do projeto são relativos, então ele funciona dentro desse subca
 
 ## Adicionar uma lição
 
-1. Copie `lessons/lesson-19.html` para `lessons/lesson-NN.html` e troque o `<title>`, o `data-lesson="NN"` e o caminho do script de dados (`data/lesson-NN.js`).
+1. Copie `lessons/lesson-19.html` para `lessons/lesson-NN.html` e troque o `<title>`, o `data-lesson="NN"` e o caminho do script de dados (`data/lesson-NN.js`). Mantenha `notation.js` carregado antes de `lessons-index.js`.
 2. Crie `lessons/data/lesson-NN.js` com o conteúdo (formato abaixo).
 3. Acrescente a lição em `assets/js/lessons-index.js`, em ordem numérica. Ela passa a aparecer no índice e nos botões de anterior e próxima automaticamente.
 
@@ -128,9 +129,9 @@ Todos os links do projeto são relativos, então ele funciona dentro desse subca
 ```js
 window.lessonData = {
   vocab: {
-    title: "<ruby>語彙<rt>ごい</rt></ruby> (Vocabulário)",
+    title: "{語彙|ごい} (Vocabulário)",
     items: [
-      { jp: "<ruby>登<rt>のぼ</rt></ruby>ります", romaji: "noborimasu", pt: "Subir, escalar" }
+      { jp: "{登|のぼ}ります", romaji: "noborimasu", pt: "Subir, escalar" }
     ]
   },
   bunkei: {
@@ -143,7 +144,7 @@ window.lessonData = {
     exercises: [
       {
         desc: "Instrução do grupo de questões",
-        questions: [{ q: "enunciado", a: "<ruby>書<rt>か</rt></ruby>いた", romaji: "kaita", pt: "tradução" }]
+        questions: [{ q: "enunciado", a: "{書|か}いた", romaji: "kaita", pt: "tradução" }]
       }
     ]
   },
@@ -154,15 +155,28 @@ window.lessonData = {
     title: "...",
     exercises: [{
       desc: "Toque nas palavras na ordem certa.",
-      questions: [{ tokens: ["<ruby>写<rt>しゃ</rt></ruby>…を", "…ください。"], pt: "Tradução", romaji: "..." }]
+      questions: [{ tokens: ["{写|しゃ}…を", "…ください。"], pt: "Tradução", romaji: "..." }]
     }]
   }
 };
 ```
 
 - Todas as seções são opcionais: a aba só aparece se a seção existir nos dados (a lição 17, por exemplo, não tem `renshuuA`). Se `bunkei` existir, precisa ter `patterns` e `examples`.
-- Em `a` (resposta), o furigana (`<rt>`) é ignorado na correção: o aluno digita só o texto base.
-- Em `gramatica.content`, use as classes de `style.css` (`card`, `card-header`, `item-box`, `grammar-table`, `romaji`).
+- Em `a` (resposta), o furigana é ignorado na correção: o aluno digita só o texto base.
+- Em `gramatica.content`, use as classes de `style.css` (`card`, `card-header`, `item-box`, `grammar-table`, `grammar-list`, `reading-box`, `romaji`). Nada de `style=` nos dados.
+
+### Padrão de escrita (todo o conteúdo)
+
+Um formato só, em lições, kanji, verbos, gramática e simulado: **`{漢字|かんじ}`**. Os dados nunca levam `<ruby>` escrito à mão; o motor converte na hora de montar a página (`Notation.convertDeep`).
+
+- A base é só kanji, e a leitura é só kana. O okurigana fica fora das chaves: `{食|た}べます`, `お{金|かね}`, `{大学|だいがく}`.
+- Agrupe por palavra: `{見学|けんがく}`, `{日本語|にほんご}`. Não junte duas palavras num bloco só (`{毎日|まいにち}{勉強|べんきょう}`).
+- Kana nunca entra na base: `た{形|けい}`, não `{た形|たけい}`.
+- Todo kanji, inclusive em títulos (`title`, `desc`) e textos explicativos, precisa estar dentro de `{...|...}`.
+- `きれい` e `すぐ` vão em kana (kanji fora de uso corrente no N5). Se quiser aceitar também o kanji na resposta, use `／`: `きれい／{綺麗|きれい}`.
+- Cores e espaços vêm das classes de `style.css` (que seguem o modo claro e escuro), não de `style=`.
+- As páginas que usam `lessons-index.js` carregam `assets/js/notation.js` antes dele.
+- `tests/lessons.test.js` confere tudo isso nos arquivos de `lessons/data/`.
 - Nas páginas novas, carregue `store.js` e `prefs.js` no `<head>` (aplicam as preferências antes de pintar a tela) e `settings-panel.js` antes do script da página.
 
 ## Adicionar kanji ou uma página JLPT

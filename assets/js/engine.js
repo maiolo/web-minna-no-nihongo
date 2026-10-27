@@ -14,7 +14,8 @@
     "use strict";
 
     var lessons = window.LESSONS || [];
-    var data = window.lessonData;
+    // Os dados das lições usam {漢字|かんじ}; aqui viram <ruby> antes de tudo (Notation.convertDeep).
+    var data = window.lessonData && window.Notation ? window.Notation.convertDeep(window.lessonData) : window.lessonData;
     var lessonNumber = Number(document.body.dataset.lesson);
 
     // Rótulo de cada aba (window.SECTION_LABELS, em lessons-index.js).
