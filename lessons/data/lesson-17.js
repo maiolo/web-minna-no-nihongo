@@ -28,97 +28,162 @@ window.lessonData = {
       { jp: "ですから", romaji: "desukara", pt: "Por isso, portanto" }
     ]
   },
-  bunkei: {
-    patterns: {
-      title: "{文型|ぶんけい} (Padrões de Frase)",
-      items: [
-        { jp: "{写真|しゃしん}を{撮|と}らないでください。", romaji: "Shashin o toranaide kudasai.", pt: "Por favor, não tire fotos." },
-        { jp: "パスポートを{見|み}せなければなりません。", romaji: "Pasupooto o misenakereba narimasen.", pt: "Tenho que mostrar o passaporte." },
-        { jp: "{日曜日|にちようび}は{早|はや}く{起|お}きなくてもいいです。", romaji: "Nichiyoubi wa hayaku okinakutemo ii desu.", pt: "No domingo, não preciso acordar cedo." }
-      ]
-    },
-    examples: {
-      title: "{例文|れいぶん} (Exemplos)",
-      items: [
-        { jp: "そこに{入|はい}らないでください。<br>…はい、わかりました。", romaji: "Soko ni hairanaide kudasai. ...Hai, wakarimashita.", pt: "Por favor, não entre aí. ...Sim, entendi." },
-        { jp: "この{薬|くすり}を{飲|の}まなければなりませんか。<br>…はい、{飲|の}まなければなりません。", romaji: "Kono kusuri o nomanakereba narimasen ka. ...Hai, nomanakereba narimasen.", pt: "Tenho que tomar este remédio? ...Sim, tem que tomar." },
-        { jp: "{明日|あした}も{来|き}なければなりませんか。<br>…いいえ、{来|こ}なくてもいいです。", romaji: "Ashita mo kinakereba narimasen ka. ...Iie, konakutemo ii desu.", pt: "Tenho que vir amanhã também? ...Não, não precisa vir." },
-        { jp: "{荷物|にもつ}はどこに{置|お}きますか。<br>…{荷物|にもつ}はそこに{置|お}かないでください。", romaji: "Nimotsu wa doko ni okimasu ka. ...Nimotsu wa soko ni okanaide kudasai.", pt: "Onde coloco a bagagem? ...Quanto à bagagem, por favor não coloque aí." }
-      ]
-    }
-  },
   gramatica: {
     title: "{文法|ぶんぽう} (Gramática)",
-    content: `
-                    <div class="card">
-                        <h3 class="card-header">1. {動詞|どうし} ない{形|けい} (Forma 'Nai' dos Verbos)</h3>
-                        <p>A forma <strong>ない</strong> é usada para criar negativas informais ou como base para outras estruturas gramaticais. Como construir:</p>
-                        <table class="grammar-table">
-                            <tr>
-                                <th>{第|だい}１グループ (Grupo 1)</th>
-                                <td>Troca-se o som da coluna <strong>い (i)</strong> antes do ます pelo som da coluna <strong>あ (a)</strong>, e adiciona-se ない.<br>
-                                    {書|か}きます ➔ {書|か}か<strong>ない</strong><br>
-                                    {読|よ}みます ➔ {読|よ}ま<strong>ない</strong><br>
-                                    <em>*Exceção: verbos terminados em い mudam para わ. (ex: {買|か}います ➔ {買|か}わ<strong>ない</strong>)</em>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{第|だい}２グループ (Grupo 2)</th>
-                                <td>Corta-se o ます e adiciona-se ない.<br>
-                                    {食|た}べます ➔ {食|た}べ<strong>ない</strong><br>
-                                    {見|み}ます ➔ {見|み}<strong>ない</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{第|だい}３グループ (Grupo 3)</th>
-                                <td>Irregulares.<br>
-                                    します ➔ し<strong>ない</strong><br>
-                                    {来|き}ます ➔ {来|こ}<strong>ない</strong> (Atenção à mudança de leitura do Kanji: き➔こ)
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">2. {動詞|どうし} ない{形|けい} ＋ でください</h3>
-                        <p>Significa <strong>"Por favor, não faça ~"</strong>. Usado para pedir ou instruir alguém a não fazer algo.</p>
-                        <p class="item-box">
-                            {忘|わす}れないでください。<br>
-                            <span class="romaji">Wasurenaide kudasai.</span><br>
-                            <em>Por favor, não esqueça.</em>
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">3. {動詞|どうし} ない{形|けい} (sem い) ＋ ければなりません</h3>
-                        <p>Significa <strong>"Ter que / Precisar / Dever fazer ~"</strong>. Expressa obrigação. Corta-se o "い" do ない e adiciona "ければなりません".</p>
-                        <p class="item-box">
-                            {薬|くすり}を{飲|の}ま<strong>なければなりません</strong>。<br>
-                            <span class="romaji">Kusuri o nomanakereba narimasen.</span><br>
-                            <em>Tenho que tomar o remédio.</em>
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">4. {動詞|どうし} ない{形|けい} (sem い) ＋ くてもいいです</h3>
-                        <p>Significa <strong>"Não precisa / Não tem que fazer ~"</strong>. Expressa a ausência de obrigação.</p>
-                        <p class="item-box">
-                            {明日|あした} {来|こ}な<strong>くてもいいです</strong>。<br>
-                            <span class="romaji">Ashita konakutemo ii desu.</span><br>
-                            <em>Não precisa vir amanhã.</em>
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">5. {名詞|めいし} (Tempo) ＋ までに ＋ {動詞|どうし}</h3>
-                        <p>Significa <strong>"Até (tal prazo)"</strong>. Indica o limite de tempo em que uma ação contínua deve ser concluída. Diferente de "まで" (que indica a duração contínua de uma ação).</p>
-                        <p class="item-box">
-                            {金曜日|きんようび}<strong>までに</strong> レポートを{出|だ}さなければなりません。<br>
-                            <span class="romaji">Kinyoubi madeni repooto o dasanakereba narimasen.</span><br>
-                            <em>Tenho que entregar o relatório ATÉ sexta-feira.</em>
-                        </p>
-                    </div>
-                `
+    intro: "Cinco pontos. A forma ない vem primeiro: os três seguintes são construídos em cima dela, e o último (までに) completa a ideia de prazo.",
+    points: [
+      {
+        id: "nai-kei",
+        title: "{動詞|どうし}の ない{形|けい} (forma ない)",
+        pat: "V-ます ➔ V-ない",
+        short: "negativa informal, base dos três pontos seguintes",
+        mean: "A forma ない é a negativa informal ({書|か}かない = não escrevo) e a base de 〜ないでください, 〜なければなりません e 〜なくてもいいです.",
+        rule: "Parta da forma ます. No grupo 1, a sílaba da coluna i antes de ます passa para a coluna a, e acrescenta-se <strong>ない</strong>.",
+        form: [
+          { label: "{第|だい}１グループ (Grupo 1)", text: "Coluna i ➔ coluna a, mais <strong>ない</strong>.", ex: [
+            { tag: "い ➔ わ", jp: "{買|か}います ➔ {買|か}<strong>わない</strong>", pt: "comprar (い vira わ, não あ)" },
+            { tag: "き ➔ か", jp: "{書|か}きます ➔ {書|か}<strong>かない</strong>", pt: "escrever" },
+            { tag: "ぎ ➔ が", jp: "{急|いそ}ぎます ➔ {急|いそ}<strong>がない</strong>", romaji: "isogimasu ➔ isoganai", pt: "apressar-se" },
+            { tag: "し ➔ さ", jp: "{話|はな}します ➔ {話|はな}<strong>さない</strong>", pt: "falar" },
+            { tag: "ち ➔ た", jp: "{待|ま}ちます ➔ {待|ま}<strong>たない</strong>", pt: "esperar" },
+            { tag: "み ➔ ま", jp: "{読|よ}みます ➔ {読|よ}<strong>まない</strong>", pt: "ler" },
+            { tag: "び ➔ ば", jp: "{呼|よ}びます ➔ {呼|よ}<strong>ばない</strong>", pt: "chamar" },
+            { tag: "り ➔ ら", jp: "{帰|かえ}ります ➔ {帰|かえ}<strong>らない</strong>", pt: "voltar" },
+            { tag: "exceção", jp: "あります ➔ <strong>ない</strong>", pt: "existir (não existe あらない)" }
+          ] },
+          { label: "{第|だい}２グループ (Grupo 2)", text: "Tire ます e acrescente <strong>ない</strong>.", ex: [
+            { jp: "{食|た}べます ➔ {食|た}べ<strong>ない</strong>", pt: "comer" },
+            { jp: "{見|み}ます ➔ {見|み}<strong>ない</strong>", pt: "ver" }
+          ] },
+          { label: "{第|だい}３グループ (Grupo 3)", text: "Irregulares: só dois verbos.", ex: [
+            { jp: "します ➔ し<strong>ない</strong>", pt: "fazer" },
+            { jp: "{来|き}ます ➔ {来|こ}<strong>ない</strong>", pt: "vir (o kanji muda de き para こ)" }
+          ] }
+        ],
+        ex: [
+          { jp: "{朝|あさ}ごはんを {食|た}べない。", pt: "Não tomo café da manhã. (informal)" },
+          { jp: "{今日|きょう}^は {会社|かいしゃ}^へ {行|い}かない。", pt: "Hoje não vou à empresa. (informal)" },
+          { jp: "お{酒|さけ}を {飲|の}まない。", pt: "Não bebo álcool. (informal)" }
+        ],
+        contrast: {
+          rows: [
+            { label: "{丁寧|ていねい}な {形|かたち} (ません)", jp: "{毎日|まいにち} {肉|にく}を {食|た}べません。", pt: "Educado: com desconhecidos, no trabalho." },
+            { label: "ない{形|けい} (informal)", jp: "{毎日|まいにち} {肉|にく}を {食|た}べない。", pt: "Informal: com amigos e família. É também a base dos pontos seguintes." }
+          ],
+          note: "A forma ない diz o mesmo que ません, só muda o nível de formalidade."
+        },
+        trap: [
+          "Os verbos em う mudam para わ, não para あ: {買|か}います ➔ {買|か}<strong>わ</strong>ない.",
+          "ある não vira あらない: a negativa é só ない.",
+          "{来|き}る muda de leitura: {来|き}ます ➔ {来|こ}ない."
+        ]
+      },
+      {
+        id: "nai-de-kudasai",
+        title: "{動詞|どうし} ない{形|けい} ＋ でください",
+        pat: "V-ない でください",
+        short: "por favor, não faça",
+        mean: "Pedido educado para a outra pessoa não fazer algo: “por favor, não ~”.",
+        rule: "Forma ない + <strong>でください</strong>: {忘|わす}れない ➔ {忘|わす}れないでください.",
+        ex: [
+          { jp: "{写真|しゃしん}を{撮|と}らないでください。", romaji: "Shashin o toranaide kudasai.", pt: "Por favor, não tire fotos." },
+          { jp: "{忘|わす}れないでください。", romaji: "Wasurenaide kudasai.", pt: "Por favor, não esqueça." },
+          { jp: "そこに{入|はい}らないでください。<br>…はい、わかりました。", romaji: "Soko ni hairanaide kudasai. ...Hai, wakarimashita.", pt: "Por favor, não entre aí. ...Sim, entendi." },
+          { jp: "{荷物|にもつ}はどこに{置|お}きますか。<br>…{荷物|にもつ}はそこに{置|お}かないでください。", romaji: "Nimotsu wa doko ni okimasu ka. ...Nimotsu wa soko ni okanaide kudasai.", pt: "Onde coloco a bagagem? ...Quanto à bagagem, por favor não coloque aí." }
+        ],
+        contrast: {
+          rows: [
+            { label: "V-て ください (pedir que faça)", jp: "ここで {写真|しゃしん}を {撮|と}ってください。", pt: "Por favor, tire uma foto aqui." },
+            { label: "V-ない でください (pedir que não faça)", jp: "ここで {写真|しゃしん}を {撮|と}らないでください。", pt: "Por favor, não tire fotos aqui." }
+          ],
+          note: "É o mesmo ください, só que com ない + で no lugar de て."
+        },
+        trap: [
+          "Não é ないてください: o certo é ない + <strong>で</strong>ください.",
+          "Não confunda com 〜なくてもいいです (veja o ponto 4): ないでください pede que a pessoa não faça; なくてもいいです diz que ela não precisa fazer."
+        ]
+      },
+      {
+        id: "nakereba",
+        title: "{動詞|どうし} ない{形|けい} ＋ なければなりません",
+        pat: "V-なければなりません",
+        short: "ter que / precisar fazer",
+        mean: "Expressa obrigação: “tenho que ~”, “preciso ~”.",
+        rule: "Tire o い final de ない e acrescente ければなりません: {飲|の}まない ➔ {飲|の}まなければなりません. Pergunta: 〜なければなりませんか。",
+        form: [
+          { label: "Passo a passo", text: "Do ます até a obrigação.", ex: [
+            { jp: "{飲|の}みます ➔ {飲|の}まない ➔ {飲|の}ま<strong>なければなりません</strong>", romaji: "nomimasu ➔ nomanai ➔ nomanakereba narimasen", pt: "beber ➔ ter que beber" },
+            { jp: "{来|き}ます ➔ {来|こ}ない ➔ {来|こ}<strong>なければなりません</strong>", romaji: "kimasu ➔ konai ➔ konakereba narimasen", pt: "vir ➔ ter que vir" }
+          ] }
+        ],
+        ex: [
+          { jp: "パスポートを{見|み}せなければなりません。", romaji: "Pasupooto o misenakereba narimasen.", pt: "Tenho que mostrar o passaporte." },
+          { jp: "{薬|くすり}を{飲|の}まなければなりません。", romaji: "Kusuri o nomanakereba narimasen.", pt: "Tenho que tomar o remédio." },
+          { jp: "この{薬|くすり}を{飲|の}まなければなりませんか。<br>…はい、{飲|の}まなければなりません。", romaji: "Kono kusuri o nomanakereba narimasen ka. ...Hai, nomanakereba narimasen.", pt: "Tenho que tomar este remédio? ...Sim, tem que tomar." },
+          { jp: "{毎日|まいにち} {勉強|べんきょう}しなければなりません。", romaji: "Mainichi benkyou shinakereba narimasen.", pt: "Preciso estudar todos os dias." }
+        ],
+        contrast: {
+          rows: [
+            { label: "V-て ください (pedido)", jp: "{薬|くすり}を {飲|の}んでください。", pt: "Por favor, tome o remédio. (alguém pede)" },
+            { label: "V-なければなりません (obrigação)", jp: "{薬|くすり}を {飲|の}まなければなりません。", pt: "Tenho que tomar o remédio. (é necessário)" }
+          ],
+          note: "ください pede algo a alguém. なければなりません diz o que é necessário, sem pedir nada a ninguém."
+        },
+        trap: [
+          "Parece uma negativa, mas significa obrigação (“se eu não fizer, não está certo”). Não traduza como “não devo fazer”.",
+          "Para responder “não” a uma pergunta com なければなりませんか, não use いいえ、〜なければなりません. O certo é いいえ、〜なくてもいいです (“não precisa”)."
+        ]
+      },
+      {
+        id: "nakutemo",
+        title: "{動詞|どうし} ない{形|けい} ＋ なくてもいいです",
+        pat: "V-なくても いいです",
+        short: "não precisa fazer",
+        mean: "Diz que a obrigação não existe: “não precisa ~”, “não é necessário ~”.",
+        rule: "Tire o い de ない e acrescente くても いいです: {来|こ}ない ➔ {来|こ}なくても いいです. Pergunta: 〜なくても いいですか。",
+        ex: [
+          { jp: "{日曜日|にちようび}は{早|はや}く{起|お}きなくてもいいです。", romaji: "Nichiyoubi wa hayaku okinakutemo ii desu.", pt: "No domingo, não preciso acordar cedo." },
+          { jp: "{明日|あした} {来|こ}なくてもいいです。", romaji: "Ashita konakutemo ii desu.", pt: "Não precisa vir amanhã." },
+          { jp: "{明日|あした}も{来|き}なければなりませんか。<br>…いいえ、{来|こ}なくてもいいです。", romaji: "Ashita mo kinakereba narimasen ka. ...Iie, konakutemo ii desu.", pt: "Tenho que vir amanhã também? ...Não, não precisa vir." },
+          { jp: "{今日|きょう}は {傘|かさ}を {持|も}たなくてもいいです。", romaji: "Kyou wa kasa o motanakutemo ii desu.", pt: "Hoje não precisa levar guarda-chuva." }
+        ],
+        contrast: {
+          rows: [
+            { label: "なければなりません (obrigação)", jp: "{明日|あした}も {来|こ}なければなりません。", pt: "Preciso vir amanhã também." },
+            { label: "なくても いいです (sem obrigação)", jp: "{明日|あした}は {来|こ}なくてもいいです。", pt: "Amanhã não precisa vir." }
+          ],
+          note: "São opostos: um diz que é preciso, o outro diz que não é."
+        },
+        trap: [
+          "Não confunda com 〜ないでください: {来|こ}なくてもいいです = “não precisa vir”; {来|こ}ないでください = “por favor, não venha”. O primeiro dispensa, o segundo pede.",
+          "O い de ない cai: certo なくても, errado ないくても."
+        ]
+      },
+      {
+        id: "made-ni",
+        title: "{名詞|めいし} ({時間|じかん}) ＋ までに",
+        pat: "{時間|じかん}までに V",
+        short: "até (prazo limite)",
+        mean: "Marca o prazo final em que algo precisa estar feito: “até sexta-feira, no máximo”. A ação acontece uma vez, em algum momento antes do limite.",
+        rule: "Palavra de tempo + までに + verbo. Combina bem com なければなりません.",
+        ex: [
+          { jp: "{金曜日|きんようび}までに レポートを{出|だ}さなければなりません。", romaji: "Kinyoubi made ni repooto o dasanakereba narimasen.", pt: "Tenho que entregar o relatório até sexta-feira." },
+          { jp: "{五時|ごじ}までに {帰|かえ}ります。", romaji: "Goji made ni kaerimasu.", pt: "Volto até as cinco." },
+          { jp: "{明日|あした}までに {本|ほん}を {返|かえ}してください。", romaji: "Ashita made ni hon o kaeshite kudasai.", pt: "Por favor, devolva o livro até amanhã." }
+        ],
+        contrast: {
+          rows: [
+            { label: "まで (duração)", jp: "{五時|ごじ}まで {働|はたら}きます。", pt: "Trabalho até as cinco (continuo trabalhando até lá)." },
+            { label: "までに (prazo)", jp: "{五時|ごじ}までに {帰|かえ}ります。", pt: "Volto até as cinco (em algum momento antes disso)." }
+          ],
+          note: "まで: a ação dura até aquele momento. までに: a ação acontece uma vez, em algum ponto antes daquele momento."
+        },
+        trap: [
+          "Em português os dois são “até”. Escolha pelo verbo: o que dura (trabalhar, esperar, dormir) pede まで; o que acontece num instante (entregar, voltar, chegar) pede までに.",
+          "までに dá o limite, não a hora exata: {五時|ごじ}までに {帰|かえ}ります pode ser às três, às quatro ou às cinco."
+        ]
+      }
+    ]
   },
   renshuuB: {
     title: "{練習|れんしゅう}B (Prática B)",
