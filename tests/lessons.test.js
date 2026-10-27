@@ -107,6 +107,19 @@ WITH_POINTS.forEach((file) => {
         });
     });
 
+    test(file + ": linhas de formação (form) têm romaji (manual ou gerável)", () => {
+        points.filter((p) => p.form).forEach((p) => p.form.forEach((row) => {
+            assert.ok(row.label && (row.text || (row.ex && row.ex.length)), p.id + ": linha de formação vazia");
+            (row.ex || []).forEach((line) => {
+                const l = typeof line === "string" ? { jp: line } : line;
+                assert.ok(l.jp, p.id + ": linha sem jp");
+                const r = l.romaji || N.sentenceRomaji(l.jp.replace(/<[^>]+>/g, ""));
+                assert.match(r, /^[a-z0-9' ,.!?…\-➔]+$/i, p.id + ": romaji estranho para " + l.jp.slice(0, 30));
+                assert.ok(/[a-z]/i.test(r), p.id + ": romaji vazio para " + l.jp.slice(0, 30));
+            });
+        }));
+    });
+
     test(file + ": a aba Padrões foi absorvida pelos cartões", () => {
         assert.equal(data.bunkei, undefined, "bunkei e points não devem coexistir");
     });

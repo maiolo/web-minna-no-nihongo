@@ -37,9 +37,25 @@ window.lessonData = {
         mean: "A forma た é o passado informal (「{食|た}べた」 = comi). Nesta lição ela é a base de 〜た ことが あります e de 〜たり.",
         rule: "A conjugação é a mesma da forma て: troque て por た e で por だ. Quem já domina a forma て não tem nada novo para decorar.",
         form: [
-          { label: "{第|だい}１グループ (Grupo 1)", text: "い・ち・り ➔ <strong>った</strong>: {買|か}います ➔ {買|か}<strong>った</strong>, {待|ま}ちます ➔ {待|ま}<strong>った</strong>, {帰|かえ}ります ➔ {帰|かえ}<strong>った</strong><br>み・び・に ➔ <strong>んだ</strong>: {飲|の}みます ➔ {飲|の}<strong>んだ</strong>, {遊|あそ}びます ➔ {遊|あそ}<strong>んだ</strong><br>き ➔ <strong>いた</strong>: {書|か}きます ➔ {書|か}<strong>いた</strong><br>ぎ ➔ <strong>いだ</strong>: {急|いそ}ぎます ➔ {急|いそ}<strong>いだ</strong><br>し ➔ <strong>した</strong>: {話|はな}します ➔ {話|はな}<strong>した</strong><br><em>Exceção:</em> {行|い}きます ➔ {行|い}<strong>った</strong>" },
-          { label: "{第|だい}２グループ (Grupo 2)", text: "Tire ます e acrescente <strong>た</strong>: {食|た}べます ➔ {食|た}べ<strong>た</strong>, {見|み}ます ➔ {見|み}<strong>た</strong>" },
-          { label: "{第|だい}３グループ (Grupo 3)", text: "Irregulares: します ➔ <strong>した</strong>, {来|き}ます ➔ {来|き}<strong>た</strong> (lê-se きた)" }
+          { label: "{第|だい}１グループ (Grupo 1)", text: "Olhe a sílaba que vem antes de ます.", ex: [
+            { tag: "い・ち・り ➔ った", jp: "{買|か}います ➔ {買|か}<strong>った</strong>", pt: "comprar" },
+            { tag: "い・ち・り ➔ った", jp: "{待|ま}ちます ➔ {待|ま}<strong>った</strong>", pt: "esperar" },
+            { tag: "い・ち・り ➔ った", jp: "{帰|かえ}ります ➔ {帰|かえ}<strong>った</strong>", pt: "voltar" },
+            { tag: "み・び・に ➔ んだ", jp: "{飲|の}みます ➔ {飲|の}<strong>んだ</strong>", pt: "beber" },
+            { tag: "み・び・に ➔ んだ", jp: "{遊|あそ}びます ➔ {遊|あそ}<strong>んだ</strong>", pt: "brincar" },
+            { tag: "き ➔ いた", jp: "{書|か}きます ➔ {書|か}<strong>いた</strong>", pt: "escrever" },
+            { tag: "ぎ ➔ いだ", jp: "{急|いそ}ぎます ➔ {急|いそ}<strong>いだ</strong>", pt: "apressar-se" },
+            { tag: "し ➔ した", jp: "{話|はな}します ➔ {話|はな}<strong>した</strong>", pt: "falar" },
+            { tag: "exceção ➔ った", jp: "{行|い}きます ➔ {行|い}<strong>った</strong>", pt: "ir (não é {行|い}いた)" }
+          ] },
+          { label: "{第|だい}２グループ (Grupo 2)", text: "Tire ます e acrescente <strong>た</strong>.", ex: [
+            { jp: "{食|た}べます ➔ {食|た}べ<strong>た</strong>", pt: "comer" },
+            { jp: "{見|み}ます ➔ {見|み}<strong>た</strong>", pt: "ver" }
+          ] },
+          { label: "{第|だい}３グループ (Grupo 3)", text: "Irregulares: só dois verbos.", ex: [
+            { jp: "します ➔ <strong>した</strong>", pt: "fazer" },
+            { jp: "{来|き}ます ➔ {来|き}<strong>た</strong>", pt: "vir (lê-se きた)" }
+          ] }
         ],
         ex: [
           { jp: "{昨日|きのう}、{映画|えいが}を {見|み}た。", pt: "Ontem assisti a um filme." },
@@ -115,9 +131,17 @@ window.lessonData = {
         short: "mudança de estado",
         mean: "Mostra que algo muda de estado com o tempo: “ficar”, “tornar-se”, “passar a ser”. Ninguém é apontado como quem faz a mudança: ela simplesmente acontece.",
         form: [
-          { label: "い{形容詞|けいようし} (Adj-i)", text: "Troque い por <strong>く</strong>: {寒|さむ}い ➔ {寒|さむ}<strong>く</strong> なります (vai esfriar)<br><em>Exceção:</em> いい ➔ <strong>よく</strong> なります" },
-          { label: "な{形容詞|けいようし} (Adj-na)", text: "Troque な por <strong>に</strong>: {元気|げんき}[な] ➔ {元気|げんき}<strong>に</strong> なります (vai ficar bem)" },
-          { label: "{名詞|めいし} (Substantivo)", text: "Acrescente <strong>に</strong>: 25{歳|さい} ➔ 25{歳|さい}<strong>に</strong> なります (vai fazer 25 anos), {先生|せんせい}<strong>に</strong> なります (vai ser professor)" }
+          { label: "い{形容詞|けいようし} (Adj-i)", text: "Troque い por <strong>く</strong>.", ex: [
+            { jp: "{寒|さむ}い ➔ {寒|さむ}<strong>く</strong> なります", pt: "vai esfriar" },
+            { tag: "exceção", jp: "いい ➔ <strong>よく</strong> なります", pt: "vai melhorar" }
+          ] },
+          { label: "な{形容詞|けいようし} (Adj-na)", text: "Troque o な final por <strong>に</strong>.", ex: [
+            { jp: "{元気|げんき}な ➔ {元気|げんき}<strong>に</strong> なります", pt: "vai ficar bem" }
+          ] },
+          { label: "{名詞|めいし} (Substantivo)", text: "Acrescente <strong>に</strong>.", ex: [
+            { jp: "25{歳|さい} ➔ 25{歳|さい}<strong>に</strong> なります", romaji: "nijuugo-sai ➔ nijuugo-sai ni narimasu", pt: "vai fazer 25 anos" },
+            { jp: "{先生|せんせい} ➔ {先生|せんせい}<strong>に</strong> なります", pt: "vai ser professor" }
+          ] }
         ],
         ex: [
           { jp: "これから だんだん {暑|あつ}く なります。", romaji: "Korekara dandan atsuku narimasu.", pt: "De agora em diante, ficará gradualmente mais quente." },

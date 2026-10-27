@@ -28,6 +28,14 @@
                 var r = window.Notation.sentenceRomaji(e.jp.replace(/<br\s*\/?>/gi, " "));
                 e.romaji = r.charAt(0).toUpperCase() + r.slice(1);
             });
+            // Linhas de formação (form[].ex): aceitam texto puro ou { tag, jp, pt, romaji }; o romaji sai da frase sem as tags HTML.
+            (p.form || []).forEach(function (row) {
+                row.ex = (row.ex || []).map(function (line) {
+                    var l = typeof line === "string" ? { jp: line } : line;
+                    if (!l.romaji) l.romaji = window.Notation.sentenceRomaji(l.jp.replace(/<[^>]+>/g, ""));
+                    return l;
+                });
+            });
         });
         return raw;
     }
@@ -369,6 +377,15 @@
 
     function asList(v) { return Array.isArray(v) ? v : (v ? [v] : []); }
 
+    // Uma linha de conjugação: etiqueta da regra, forma, tradução e romaji (borrado; segue o painel Ajustes).
+    function formLine(l) {
+        return '<div class="gp-fl"><div class="gp-fl-main">' +
+            (l.tag ? '<span class="gp-tag">' + l.tag + "</span>" : "") +
+            '<span class="gp-fl-jp">' + l.jp + "</span>" +
+            (l.pt ? '<span class="gp-fl-pt">' + l.pt + "</span>" : "") +
+            '</div><div class="romaji">' + l.romaji + "</div></div>";
+    }
+
     function renderPoint(p, n) {
         var html = '<div class="card gp" id="gp-' + p.id + '">' +
             '<h3 class="card-header"><span class="gp-num" aria-hidden="true">' + n + '</span><span class="gp-title">' + p.title + "</span></h3>" +
@@ -377,7 +394,9 @@
         if (p.rule) html += "<p>" + p.rule + "</p>";
         if (p.form) {
             html += '<div class="gp-form">' + p.form.map(function (r) {
-                return '<div class="gp-cmp"><div class="gp-cmp-label">' + r.label + '</div><div class="gp-form-text">' + r.text + "</div></div>";
+                return '<div class="gp-cmp"><div class="gp-cmp-label">' + r.label + "</div>" +
+                    (r.text ? '<div class="gp-form-text">' + r.text + "</div>" : "") +
+                    (r.ex || []).map(formLine).join("") + "</div>";
             }).join("") + "</div>";
         }
         html += '<h4 class="gp-sub">Exemplos</h4>' + p.ex.map(function (e) { return textBlock(e, "jp-example"); }).join("");
