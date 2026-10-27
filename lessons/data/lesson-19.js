@@ -25,96 +25,119 @@ window.lessonData = {
       { jp: "ダイエット", romaji: "daietto", pt: "Dieta" }
     ]
   },
-  bunkei: {
-    patterns: {
-      title: "{文型|ぶんけい} (Padrões)",
-      items: [
-        { jp: "{相撲|すもう}を {見|み}た ことが あります。", romaji: "Sumou o mita koto ga arimasu.", pt: "Eu já vi sumô (tenho a experiência de ver)." },
-        { jp: "{休|やす}みの {日|ひ}は テニスを したり、{散歩|さんぽ}に {行|い}ったり します。", romaji: "Yasumi no hi wa tenisu o shitari, sanpo ni ittari shimasu.", pt: "Nos dias de folga, eu jogo tênis, vou passear, etc." },
-        { jp: "これから だんだん {暑|あつ}く なります。", romaji: "Korekara dandan atsuku narimasu.", pt: "De agora em diante, ficará gradualmente mais quente." }
-      ]
-    },
-    examples: {
-      title: "{例文|れいぶん} (Exemplos)",
-      items: [
-        { jp: "{北海道|ほっかいどう}へ {行|い}った ことが ありますか。<br>…はい、{一度|いちど} あります。2{年前|ねんまえ}に {友達|ともだち}と {行|い}きました。", romaji: "Hokkaido e itta koto ga arimasu ka. ...Hai, ichido arimasu. Ninen mae ni tomodachi to ikimashita.", pt: "Você já foi a Hokkaido? ...Sim, fui uma vez. Fui com um amigo há 2 anos." },
-        { jp: "{馬|うま}に {乗|の}った ことが ありますか。<br>…いいえ、{一度|いちど}も ありません。ぜひ {乗|の}りたいです。", romaji: "Uma ni notta koto ga arimasu ka. ...Iie, ichidomo arimasen. Zehi noritai desu.", pt: "Você já andou a cavalo? ...Não, nunca. Quero muito andar." },
-        { jp: "{冬休|ふゆやす}みは {何|なに}を しましたか。<br>…{京都|きょうと}の お{寺|てら}を {見|み}たり、{日本|にほん}の {料理|りょうり}を {食|た}べたり しました。", romaji: "Fuyuyasumi wa nani o shimashita ka. ...Kyouto no otera o mitari, nihon no ryouri o tabetari shimashita.", pt: "O que você fez nas férias de inverno? ...Visitei templos em Kyoto, comi comida japonesa, etc." },
-        { jp: "{日本|にほん}で {何|なに}を したいですか。<br>…{旅行|りょこう}したり、お{茶|ちゃ}を {習|なら}ったり したいです。", romaji: "Nihon de nani o shitai desu ka. ...Ryokou shitari, ocha o narattari shitai desu.", pt: "O que você quer fazer no Japão? ...Quero viajar, aprender a cerimônia do chá, etc." },
-        { jp: "{体|からだ}の {調子|ちょうし}は どうですか。<br>…おかげさまで よく なりました。", romaji: "Karada no choushi wa dou desu ka. ...Okagesamade yoku narimashita.", pt: "Como está a sua condição física? ...Graças a Deus, ficou boa (melhorei)." }
-      ]
-    }
-  },
   gramatica: {
     title: "{文法|ぶんぽう} (Gramática)",
-    content: `
-                    <div class="card">
-                        <h3 class="card-header">1. {動詞|どうし}の た{形|けい} (A forma TA dos verbos)</h3>
-                        <p>A forma "ta" (た{形|けい}) é usada principalmente para o passado informal e em estruturas gramaticais específicas. A regra de conjugação é <strong>exatamente a mesma da forma TE (て{形|けい})</strong>, bastando trocar o "て" por "た" e o "で" por "だ".</p>
-                        <table class="grammar-table">
-                            <tr>
-                                <th>{第|だい}１グループ (Grupo 1)</th>
-                                <td>
-                                    い、ち、り ➔ <strong>った</strong> ({買|か}います ➔ {買|か}<strong>った</strong>)<br>
-                                    み、び、に ➔ <strong>んだ</strong> ({飲|の}みます ➔ {飲|の}<strong>んだ</strong>)<br>
-                                    き ➔ <strong>いた</strong> ({書|か}きます ➔ {書|か}<strong>いた</strong>) *Exceção: {行|い}きます ➔ {行|い}<strong>った</strong><br>
-                                    ぎ ➔ <strong>いだ</strong> ({急|いそ}ぎます ➔ {急|いそ}<strong>いだ</strong>)<br>
-                                    し ➔ <strong>した</strong> ({話|はな}します ➔ {話|はな}<strong>した</strong>)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{第|だい}２グループ (Grupo 2)</th>
-                                <td>Corta-se o ます e adiciona-se <strong>た</strong>.<br>
-                                    {食|た}べます ➔ {食|た}べ<strong>た</strong><br>
-                                    {見|み}ます ➔ {見|み}<strong>た</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{第|だい}３グループ (Grupo 3)</th>
-                                <td>Irregulares.<br>
-                                    します ➔ <strong>した</strong><br>
-                                    {来|き}ます ➔ <strong>{来|き}た</strong>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">2. {動詞|どうし}た{形|けい} ＋ ことが あります</h3>
-                        <p>Significa <strong>"Já fiz / Tenho a experiência de ter feito"</strong>. É usado para falar de experiências passadas (não é usado para ações do passado recente ou rotinas).</p>
-                        <p class="item-box">
-                            わたしは {馬|うま}に <strong>{乗|の}った ことが あります</strong>。<br>
-                            <span class="romaji">Watashi wa uma ni notta koto ga arimasu.</span><br>
-                            <em>(Eu já andei a cavalo.)</em>
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">3. {動詞|どうし}た{形|けい}り、{動詞|どうし}た{形|けい}り します</h3>
-                        <p>Significa <strong>"Fazer coisas como [A], [B], etc"</strong>. É usado para listar algumas ações representativas entre várias outras, sem implicar uma ordem cronológica rígida (diferente da forma TE).</p>
-                        <p class="item-box">
-                            {日曜日|にちようび}は {買|か}い{物|もの}を <strong>したり</strong>、{映画|えいが}を <strong>{見|み}たり します</strong>。<br>
-                            <span class="romaji">Nichiyoubi wa kaimono o shitari, eiga o mitari shimasu.</span><br>
-                            <em>(No domingo, faço compras, assisto a filmes, etc.)</em>
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="card-header">4. 〜 なります (Tornar-se / Ficar)</h3>
-                        <p>Indica uma mudança de estado. A conjugação varia dependendo da palavra anterior:</p>
-                        <ul class="grammar-list">
-                            <li><strong>い{形容詞|けいようし} (Adj-i):</strong> Troca o "い" por <strong>く</strong> + なります。<br>
-                                {寒|さむ}い ➔ {寒|さむ}<strong>く なります</strong> (Fica/Ficará frio)
-                            </li>
-                            <li><strong>な{形容詞|けいようし} (Adj-na):</strong> Adiciona <strong>に</strong> + なります。<br>
-                                {元気|げんき}[な] ➔ {元気|げんき}<strong>に なります</strong> (Fica/Ficará saudável)
-                            </li>
-                            <li><strong>{名詞|めいし} (Substantivo):</strong> Adiciona <strong>に</strong> + なります。<br>
-                                25{歳|さい} ➔ 25{歳|さい}<strong>に なります</strong> (Faz/Fará 25 anos)
-                            </li>
-                        </ul>
-                    </div>
-                `
+    intro: "Quatro pontos nesta lição. Cada cartão traz o modelo de frase, a explicação, os exemplos, uma comparação com o que é parecido e os erros mais comuns.",
+    points: [
+      {
+        id: "ta-kei",
+        title: "{動詞|どうし}の た{形|けい} (forma た)",
+        pat: "V-ます ➔ V-た",
+        short: "a base dos dois pontos seguintes",
+        mean: "A forma た é o passado informal (「{食|た}べた」 = comi). Nesta lição ela é a base de 〜た ことが あります e de 〜たり.",
+        rule: "A conjugação é a mesma da forma て: troque て por た e で por だ. Quem já domina a forma て não tem nada novo para decorar.",
+        form: [
+          { label: "{第|だい}１グループ (Grupo 1)", text: "い・ち・り ➔ <strong>った</strong>: {買|か}います ➔ {買|か}<strong>った</strong>, {待|ま}ちます ➔ {待|ま}<strong>った</strong>, {帰|かえ}ります ➔ {帰|かえ}<strong>った</strong><br>み・び・に ➔ <strong>んだ</strong>: {飲|の}みます ➔ {飲|の}<strong>んだ</strong>, {遊|あそ}びます ➔ {遊|あそ}<strong>んだ</strong><br>き ➔ <strong>いた</strong>: {書|か}きます ➔ {書|か}<strong>いた</strong><br>ぎ ➔ <strong>いだ</strong>: {急|いそ}ぎます ➔ {急|いそ}<strong>いだ</strong><br>し ➔ <strong>した</strong>: {話|はな}します ➔ {話|はな}<strong>した</strong><br><em>Exceção:</em> {行|い}きます ➔ {行|い}<strong>った</strong>" },
+          { label: "{第|だい}２グループ (Grupo 2)", text: "Tire ます e acrescente <strong>た</strong>: {食|た}べます ➔ {食|た}べ<strong>た</strong>, {見|み}ます ➔ {見|み}<strong>た</strong>" },
+          { label: "{第|だい}３グループ (Grupo 3)", text: "Irregulares: します ➔ <strong>した</strong>, {来|き}ます ➔ {来|き}<strong>た</strong> (lê-se きた)" }
+        ],
+        ex: [
+          { jp: "{昨日|きのう}、{映画|えいが}を {見|み}た。", pt: "Ontem assisti a um filme." },
+          { jp: "{朝|あさ}ごはんを {食|た}べた？", pt: "Você tomou café da manhã? (pergunta informal)" },
+          { jp: "{友|とも}だちと {京都|きょうと}^へ {行|い}った。", romaji: "Tomodachi to Kyouto e itta.", pt: "Fui a Kyoto com um amigo." }
+        ],
+        contrast: {
+          rows: [
+            { label: "{丁寧|ていねい}な {形|かたち} (ました)", jp: "{昨日|きのう}、{映画|えいが}を {見|み}ました。", pt: "Educado: com desconhecidos, no trabalho." },
+            { label: "た{形|けい} (informal)", jp: "{昨日|きのう}、{映画|えいが}を {見|み}た。", pt: "Informal: com amigos e família." }
+          ],
+          note: "A forma た não é “mais passado” do que ました: só muda o nível de formalidade."
+        },
+        trap: [
+          "Verbos que terminam em る nem sempre são do grupo 2: {帰|かえ}る ➔ {帰|かえ}った (grupo 1).",
+          "{行|い}く é a exceção do grupo 1: {行|い}った, e não {行|い}いた."
+        ]
+      },
+      {
+        id: "koto-ga-aru",
+        title: "{動詞|どうし}た{形|けい} ＋ ことが あります ({経験|けいけん})",
+        pat: "V-た ことが あります",
+        short: "já fiz / tenho a experiência de",
+        mean: "Diz que a pessoa já teve a experiência de fazer algo alguma vez na vida, sem dizer quando. Em português: “já andei a cavalo”.",
+        rule: "Pergunta: V-た ことが ありますか。 Resposta: はい、あります。／いいえ、ありません。 Para “nunca”, use {一度|いちど}も ＋ negativa: いいえ、{一度|いちど}も ありません。",
+        ex: [
+          { jp: "{相撲|すもう}を {見|み}た ことが あります。", romaji: "Sumou o mita koto ga arimasu.", pt: "Eu já vi sumô (tenho a experiência de ver)." },
+          { jp: "{北海道|ほっかいどう}へ {行|い}った ことが ありますか。<br>…はい、{一度|いちど} あります。2{年前|ねんまえ}に {友達|ともだち}と {行|い}きました。", romaji: "Hokkaido e itta koto ga arimasu ka. ...Hai, ichido arimasu. Ninen mae ni tomodachi to ikimashita.", pt: "Você já foi a Hokkaido? ...Sim, fui uma vez. Fui com um amigo há 2 anos." },
+          { jp: "{馬|うま}に {乗|の}った ことが ありますか。<br>…いいえ、{一度|いちど}も ありません。ぜひ {乗|の}りたいです。", romaji: "Uma ni notta koto ga arimasu ka. ...Iie, ichidomo arimasen. Zehi noritai desu.", pt: "Você já andou a cavalo? ...Não, nunca. Quero muito andar." },
+          { jp: "{納豆|なっとう}を {食|た}べた ことが ありません。", romaji: "Nattou o tabeta koto ga arimasen.", pt: "Nunca comi nattō (soja fermentada)." }
+        ],
+        contrast: {
+          rows: [
+            { label: "um fato, com data (ました)", jp: "{去年|きょねん}、{北海道|ほっかいどう}へ {行|い}きました。", pt: "Ano passado fui a Hokkaido." },
+            { label: "a experiência (ことが あります)", jp: "{北海道|ほっかいどう}へ {行|い}った ことが あります。", pt: "Já estive em Hokkaido." }
+          ],
+          note: "Se você diz quando foi, use o passado simples. ことが あります só diz que a experiência existe. Por isso, depois do “sim”, os detalhes vêm em ました (veja o diálogo de Hokkaido)."
+        },
+        trap: [
+          "Não use para o que aconteceu hoje ou ontem, nem para rotinas: o ponto fala de experiências da vida. “Ontem vi sumô” é {昨日|きのう}、{相撲|すもう}を {見|み}ました。",
+          "O “já” do português também significa “já terminei” (もう {終|お}わりました). Aqui é só “já, alguma vez na vida”."
+        ]
+      },
+      {
+        id: "tari",
+        title: "{動詞|どうし}た{形|けい}り、{動詞|どうし}た{形|けい}り します",
+        pat: "V-たり、V-たり します",
+        short: "fazer coisas como A, B, etc.",
+        mean: "Cita duas ou mais ações como exemplos do que a pessoa faz ou fez, sem listar tudo: “faço coisas como A e B, entre outras”.",
+        rule: "Pegue a forma た e troque o final por たり: {見|み}た ➔ {見|み}たり, した ➔ したり. O tempo da frase aparece só no verbo final: します (hábito ou futuro) ou しました (passado).",
+        ex: [
+          { jp: "{休|やす}みの {日|ひ}は テニスを したり、{散歩|さんぽ}に {行|い}ったり します。", romaji: "Yasumi no hi wa tenisu o shitari, sanpo ni ittari shimasu.", pt: "Nos dias de folga, eu jogo tênis, vou passear, etc." },
+          { jp: "{冬休|ふゆやす}みは {何|なに}を しましたか。<br>…{京都|きょうと}の お{寺|てら}を {見|み}たり、{日本|にほん}の {料理|りょうり}を {食|た}べたり しました。", romaji: "Fuyuyasumi wa nani o shimashita ka. ...Kyouto no otera o mitari, nihon no ryouri o tabetari shimashita.", pt: "O que você fez nas férias de inverno? ...Visitei templos em Kyoto, comi comida japonesa, etc." },
+          { jp: "{日本|にほん}で {何|なに}を したいですか。<br>…{旅行|りょこう}したり、お{茶|ちゃ}を {習|なら}ったり したいです。", romaji: "Nihon de nani o shitai desu ka. ...Ryokou shitari, ocha o narattari shitai desu.", pt: "O que você quer fazer no Japão? ...Quero viajar, aprender a cerimônia do chá, etc." },
+          { jp: "{昨日|きのう}^は {掃除|そうじ}したり、{洗濯|せんたく}したり しました。", romaji: "Kinou wa souji shitari, sentaku shitari shimashita.", pt: "Ontem fiz coisas como limpar a casa e lavar roupa." }
+        ],
+        contrast: {
+          rows: [
+            { label: "V-て、V-て、〜 (sequência)", jp: "{朝|あさ}、{起|お}きて、シャワーを あびて、{会社|かいしゃ}^へ {行|い}きます。", pt: "Todas as ações, nesta ordem: é o passo a passo de uma rotina." },
+            { label: "V-たり、V-たり します (exemplos)", jp: "{休|やす}みの {日|ひ}は {本|ほん}を {読|よ}んだり、{寝|ね}たり します。", pt: "Algumas ações, sem ordem fixa; há outras possíveis." }
+          ],
+          note: "Use て para contar o dia passo a passo. Use たり para dar uma ideia do que a pessoa costuma fazer."
+        },
+        trap: [
+          "O último verbo é sempre します／しました. Errado: {読|よ}んだり、{寝|ね}たり。 Certo: {読|よ}んだり、{寝|ね}たり します。",
+          "O た de {読|よ}んだり não indica passado: o tempo vem do します ou しました do final."
+        ]
+      },
+      {
+        id: "naru",
+        title: "〜なります ({変化|へんか}: ficar, passar a ser)",
+        pat: "Adj-い ➔ 〜く なります<br>Adj-な・N ➔ 〜に なります",
+        short: "mudança de estado",
+        mean: "Mostra que algo muda de estado com o tempo: “ficar”, “tornar-se”, “passar a ser”. Ninguém é apontado como quem faz a mudança: ela simplesmente acontece.",
+        form: [
+          { label: "い{形容詞|けいようし} (Adj-i)", text: "Troque い por <strong>く</strong>: {寒|さむ}い ➔ {寒|さむ}<strong>く</strong> なります (vai esfriar)<br><em>Exceção:</em> いい ➔ <strong>よく</strong> なります" },
+          { label: "な{形容詞|けいようし} (Adj-na)", text: "Troque な por <strong>に</strong>: {元気|げんき}[な] ➔ {元気|げんき}<strong>に</strong> なります (vai ficar bem)" },
+          { label: "{名詞|めいし} (Substantivo)", text: "Acrescente <strong>に</strong>: 25{歳|さい} ➔ 25{歳|さい}<strong>に</strong> なります (vai fazer 25 anos), {先生|せんせい}<strong>に</strong> なります (vai ser professor)" }
+        ],
+        ex: [
+          { jp: "これから だんだん {暑|あつ}く なります。", romaji: "Korekara dandan atsuku narimasu.", pt: "De agora em diante, ficará gradualmente mais quente." },
+          { jp: "{体|からだ}の {調子|ちょうし}は どうですか。<br>…おかげさまで よく なりました。", romaji: "Karada no choushi wa dou desu ka. ...Okagesamade yoku narimashita.", pt: "Como está a sua condição física? ...Graças a Deus, ficou boa (melhorei)." },
+          { jp: "もうすぐ {春|はる}に なります。", pt: "Logo será primavera." },
+          { jp: "{子供|こども}が {大|おお}きく なりました。", pt: "As crianças cresceram (ficaram grandes)." }
+        ],
+        contrast: {
+          rows: [
+            { label: "です (estado)", jp: "{今|いま}、{暑|あつ}いです。", pt: "Agora está quente: é assim neste momento." },
+            { label: "なります (mudança)", jp: "{暑|あつ}く なりました。", pt: "Esquentou: passou a ser assim." }
+          ],
+          note: "Para dizer que alguém faz a mudança acontecer, o japonês usa する (〜く します), que ainda não aparece nesta lição."
+        },
+        trap: [
+          "Em português, “ficar” serve para tudo. No japonês a forma muda: adjetivo い ➔ く; adjetivo な e substantivo ➔ に. Errado: {寒|さむ}い なります、{元気|げんき}く なります。",
+          "いい vira よく なります (não いく なります)."
+        ]
+      }
+    ]
   },
   renshuuA: {
     title: "{練習|れんしゅう} A",

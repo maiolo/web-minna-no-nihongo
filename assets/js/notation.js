@@ -19,7 +19,7 @@
  *                                       □ e ★ (ordenar peças) viram caixas e ［1］ a ［5］ (lacunas de texto) viram marcas;
  *                                       com { current: n } a lacuna n do texto fica em destaque
  *   Notation.katakanaToHiragana(texto)
- *   Notation.toHtml(texto)              só troca {漢字|かんじ} por <ruby>; o resto do texto (HTML, espaços) fica como está.
+ *   Notation.toHtml(texto)              troca {漢字|かんじ} por <ruby> e tira o marcador ^ de ^は e ^へ; o resto (HTML, espaços) fica como está.
  *                                       É o formato único dos dados de lição: os arquivos em lessons/data/ não levam <ruby>
  *   Notation.convertDeep(dados)         cópia de um objeto/lista com toHtml aplicado a todos os textos (o motor das lições usa)
  */
@@ -145,7 +145,9 @@
     }
 
     function toHtml(text) {
-        return String(text).replace(/\{([^|}]+)\|([^}]+)\}/g, "<ruby>$1<rt>$2</rt></ruby>");
+        return String(text)
+            .replace(/\^(?=[はへ])/g, "")
+            .replace(/\{([^|}]+)\|([^}]+)\}/g, "<ruby>$1<rt>$2</rt></ruby>");
     }
 
     function convertDeep(value) {

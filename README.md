@@ -14,7 +14,7 @@ O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independent
 ## Recursos
 
 - Furigana em todos os kanji (`<ruby>`) e painel **Ajustes** nas lições e no kanji: furigana sempre, ao tocar ou oculto; romaji ao tocar na linha, sempre ou oculto; tamanho do texto de 90% a 140%. As escolhas ficam salvas no navegador.
-- Abas por seção: vocabulário, padrões e exemplos, gramática, exercícios (A, B, C) e problemas.
+- Abas por seção: vocabulário, gramática (com os exemplos dentro de cada ponto), exercícios (A, B, C) e problemas. As lições 16 a 18 ainda têm a aba de padrões e exemplos separada, e serão migradas.
 - Exercícios com verificação de resposta (ignora espaços e pontuação) e botão para revelar o gabarito.
 - Layout responsivo, pensado para uso no celular, com tabelas que rolam na horizontal e foco visível para navegação por teclado.
 - Sem etapa de build e sem dependências: são só arquivos HTML, CSS e JavaScript estáticos.
@@ -164,6 +164,37 @@ window.lessonData = {
 - Todas as seções são opcionais: a aba só aparece se a seção existir nos dados (a lição 17, por exemplo, não tem `renshuuA`). Se `bunkei` existir, precisa ter `patterns` e `examples`.
 - Em `a` (resposta), o furigana é ignorado na correção: o aluno digita só o texto base.
 - Em `gramatica.content`, use as classes de `style.css` (`card`, `card-header`, `item-box`, `grammar-table`, `grammar-list`, `reading-box`, `romaji`). Nada de `style=` nos dados.
+
+### Gramática por pontos (`gramatica.points`)
+
+Formato novo da gramática, usado na lição 19 (as 16 a 18 ainda usam `content` e `bunkei`). Cada ponto vira um cartão com o modelo de frase, a explicação, **os exemplos do ponto**, uma comparação e as armadilhas. No topo da aba aparece um resumo com um botão por ponto. Quando uma lição usa `points`, ela **não tem `bunkei`**: as frases de padrões e os diálogos curtos entram como `ex` do ponto a que pertencem.
+
+```js
+gramatica: {
+  title: "{文法|ぶんぽう} (Gramática)",
+  intro: "Texto curto de apresentação (opcional).",
+  points: [{
+    id: "koto-ga-aru",                         // minúsculas, números e hífen; único na lição
+    title: "{動詞|どうし}た{形|けい} ＋ ことが あります",
+    pat: "V-た ことが あります",                // modelo de frase (aparece em destaque e no resumo; aceita <br>)
+    short: "já fiz / tenho a experiência de",   // linha do resumo
+    mean: "O que a estrutura expressa.",
+    rule: "Como se forma e como se usa (opcional).",
+    form: [{ label: "Grupo 1", text: "regra com <strong>destaque</strong>" }],   // formação (opcional)
+    ex: [                                      // pelo menos 2
+      { jp: "{相撲|すもう}を {見|み}た ことが あります。", pt: "Eu já vi sumô.", romaji: "Sumou o mita koto ga arimasu." },
+      { jp: "{友|とも}だちと {京都|きょうと}^へ {行|い}った。", pt: "Fui a Kyoto com um amigo.", romaji: "Tomodachi to Kyouto e itta." }
+    ],
+    contrast: { rows: [{ label: "...", jp: "...", pt: "..." }, { label: "...", jp: "...", pt: "..." }], note: "Quando usar cada um." },
+    trap: ["Erro comum 1.", "Erro comum 2."],  // texto ou lista
+    note: "Dica extra (opcional)."
+  }]
+}
+```
+
+- Em `ex`, o `romaji` é opcional: sem ele, o motor gera da própria frase. Use `^は` e `^へ` nas partículas (lidas *wa* e *e*; a marca some na tela). A geração erra nomes próprios e junções como `ことが` e `掃除したり`: nesses casos escreva o `romaji` à mão. Em diálogos (`<br>`), escreva à mão também.
+- `contrast` (2 linhas ou mais) e `trap` são exigidos pelo teste: todo ponto tem de dizer com o que se confunde e onde o aluno costuma errar (inclusive por interferência do português).
+- `tests/lessons.test.js` confere esse formato.
 
 ### Padrão de escrita (todo o conteúdo)
 

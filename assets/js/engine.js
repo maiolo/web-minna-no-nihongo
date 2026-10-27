@@ -15,7 +15,22 @@
 
     var lessons = window.LESSONS || [];
     // Os dados das lições usam {漢字|かんじ}; aqui viram <ruby> antes de tudo (Notation.convertDeep).
-    var data = window.lessonData && window.Notation ? window.Notation.convertDeep(window.lessonData) : window.lessonData;
+    var data = window.lessonData && window.Notation ? window.Notation.convertDeep(withRomaji(window.lessonData)) : window.lessonData;
+
+    // Exemplos de gramatica.points sem "romaji" ganham um, gerado da própria frase (use ^は e ^へ nas partículas).
+    // Roda antes da conversão da notação, porque o romaji sai das leituras de {漢字|かんじ}.
+    function withRomaji(raw) {
+        var points = raw.gramatica && raw.gramatica.points;
+        if (!points || !window.Notation) return raw;
+        points.forEach(function (p) {
+            (p.ex || []).forEach(function (e) {
+                if (e.romaji) return;
+                var r = window.Notation.sentenceRomaji(e.jp.replace(/<br\s*\/?>/gi, " "));
+                e.romaji = r.charAt(0).toUpperCase() + r.slice(1);
+            });
+        });
+        return raw;
+    }
     var lessonNumber = Number(document.body.dataset.lesson);
 
     // Rótulo de cada aba (window.SECTION_LABELS, em lessons-index.js).
@@ -343,7 +358,58 @@
 
     // Seção de leitura com HTML pronto (gramática, tabelas de substituição...).
     function renderContentSection(id) {
+        if (data[id].points) return renderGrammarPoints(id);
         return '<div id="sec-' + id + '" class="section-container">' + data[id].content + "</div>";
+    }
+
+    /* ---------- Gramática por pontos (gramatica.points) ----------
+     * Cada ponto: { id, title, pat, short, mean, rule?, form?: [{label, text}], ex: [{jp, pt, romaji?}],
+     *               contrast?: { rows: [{label, jp, pt}], note? }, trap?: texto | [texto], note? }
+     * No topo da aba fica o resumo com os modelos de frase e um salto para cada cartão. */
+
+    function asList(v) { return Array.isArray(v) ? v : (v ? [v] : []); }
+
+    function renderPoint(p, n) {
+        var html = '<div class="card gp" id="gp-' + p.id + '">' +
+            '<h3 class="card-header"><span class="gp-num" aria-hidden="true">' + n + '</span><span class="gp-title">' + p.title + "</span></h3>" +
+            '<p class="gp-pattern">' + p.pat + "</p>" +
+            '<p class="gp-mean">' + p.mean + "</p>";
+        if (p.rule) html += "<p>" + p.rule + "</p>";
+        if (p.form) {
+            html += '<div class="gp-form">' + p.form.map(function (r) {
+                return '<div class="gp-cmp"><div class="gp-cmp-label">' + r.label + '</div><div class="gp-form-text">' + r.text + "</div></div>";
+            }).join("") + "</div>";
+        }
+        html += '<h4 class="gp-sub">Exemplos</h4>' + p.ex.map(function (e) { return textBlock(e, "jp-example"); }).join("");
+        if (p.contrast) {
+            // Blocos empilhados (e não tabela): no celular a frase inteira cabe sem rolar na horizontal.
+            html += '<h4 class="gp-sub">Compare</h4><div class="gp-compare">' + p.contrast.rows.map(function (r) {
+                return '<div class="gp-cmp"><div class="gp-cmp-label">' + r.label + '</div><div class="jp-example">' + r.jp +
+                    '</div><div class="pt-line">' + r.pt + "</div></div>";
+            }).join("") + "</div>";
+            if (p.contrast.note) html += '<p class="gp-contrast-note">' + p.contrast.note + "</p>";
+        }
+        if (p.trap) {
+            html += '<div class="gp-trap"><strong>⚠️ Cuidado</strong><ul>' +
+                asList(p.trap).map(function (t) { return "<li>" + t + "</li>"; }).join("") + "</ul></div>";
+        }
+        if (p.note) html += '<div class="gp-note"><strong>💡 Dica</strong> ' + p.note + "</div>";
+        return html + "</div>";
+    }
+
+    function renderGrammarPoints(id) {
+        var g = data[id];
+        var html = '<div id="sec-' + id + '" class="section-container">' +
+            '<div class="card gp-summary"><h2 class="card-header">' + g.title + "</h2>" +
+            (g.intro ? '<p class="page-intro">' + g.intro + "</p>" : "") +
+            '<ol class="gp-index">' + g.points.map(function (p, i) {
+                return '<li><button type="button" class="gp-jump" data-goto="gp-' + p.id + '">' +
+                    '<span class="gp-num" aria-hidden="true">' + (i + 1) + "</span>" +
+                    '<span class="gp-jump-text"><span class="gp-pat">' + p.pat + "</span>" +
+                    (p.short ? '<span class="gp-short">' + p.short + "</span>" : "") + "</span></button></li>";
+            }).join("") + "</ol></div>";
+        g.points.forEach(function (p, i) { html += renderPoint(p, i + 1); });
+        return html + "</div>";
     }
 
     function renderExercises(sectionId) {
@@ -417,7 +483,7 @@
         sections.forEach(function (id) {
             if (id === "vocab") html += renderVocab();
             else if (id === "bunkei") html += renderBunkei();
-            else if (data[id].content) html += renderContentSection(id);
+            else if (data[id].content || data[id].points) html += renderContentSection(id);
             else if (id === "montar") html += renderMontar(id);
             else if (isExercise(id)) html += renderExercises(id);
         });
@@ -654,6 +720,13 @@
         });
 
         var container = document.getElementById("main-container");
+
+        // Resumo da gramática: leva ao cartão do ponto (sem mexer na URL, que guarda só a aba).
+        container.addEventListener("click", function (e) {
+            var jump = e.target.closest("[data-goto]");
+            var target = jump && document.getElementById(jump.dataset.goto);
+            if (target) target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+        });
 
         container.addEventListener("click", function (e) {
             var btn = e.target.closest("[data-action]");
