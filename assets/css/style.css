@@ -355,7 +355,19 @@ main {
 .gp-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
 .gp-cmp { padding: 12px 14px; background: var(--paper); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); }
 .gp-form { display: grid; gap: 10px; margin: 12px 0 4px; }
-.gp-form-text { line-height: 2; }
+.gp-form-text { line-height: 1.7; margin-bottom: 4px; }
+.gp-fl { padding: 8px 0; border-top: 1px solid var(--line-soft); }
+.gp-fl:first-of-type { border-top: 0; }
+.gp-fl-main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.gp-fl-jp { font-size: 1.05rem; font-weight: 600; }
+.gp-fl-pt { color: var(--muted); font-size: .9rem; }
+.gp-fl .romaji { margin: 4px 0 0; }
+.gp-tag {
+    padding: 1px 8px;
+    background: var(--shu-tint); color: var(--shu-dark);
+    border: 1px solid var(--shu-line); border-radius: 999px;
+    font-size: .8rem; font-weight: 700; white-space: nowrap;
+}
 .gp-cmp-label { margin-bottom: 6px; font-size: .85rem; font-weight: 700; color: var(--shu-dark); }
 .gp-cmp .jp-example { font-size: 1.05rem; }
 .gp-contrast-note { margin: 10px 0 0; color: var(--muted); }

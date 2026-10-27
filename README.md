@@ -180,7 +180,10 @@ gramatica: {
     short: "já fiz / tenho a experiência de",   // linha do resumo
     mean: "O que a estrutura expressa.",
     rule: "Como se forma e como se usa (opcional).",
-    form: [{ label: "Grupo 1", text: "regra com <strong>destaque</strong>" }],   // formação (opcional)
+    form: [{                                    // formação (opcional): um bloco por regra
+      label: "Grupo 1", text: "regra curta com <strong>destaque</strong>",
+      ex: [{ tag: "み・び・に ➔ んだ", jp: "{飲|の}みます ➔ {飲|の}<strong>んだ</strong>", pt: "beber" }]   // linhas de conjugação (opcional)
+    }],
     ex: [                                      // pelo menos 2
       { jp: "{相撲|すもう}を {見|み}た ことが あります。", pt: "Eu já vi sumô.", romaji: "Sumou o mita koto ga arimasu." },
       { jp: "{友|とも}だちと {京都|きょうと}^へ {行|い}った。", pt: "Fui a Kyoto com um amigo.", romaji: "Tomodachi to Kyouto e itta." }
@@ -192,6 +195,7 @@ gramatica: {
 }
 ```
 
+- Em `form[].ex`, cada linha é `{ tag?, jp, pt?, romaji? }` (ou só o texto do `jp`). O romaji sai sozinho, sem as tags HTML do `jp`, e aparece borrado como no resto do site (segue o painel Ajustes). Número em `jp` precisa de `romaji` à mão (`25{歳|さい}` ➔ `nijuugo-sai`).
 - Em `ex`, o `romaji` é opcional: sem ele, o motor gera da própria frase. Use `^は` e `^へ` nas partículas (lidas *wa* e *e*; a marca some na tela). A geração erra nomes próprios e junções como `ことが` e `掃除したり`: nesses casos escreva o `romaji` à mão. Em diálogos (`<br>`), escreva à mão também.
 - `contrast` (2 linhas ou mais) e `trap` são exigidos pelo teste: todo ponto tem de dizer com o que se confunde e onde o aluno costuma errar (inclusive por interferência do português).
 - `tests/lessons.test.js` confere esse formato.
