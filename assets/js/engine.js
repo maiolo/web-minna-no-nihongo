@@ -50,7 +50,7 @@
     var P = window.Progress;
 
     // Ordem fixa das abas; seções ausentes nos dados são omitidas.
-    var SECTION_ORDER = ["vocab", "bunkei", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai", "montar"];
+    var SECTION_ORDER = ["vocab", "gramatica", "renshuuA", "renshuuB", "renshuuC", "mondai", "montar"];
     var E = window.Exercises;
 
     var sections = [];
@@ -201,7 +201,7 @@
 
     /* ---------- Progresso ---------- */
 
-    // Seção com "exercises" é de exercícios; as demais (vocab, bunkei, gramatica ou
+    // Seção com "exercises" é de exercícios; as demais (vocab, gramatica ou
     // qualquer uma com "content") são de leitura e têm o botão "Marcar como concluída".
     function isExercise(id) { return Boolean(data[id] && data[id].exercises); }
     var STATE_TEXT = { done: " (concluída)", in_progress: " (em andamento)", todo: "" };
@@ -349,22 +349,7 @@
         "</div>";
     }
 
-    function renderBunkei() {
-        var patterns = data.bunkei.patterns;
-        var examples = data.bunkei.examples;
-        return '<div id="sec-bunkei" class="section-container">' +
-            '<div class="card">' +
-                '<h2 class="card-header">' + patterns.title + "</h2>" +
-                patterns.items.map(function (b) { return textBlock(b, "jp-pattern"); }).join("") +
-            "</div>" +
-            '<div class="card">' +
-                '<h2 class="card-header">' + examples.title + "</h2>" +
-                examples.items.map(function (r) { return textBlock(r, "jp-example"); }).join("") +
-            "</div>" +
-        "</div>";
-    }
-
-    // Seção de leitura com HTML pronto (gramática, tabelas de substituição...).
+    // Seção de leitura: gramática por pontos, ou HTML pronto (tabelas de substituição do Renshuu A...).
     function renderContentSection(id) {
         if (data[id].points) return renderGrammarPoints(id);
         return '<div id="sec-' + id + '" class="section-container">' + data[id].content + "</div>";
@@ -501,7 +486,6 @@
         var html = "";
         sections.forEach(function (id) {
             if (id === "vocab") html += renderVocab();
-            else if (id === "bunkei") html += renderBunkei();
             else if (data[id].content || data[id].points) html += renderContentSection(id);
             else if (id === "montar") html += renderMontar(id);
             else if (isExercise(id)) html += renderExercises(id);

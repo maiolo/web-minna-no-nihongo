@@ -134,11 +134,7 @@ window.lessonData = {
       { jp: "{登|のぼ}ります", romaji: "noborimasu", pt: "Subir, escalar" }
     ]
   },
-  bunkei: {
-    patterns: { title: "...", items: [{ jp: "...", romaji: "...", pt: "..." }] },
-    examples: { title: "...", items: [{ jp: "...", romaji: "...", pt: "..." }] }
-  },
-  gramatica: { title: "...", content: `<div class="card">...</div>` },   // HTML livre
+  gramatica: { title: "...", intro: "...", points: [ /* veja "Gramática por pontos" abaixo */ ] },
   renshuuA: {                                                           // opcional
     title: "...",
     exercises: [
@@ -161,13 +157,13 @@ window.lessonData = {
 };
 ```
 
-- Todas as seções são opcionais: a aba só aparece se a seção existir nos dados (a lição 17, por exemplo, não tem `renshuuA`). Se `bunkei` existir, precisa ter `patterns` e `examples`.
+- Todas as seções são opcionais: a aba só aparece se a seção existir nos dados (a lição 17, por exemplo, não tem `renshuuA`).
 - Em `a` (resposta), o furigana é ignorado na correção: o aluno digita só o texto base.
-- Em `gramatica.content`, use as classes de `style.css` (`card`, `card-header`, `item-box`, `grammar-table`, `grammar-list`, `reading-box`, `romaji`). Nada de `style=` nos dados.
+- `renshuuA` pode trazer `content` (HTML com as classes de `style.css`: `card`, `card-header`, `item-box`, `grammar-table`, `reading-box`, `romaji`) para tabelas de substituição. Nada de `style=` nos dados. A gramática não aceita mais `content` nem `bunkei`: use `points`.
 
 ### Gramática por pontos (`gramatica.points`)
 
-Formato novo da gramática, usado na lição 19 (as 16 a 18 ainda usam `content` e `bunkei`). Cada ponto vira um cartão com o modelo de frase, a explicação, **os exemplos do ponto**, uma comparação e as armadilhas. No topo da aba aparece um resumo com um botão por ponto. Quando uma lição usa `points`, ela **não tem `bunkei`**: as frases de padrões e os diálogos curtos entram como `ex` do ponto a que pertencem.
+Formato único da gramática, usado em todas as lições (os testes exigem). Cada ponto vira um cartão com o modelo de frase, a explicação, **os exemplos do ponto**, uma comparação e as armadilhas. No topo da aba aparece um resumo com um botão por ponto. Quando uma lição usa `points`, ela **não tem `bunkei`**: as frases de padrões e os diálogos curtos entram como `ex` do ponto a que pertencem.
 
 ```js
 gramatica: {
