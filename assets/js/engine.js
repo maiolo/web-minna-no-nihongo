@@ -14,6 +14,7 @@
     "use strict";
 
     var lessons = window.LESSONS || [];
+    function T(key, vars) { return window.I18n ? window.I18n.t(key, vars) : key; }
     // Os dados das lições usam {漢字|かんじ}; aqui viram <ruby> antes de tudo (Notation.convertDeep).
     var raw = window.lessonData && window.I18n ? window.I18n.localize(window.lessonData, window.I18n.lang()) : window.lessonData;
     var data = raw && window.Notation ? window.Notation.convertDeep(withRomaji(raw)) : raw;
@@ -72,10 +73,10 @@
         window.SiteHeader.render(document.getElementById("lesson-header"), {
             stamp: String(lessonNumber),
             title: current ? current.topic : window.lessonLabel(lessonNumber),
-            back: { href: "../index.html#licoes", label: "Voltar às lições" },
+            back: { href: "../index.html#licoes", label: T("lesson.back") },
             crumbs: [
-                { label: "Início", href: "../index.html" },
-                { label: "Lições", href: "../index.html#licoes" },
+                { label: T("lesson.home"), href: "../index.html" },
+                { label: T("header.lessons"), href: "../index.html#licoes" },
                 { label: window.lessonLabel(lessonNumber) }
             ]
         });
@@ -90,7 +91,7 @@
     function renderNav() {
         var nav = document.getElementById("main-nav");
         nav.setAttribute("role", "tablist");
-        nav.setAttribute("aria-label", "Seções da lição");
+        nav.setAttribute("aria-label", T("lesson.sections"));
         nav.innerHTML = sections.map(function (id) {
             return '<button type="button" role="tab" class="tab-btn" id="tab-' + id + '" data-tab="' + id + '" ' +
                 'aria-controls="sec-' + id + '" aria-selected="false" tabindex="-1">' +
@@ -167,7 +168,7 @@
             pager = document.createElement("nav");
             pager.id = "lesson-pager";
             pager.className = "lesson-pager";
-            pager.setAttribute("aria-label", "Navegação da lição");
+            pager.setAttribute("aria-label", T("lesson.navigation"));
             document.body.appendChild(pager);
             pager.addEventListener("click", function (e) {
                 // Avançar a partir de uma seção de leitura conta como concluí-la.
@@ -196,7 +197,7 @@
         }).join("");
 
         pager.innerHTML = pagerButton(prev, "prev") +
-            '<div class="pager-dots" role="img" aria-label="Seção ' + (i + 1) + " de " + sections.length + '">' + dots + "</div>" +
+            '<div class="pager-dots" role="img" aria-label="' + T("lesson.sectionOf", { i: i + 1, n: sections.length }) + '">' + dots + "</div>" +
             pagerButton(next, "next");
     }
 
@@ -205,7 +206,7 @@
     // Seção com "exercises" é de exercícios; as demais (vocab, gramatica ou
     // qualquer uma com "content") são de leitura e têm o botão "Marcar como concluída".
     function isExercise(id) { return Boolean(data[id] && data[id].exercises); }
-    var STATE_TEXT = { done: " (concluída)", in_progress: " (em andamento)", todo: "" };
+    function stateText(status) { return status === "todo" ? "" : " (" + T(status === "done" ? "status.done" : "status.inProgress").toLowerCase() + ")"; }
 
     function questionKeys(sectionId) {
         var keys = [];
@@ -235,7 +236,7 @@
             var tab = document.getElementById("tab-" + id);
             tab.classList.toggle("done", status === "done");
             tab.classList.toggle("seen", status === "in_progress");
-            tab.querySelector(".tab-state").textContent = STATE_TEXT[status];
+            tab.querySelector(".tab-state").textContent = stateText(status);
 
             if (isExercise(id)) {
                 var c = syncExerciseSection(id);
@@ -243,9 +244,9 @@
                 if (holder) {
                     var pct = c.total ? Math.round(c.done / c.total * 100) : 0;
                     var tries = P.attemptCount(lessonNumber, id);
-                    holder.innerHTML = progressBar(pct, "Questões corretas") +
-                        '<span class="ex-progress-text">' + c.done + " de " + c.total + " corretas" +
-                        (tries ? " · " + tries + (tries === 1 ? " tentativa" : " tentativas") : "") + "</span>";
+                    holder.innerHTML = progressBar(pct, T("ex.correctAnswers")) +
+                        '<span class="ex-progress-text">' + T("ex.progress", { done: c.done, total: c.total }) +
+                        (tries ? " · " + T(tries === 1 ? "ex.attempt1" : "ex.attempts", { n: tries }) : "") + "</span>";
                     var reset = document.querySelector("#sec-" + id + " .ex-reset");
                     if (reset) reset.hidden = !tries;
                 }
@@ -258,7 +259,7 @@
                 var btn = document.querySelector("#sec-" + id + " .section-done-btn");
                 if (btn) {
                     btn.setAttribute("aria-pressed", status === "done" ? "true" : "false");
-                    btn.textContent = status === "done" ? "✓ Seção concluída" : "Marcar como concluída";
+                    btn.textContent = status === "done" ? T("lesson.sectionDone") : T("lesson.markDone");
                 }
             }
         });
@@ -279,19 +280,19 @@
     function exTools(id) {
         var kana = id === "montar" ? "" :
             '<button type="button" class="btn btn-toggle kana-toggle" data-action="kana-toggle" aria-pressed="true">' +
-            "あ Digitar em romaji</button>";
+            "あ " + T("ex.kanaToggle") + "</button>";
         return '<div class="ex-tools">' + kana +
-            '<button type="button" class="btn btn-reveal ex-reset" data-action="reset-section" hidden>↺ Refazer seção</button></div>';
+            '<button type="button" class="btn btn-reveal ex-reset" data-action="reset-section" hidden>↺ ' + T("ex.redoSection") + '</button></div>';
     }
 
     function refreshKanaToggle() {
         var on = kanaOn();
         document.querySelectorAll(".kana-toggle").forEach(function (btn) {
             btn.setAttribute("aria-pressed", on ? "true" : "false");
-            btn.title = on ? "Letras do alfabeto viram hiragana enquanto você digita (ex.: kaku → かく)" : "Digitação normal";
+            btn.title = on ? T("ex.kanaOn") : T("ex.kanaOff");
         });
         document.querySelectorAll("#main-container .input-text").forEach(function (input) {
-            input.placeholder = on ? "romaji → かな (ou 答えを入力...)" : "答えを入力...";
+            input.placeholder = on ? T("ex.placeholderKana") : "答えを入力...";
         });
     }
 
@@ -300,13 +301,13 @@
         var header = document.getElementById("lesson-header");
         header.insertAdjacentHTML("beforeend",
             '<div class="topbar-progress"><div id="lesson-progress" class="progress thin" role="progressbar" ' +
-            'aria-label="Progresso da lição" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div></div>');
+            'aria-label="' + T("lesson.progress") + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div></div>');
         sections.forEach(function (id) {
             var panel = document.getElementById("sec-" + id);
             if (!isExercise(id)) {
                 panel.insertAdjacentHTML("beforeend",
                     '<div class="section-done"><button type="button" class="btn btn-toggle section-done-btn" ' +
-                    'data-action="section-done" aria-pressed="false">Marcar como concluída</button></div>');
+                    'data-action="section-done" aria-pressed="false">' + T("lesson.markDone") + '</button></div>');
             } else {
                 var head = panel.querySelector(".card-header");
                 if (head) head.insertAdjacentHTML("afterend", '<div class="ex-progress"></div>' + exTools(id));
@@ -327,14 +328,14 @@
     function speakButton(html) {
         var text = E.readingOf(html.replace(/<br\s*\/?>/gi, " "))
             .replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        return '<button type="button" class="speak-btn" data-speak="' + text + '" aria-label="Ouvir" title="Ouvir">' + SPEAKER + "</button>";
+        return '<button type="button" class="speak-btn" data-speak="' + text + '" aria-label="' + T("lesson.listen") + '" title="' + T("lesson.listen") + '">' + SPEAKER + "</button>";
     }
 
     function textBlock(item, jpClass) {
         return '<div class="item-box">' +
             '<div class="jp-row"><div class="' + jpClass + '">' + item.jp + "</div>" + speakButton(item.jp) + "</div>" +
             '<div class="romaji">' + item.romaji + "</div>" +
-            '<div class="pt-line">🇧🇷 ' + item.pt + "</div>" +
+            '<div class="pt-line">' + T("tr.flag") + ' ' + item.pt + "</div>" +
         "</div>";
     }
 
@@ -395,10 +396,10 @@
             if (p.contrast.note) html += '<p class="gp-contrast-note">' + p.contrast.note + "</p>";
         }
         if (p.trap) {
-            html += '<div class="gp-trap"><strong>⚠️ Cuidado</strong><ul>' +
+            html += '<div class="gp-trap"><strong>⚠️ ' + T("gp.trap") + '</strong><ul>' +
                 asList(p.trap).map(function (t) { return "<li>" + t + "</li>"; }).join("") + "</ul></div>";
         }
-        if (p.note) html += '<div class="gp-note"><strong>💡 Dica</strong> ' + p.note + "</div>";
+        if (p.note) html += '<div class="gp-note"><strong>💡 ' + T("gp.tip") + '</strong> ' + p.note + "</div>";
         return html + "</div>";
     }
 
@@ -433,15 +434,15 @@
                         '<input type="text" class="input-text" autocomplete="off" autocapitalize="off" ' +
                             'placeholder="答えを入力...">' +
                         '<button type="button" class="btn btn-check" data-action="check">' +
-                            "✅ Verificar (<ruby>確認<rt>かくにん</rt></ruby>)</button>" +
+                            "✅ " + T("ex.check") + " (<ruby>確認<rt>かくにん</rt></ruby>)</button>" +
                         '<button type="button" class="btn btn-reveal" data-action="reveal">' +
-                            "💡 Revelar (<ruby>答<rt>こた</rt></ruby>え)</button>" +
+                            "💡 " + T("ex.reveal") + " (<ruby>答<rt>こた</rt></ruby>え)</button>" +
                     "</div>" +
                     '<div class="feedback-box"></div>' +
                     '<div class="answer-box">' +
                         '<div class="jp-row"><div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.a + "</div>" + speakButton(q.a) + "</div>" +
                         '<div class="romaji">' + q.romaji + "</div>" +
-                        (q.pt ? '<div class="answer-translation">Tradução: ' + q.pt + "</div>" : "") +
+                        (q.pt ? '<div class="answer-translation">' + T("ex.translation") + ': ' + q.pt + "</div>" : "") +
                     "</div>" +
                 "</div>";
             });
@@ -461,16 +462,16 @@
                 var order = E.shuffleSeeded(q.tokens.map(function (t, i) { return i; }), (g + 1) * 100 + n + lessonNumber);
                 html += '<div class="item-box" data-exercise="' + sectionId + ":" + g + ":" + n + '" data-kind="assemble">' +
                     '<div class="exercise-prompt">' + q.pt + "</div>" +
-                    '<div class="assemble-answer" aria-label="Sua frase" aria-live="polite"></div>' +
-                    '<div class="assemble-bank" aria-label="Palavras disponíveis">' +
+                    '<div class="assemble-answer" aria-label="' + T("ex.yourSentence") + '" aria-live="polite"></div>' +
+                    '<div class="assemble-bank" aria-label="' + T("ex.availableWords") + '">' +
                         order.map(function (i) {
                             return '<button type="button" class="word-chip" data-i="' + i + '">' + q.tokens[i] + "</button>";
                         }).join("") +
                     "</div>" +
                     '<div class="exercise-controls">' +
-                        '<button type="button" class="btn btn-check" data-action="check">✅ Verificar (<ruby>確認<rt>かくにん</rt></ruby>)</button>' +
-                        '<button type="button" class="btn btn-reveal" data-action="retry">↺ Limpar</button>' +
-                        '<button type="button" class="btn btn-reveal" data-action="reveal">💡 Revelar (<ruby>答<rt>こた</rt></ruby>え)</button>' +
+                        '<button type="button" class="btn btn-check" data-action="check">✅ ' + T("ex.check") + ' (<ruby>確認<rt>かくにん</rt></ruby>)</button>' +
+                        '<button type="button" class="btn btn-reveal" data-action="retry">↺ ' + T("ex.clear") + '</button>' +
+                        '<button type="button" class="btn btn-reveal" data-action="reveal">💡 ' + T("ex.reveal") + ' (<ruby>答<rt>こた</rt></ruby>え)</button>' +
                     "</div>" +
                     '<div class="feedback-box"></div>' +
                     '<div class="answer-box">' +
@@ -550,7 +551,7 @@
     }
 
     function retryButton() {
-        var b = el("button", "btn btn-reveal feedback-retry", "↺ Tentar de novo");
+        var b = el("button", "btn btn-reveal feedback-retry", "↺ " + T("ex.retry"));
         b.type = "button";
         b.dataset.action = "retry";
         return b;
@@ -587,13 +588,13 @@
         var matched = variants.filter(function (v) { return typed === v.base || E.toHiragana(typed) === v.reading; })[0];
 
         if (!typed) {
-            say(feedback, false, [html("⚠️ <ruby>入力<rt>にゅうりょく</rt></ruby>してください。(Por favor, digite a resposta)")]);
+            say(feedback, false, [html("⚠️ <ruby>入力<rt>にゅうりょく</rt></ruby>してください。(" + T("ex.typeAnswer") + ")")]);
             return;
         }
         if (matched) {
             var inKana = typed !== matched.base && matched.base !== matched.reading;
-            say(feedback, true, [html("⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)")].concat(
-                inKana ? [el("div", "feedback-note", "Em kana. Com kanji: " + matched.base)] : []));
+            say(feedback, true, [html("⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (" + T("ex.correct") + ")")].concat(
+                inKana ? [el("div", "feedback-note", T("ex.inKana") + " " + matched.base)] : []));
             recordAnswer(box, true);
             return;
         }
@@ -610,9 +611,9 @@
         });
         var best = candidates.sort(function (x, y) { return x.cost - y.cost || x.pref - y.pref; })[0];
         var box1 = el("div", "diff");
-        box1.appendChild(diffLine("Você digitou", best.ops, "del"));
-        box1.appendChild(diffLine("Esperado", best.ops, "ins"));
-        say(feedback, false, [html("❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(Incorreto)"), box1, retryButton()]);
+        box1.appendChild(diffLine(T("ex.youTyped"), best.ops, "del"));
+        box1.appendChild(diffLine(T("ex.expected"), best.ops, "ins"));
+        say(feedback, false, [html("❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(" + T("ex.incorrect") + ")"), box1, retryButton()]);
         recordAnswer(box, false);
     }
 
@@ -638,7 +639,7 @@
         var feedback = box.querySelector(".feedback-box");
         var chosen = chipsOf(box.querySelector(".assemble-answer"));
         if (!chosen.length) {
-            say(feedback, false, ["⚠️ Toque nas palavras para montar a frase."]);
+            say(feedback, false, ["⚠️ " + T("ex.tapWords")]);
             return;
         }
         var expected = q.tokens.map(function (t) { return E.normalize(E.baseOf(t)); });
@@ -651,16 +652,16 @@
             chip.classList.toggle("wrong", !marks[i]);
         });
         if (complete && marks.every(Boolean)) {
-            say(feedback, true, [html("⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (Correto!)")]);
+            say(feedback, true, [html("⭕ <ruby>正解<rt>せいかい</rt></ruby>です！ (" + T("ex.correct") + ")")]);
             box.querySelector(".answer-box").classList.add("visible");
             recordAnswer(box, true);
             return;
         }
         var wrong = marks.filter(function (ok) { return !ok; }).length;
-        var msg = !complete && !wrong ? "Está certo até aqui, mas faltam palavras."
-            : (!complete ? "Faltam palavras e algumas estão fora do lugar (em vermelho)."
-                         : wrong + (wrong === 1 ? " palavra está" : " palavras estão") + " fora do lugar (em vermelho).");
-        say(feedback, false, [html("❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(Incorreto) "), msg, " ", retryButton()]);
+        var msg = !complete && !wrong ? T("ex.missing")
+            : (!complete ? T("ex.missingAndMisplaced")
+                         : T(wrong === 1 ? "ex.misplaced1" : "ex.misplacedN", { n: wrong }));
+        say(feedback, false, [html("❌ <ruby>不正解<rt>ふせいかい</rt></ruby>です。(" + T("ex.incorrect") + ") "), msg, " ", retryButton()]);
         recordAnswer(box, false);
     }
 
@@ -684,7 +685,7 @@
     }
 
     function resetSection(id) {
-        if (!window.confirm("Apagar suas respostas desta seção e refazer?")) return;
+        if (!window.confirm(T("ex.confirmReset"))) return;
         document.querySelectorAll("#sec-" + id + " [data-exercise]").forEach(function (box) {
             retry(box);
             box.querySelector(".answer-box").classList.remove("visible");
@@ -779,7 +780,7 @@
         renderHeader();
         if (!data) {
             document.getElementById("main-container").innerHTML =
-                '<p class="empty-state">Não foi possível carregar os dados desta lição.</p>';
+                '<p class="empty-state">' + T("lesson.loadError") + '</p>';
             return;
         }
         sections = availableSections();
