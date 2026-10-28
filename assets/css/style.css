@@ -1428,3 +1428,29 @@ html[data-speech="off"] .speak-btn { display: none; }
 .exam-script .who { display: inline-block; min-width: 1.6em; color: var(--shu-dark); }
 .exam-script-q { font-weight: 700; margin-bottom: 4px; }
 .opt-hidden { color: var(--muted); font-style: italic; font-size: 0.95rem; }
+
+/* ---------- Seletor de idioma (cabeçalho) ---------- */
+.settings-slot { display: flex; align-items: center; gap: 8px; }
+.lang-switch {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--surface);
+}
+.lang-opt {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 8px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+}
+.lang-opt:hover { color: var(--ink); }
+.lang-opt[aria-pressed="true"] { background: var(--ink); color: var(--surface); cursor: default; }
+.lang-opt:focus-visible { outline: 2px solid var(--accent, var(--ink)); outline-offset: -2px; }

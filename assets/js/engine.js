@@ -15,7 +15,8 @@
 
     var lessons = window.LESSONS || [];
     // Os dados das lições usam {漢字|かんじ}; aqui viram <ruby> antes de tudo (Notation.convertDeep).
-    var data = window.lessonData && window.Notation ? window.Notation.convertDeep(withRomaji(window.lessonData)) : window.lessonData;
+    var raw = window.lessonData && window.I18n ? window.I18n.localize(window.lessonData, window.I18n.lang()) : window.lessonData;
+    var data = raw && window.Notation ? window.Notation.convertDeep(withRomaji(raw)) : raw;
 
     // Exemplos de gramatica.points sem "romaji" ganham um, gerado da própria frase (use ^は e ^へ nas partículas).
     // Roda antes da conversão da notação, porque o romaji sai das leituras de {漢字|かんじ}.

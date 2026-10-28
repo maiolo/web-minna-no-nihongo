@@ -161,6 +161,14 @@ window.lessonData = {
 - Em `a` (resposta), o furigana é ignorado na correção: o aluno digita só o texto base.
 - `renshuuA` pode trazer `content` (HTML com as classes de `style.css`: `card`, `card-header`, `item-box`, `grammar-table`, `reading-box`, `romaji`) para tabelas de substituição. Nada de `style=` nos dados. A gramática não aceita mais `content` nem `bunkei`: use `points`.
 
+### Idiomas (português e inglês)
+
+O site tem um seletor **PT | EN** no cabeçalho (e no painel Ajustes). Os dois idiomas nunca aparecem juntos: a escolha fica em `Prefs.lang` (sem escolha salva, segue o idioma do navegador) e a troca recarrega a página.
+
+- **Interface**: textos em `assets/js/i18n-strings.js`, com a mesma chave em `pt` e `en` (o teste confere). No JS use `I18n.t("settings.reset")`; no HTML, `data-i18n="chave"`.
+- **Dados** (lições e JLPT): o português é o texto base e o inglês vem ao lado. `{ jp: "...", pt: "Texto", en: "Text" }` (o `en` substitui o `pt`) e `mean_en`, `title_en`, `trap_en`... para os demais campos (o `<campo>_en` substitui `<campo>`; listas também). Sem a tradução, o campo aparece em português. O teste exige que todo `en`/`*_en` tenha o par em português, do mesmo tipo.
+- O japonês, a notação `{漢字|かんじ}` e o romaji não mudam com o idioma.
+
 ### Gramática por pontos (`gramatica.points`)
 
 Formato único da gramática, usado em todas as lições (os testes exigem). Cada ponto vira um cartão com o modelo de frase, a explicação, **os exemplos do ponto**, uma comparação e as armadilhas. No topo da aba aparece um resumo com um botão por ponto. Quando uma lição usa `points`, ela **não tem `bunkei`**: as frases de padrões e os diálogos curtos entram como `ex` do ponto a que pertencem.

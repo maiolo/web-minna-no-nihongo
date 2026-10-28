@@ -32,7 +32,28 @@ function strings(value, trail = "", out = []) {
 
 test("há lições para conferir", () => assert.ok(FILES.length >= 4));
 
+// Pares de tradução (veja assets/js/i18n.js): "en" precisa de "pt"; "<campo>_en" precisa de "<campo>", com o mesmo tipo.
+function checkTranslations(value, trail, errors) {
+    if (Array.isArray(value)) value.forEach((v, i) => checkTranslations(v, trail + "[" + i + "]", errors));
+    else if (value && typeof value === "object") {
+        Object.keys(value).forEach((k) => {
+            const base = k === "en" ? "pt" : k.endsWith("_en") ? k.slice(0, -3) : null;
+            if (base) {
+                if (!(base in value)) errors.push(trail + "." + k + ": falta «" + base + "»");
+                else if (Array.isArray(value[base]) !== Array.isArray(value[k]) || typeof value[base] !== typeof value[k]) errors.push(trail + "." + k + ": tipo diferente de «" + base + "»");
+                else if (Array.isArray(value[k]) && value[k].length !== value[base].length) errors.push(trail + "." + k + ": tamanho diferente de «" + base + "»");
+            } else checkTranslations(value[k], trail + "." + k, errors);
+        });
+    }
+}
+
 FILES.forEach((file) => {
+    test(file + ": traduções em inglês (en / *_en) têm o par em português", () => {
+        const errors = [];
+        checkTranslations(load(file), "", errors);
+        assert.deepEqual(errors, []);
+    });
+
     test(file + ": sem <ruby> escrito à mão e sem style= inline", () => {
         const text = read(file);
         assert.ok(!/<\/?(ruby|rt)\b/.test(text), "use {漢字|かんじ} no lugar de <ruby>");

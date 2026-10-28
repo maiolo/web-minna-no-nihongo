@@ -17,22 +17,17 @@
         'stroke-width="1.8" stroke-linecap="round" aria-hidden="true">' +
         '<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>';
 
-    var FURIGANA_OPTIONS = [
-        ["on", "Sempre"],
-        ["touch", "Ao tocar"],
-        ["off", "Oculto"]
-    ];
-    var ROMAJI_OPTIONS = [
-        ["touch", "Ao tocar"],
-        ["on", "Sempre"],
-        ["off", "Oculto"]
-    ];
+    function t(key) { return root.I18n ? root.I18n.t(key) : key; }
 
-    var THEME_OPTIONS = [
-        ["auto", "Automático"],
-        ["light", "Claro"],
-        ["dark", "Escuro"]
-    ];
+    function options() {
+        return {
+            furigana: [["on", t("settings.always")], ["touch", t("settings.touch")], ["off", t("settings.off")]],
+            romaji: [["touch", t("settings.touch")], ["on", t("settings.always")], ["off", t("settings.off")]],
+            theme: [["auto", t("settings.auto")], ["light", t("settings.light")], ["dark", t("settings.dark")]],
+            // Os nomes dos idiomas ficam sempre na própria língua.
+            lang: [["pt", "Português"], ["en", "English"]]
+        };
+    }
 
     function segmented(name, label, hint, options) {
         return '<fieldset class="settings-group">' +
@@ -50,33 +45,41 @@
     function mount(slot) {
         if (!slot || !root.Prefs) return;
         var id = "settings-panel-" + (++uid);
+        var opt = options();
+        var lang = root.Prefs.get().lang;
 
         slot.innerHTML =
+            '<div class="lang-switch" role="group" aria-label="' + t("lang.switch") + '">' +
+                options().lang.map(function (o) {
+                    return '<button type="button" class="lang-opt" data-lang="' + o[0] + '" lang="' + o[0] + '" ' +
+                        'aria-pressed="' + (o[0] === lang) + '" title="' + o[1] + '">' + o[0].toUpperCase() + "</button>";
+                }).join("") +
+            "</div>" +
             // O texto "Ajustes" some em telas estreitas (fica só o ícone); o aria-label
             // mantém o nome acessível e contém o texto visível.
             '<button type="button" class="btn btn-toggle settings-btn" aria-haspopup="dialog" ' +
-                'aria-label="Ajustes de leitura" aria-expanded="false" aria-controls="' + id + '">' +
-                ICON + '<span class="settings-label">Ajustes</span></button>' +
-            '<div class="settings-panel" id="' + id + '" role="dialog" aria-label="Ajustes de leitura" hidden>' +
+                'aria-label="' + t("settings.title") + '" aria-expanded="false" aria-controls="' + id + '">' +
+                ICON + '<span class="settings-label">' + t("settings.open") + '</span></button>' +
+            '<div class="settings-panel" id="' + id + '" role="dialog" aria-label="' + t("settings.title") + '" hidden>' +
                 segmented("furigana-" + uid, "Furigana (<ruby>振<rt>ふ</rt></ruby>り<ruby>仮<rt>が</rt></ruby><ruby>名<rt>な</rt></ruby>)",
-                    "“Ao tocar” esconde a leitura; toque no kanji para vê-la.", FURIGANA_OPTIONS) +
+                    t("settings.furiganaHint"), opt.furigana) +
                 segmented("romaji-" + uid, "Romaji",
-                    "“Ao tocar” deixa a linha borrada; toque nela para ler.", ROMAJI_OPTIONS) +
-                segmented("theme-" + uid, "Tema",
-                    "“Automático” segue o modo claro ou escuro do aparelho.", THEME_OPTIONS) +
+                    t("settings.romajiHint"), opt.romaji) +
+                segmented("theme-" + uid, t("settings.theme"), t("settings.themeHint"), opt.theme) +
+                segmented("lang-" + uid, t("lang.switch"), t("lang.hint"), opt.lang) +
                 '<fieldset class="settings-group">' +
-                    "<legend>Tamanho do texto</legend>" +
+                    "<legend>" + t("settings.size") + "</legend>" +
                     '<div class="size-row">' +
-                        '<button type="button" class="btn btn-reveal size-btn" data-size="-1" aria-label="Diminuir o texto">A−</button>' +
+                        '<button type="button" class="btn btn-reveal size-btn" data-size="-1" aria-label="' + t("settings.smaller") + '">A−</button>' +
                         '<output class="size-value" aria-live="polite"></output>' +
-                        '<button type="button" class="btn btn-reveal size-btn" data-size="1" aria-label="Aumentar o texto">A+</button>' +
+                        '<button type="button" class="btn btn-reveal size-btn" data-size="1" aria-label="' + t("settings.bigger") + '">A+</button>' +
                     "</div>" +
                 "</fieldset>" +
-                '<div class="settings-sample" aria-label="Exemplo">' +
+                '<div class="settings-sample" aria-label="' + t("settings.sample") + '">' +
                     '<span class="settings-sample-jp"><ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby>を<ruby>勉<rt>べん</rt></ruby><ruby>強<rt>きょう</rt></ruby>します。</span>' +
                     '<span class="romaji">nihongo o benkyou shimasu.</span>' +
                 "</div>" +
-                '<button type="button" class="settings-reset">Restaurar padrão</button>' +
+                '<button type="button" class="settings-reset">' + t("settings.reset") + '</button>' +
             "</div>";
 
         var button = slot.querySelector(".settings-btn");
@@ -121,6 +124,11 @@
             var patch = {};
             patch[input.name.replace(/-\d+$/, "")] = input.value;
             root.Prefs.set(patch);
+        });
+
+        slot.querySelector(".lang-switch").addEventListener("click", function (e) {
+            var opt = e.target.closest("[data-lang]");
+            if (opt && opt.dataset.lang !== root.Prefs.get().lang) root.Prefs.set({ lang: opt.dataset.lang });
         });
 
         panel.addEventListener("click", function (e) {
