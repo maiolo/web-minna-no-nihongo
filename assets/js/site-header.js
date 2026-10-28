@@ -20,6 +20,8 @@
 (function (root) {
     "use strict";
 
+    function t(key) { return root.I18n ? root.I18n.t(key) : key; }
+
     var BACK_ICON =
         '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
         'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
@@ -33,7 +35,7 @@
                 ? '<li aria-current="page">' + c.label + "</li>"
                 : '<li><a href="' + c.href + '">' + c.label + "</a></li>";
         }).join("");
-        return '<nav class="breadcrumb" aria-label="Você está em"><ol>' + items + "</ol></nav>";
+        return '<nav class="breadcrumb" aria-label="' + t("header.here") + '"><ol>' + items + "</ol></nav>";
     }
 
     function pageHeader(o) {
@@ -58,11 +60,11 @@
                 '<span class="stamp stamp-logo" aria-hidden="true">日</span>' +
                 '<span class="brand-text">' +
                     '<span class="brand-name">みんなの<ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby></span>' +
-                    '<span class="brand-sub">Estudo na web</span>' +
+                    '<span class="brand-sub">' + t("header.brandSub") + '</span>' +
                 "</span>" +
             "</a>" +
-            '<nav class="topbar-nav" aria-label="Principal">' +
-                '<a href="#licoes">Lições</a>' +
+            '<nav class="topbar-nav" aria-label="' + t("header.nav") + '">' +
+                '<a href="#licoes">' + t("header.lessons") + '</a>' +
                 '<a href="' + base + 'jlpt/index.html">JLPT</a>' +
             "</nav>" +
             '<div class="settings-slot"></div>' +

@@ -5,7 +5,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { createStore, createApiAdapter } = require("../assets/js/store.js");
-const { createPrefs, sanitize } = require("../assets/js/prefs.js");
+const { createPrefs, sanitize, detectLang } = require("../assets/js/prefs.js");
 
 function fakeStorage(initial) {
     const data = Object.assign({}, initial);
@@ -155,8 +155,8 @@ test("createApiAdapter: erro de servidor rejeita a promessa", async () => {
 /* ---------- Preferências ---------- */
 
 test("sanitize: padrões, valores inválidos e tamanho de texto mais próximo", () => {
-    assert.deepEqual(sanitize(null), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto" });
-    assert.deepEqual(sanitize({ furigana: "xyz", romaji: 7, fontScale: "abc" }), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto" });
+    assert.deepEqual(sanitize(null), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto", lang: "pt" });
+    assert.deepEqual(sanitize({ furigana: "xyz", romaji: 7, fontScale: "abc" }), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto", lang: "pt" });
     assert.equal(sanitize({ fontScale: 1.2 }).fontScale, 1.25);
     assert.equal(sanitize({ fontScale: 99 }).fontScale, 1.4);
     assert.equal(sanitize({ fontScale: 0 }).fontScale, 0.9);
@@ -175,7 +175,7 @@ test("Prefs.set grava, aplica no <html> e preserva chaves desconhecidas", async 
     assert.equal(doc.documentElement.dataset.furigana, "touch");
     assert.equal(doc.props["--font-scale"], "1.25");
     assert.equal(store.peek("prefs").kanaInput, "off");
-    assert.deepEqual(prefs.get(), { furigana: "touch", romaji: "touch", fontScale: 1.25, theme: "auto" });
+    assert.deepEqual(prefs.get(), { furigana: "touch", romaji: "touch", fontScale: 1.25, theme: "auto", lang: "pt" });
 });
 
 test("Prefs.set com valor inválido volta ao padrão em vez de gravar lixo", async () => {
@@ -191,7 +191,7 @@ test("Prefs.reset restaura os padrões; mudança externa no Store também é apl
     const prefs = createPrefs(store, doc);
     await prefs.set({ furigana: "off", romaji: "on", fontScale: 1.4 });
     await prefs.reset();
-    assert.deepEqual(prefs.get(), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto" });
+    assert.deepEqual(prefs.get(), { furigana: "on", romaji: "touch", fontScale: 1, theme: "auto", lang: "pt" });
 
     await store.set("prefs", { furigana: "off" });
     assert.equal(doc.documentElement.dataset.furigana, "off");
@@ -228,7 +228,7 @@ test("theme auto segue o aparelho; claro e escuro ignoram o aparelho", async () 
     assert.equal(doc.documentElement.dataset.theme, "dark");
     await prefs.set({ theme: "light" });
     assert.equal(doc.documentElement.dataset.theme, "light");
-    await prefs.set({ theme: "auto" });
+    await prefs.set({ theme: "auto", lang: "pt" });
     media.query.matches = false;
     media.listeners.forEach((fn) => fn());
     assert.equal(doc.documentElement.dataset.theme, "light");
@@ -241,4 +241,33 @@ test("theme sem matchMedia cai em claro", () => {
     const doc = fakeDoc();
     createPrefs(createStore({ storage: fakeStorage() }), doc).apply();
     assert.equal(doc.documentElement.dataset.theme, "light");
+});
+
+/* ---------- Idioma ---------- */
+
+test("lang: detecta o idioma do navegador e valida o salvo", () => {
+    assert.equal(detectLang("en-US"), "en");
+    assert.equal(detectLang("en"), "en");
+    assert.equal(detectLang("pt-BR"), "pt");
+    assert.equal(detectLang("fr"), "pt");
+    assert.equal(detectLang(undefined), "pt");
+    assert.equal(sanitize({ lang: "en" }).lang, "en");
+    assert.equal(sanitize({ lang: "xx" }).lang, "pt");
+    assert.equal(sanitize({}, "en").lang, "en");
+    assert.equal(sanitize({ lang: "pt" }, "en").lang, "pt");
+});
+
+test("lang: sem escolha salva segue o navegador; a escolha vale e vai para o <html>", async () => {
+    const store = createStore({ storage: fakeStorage() });
+    const doc = fakeDoc();
+    const prefs = createPrefs(store, doc, null, "en-GB");
+    assert.equal(prefs.get().lang, "en");
+    prefs.apply();
+    assert.equal(doc.documentElement.lang, "en");
+    await prefs.set({ lang: "pt" });
+    assert.equal(prefs.get().lang, "pt");
+    assert.equal(doc.documentElement.lang, "pt-BR");
+    assert.equal(doc.documentElement.dataset.lang, "pt");
+    await prefs.reset();
+    assert.equal(prefs.get().lang, "pt", "restaurar ajustes de leitura não troca o idioma");
 });
