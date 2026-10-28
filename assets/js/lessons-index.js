@@ -66,7 +66,6 @@ window.VOLUMES = [
 /* Rótulo de cada seção da lição: kanji com furigana (jp) e português (pt). */
 window.SECTION_LABELS = {
         vocab: { jp: "{語彙|ごい}", pt: "Vocabulário" },
-        bunkei: { jp: "{文型|ぶんけい}", pt: "Padrões" },
         gramatica: { jp: "{文法|ぶんぽう}", pt: "Gramática" },
         renshuuA: { jp: "{練習|れんしゅう} A", pt: "Exercícios" },
         renshuuB: { jp: "{練習|れんしゅう} B", pt: "Exercícios" },

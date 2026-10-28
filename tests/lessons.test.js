@@ -81,6 +81,13 @@ test("Notation.toHtml e convertDeep", () => {
 
 const WITH_POINTS = FILES.filter((f) => load(f).gramatica && load(f).gramatica.points);
 
+FILES.forEach((f) => test(f + ": a gramática usa o formato por pontos (sem content/bunkei)", () => {
+    const d = load(f);
+    assert.ok(d.gramatica && Array.isArray(d.gramatica.points) && d.gramatica.points.length, "gramatica.points ausente");
+    assert.equal(d.gramatica.content, undefined, "gramatica.content não é mais aceito");
+    assert.equal(d.bunkei, undefined, "bunkei não é mais aceito");
+}));
+
 test("há pelo menos uma lição no formato de pontos", () => assert.ok(WITH_POINTS.length >= 1));
 
 WITH_POINTS.forEach((file) => {
