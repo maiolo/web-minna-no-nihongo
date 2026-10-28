@@ -69,6 +69,7 @@ tests/
   exercises.test.js         Testes de romaji→kana, diferença e embaralhar
   progress.test.js          Testes do progresso
   store-prefs.test.js       Testes da camada de dados e das preferências (node --test)
+  i18n.test.js              Testes dos idiomas (localize, t, chaves pt/en)
 scripts/
   update-sw.js              Atualiza a lista de arquivos e a versão do cache em sw.js
 docs/
