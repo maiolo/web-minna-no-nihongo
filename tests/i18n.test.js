@@ -57,3 +57,34 @@ test("i18n-strings: pt e en têm exatamente as mesmas chaves e nenhum texto vazi
         assert.equal(vars(strings.en[k]), vars(strings.pt[k]), "variáveis diferentes em " + k);
     });
 });
+
+test("toda chave usada no código (T, I18n.t, data-i18n) existe em pt e en", () => {
+    const fs = require("node:fs");
+    const path = require("node:path");
+    const root = path.join(__dirname, "..");
+    const files = [];
+    (function walk(dir) {
+        fs.readdirSync(dir, { withFileTypes: true }).forEach((e) => {
+            if (e.name === "node_modules" || e.name === ".git" || e.name === "tests") return;
+            const full = path.join(dir, e.name);
+            if (e.isDirectory()) walk(full);
+            else if (/\.(js|html)$/.test(e.name) && e.name !== "i18n-strings.js" && e.name !== "sw.js") files.push(full);
+        });
+    })(root);
+    const used = new Map();
+    files.forEach((f) => {
+        const text = fs.readFileSync(f, "utf8");
+        const rel = path.relative(root, f);
+        const add = (k) => { if (/^[a-z][\w]*\.[\w.]+$/i.test(k)) used.set(k, rel); };
+        let m;
+        const calls = /\b(?:T|I18n\.t|t)\("([^"]+)"/g;
+        while ((m = calls.exec(text))) add(m[1]);
+        const attrs = /data-i18n(?:-html)?="([^"]+)"/g;
+        while ((m = attrs.exec(text))) add(m[1]);
+        const pairs = /data-i18n-attr="([^"]+)"/g;
+        while ((m = pairs.exec(text))) m[1].split(";").forEach((p) => add(p.slice(p.indexOf(":") + 1).trim()));
+    });
+    assert.ok(used.size > 20, "esperava achar chaves no código");
+    const missing = [...used].filter(([k]) => !(k in strings.pt) || !(k in strings.en)).map(([k, f]) => k + " (" + f + ")");
+    assert.deepEqual(missing, []);
+});

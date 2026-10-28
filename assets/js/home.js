@@ -16,7 +16,8 @@
     function plain(html) { return html.replace(/<rt>.*?<\/rt>/g, "").replace(/<[^>]+>/g, ""); }
 
     var P = window.Progress;
-    var STATUS = { done: "Concluída", in_progress: "Em andamento", todo: "Disponível" };
+    function T(key, vars) { return window.I18n ? window.I18n.t(key, vars) : key; }
+    function statusText(st) { return T(st === "done" ? "status.done" : st === "in_progress" ? "status.inProgress" : "status.available"); }
 
     // O total de seções de cada lição é gravado pela própria lição ao ser aberta.
     function summary(n) {
@@ -34,23 +35,23 @@
         var l = byNumber[n];
         var st = l ? summary(n).status : "todo";
         return l
-            ? '<li><a class="map-cell ' + st + '" href="lessons/' + l.file + '" aria-label="Lição ' + n + ': ' + plain(l.topic) +
-                (st === "todo" ? "" : " (" + STATUS[st].toLowerCase() + ")") + '">' + n + "</a></li>"
-            : '<li><span class="map-cell" aria-label="Lição ' + n + ', em breve">' + n + "</span></li>";
+            ? '<li><a class="map-cell ' + st + '" href="lessons/' + l.file + '" aria-label="' + T("home.lessonN", { n: n }) + ': ' + plain(l.topic) +
+                (st === "todo" ? "" : " (" + statusText(st).toLowerCase() + ")") + '">' + n + "</a></li>"
+            : '<li><span class="map-cell" aria-label="' + T("home.lessonN", { n: n }) + ', ' + T("status.soon").toLowerCase() + '">' + n + "</span></li>";
     }
 
     function card(l) {
         var sm = summary(l.number);
-        var status = '<span class="lesson-status ' + sm.status + '">' + STATUS[sm.status] + "</span>";
+        var status = '<span class="lesson-status ' + sm.status + '">' + statusText(sm.status) + "</span>";
         var bar = sm.status === "todo" ? "" :
-            '<div class="progress" role="progressbar" aria-label="Progresso da lição ' + l.number +
+            '<div class="progress" role="progressbar" aria-label="' + T("lesson.progress") + ' ' + l.number +
             '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + sm.percent + '"><span style="width:' + sm.percent + '%"></span></div>';
         return '<li><a class="lesson-card" href="lessons/' + l.file + '">' +
             '<div class="lesson-number">' + window.lessonLabel(l.number) + "</div>" +
             '<div class="lesson-topic">' + l.topic + "</div>" +
             '<p class="lesson-desc">' + l.description + "</p>" +
             status + bar +
-            '<div class="lesson-go">' + (sm.status === "todo" ? "Abrir lição →" : sm.status === "done" ? "Revisar →" : "Continuar →") + "</div>" +
+            '<div class="lesson-go">' + T(sm.status === "todo" ? "home.open" : sm.status === "done" ? "home.review" : "home.continue") + "</div>" +
         "</a></li>";
     }
 
@@ -63,14 +64,14 @@
         return '<section class="volume" aria-labelledby="vol-' + v.id + '">' +
             '<div class="volume-head"><h2 id="vol-' + v.id + '">' + v.label + '</h2>' +
             '<span class="volume-range">' + v.range + "</span>" +
-            '<div class="map-legend" aria-hidden="true"><span><i class="legend-swatch available"></i>Disponível</span><span><i class="legend-swatch in_progress"></i>Em andamento</span><span><i class="legend-swatch done"></i>Concluída</span>' +
-            '<span><i class="legend-swatch soon"></i>Em breve</span></div></div>' +
+            '<div class="map-legend" aria-hidden="true"><span><i class="legend-swatch available"></i>' + T("status.available") + '</span><span><i class="legend-swatch in_progress"></i>' + T("status.inProgress") + '</span><span><i class="legend-swatch done"></i>' + T("status.done") + '</span>' +
+            '<span><i class="legend-swatch soon"></i>' + T("status.soon") + '</span></div></div>' +
             '<ol class="lesson-map">' + cells + "</ol>" +
             (cards ? '<ul class="lesson-grid">' + cards + "</ul>" : "") +
         "</section>";
     }).join("");
 
-    document.getElementById("licoes").innerHTML = continueCard() + (html || '<p class="empty-state">Nenhuma lição disponível ainda.</p>') + resetButton();
+    document.getElementById("licoes").innerHTML = continueCard() + (html || '<p class="empty-state">' + T("home.none") + '</p>') + resetButton();
     }
 
     // "Continue de onde parou": última seção aberta, se a lição ainda existe.
@@ -80,19 +81,19 @@
         var label = last && window.SECTION_LABELS && window.SECTION_LABELS[last.section];
         if (!l || !label) return "";
         return '<a class="continue-card" href="lessons/' + l.file + '#' + last.section + '">' +
-            '<div class="continue-text"><div class="continue-eyebrow">CONTINUE DE ONDE PAROU</div>' +
+            '<div class="continue-text"><div class="continue-eyebrow">' + T("home.resume") + '</div>' +
             '<div class="continue-title">' + window.lessonLabel(l.number) + " · " + label.pt + "</div></div>" +
-            '<span class="continue-go">Continuar →</span></a>';
+            '<span class="continue-go">' + T("home.continue") + '</span></a>';
     }
 
     function resetButton() {
         if (!P || !Object.keys(P.get().lessons).length) return "";
-        return '<button type="button" class="reset-progress" id="reset-progress">Limpar meu progresso</button>';
+        return '<button type="button" class="reset-progress" id="reset-progress">' + T("home.clear") + '</button>';
     }
 
     document.addEventListener("click", function (e) {
         if (!e.target.closest("#reset-progress")) return;
-        if (window.confirm("Apagar todo o seu progresso neste aparelho?")) P.clear();
+        if (window.confirm(T("home.confirmClear"))) P.clear();
     });
 
     render();

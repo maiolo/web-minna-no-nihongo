@@ -98,6 +98,12 @@
     if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
     root.I18n = api;
 
+    // Traduz os elementos marcados no HTML assim que a página estiver pronta.
+    if (root.document) {
+        if (root.document.readyState === "loading") root.document.addEventListener("DOMContentLoaded", function () { applyDom(root.document); });
+        else applyDom(root.document);
+    }
+
     // Outra aba (ou a sincronização) mudou o idioma: recarrega para refazer a página.
     if (root.Prefs && root.location) {
         var loaded = currentLang();
