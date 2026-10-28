@@ -290,71 +290,159 @@ window.lessonData = {
       }
     ]
   },
-  "bunkei": {
-    "patterns": {
-      "title": "{文型|ぶんけい} (Padrões de Frase)",
-      "items": [
-        {
-          "jp": "{朝|あさ}ジョギングをして、シャワーをあびて、{会社|かいしゃ}へ{行|い}きます。",
-          "romaji": "Asa jogingu o shite, shawaa o abite, kaisha e ikimasu.",
-          "pt": "De manhã faço corrida, tomo uma ducha e vou para a empresa."
+  gramatica: {
+    title: "{文法|ぶんぽう} (Gramática)",
+    intro: "Cinco pontos para encadear ações e descrições: て{形|けい} em sequência, 〜てから, N1は N2が, a ligação de adjetivos e os interrogativos どうやって / どの / どれ.",
+    points: [
+      {
+        id: "te-sequencia",
+        title: "{動詞|どうし} て{形|けい}、て{形|けい}、〜",
+        pat: "V1-て、V2-て、V3-ます",
+        short: "sequência de ações (e depois…)",
+        mean: "Liga duas ou mais ações na ordem em que acontecem. Só o último verbo leva o tempo da frase (ます, ました).",
+        rule: "Cada verbo, menos o último, vai para a forma て. O tempo da frase inteira vem do último.",
+        ex: [
+          { jp: "{朝|あさ}ジョギングをして、シャワーをあびて、{会社|かいしゃ}へ{行|い}きます。", romaji: "Asa jogingu o shite, shawaa o abite, kaisha e ikimasu.", pt: "De manhã faço corrida, tomo uma ducha e vou para a empresa." },
+          { jp: "{朝|あさ}7{時|じ}に{起|お}きて、パンを{食|た}べて、{学校|がっこう}へ{行|い}きます。", romaji: "Asa shichiji ni okite, pan o tabete, gakkou e ikimasu.", pt: "Acordo às 7 da manhã, como pão e vou para a escola." },
+          { jp: "{昨日|きのう}{何|なに}をしましたか。<br>— {京都|きょうと}へ{行|い}って、{友達|ともだち}に{会|あ}って、{映画|えいが}を{見|み}ました。", romaji: "Kinou nani o shimashita ka. — Kyouto e itte, tomodachi ni atte, eiga o mimashita.", pt: "O que você fez ontem? — Fui a Kyoto, encontrei um amigo e assisti a um filme." },
+          { jp: "{神戸|こうべ}へ{行|い}って、{映画|えいが}を{見|み}て、お{茶|ちゃ}を{飲|の}みました。", romaji: "Koube e itte, eiga o mite, ocha o nomimashita.", pt: "Fui a Kobe, vi um filme e tomei chá." }
+        ],
+        contrast: {
+          rows: [
+            { label: "Sequência com て", jp: "{朝|あさ}ジョギングをして、{会社|かいしゃ}へ{行|い}きます。", pt: "De manhã corro e vou para a empresa. (duas ações em ordem)" },
+            { label: "Duas frases separadas", jp: "{朝|あさ}ジョギングをします。{会社|かいしゃ}へ{行|い}きます。", pt: "De manhã corro. Vou para a empresa. (duas informações soltas)" }
+          ],
+          note: "Com て, as ações formam um só fluxo. Prefira isso a repetir ます em cada verbo."
         },
-        {
-          "jp": "コンサートが{終|お}わってから、レストランで{食事|しょくじ}をしました。",
-          "romaji": "Konsaato ga owatte kara, resutoran de shokuji o shimashita.",
-          "pt": "Depois que o concerto terminou, jantei num restaurante."
+        trap: [
+          "O tempo fica só no último verbo: {行|い}って、{見|み}て、{飲|の}みました (e não {行|い}きました、{見|み}ました…).",
+          "A forma て segue as regras da lição 14; erros nela são os mais comuns aqui."
+        ]
+      },
+      {
+        id: "tekara",
+        title: "{動詞|どうし} て{形|けい} ＋ から、〜",
+        pat: "V-て から、〜",
+        short: "depois de fazer X, faço Y",
+        mean: "A segunda ação só começa depois que a primeira terminou por completo. Enfatiza que X vem antes.",
+        rule: "Forma て + <strong>から</strong>, e então a segunda ação.",
+        ex: [
+          { jp: "コンサートが{終|お}わってから、レストランで{食事|しょくじ}をしました。", romaji: "Konsaato ga owatte kara, resutoran de shokuji o shimashita.", pt: "Depois que o concerto terminou, jantei num restaurante." },
+          { jp: "{国|くに}へ{帰|かえ}ってから、{父|ちち}の{会社|かいしゃ}で{働|はたら}きます。", romaji: "Kuni e kaette kara, chichi no kaisha de hatarakimasu.", pt: "Depois que eu voltar para o meu país, vou trabalhar na empresa do meu pai." },
+          { jp: "{今|いま}から{大阪|おおさか}へ{行|い}きますか。<br>— いいえ、お{昼|ひる}ごはんを{食|た}べてから、{行|い}きます。", romaji: "Ima kara Oosaka e ikimasu ka. — Iie, ohirugohan o tabete kara, ikimasu.", pt: "Você vai para Osaka agora? — Não, vou depois que almoçar." },
+          { jp: "{電話|でんわ}をかけてから、{友達|ともだち}の{家|うち}へ{行|い}きます。", romaji: "Denwa o kakete kara, tomodachi no uchi e ikimasu.", pt: "Depois de telefonar, vou à casa de um amigo." }
+        ],
+        contrast: {
+          rows: [
+            { label: "V-て、V-ます (sequência)", jp: "{食|た}べて、{行|い}きます。", pt: "Como e vou. (apenas em ordem)" },
+            { label: "V-て から、V-ます (só depois de terminar)", jp: "{食|た}べてから、{行|い}きます。", pt: "Só vou depois de comer. (a primeira ação precisa acabar)" }
+          ],
+          note: "てから destaca que a primeira ação termina antes da segunda começar. O て simples só mostra a ordem."
         },
-        {
-          "jp": "{大阪|おおさか}は{食|た}べ{物|もの}がおいしいです。",
-          "romaji": "Osaka wa tabemono ga oishii desu.",
-          "pt": "Osaka tem uma comida deliciosa (Em Osaka, a comida é gostosa)."
+        trap: [
+          "てから não é “porque”: indica só o momento (“depois que”), nunca causa.",
+          "O tempo vem do verbo final: {終|お}わってから、〜ました (passado) ou 〜ます (futuro)."
+        ]
+      },
+      {
+        id: "n1-wa-n2-ga",
+        title: "N1 は N2 が [adjetivo] です",
+        pat: "N1は N2が Adj",
+        short: "Características: descrever uma parte de N1",
+        mean: "N1 é o tópico e N2 é uma parte ou característica dele, descrita pelo adjetivo: “quanto a N1, N2 é …”.",
+        rule: "Tópico + は, característica + が, adjetivo no fim.",
+        ex: [
+          { jp: "{大阪|おおさか}は{食|た}べ{物|もの}がおいしいです。", romaji: "Oosaka wa tabemono ga oishii desu.", pt: "Osaka tem uma comida deliciosa (em Osaka, a comida é gostosa)." },
+          { jp: "マリアさんは{髪|かみ}が{長|なが}いです。", romaji: "Maria-san wa kami ga nagai desu.", pt: "A Maria tem o cabelo comprido (quanto à Maria, o cabelo é comprido)." },
+          { jp: "{奈良|なら}は{緑|みどり}が{多|おお}いです。", romaji: "Nara wa midori ga ooi desu.", pt: "Em Nara há muita vegetação." }
+        ],
+        contrast: {
+          rows: [
+            { label: "N1は N2が Adj (parte de N1)", jp: "マリアさんは{髪|かみ}が{長|なが}いです。", pt: "A Maria tem cabelo comprido. (descreve a Maria)" },
+            { label: "N は Adj (o próprio N)", jp: "マリアさんは{親切|しんせつ}です。", pt: "A Maria é gentil. (descreve a Maria diretamente)" }
+          ],
+          note: "Com N2が, o adjetivo descreve uma parte ou aspecto do tópico, não o tópico em si."
         },
-        {
-          "jp": "この{部屋|へや}は{広|ひろ}くて、{明|あか}るいです。",
-          "romaji": "Kono heya wa hirokute, akarui desu.",
-          "pt": "Este quarto é amplo e iluminado."
-        }
-      ]
-    },
-    "examples": {
-      "title": "{例文|れいぶん} (Exemplos)",
-      "items": [
-        {
-          "jp": "{昨日|きのう}{何|なに}をしましたか。<br>— {京都|きょうと}へ{行|い}って、{友達|ともだち}に{会|あ}って、{映画|えいが}を{見|み}ました。",
-          "romaji": "Kinou nani o shimashita ka. — Kyoto e itte, tomodachi ni atte, eiga o mimashita.",
-          "pt": "O que você fez ontem? — Fui a Kyoto, encontrei um amigo e assisti a um filme."
+        trap: [
+          "Não traduza como “Maria é cabelo comprido”: o adjetivo concorda com N2 (o cabelo), não com N1.",
+          "O が marca N2. Trocar por は muda para contraste e não é o padrão deste ponto."
+        ]
+      },
+      {
+        id: "ligar-adjetivos",
+        title: "{形容詞|けいようし}・{名詞|めいし}の{接続|せつぞく}",
+        pat: "Adj-くて / Adj-で / N-で",
+        short: "ligar descrições na mesma frase",
+        mean: "Une vários adjetivos ou substantivos numa frase só: “é X e Y”. A forma muda conforme o tipo de palavra.",
+        rule: "Cada tipo tem a sua terminação; a palavra final fica na forma normal (です).",
+        form: [
+          { label: "い-{形容詞|けいようし}", text: "Troque o い final por <strong>くて</strong>.", ex: [
+            { jp: "{大|おお}きい ➔ {大|おお}き<strong>くて</strong>", romaji: "ookii ➔ ookikute", pt: "grande ➔ grande e…" },
+            { tag: "exceção", jp: "いい ➔ <strong>よくて</strong>", romaji: "ii ➔ yokute", pt: "bom ➔ bom e…" }
+          ] },
+          { label: "な-{形容詞|けいようし}", text: "Troque o な (ou nada) por <strong>で</strong>.", ex: [
+            { jp: "{親切|しんせつ}な ➔ {親切|しんせつ}<strong>で</strong>", romaji: "shinsetsu na ➔ shinsetsu de", pt: "gentil ➔ gentil e…" }
+          ] },
+          { label: "{名詞|めいし}", text: "Acrescente <strong>で</strong>.", ex: [
+            { jp: "28{歳|さい} ➔ 28{歳|さい}<strong>で</strong>", romaji: "nijuuhassai ➔ nijuuhassai de", pt: "28 anos ➔ tem 28 anos e…" }
+          ] }
+        ],
+        ex: [
+          { jp: "この{部屋|へや}は{広|ひろ}くて、{明|あか}るいです。", romaji: "Kono heya wa hirokute, akarui desu.", pt: "Este quarto é amplo e iluminado." },
+          { jp: "ミラーさんは{若|わか}くて、{元気|げんき}です。", romaji: "Miraa-san wa wakakute, genki desu.", pt: "O Miller é jovem e cheio de energia." },
+          { jp: "{奈良|なら}は{静|しず}かで、{緑|みどり}が{多|おお}い{町|まち}です。", romaji: "Nara wa shizuka de, midori ga ooi machi desu.", pt: "Nara é uma cidade calma e com muita vegetação." },
+          { jp: "カリナさんは{学生|がくせい}で、{富士大学|ふじだいがく}の{留学生|りゅうがくせい}です。", romaji: "Karina-san wa gakusei de, Fuji Daigaku no ryuugakusei desu.", pt: "A Karina é estudante, intercambista da Universidade Fuji." }
+        ],
+        contrast: {
+          rows: [
+            { label: "い-adj: くて", jp: "{広|ひろ}くて、{明|あか}るい。", pt: "amplo e iluminado" },
+            { label: "な-adj: で", jp: "{静|しず}かで、きれい。", pt: "calmo e bonito" }
+          ],
+          note: "Mesmo sentido de “e”, mas い-adjetivos usam くて e な-adjetivos e substantivos usam で."
         },
-        {
-          "jp": "{大学|だいがく}までどうやって{行|い}きますか。<br>— {京都駅|きょうとえき}から16{番|ばん}のバスに{乗|の}って、{大学前|だいがくまえ}で{降|お}ります。",
-          "romaji": "Daigaku made douyatte ikimasu ka. — Kyoto-eki kara juuroku-ban no basu ni notte, Daigaku-mae de orimasu.",
-          "pt": "Como você vai até a universidade? — Da Estação de Kyoto, pego o ônibus nº 16 e desço em frente à universidade."
+        trap: [
+          "いい vira <strong>よくて</strong> (e não いくて).",
+          "な-adjetivo perde o な: {静|しず}かで, não {静|しず}かなで.",
+          "Só ligue descrições do mesmo tipo de ideia (duas qualidades positivas, por exemplo); misturar “bom” e “ruim” pede だけど/が."
+        ]
+      },
+      {
+        id: "interrogativos",
+        title: "どうやって / どの＋N / どれ",
+        pat: "どうやって V / どの N / どれ",
+        short: "como, qual pessoa/coisa, qual",
+        mean: "Três interrogativos: o meio ou passo a passo (どうやって), qual dentre vários com substantivo (どの＋N) e qual sem substantivo (どれ).",
+        rule: "どの precisa de um substantivo logo depois; どれ fica sozinho, no lugar do substantivo.",
+        form: [
+          { label: "どうやって", text: "Pergunta o meio ou o passo a passo.", ex: [
+            { jp: "{駅|えき}までどうやって{行|い}きますか。", romaji: "Eki made douyatte ikimasu ka.", pt: "Como vou até a estação?" }
+          ] },
+          { label: "どの＋{名詞|めいし}", text: "“Qual [substantivo]?”, entre 3 ou mais opções.", ex: [
+            { jp: "どの{人|ひと}ですか。", romaji: "Dono hito desu ka.", pt: "Qual pessoa?" }
+          ] },
+          { label: "どれ", text: "“Qual?” para objetos, sem substantivo depois.", ex: [
+            { jp: "あなたのカバンはどれですか。", romaji: "Anata no kaban wa dore desu ka.", pt: "Qual é a sua bolsa?" }
+          ] }
+        ],
+        ex: [
+          { jp: "{大学|だいがく}までどうやって{行|い}きますか。<br>— {京都駅|きょうとえき}から16{番|ばん}のバスに{乗|の}って、{大学前|だいがくまえ}で{降|お}ります。", romaji: "Daigaku made douyatte ikimasu ka. — Kyouto-eki kara juuroku-ban no basu ni notte, Daigaku-mae de orimasu.", pt: "Como você vai até a universidade? — Da Estação de Kyoto, pego o ônibus nº 16 e desço em frente à universidade." },
+          { jp: "マリアさんはどの{人|ひと}ですか。<br>— あの{髪|かみ}が{長|なが}い{人|ひと}です。", romaji: "Maria-san wa dono hito desu ka. — Ano kami ga nagai hito desu.", pt: "Qual pessoa é a Maria-san? — É aquela pessoa de cabelo comprido." },
+          { jp: "たろうちゃんの{自転車|じてんしゃ}はどれですか。<br>— あの{青|あお}くて、{新|あたら}しい{自転車|じてんしゃ}です。", romaji: "Tarou-chan no jitensha wa dore desu ka. — Ano aokute, atarashii jitensha desu.", pt: "Qual é a bicicleta do Taro-chan? — É aquela bicicleta azul e nova." },
+          { jp: "{奈良|なら}はどんな{町|まち}ですか。<br>— {静|しず}かで、{緑|みどり}が{多|おお}い{町|まち}です。", romaji: "Nara wa donna machi desu ka. — Shizuka de, midori ga ooi machi desu.", pt: "Que tipo de cidade é Nara? — É uma cidade calma e com muita vegetação." }
+        ],
+        contrast: {
+          rows: [
+            { label: "どの＋N (com substantivo)", jp: "どの{自転車|じてんしゃ}ですか。", pt: "Qual bicicleta?" },
+            { label: "どれ (sem substantivo)", jp: "{自転車|じてんしゃ}はどれですか。", pt: "Qual é a bicicleta?" }
+          ],
+          note: "O sentido é o mesmo. A diferença é gramatical: どの gruda no substantivo, どれ substitui o substantivo."
         },
-        {
-          "jp": "{今|いま}から{大阪|おおさか}へ{行|い}きますか。<br>— いいえ、お{昼|ひる}ごはんを{食|た}べてから、{行|い}きます。",
-          "romaji": "Ima kara Osaka e ikimasu ka. — Iie, ohirugohan o tabete kara, ikimasu.",
-          "pt": "Você vai para Osaka agora? — Não, vou depois que almoçar."
-        },
-        {
-          "jp": "マリアさんはどの{人|ひと}ですか。<br>— あの{髪|かみ}が{長|なが}い{人|ひと}です。",
-          "romaji": "Maria-san wa dono hito desu ka. — Ano kami ga nagai hito desu.",
-          "pt": "Qual pessoa é a Maria-san? — É aquela pessoa de cabelo comprido."
-        },
-        {
-          "jp": "たろうちゃんの{自転車|じてんしゃ}はどれですか。<br>— あの{青|あお}くて、{新|あたら}しい{自転車|じてんしゃ}です。",
-          "romaji": "Taro-chan no jitensha wa dore desu ka. — Ano aokute, atarashii jitensha desu.",
-          "pt": "Qual é a bicicleta do Taro-chan? — É aquela bicicleta azul e nova."
-        },
-        {
-          "jp": "{奈良|なら}はどんな{町|まち}ですか。<br>— {静|しず}かで、{緑|みどり}が{多|おお}い{町|まち}です。",
-          "romaji": "Nara wa donna machi desu ka. — Shizuka de, midori ga ooi machi desu.",
-          "pt": "Que tipo de cidade é Nara? — É uma cidade calma e com muita vegetação."
-        }
-      ]
-    }
-  },
-  "gramatica": {
-    "title": "{文法|ぶんぽう} (Gramática)",
-    "content": "\n<div class=\"card\">\n    <h3 class=\"card-header\">1. {動詞|どうし}て{形|けい}、{動詞|どうし}て{形|けい}、〜 (Sequência de ações)</h3>\n    <p>Conecta dois ou mais verbos na ordem cronológica em que as ações acontecem. O tempo verbal da frase inteira é dado pelo último verbo.</p>\n    <div class=\"item-box\"><div class=\"jp-example\">{朝|あさ}7{時|じ}に{起|お}きて、パンを{食|た}べて、{学校|がっこう}へ{行|い}きます。</div><div class=\"pt-line\">🇧🇷 Acordo às 7 da manhã, como pão e vou para a escola.</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">2. {動詞|どうし}て{形|けい} ＋ から、〜 (Depois de fazer X, faço Y)</h3>\n    <p>Indica que a segunda ação só começa depois que a primeira terminou por completo. Enfatiza a conclusão prévia de X.</p>\n    <div class=\"item-box\"><div class=\"jp-example\">{国|くに}へ{帰|かえ}ってから、{父|ちち}の{会社|かいしゃ}で{働|はたら}きます。</div><div class=\"pt-line\">🇧🇷 Depois que eu voltar para o meu país, vou trabalhar na empresa do meu pai.</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">3. N1 は N2 が [adjetivo] です (Características)</h3>\n    <p>N1 é o tópico da frase e N2 é uma parte ou característica dele, descrita pelo adjetivo.</p>\n    <div class=\"item-box\"><div class=\"jp-example\">マリアさんは{髪|かみ}が{長|なが}いです。</div><div class=\"pt-line\">🇧🇷 A Maria tem o cabelo comprido (quanto à Maria, o cabelo é comprido).</div></div>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">4. {形容詞|けいようし}・{名詞|めいし}の{接続|せつぞく} (Ligando descrições)</h3>\n    <p>Para unir vários adjetivos ou substantivos na mesma frase:</p>\n    <table class=\"grammar-table\">\n        <tr>\n            <th>い-{形容詞|けいようし}</th>\n            <td>Troca-se o い final por <strong>〜くて</strong>.<br>{大|おお}きい ➔ {大|おお}きくて<br><em>Exceção:</em> いい ➔ <strong>よくて</strong></td>\n        </tr>\n        <tr>\n            <th>な-{形容詞|けいようし}</th>\n            <td>Troca-se o な por <strong>〜で</strong>.<br>{親切|しんせつ}な ➔ {親切|しんせつ}で</td>\n        </tr>\n        <tr>\n            <th>{名詞|めいし}</th>\n            <td>Acrescenta-se <strong>〜で</strong>.<br>28{歳|さい} ➔ 28{歳|さい}で</td>\n        </tr>\n    </table>\n</div>\n<div class=\"card\">\n    <h3 class=\"card-header\">5. Interrogativos: どうやって / どの＋N / どれ</h3>\n    <table class=\"grammar-table\">\n        <tr><th>どうやって</th><td>Pergunta o meio ou o passo a passo para fazer algo.<br>{駅|えき}までどうやって{行|い}きますか。 (Como vou até a estação?)</td></tr>\n        <tr><th>どの＋{名詞|めいし}</th><td>&ldquo;Qual [substantivo]?&rdquo; Escolhe entre 3 ou mais opções, e o substantivo vem logo depois.<br>どの{人|ひと}ですか。 (Qual pessoa?)</td></tr>\n        <tr><th>どれ</th><td>&ldquo;Qual?&rdquo; Para objetos, sem o substantivo depois.<br>あなたのカバンはどれですか。 (Qual é a sua bolsa?)</td></tr>\n    </table>\n</div>\n"
+        trap: [
+          "Nunca coloque substantivo depois de どれ: errado どれ{自転車|じてんしゃ}, certo どの{自転車|じてんしゃ} ou só どれ.",
+          "どんな pergunta o tipo/característica (“que tipo de…?”); どの/どれ pedem para escolher entre opções conhecidas."
+        ]
+      }
+    ]
   },
   "renshuuA": {
     "title": "{練習|れんしゅう} A",

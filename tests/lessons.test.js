@@ -127,7 +127,7 @@ WITH_POINTS.forEach((file) => {
     test(file + ": o romaji dos exemplos existe (manual ou gerável) e a notação converte sem restos", () => {
         points.forEach((p) => p.ex.forEach((e) => {
             const r = e.romaji || N.sentenceRomaji(e.jp.replace(/<br\s*\/?>/gi, " "));
-            assert.match(r, /^[a-z' ,.!?…\-]+$/i, p.id + ": romaji estranho para " + e.jp.slice(0, 30));
+            assert.match(r, /^[a-z' ,.!?…—\-]+$/i, p.id + ": romaji estranho para " + e.jp.slice(0, 30));
             assert.ok(!/\^/.test(N.toHtml(e.jp)), p.id + ": sobrou ^ na frase");
         }));
     });
