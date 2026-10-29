@@ -14,7 +14,9 @@
 
     var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS, exam: window.JLPT_N5_EXAM });
     // Os temas "prova" (formato JLPT) são só do simulado; o treino usa os outros.
-    var practiceTopics = bank.topics.filter(function (t) { return !t.real; });
+    var TOPICS = window.I18n ? window.I18n.localize(bank.topics, window.I18n.lang()) : bank.topics;
+    function T(key, vars) { return window.I18n ? window.I18n.t(key, vars) : key; }
+    var practiceTopics = TOPICS.filter(function (t) { return !t.real; });
     var COUNTS = [5, 10, 20];
 
     var settings = { topics: practiceTopics.map(function (t) { return t.id; }), count: 10 };
@@ -35,7 +37,7 @@
     function attemptsDoc() { return window.Store ? window.Store.peek("attempts") : null; }
     // Sem voz em japonês no aparelho, as questões de escuta não funcionam (speech.js marca data-speech="off").
     function speechOff() { return document.documentElement.dataset.speech === "off"; }
-    function listeningTopic(id) { return bank.topics.filter(function (t) { return t.id === id; })[0].listening === true; }
+    function listeningTopic(id) { return TOPICS.filter(function (t) { return t.id === id; })[0].listening === true; }
     function playable(id) { var q = bank.get(id); return Boolean(q) && !q.exam && !(speechOff() && q.speak); }
 
     /* ---------- Início ---------- */
@@ -51,7 +53,7 @@
             var off = t.listening && speechOff();
             var checked = !off && settings.topics.indexOf(t.id) !== -1;
             return '<label class="topic-check' + (off ? " is-disabled" : "") + '"><input type="checkbox" name="topic" value="' + t.id + '"' + (checked ? " checked" : "") + (off ? " disabled" : "") + ">" +
-                '<span class="topic-name">' + esc(t.label) + (off ? ' <small>(precisa de voz em japonês no aparelho)</small>' : "") + '</span><span class="topic-count">' + bank.ids(t.id).length + "</span></label>";
+                '<span class="topic-name">' + esc(t.label) + (off ? ' <small>(' + T("practice.needVoice") + ')</small>' : "") + '</span><span class="topic-count">' + bank.ids(t.id).length + "</span></label>";
         }).join("");
         var counts = COUNTS.map(function (n) {
             return '<label class="seg"><input type="radio" name="count" value="' + n + '"' + (settings.count === n ? " checked" : "") + "><span>" + n + "</span></label>";
@@ -59,17 +61,17 @@
 
         root.innerHTML =
             '<section class="card practice-setup">' +
-                "<h2>Monte seu treino</h2>" +
-                '<p class="practice-lead">Escolha o que praticar. Cada resposta é corrigida na hora, com a explicação, e o resultado fica salvo neste aparelho.</p>' +
-                '<fieldset class="practice-field"><legend>Temas</legend>' + topics + "</fieldset>" +
-                '<fieldset class="practice-field"><legend>Quantidade de perguntas</legend><div class="segmented" role="group">' + counts + "</div></fieldset>" +
-                '<p class="practice-error" id="practice-error" role="alert" hidden>Marque pelo menos um tema.</p>' +
-                '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="start">Começar</button>' +
-                    (weak.length ? '<button type="button" class="btn btn-reveal" data-act="weak">Treinar pontos fracos (' + weak.length + ")</button>" : "") +
-                    (missed.length ? '<button type="button" class="btn btn-reveal" data-act="missed">Refazer erros anteriores (' + missed.length + ")</button>" : "") +
+                "<h2>" + T("practice.build") + "</h2>" +
+                '<p class="practice-lead">' + T("practice.lead") + '</p>' +
+                '<fieldset class="practice-field"><legend>' + T("practice.topics") + '</legend>' + topics + "</fieldset>" +
+                '<fieldset class="practice-field"><legend>' + T("practice.count") + '</legend><div class="segmented" role="group">' + counts + "</div></fieldset>" +
+                '<p class="practice-error" id="practice-error" role="alert" hidden>' + T("practice.pickOne") + '</p>' +
+                '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="start">' + T("practice.start") + '</button>' +
+                    (weak.length ? '<button type="button" class="btn btn-reveal" data-act="weak">' + T("practice.weak") + ' (' + weak.length + ")</button>" : "") +
+                    (missed.length ? '<button type="button" class="btn btn-reveal" data-act="missed">' + T("practice.redoMissed") + ' (' + missed.length + ")</button>" : "") +
                 "</div>" +
-                '<p class="practice-last"><a class="lesson-link" href="n5-progress.html">Ver meu desempenho →</a></p>' +
-                (last ? '<p class="practice-last">Último treino: <strong>' + last.score.correct + " de " + last.score.total + "</strong>, " + esc(new Date(last.startedAt).toLocaleDateString("pt-BR")) + ".</p>" : "") +
+                '<p class="practice-last"><a class="lesson-link" href="n5-progress.html">' + T("practice.seePerf") + '</a></p>' +
+                (last ? '<p class="practice-last">' + T("practice.last", { correct: last.score.correct, total: last.score.total, date: esc(new Date(last.startedAt).toLocaleDateString((window.I18n ? window.I18n.t("lang.locale") : "pt-BR"))) }) + "</p>" : "") +
             "</section>";
     }
 
@@ -99,12 +101,12 @@
     function startWeak() {
         var ids = window.Stats.compute(attemptsDoc(), bank).weakIds.filter(playable).slice(0, settings.count || 10);
         if (!ids.length) return renderSetup();
-        startRun(QB.shuffle(ids, newSeed()), "pontos fracos");
+        startRun(QB.shuffle(ids, newSeed()), T("practice.labelWeak"));
     }
 
     function startMissed() {
         var ids = Attempts.missedIds(attemptsDoc()).filter(function (id) { return bank.get(id) && playable(id); }).slice(0, 20);
-        startRun(QB.shuffle(ids, newSeed()), "erros anteriores");
+        startRun(QB.shuffle(ids, newSeed()), T("practice.labelMissed"));
     }
 
     /* ---------- Pergunta ---------- */
@@ -116,14 +118,14 @@
         var percent = Math.round((run.index / total) * 100);
         root.innerHTML =
             '<section class="card practice-card">' +
-                '<div class="practice-top"><span>Pergunta ' + (run.index + 1) + " de " + total + (run.label ? " • " + esc(run.label) : "") + "</span>" +
-                    '<button type="button" class="detail-btn" data-act="quit" aria-label="Sair do treino">✕</button></div>' +
+                '<div class="practice-top"><span>' + T("practice.questionOf", { i: run.index + 1, n: total }) + (run.label ? " • " + esc(run.label) : "") + "</span>" +
+                    '<button type="button" class="detail-btn" data-act="quit" aria-label="' + T("practice.quit") + '">✕</button></div>' +
                 '<div class="practice-bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" aria-valuenow="' + run.index + '"><span style="width:' + percent + '%"></span></div>' +
                 (q.glyph ? '<div class="quiz-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
                 '<p class="practice-prompt">' + rubyText(q.prompt) + "</p>" +
                 (q.speak ? QV.listenHtml(q) : "") +
                 (q.sentence ? '<div class="practice-sentence" lang="ja">' + sentenceHtml(q, null) + "</div>" : "") +
-                (q.hint ? '<div class="pt-line practice-hint">🇧🇷 ' + esc(q.hint) + "</div>" : "") +
+                (q.hint ? '<div class="pt-line practice-hint">' + T("tr.flag") + ' ' + esc(q.hint) + "</div>" : "") +
                 '<div class="quiz-options" id="practice-options">' + q.options.map(function (o, i) {
                     return '<button type="button" class="quiz-option" data-option="' + i + '" lang="ja"><span class="opt-key" aria-hidden="true">' + (i + 1) + "</span>" + rubyText(o) + "</button>";
                 }).join("") + "</div>" +
@@ -150,13 +152,13 @@
         var speakText = filled || (q.topic === "verbo-forma" ? q.options[q.answer] : null);
         var last = run.index + 1 >= run.ids.length;
         document.getElementById("practice-feedback").innerHTML =
-            '<p class="feedback-line ' + (ok ? "ok" : "bad") + '"><strong>' + (ok ? "Correto!" : "Não foi dessa vez.") + "</strong>" +
-                (ok ? "" : " A resposta certa é <span lang=\"ja\">" + rubyText(q.options[q.answer]) + "</span>.") + "</p>" +
+            '<p class="feedback-line ' + (ok ? "ok" : "bad") + '"><strong>' + (ok ? T("ex.correct") : T("kanji.notThisTime")) + "</strong>" +
+                (ok ? "" : " " + T("practice.rightIs") + " <span lang=\"ja\">" + rubyText(q.options[q.answer]) + "</span>.") + "</p>" +
             '<div class="kanji-note">' + rubyText(q.explain) + "</div>" +
             (filled ? '<div class="jp-row"><div class="romaji">' + N.sentenceRomaji(filled) + "</div>" + speakButton(filled) + "</div>"
                     : speakText ? '<div class="jp-row"><div class="romaji">' + N.toRomaji(N.readingText(speakText)) + "</div>" + speakButton(speakText) + "</div>" : "") +
             linkFor(q) +
-            '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="next" id="practice-next">' + (last ? "Ver resultado" : "Próxima") + "</button></div>";
+            '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="next" id="practice-next">' + (last ? T("kanji.seeResult") : T("kanji.next2")) + "</button></div>";
         var next = document.getElementById("practice-next");
         if (next) next.focus();
     }
@@ -190,7 +192,7 @@
         var g = run.result;
         var missed = g.items.filter(function (it) { return !it.ok; });
         var percent = g.total ? Math.round((g.correct / g.total) * 100) : 0;
-        var message = percent === 100 ? "Perfeito!" : percent >= 70 ? "Muito bem!" : percent >= 40 ? "Está no caminho." : "Vale rever com calma.";
+        var message = percent === 100 ? T("practice.m100") : percent >= 70 ? T("practice.m70") : percent >= 40 ? T("practice.m40") : T("practice.m0");
 
         var list = missed.map(function (it) {
             return QV.reviewItem(bank.get(it.id), it.chosen, { open: true });
@@ -200,11 +202,11 @@
             '<section class="card practice-card">' +
                 '<div class="quiz-score">' + g.correct + " / " + g.total + "</div>" +
                 '<p class="practice-prompt">' + message + " (" + percent + "%)</p>" +
-                (missed.length ? '<h3 class="practice-sub">Para rever (' + missed.length + ')</h3><div class="verb-list">' + list + "</div>" : '<p class="practice-prompt">Nenhum erro neste treino.</p>') +
+                (missed.length ? '<h3 class="practice-sub">' + T("practice.review", { n: missed.length }) + '</h3><div class="verb-list">' + list + "</div>" : '<p class="practice-prompt">' + T("practice.noErrors") + '</p>') +
                 '<div class="practice-actions">' +
-                    '<button type="button" class="btn btn-check" data-act="again">Treinar de novo</button>' +
-                    (missed.length ? '<button type="button" class="btn btn-reveal" data-act="retry-missed">Treinar só os erros</button>' : "") +
-                    '<button type="button" class="btn btn-reveal" data-act="setup">Mudar temas</button>' +
+                    '<button type="button" class="btn btn-check" data-act="again">' + T("practice.again") + '</button>' +
+                    (missed.length ? '<button type="button" class="btn btn-reveal" data-act="retry-missed">' + T("practice.onlyMissed") + '</button>' : "") +
+                    '<button type="button" class="btn btn-reveal" data-act="setup">' + T("practice.changeTopics") + '</button>' +
                 "</div>" +
             "</section>";
         window.scrollTo(0, 0);
@@ -222,7 +224,7 @@
             case "missed": startMissed(); break;
             case "weak": startWeak(); break;
             case "next": next(); break;
-            case "quit": if (window.confirm("Sair do treino? O progresso desta rodada não será salvo.")) renderSetup(); break;
+            case "quit": if (window.confirm(T("practice.confirmQuit"))) renderSetup(); break;
             case "again": {
                 var seed = newSeed();
                 startRun(Practice.pick(bank, { topics: settings.topics, count: settings.count, seed: seed, avoid: run.ids }));
@@ -231,7 +233,7 @@
             }
             case "retry-missed": {
                 var ids = run.result.items.filter(function (it) { return !it.ok; }).map(function (it) { return it.id; });
-                startRun(QB.shuffle(ids, newSeed()), "só os erros");
+                startRun(QB.shuffle(ids, newSeed()), T("practice.onlyMissedLabel"));
                 break;
             }
             case "setup": renderSetup(); break;

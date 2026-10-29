@@ -27,64 +27,78 @@
     var Practice = typeof module !== "undefined" && module.exports ? require("./practice.js") : root.Practice;
 
     var BLUEPRINT = [
-        { id: "vocab", label: "Kanji e vocabulário", jp: "{文字|もじ}・{語彙|ごい}",
+        { id: "vocab", label: "Kanji e vocabulário", label_en: "Kanji and vocabulary", jp: "{文字|もじ}・{語彙|ごい}",
           parts: [{ topic: "kanji-leitura", n: 6 }, { topic: "kanji-significado", n: 4 }, { topic: "verbo-significado", n: 4 }] },
-        { id: "gramatica", label: "Gramática e verbos", jp: "{文法|ぶんぽう}",
+        { id: "gramatica", label: "Gramática e verbos", label_en: "Grammar and verbs", jp: "{文法|ぶんぽう}",
           parts: [{ topic: "gramatica", n: 12 }, { topic: "verbo-forma", n: 5 }, { topic: "verbo-grupo", n: 3 }] },
-        { id: "escuta", label: "Escuta", jp: "{聴解|ちょうかい}", optional: true,
+        { id: "escuta", label: "Escuta", label_en: "Listening", jp: "{聴解|ちょうかい}", optional: true,
           parts: [{ topic: "escuta-palavra", n: 4 }, { topic: "escuta-frase", n: 4 }] }
     ];
 
     // Estrutura da prova real do N5 (jlpt.jp: 試験科目と問題の構成). `ready: false` = parte ainda não disponível aqui.
     var REAL = {
         sections: [
-            { id: "moji", label: "Escrita e vocabulário", jp: "言語知識（文字・語彙）", minutes: 20, ready: true, mondai: [
+            { id: "moji", label: "Escrita e vocabulário", label_en: "Writing and vocabulary", jp: "言語知識（文字・語彙）", minutes: 20, ready: true, mondai: [
                 { id: "m1", topic: "prova-yomi", n: 12, no: 1, name: "漢字読み",
                   instr: "＿＿＿の ことばは ひらがなで どう かきますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Como se escreve em hiragana a palavra sublinhada? Escolha a melhor entre 1, 2, 3 e 4." },
+                  pt: "Como se escreve em hiragana a palavra sublinhada? Escolha a melhor entre 1, 2, 3 e 4.",
+                  en: "How do you write the underlined word in hiragana? Choose the best answer from 1, 2, 3 and 4." },
                 { id: "m2", topic: "prova-hyouki", n: 8, no: 2, name: "表記",
                   instr: "＿＿＿の ことばは どう かきますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Como se escreve a palavra sublinhada? Escolha a melhor entre 1, 2, 3 e 4." },
+                  pt: "Como se escreve a palavra sublinhada? Escolha a melhor entre 1, 2, 3 e 4.",
+                  en: "How do you write the underlined word? Choose the best answer from 1, 2, 3 and 4." },
                 { id: "m3", topic: "prova-bunmyaku", n: 10, no: 3, name: "文脈規定",
                   instr: "（　　）に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "O que entra em (  )? Escolha a melhor entre 1, 2, 3 e 4." },
+                  pt: "O que entra em (  )? Escolha a melhor entre 1, 2, 3 e 4.",
+                  en: "What goes in (  )? Choose the best answer from 1, 2, 3 and 4." },
                 { id: "m4", topic: "prova-iikae", n: 5, no: 4, name: "言い換え類義",
                   instr: "＿＿＿の ぶんと だいたい おなじ いみの ぶんが あります。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Há uma frase com quase o mesmo sentido da frase sublinhada. Escolha a melhor entre 1, 2, 3 e 4." }
+                  pt: "Há uma frase com quase o mesmo sentido da frase sublinhada. Escolha a melhor entre 1, 2, 3 e 4.",
+                  en: "There is a sentence with almost the same meaning as the underlined sentence. Choose the best one from 1, 2, 3 and 4." }
             ] },
-            { id: "bunpo", label: "Gramática e leitura", jp: "言語知識（文法）・読解", minutes: 40, ready: true, mondai: [
+            { id: "bunpo", label: "Gramática e leitura", label_en: "Grammar and reading", jp: "言語知識（文法）・読解", minutes: 40, ready: true, mondai: [
                 { id: "g1", topic: "prova-bunpo1", n: 16, no: 1, name: "文の文法1",
                   instr: "（　　）に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "O que entra em (  )? Escolha a melhor entre 1, 2, 3 e 4." },
+                  pt: "O que entra em (  )? Escolha a melhor entre 1, 2, 3 e 4.",
+                  en: "What goes in (  )? Choose the best answer from 1, 2, 3 and 4." },
                 { id: "g2", topic: "prova-bunpo2", n: 5, no: 2, name: "文の文法2",
                   instr: "★に はいる ものは どれですか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Qual peça entra em ★? Ordene as quatro peças para formar a frase e escolha a que fica em ★." },
+                  pt: "Qual peça entra em ★? Ordene as quatro peças para formar a frase e escolha a que fica em ★.",
+                  en: "Which piece goes in ★? Order the four pieces to form the sentence and choose the one that lands in ★." },
                 { id: "g3", topic: "prova-bunpo3", n: 5, per: 5, no: 3, name: "文章の文法",
                   instr: "つぎの ぶんしょうを よんで、ぶんしょう ぜんたいの ないようを かんがえて、［1］から［5］に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Leia o texto e pense no conteúdo todo. O que entra em [1] a [5]? Escolha a melhor entre 1, 2, 3 e 4." },
+                  pt: "Leia o texto e pense no conteúdo todo. O que entra em [1] a [5]? Escolha a melhor entre 1, 2, 3 e 4.",
+                  en: "Read the text and think about its whole content. What goes in [1] to [5]? Choose the best answer from 1, 2, 3 and 4." },
                 { id: "r4", topic: "prova-dokkai-tan", n: 3, no: 4, name: "内容理解（短文）",
                   instr: "つぎの ぶんしょうを よんで、しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Leia o texto curto e responda. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                  pt: "Leia o texto curto e responda. Escolha a melhor resposta entre 1, 2, 3 e 4.",
+                  en: "Read the short text and answer. Choose the best answer from 1, 2, 3 and 4." },
                 { id: "r5", topic: "prova-dokkai-chu", n: 2, per: 2, no: 5, name: "内容理解（中文）",
                   instr: "つぎの ぶんしょうを よんで、しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Leia o texto médio e responda às duas perguntas. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                  pt: "Leia o texto médio e responda às duas perguntas. Escolha a melhor resposta entre 1, 2, 3 e 4.",
+                  en: "Read the medium-length text and answer the two questions. Choose the best answer from 1, 2, 3 and 4." },
                 { id: "r6", topic: "prova-dokkai-joho", n: 1, no: 6, name: "情報検索",
                   instr: "みぎの ページを みて、したの しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Veja a página (tabela ou aviso) e responda à pergunta. Escolha a melhor resposta entre 1, 2, 3 e 4." }
+                  pt: "Veja a página (tabela ou aviso) e responda à pergunta. Escolha a melhor resposta entre 1, 2, 3 e 4.",
+                  en: "Look at the page (table or notice) and answer the question. Choose the best answer from 1, 2, 3 and 4." }
             ] },
-            { id: "choukai", label: "Escuta", jp: "聴解", minutes: 30, ready: true, needsSpeech: true, mondai: [
+            { id: "choukai", label: "Escuta", label_en: "Listening", jp: "聴解", minutes: 30, ready: true, needsSpeech: true, mondai: [
                 { id: "l1", topic: "prova-choukai1", n: 7, no: 1, name: "課題理解",
                   instr: "はじめに しつもんを きいて ください。それから はなしを きいて、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Primeiro ouça a pergunta, depois a conversa. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                  pt: "Primeiro ouça a pergunta, depois a conversa. Escolha a melhor resposta entre 1, 2, 3 e 4.",
+                  en: "First listen to the question, then to the conversation. Choose the best answer from 1, 2, 3 and 4." },
                 { id: "l2", topic: "prova-choukai2", n: 6, no: 2, name: "ポイント理解",
                   instr: "はじめに しつもんを きいて ください。それから はなしを きいて、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Primeiro ouça a pergunta, depois a conversa, atento ao ponto perguntado. Escolha a melhor resposta entre 1, 2, 3 e 4." },
+                  pt: "Primeiro ouça a pergunta, depois a conversa, atento ao ponto perguntado. Escolha a melhor resposta entre 1, 2, 3 e 4.",
+                  en: "First listen to the question, then to the conversation, paying attention to the point asked. Choose the best answer from 1, 2, 3 and 4." },
                 { id: "l3", topic: "prova-choukai3", n: 5, no: 3, name: "発話表現",
                   instr: "えを みながら しつもんを きいて ください。なんと いいますか。1・2・3から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Olhe a figura e ouça a situação. O que se diz? Escolha a melhor fala entre 1, 2 e 3 (só em áudio)." },
+                  pt: "Olhe a figura e ouça a situação. O que se diz? Escolha a melhor fala entre 1, 2 e 3 (só em áudio).",
+                  en: "Look at the picture and listen to the situation. What do you say? Choose the best line from 1, 2 and 3 (audio only)." },
                 { id: "l4", topic: "prova-choukai4", n: 6, no: 4, name: "即時応答",
                   instr: "ぶんを きいて ください。その ぶんに たいする へんじを 1・2・3から いちばん いい ものを ひとつ えらんで ください。",
-                  pt: "Ouça a frase e escolha a melhor resposta entre 1, 2 e 3 (só em áudio)." }
+                  pt: "Ouça a frase e escolha a melhor resposta entre 1, 2 e 3 (só em áudio).",
+                  en: "Listen to the sentence and choose the best reply from 1, 2 and 3 (audio only)." }
             ] }
         ]
     };
@@ -145,8 +159,8 @@
     }
 
     var SIZES = {
-        full: { label: "Completo", minutes: 30, half: false },
-        short: { label: "Curto", minutes: 15, half: true }
+        full: { label: "Completo", label_en: "Full", minutes: 30, half: false },
+        short: { label: "Curto", label_en: "Short", minutes: 15, half: true }
     };
 
     // Pontuação oficial do N5 (jlpt.jp): língua e leitura 0-120 (mínimo 38), escuta 0-60 (mínimo 19), total 180, aprovação 80.
