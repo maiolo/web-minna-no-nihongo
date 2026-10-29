@@ -38,38 +38,47 @@
     var TA = { "う": "った", "つ": "った", "る": "った", "む": "んだ", "ぶ": "んだ", "ぬ": "んだ", "く": "いた", "ぐ": "いだ", "す": "した" };
 
     var FORMS = [
-        { id: "dict", jp: "<ruby>辞書形<rt>じしょけい</rt></ruby>", pt: "Forma de dicionário" },
-        { id: "masu", jp: "ます<ruby>形<rt>けい</rt></ruby>", pt: "Educada, afirmativa" },
-        { id: "masen", jp: "ません", pt: "Educada, negativa" },
-        { id: "mashita", jp: "ました", pt: "Educada, passado" },
-        { id: "masendeshita", jp: "ませんでした", pt: "Educada, passado negativo" },
-        { id: "te", jp: "て<ruby>形<rt>けい</rt></ruby>", pt: "Forma em て (ligar frases, pedidos)" },
-        { id: "teiru", jp: "ています", pt: "Ação em andamento ou estado" },
-        { id: "ta", jp: "た<ruby>形<rt>けい</rt></ruby>", pt: "Passado informal" },
-        { id: "nai", jp: "ない<ruby>形<rt>けい</rt></ruby>", pt: "Negativa informal" },
-        { id: "nakatta", jp: "なかった", pt: "Passado negativo informal" },
-        { id: "tai", jp: "たい", pt: "Querer fazer" },
-        { id: "mashou", jp: "ましょう", pt: "Vamos fazer (convite)" }
+        { id: "dict", jp: "<ruby>辞書形<rt>じしょけい</rt></ruby>", pt: "Forma de dicionário", en: "Dictionary form" },
+        { id: "masu", jp: "ます<ruby>形<rt>けい</rt></ruby>", pt: "Educada, afirmativa", en: "Polite, affirmative" },
+        { id: "masen", jp: "ません", pt: "Educada, negativa", en: "Polite, negative" },
+        { id: "mashita", jp: "ました", pt: "Educada, passado", en: "Polite, past" },
+        { id: "masendeshita", jp: "ませんでした", pt: "Educada, passado negativo", en: "Polite, past negative" },
+        { id: "te", jp: "て<ruby>形<rt>けい</rt></ruby>", pt: "Forma em て (ligar frases, pedidos)", en: "て form (linking sentences, requests)" },
+        { id: "teiru", jp: "ています", pt: "Ação em andamento ou estado", en: "Ongoing action or state" },
+        { id: "ta", jp: "た<ruby>形<rt>けい</rt></ruby>", pt: "Passado informal", en: "Informal past" },
+        { id: "nai", jp: "ない<ruby>形<rt>けい</rt></ruby>", pt: "Negativa informal", en: "Informal negative" },
+        { id: "nakatta", jp: "なかった", pt: "Passado negativo informal", en: "Informal past negative" },
+        { id: "tai", jp: "たい", pt: "Querer fazer", en: "Want to do" },
+        { id: "mashou", jp: "ましょう", pt: "Vamos fazer (convite)", en: "Let's do it (invitation)" }
     ];
 
     var GROUPS = {
         1: {
             label: "Grupo 1",
+            label_en: "Group 1",
             jp: "<ruby>五段<rt>ごだん</rt></ruby>",
             title: "Verbos de consoante (五段)",
-            rule: "Terminam em う, く, ぐ, す, つ, ぬ, ぶ, む ou る. A última sílaba muda de coluna: 書く → 書きます, 書かない. O て形 muda por terminação (書いて, 読んで, 待って)."
+            title_en: "Consonant verbs (五段)",
+            rule: "Terminam em う, く, ぐ, す, つ, ぬ, ぶ, む ou る. A última sílaba muda de coluna: 書く → 書きます, 書かない. O て形 muda por terminação (書いて, 読んで, 待って).",
+            rule_en: "They end in う, く, ぐ, す, つ, ぬ, ぶ, む or る. The last syllable changes column: 書く → 書きます, 書かない. The て form changes by ending (書いて, 読んで, 待って)."
         },
         2: {
             label: "Grupo 2",
+            label_en: "Group 2",
             jp: "<ruby>一段<rt>いちだん</rt></ruby>",
             title: "Verbos de vogal (一段)",
-            rule: "Terminam em いる ou える. Tira-se る e acrescenta-se o resto: 食べる → 食べます, 食べて, 食べない."
+            title_en: "Vowel verbs (一段)",
+            rule: "Terminam em いる ou える. Tira-se る e acrescenta-se o resto: 食べる → 食べます, 食べて, 食べない.",
+            rule_en: "They end in いる or える. Drop る and add the rest: 食べる → 食べます, 食べて, 食べない."
         },
         3: {
             label: "Grupo 3",
+            label_en: "Group 3",
             jp: "<ruby>不規則<rt>ふきそく</rt></ruby>",
             title: "Verbos irregulares (不規則)",
-            rule: "Só dois: する (fazer) e 来る (くる, vir). Todo verbo «substantivo + する», como 勉強する, conjuga como する."
+            title_en: "Irregular verbs (不規則)",
+            rule: "Só dois: する (fazer) e 来る (くる, vir). Todo verbo «substantivo + する», como 勉強する, conjuga como する.",
+            rule_en: "Only two: する (to do) and 来る (くる, to come). Every “noun + する” verb, like 勉強する, conjugates like する."
         }
     };
 

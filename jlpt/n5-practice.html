@@ -27,7 +27,7 @@
     </main>
 
     <footer>
-        みんなの日本語 • versão web para estudo
+        <span data-i18n="home.footer">みんなの日本語 • versão web para estudo</span>
     </footer>
 
     <script src="data/n5-verbs.js"></script>
@@ -52,9 +52,9 @@
         SiteHeader.render(document.getElementById("page-header"), {
             stamp: "練",
             title: 'JLPT N5 - <ruby>練習<rt>れんしゅう</rt></ruby>',
-            back: { href: "index.html", label: "Voltar ao JLPT" },
+            back: { href: "index.html", label: I18n.t("jlpt.back") },
             crumbs: [
-                { label: "Início", href: "../index.html" },
+                { label: I18n.t("lesson.home"), href: "../index.html" },
                 { label: "JLPT", href: "index.html" },
                 { label: "<ruby>練習<rt>れんしゅう</rt></ruby> N5" }
             ]

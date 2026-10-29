@@ -10,16 +10,17 @@
     "use strict";
 
     var body = document.body;
-    var points = window[body.dataset.global] || [];
+    var points = (window.I18n ? window.I18n.localize(window[body.dataset.global] || [], window.I18n.lang()) : (window[body.dataset.global] || []));
+    function T(key, vars) { return window.I18n ? window.I18n.t(key, vars) : key; }
     var N = window.Notation;
     var lessons = window.LESSONS || [];
 
     var CATEGORIES = [
-        { id: "all", label: "Todos" },
-        { id: "particulas", label: "Partículas" },
-        { id: "frases", label: "Frases" },
-        { id: "verbos", label: "Formas verbais" },
-        { id: "adjetivos", label: "Adjetivos" }
+        { id: "all", label: T("common.all") },
+        { id: "particulas", label: T("gram.cat.particulas") },
+        { id: "frases", label: T("gram.cat.frases") },
+        { id: "verbos", label: T("gram.cat.verbos") },
+        { id: "adjetivos", label: T("gram.cat.adjetivos") }
     ];
 
     var SPEAKER =
@@ -43,7 +44,7 @@
 
     function speakButton(notation) {
         var text = N.readingText(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "");
-        return '<button type="button" class="speak-btn" data-speak="' + esc(text) + '" aria-label="Ouvir a frase" title="Ouvir">' + SPEAKER + "</button>";
+        return '<button type="button" class="speak-btn" data-speak="' + esc(text) + '" aria-label="' + T("kanji.listenSentence") + '" title="' + T("lesson.listen") + '">' + SPEAKER + "</button>";
     }
 
     function lessonOf(p) {
@@ -69,7 +70,7 @@
     }
 
     function renderItem(p) {
-        var tag = lessonOf(p) ? '<span class="group-badge g2">Lição ' + p.lesson + "</span>" : "";
+        var tag = lessonOf(p) ? '<span class="group-badge g2">' + T("home.lessonN", { n: p.lesson }) + "</span>" : "";
         return '<details class="verb-item gram-item" id="' + p.id + '" data-id="' + p.id + '">' +
             "<summary>" +
                 '<span class="gram-head"><span class="gram-pat" lang="ja">' + ruby(p.pat) + "</span>" +
@@ -84,13 +85,13 @@
         var examples = p.ex.map(function (e) {
             return '<li class="example"><div class="jp-row"><div class="jp-example" lang="ja">' + N.toRuby(e[0]) + "</div>" + speakButton(e[0]) + "</div>" +
                 '<div class="romaji">' + N.sentenceRomaji(e[0]) + "</div>" +
-                '<div class="pt-line">🇧🇷 ' + esc(e[1]) + "</div></li>";
+                '<div class="pt-line">' + T("tr.flag") + ' ' + esc(e[1]) + "</div></li>";
         }).join("");
         return '<p class="gram-mean"><strong>' + ruby(esc(p.mean)) + "</strong></p>" +
             '<p class="gram-rule">' + ruby(esc(p.rule)) + "</p>" +
             '<ul class="example-list">' + examples + "</ul>" +
             (p.note ? '<div class="kanji-note">' + ruby(esc(p.note)) + "</div>" : "") +
-            (lesson ? '<a class="lesson-link" href="../lessons/' + lesson.file + '#gramatica">Ver na lição ' + lesson.number + " →</a>" : "");
+            (lesson ? '<a class="lesson-link" href="../lessons/' + lesson.file + '#gramatica">' + T("gram.seeLesson", { n: lesson.number }) + "</a>" : "");
     }
 
     function fill(item) {
@@ -104,7 +105,7 @@
         var found = visiblePoints();
         document.getElementById("gram-list").innerHTML = found.map(renderItem).join("");
         document.getElementById("gram-count").textContent =
-            found.length === points.length ? points.length + " pontos" : found.length + " de " + points.length + " pontos";
+            found.length === points.length ? T("gram.count", { n: points.length }) : T("gram.countOf", { n: found.length, total: points.length });
         document.getElementById("gram-empty").hidden = found.length > 0;
     }
 

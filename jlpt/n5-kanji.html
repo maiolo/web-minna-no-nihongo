@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23B0281F%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2770%27 text-anchor=%27middle%27 fill=%27white%27%3E日%3C/text%3E%3C/svg%3E">
-    <title>JLPT N5 - 漢字 (Lista de Kanji)</title>
+    <title data-i18n="kanji.title">JLPT N5 - 漢字 (Lista de Kanji)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
@@ -24,28 +24,28 @@
 
     <main>
         <details class="card kanji-intro">
-            <summary>Como usar esta página</summary>
-            <p>Cada quadrado é um kanji. <strong>Toque em um kanji</strong> para ver o significado, as leituras e as frases de exemplo (no computador o painel fica ao lado; no celular ele sobe de baixo). O kanji destacado em amarelo nas frases é o do quadrado, e a etiqueta acima da frase diz qual leitura está sendo usada.</p>
+            <summary data-i18n="common.howTo">Como usar esta página</summary>
+            <p data-i18n-html="kanji.intro1">Cada quadrado é um kanji. <strong>Toque em um kanji</strong> para ver o significado, as leituras e as frases de exemplo (no computador o painel fica ao lado; no celular ele sobe de baixo). O kanji destacado em amarelo nas frases é o do quadrado, e a etiqueta acima da frase diz qual leitura está sendo usada.</p>
             <div class="kanji-legend">
-                <div class="legend-item"><span class="read-label on">音 On</span> <strong>On'yomi</strong> (katakana): leitura de origem chinesa. Aparece em palavras formadas por dois ou mais kanji, como 学校 (がっこう).</div>
-                <div class="legend-item"><span class="read-label kun">訓 Kun</span> <strong>Kun'yomi</strong> (hiragana): leitura japonesa. Aparece sozinho ou com okurigana, como 食べる (たべる). O que está entre parênteses é o okurigana: た(べる).</div>
+                <div class="legend-item" data-i18n-html="kanji.legendOn"><span class="read-label on">音 On</span> <strong>On'yomi</strong> (katakana): leitura de origem chinesa. Aparece em palavras formadas por dois ou mais kanji, como 学校 (がっこう).</div>
+                <div class="legend-item" data-i18n-html="kanji.legendKun"><span class="read-label kun">訓 Kun</span> <strong>Kun'yomi</strong> (hiragana): leitura japonesa. Aparece sozinho ou com okurigana, como 食べる (たべる). O que está entre parênteses é o okurigana: た(べる).</div>
             </div>
-            <p>Marque <strong>Já sei</strong> nos que você domina e use o filtro para focar só no que falta. O botão <strong>Praticar</strong> faz um quiz com os kanji que você ainda não marcou.</p>
-            <p>A lista tem <strong>103 kanji</strong>. O JLPT deixou de publicar listas oficiais de kanji em 2010, então esta é uma lista de referência muito usada em materiais de estudo, não uma lista oficial. As frases e explicações são próprias deste projeto.</p>
+            <p data-i18n-html="kanji.intro2">Marque <strong>Já sei</strong> nos que você domina e use o filtro para focar só no que falta. O botão <strong>Praticar</strong> faz um quiz com os kanji que você ainda não marcou.</p>
+            <p data-i18n-html="kanji.intro3">A lista tem <strong>103 kanji</strong>. O JLPT deixou de publicar listas oficiais de kanji em 2010, então esta é uma lista de referência muito usada em materiais de estudo, não uma lista oficial. As frases e explicações são próprias deste projeto.</p>
         </details>
 
-        <section class="kanji-controls" id="kanji-controls" aria-label="Busca e filtros">
+        <section class="kanji-controls" id="kanji-controls" data-i18n-attr="aria-label:common.searchFilters" aria-label="Busca e filtros">
             <div class="kanji-searchbar">
                 <input type="search" id="kanji-search" class="input-text" autocomplete="off" autocapitalize="off"
-                       aria-label="Buscar kanji" placeholder="Buscar por kanji, significado ou leitura (ex.: água, みず, mizu)">
+                       data-i18n-attr="aria-label:kanji.search;placeholder:kanji.searchPh" aria-label="Buscar kanji" placeholder="Buscar por kanji, significado ou leitura (ex.: água, みず, mizu)">
             </div>
             <div class="kanji-filters">
-                <div class="segmented status-filter" role="group" aria-label="Mostrar">
-                    <label class="seg"><input type="radio" name="kanji-status" value="all" checked><span>Todos</span></label>
-                    <label class="seg"><input type="radio" name="kanji-status" value="learning"><span>Estudando</span></label>
-                    <label class="seg"><input type="radio" name="kanji-status" value="known"><span>Já sei</span></label>
+                <div class="segmented status-filter" role="group" data-i18n-attr="aria-label:kanji.show" aria-label="Mostrar">
+                    <label class="seg"><input type="radio" name="kanji-status" value="all" checked><span data-i18n="common.all">Todos</span></label>
+                    <label class="seg"><input type="radio" name="kanji-status" value="learning"><span data-i18n="kanji.learning">Estudando</span></label>
+                    <label class="seg"><input type="radio" name="kanji-status" value="known"><span data-i18n="kanji.known">Já sei</span></label>
                 </div>
-                <button type="button" class="btn btn-check" id="quiz-open">Praticar</button>
+                <button type="button" class="btn btn-check" id="quiz-open" data-i18n="kanji.practice">Praticar</button>
             </div>
             <div class="kanji-chips" id="kanji-chips"></div>
             <div class="kanji-count" id="kanji-count" aria-live="polite"></div>
@@ -53,16 +53,16 @@
 
         <div class="kanji-layout">
             <div class="kanji-grid" id="kanji-list"></div>
-            <aside class="kanji-detail" id="kanji-detail" aria-label="Detalhes do kanji"></aside>
+            <aside class="kanji-detail" id="kanji-detail" data-i18n-attr="aria-label:kanji.details" aria-label="Detalhes do kanji"></aside>
         </div>
         <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
-        <p class="empty-state" id="kanji-empty" hidden>Nenhum kanji encontrado. Tente outra busca ou outro filtro.</p>
+        <p class="empty-state" id="kanji-empty" hidden data-i18n="kanji.empty">Nenhum kanji encontrado. Tente outra busca ou outro filtro.</p>
     </main>
 
     <dialog id="quiz-dialog" class="quiz-dialog" aria-labelledby="quiz-title"></dialog>
 
     <footer>
-        みんなの日本語 • versão web para estudo
+        <span data-i18n="home.footer">みんなの日本語 • versão web para estudo</span>
     </footer>
 
     <script src="data/n5-kanji-1.js"></script>
@@ -78,9 +78,9 @@
         SiteHeader.render(document.getElementById("page-header"), {
             stamp: "N5",
             title: 'JLPT <span id="level-label">N5</span> - <ruby>漢字<rt>かんじ</rt></ruby>',
-            back: { href: "index.html", label: "Voltar ao JLPT" },
+            back: { href: "index.html", label: I18n.t("jlpt.back") },
             crumbs: [
-                { label: "Início", href: "../index.html" },
+                { label: I18n.t("lesson.home"), href: "../index.html" },
                 { label: "JLPT", href: "index.html" },
                 { label: "<ruby>漢字<rt>かんじ</rt></ruby> N5" }
             ]

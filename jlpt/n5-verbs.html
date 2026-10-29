@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23B0281F%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2770%27 text-anchor=%27middle%27 fill=%27white%27%3E日%3C/text%3E%3C/svg%3E">
-    <title>JLPT N5 - 動詞 (Verbos)</title>
+    <title data-i18n="verbs.title">JLPT N5 - 動詞 (Verbos)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
@@ -24,28 +24,28 @@
 
     <main>
         <details class="card kanji-intro" open>
-            <summary>Os três grupos de verbos</summary>
-            <p>Todo verbo japonês pertence a um de três grupos, e o grupo decide como ele conjuga. Descobrir o grupo é o primeiro passo; depois as regras valem para todos os verbos dele.</p>
+            <summary data-i18n="verbs.groupsTitle">Os três grupos de verbos</summary>
+            <p data-i18n="verbs.intro1">Todo verbo japonês pertence a um de três grupos, e o grupo decide como ele conjuga. Descobrir o grupo é o primeiro passo; depois as regras valem para todos os verbos dele.</p>
             <div class="group-cards" id="verb-groups"></div>
-            <p><strong>Atenção:</strong> alguns verbos do grupo 1 terminam como os do grupo 2 (帰る, 入る, 走る, 知る, 切る, 要る). Por isso o grupo de cada verbo está marcado na lista. Tem dúvida? Abra o verbo e veja a tabela.</p>
+            <p data-i18n-html="verbs.intro2"><strong>Atenção:</strong> alguns verbos do grupo 1 terminam como os do grupo 2 (帰る, 入る, 走る, 知る, 切る, 要る). Por isso o grupo de cada verbo está marcado na lista. Tem dúvida? Abra o verbo e veja a tabela.</p>
         </details>
 
-        <section class="kanji-controls" aria-label="Busca e filtros">
+        <section class="kanji-controls" data-i18n-attr="aria-label:common.searchFilters" aria-label="Busca e filtros">
             <div class="kanji-searchbar">
                 <input type="search" id="verb-search" class="input-text" autocomplete="off" autocapitalize="off"
-                       aria-label="Buscar verbo" placeholder="Buscar por verbo, significado ou leitura (ex.: comer, たべる, taberu)">
+                       data-i18n-attr="aria-label:verbs.search;placeholder:verbs.searchPh" aria-label="Buscar verbo" placeholder="Buscar por verbo, significado ou leitura (ex.: comer, たべる, taberu)">
             </div>
             <div class="kanji-chips" id="verb-chips"></div>
             <div class="kanji-count" id="verb-count" aria-live="polite"></div>
         </section>
 
         <div class="verb-list" id="verb-list"></div>
-        <p class="empty-state" id="verb-empty" hidden>Nenhum verbo encontrado. Tente outra busca ou outro grupo.</p>
-        <p class="verb-source">As formas são geradas por regras e testadas automaticamente. A lista é de referência (o JLPT não publica lista oficial de vocabulário); as frases são próprias deste projeto.</p>
+        <p class="empty-state" id="verb-empty" hidden data-i18n="verbs.empty">Nenhum verbo encontrado. Tente outra busca ou outro grupo.</p>
+        <p class="verb-source" data-i18n="verbs.source">As formas são geradas por regras e testadas automaticamente. A lista é de referência (o JLPT não publica lista oficial de vocabulário); as frases são próprias deste projeto.</p>
     </main>
 
     <footer>
-        みんなの日本語 • versão web para estudo
+        <span data-i18n="home.footer">みんなの日本語 • versão web para estudo</span>
     </footer>
 
     <script src="data/n5-verbs.js"></script>
@@ -58,9 +58,9 @@
         SiteHeader.render(document.getElementById("page-header"), {
             stamp: "動",
             title: 'JLPT N5 - <ruby>動詞<rt>どうし</rt></ruby>',
-            back: { href: "index.html", label: "Voltar ao JLPT" },
+            back: { href: "index.html", label: I18n.t("jlpt.back") },
             crumbs: [
-                { label: "Início", href: "../index.html" },
+                { label: I18n.t("lesson.home"), href: "../index.html" },
                 { label: "JLPT", href: "index.html" },
                 { label: "<ruby>動詞<rt>どうし</rt></ruby> N5" }
             ]
