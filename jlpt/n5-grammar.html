@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23B0281F%27/%3E%3Ctext x=%2750%27 y=%2772%27 font-size=%2770%27 text-anchor=%27middle%27 fill=%27white%27%3E日%3C/text%3E%3C/svg%3E">
-    <title>JLPT N5 - 文法 (Gramática)</title>
+    <title data-i18n="gram.title">JLPT N5 - 文法 (Gramática)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
@@ -24,28 +24,28 @@
 
     <main>
         <details class="card kanji-intro">
-            <summary>Como usar esta página</summary>
-            <p>Cada linha é um ponto de gramática do N5. <strong>Toque nela</strong> para ver o que expressa, como se forma e frases de exemplo com furigana, romaji e áudio. Cada ponto abre separadamente.</p>
-            <p>São cartões curtos e próprios deste projeto, para consulta e revisão. Quando o ponto é explicado em uma das lições do site, aparece a etiqueta <strong>Lição N</strong> e, dentro do cartão, o link <strong>Ver na lição</strong>. As lições seguem o Minna no Nihongo; aqui o foco é o que costuma cair no JLPT.</p>
-            <p>Para as formas dos verbos (ます, て, ない, た...), use a <a href="n5-verbs.html">página de verbos</a>.</p>
+            <summary data-i18n="common.howTo">Como usar esta página</summary>
+            <p data-i18n-html="gram.intro1">Cada linha é um ponto de gramática do N5. <strong>Toque nela</strong> para ver o que expressa, como se forma e frases de exemplo com furigana, romaji e áudio. Cada ponto abre separadamente.</p>
+            <p data-i18n-html="gram.intro2">São cartões curtos e próprios deste projeto, para consulta e revisão. Quando o ponto é explicado em uma das lições do site, aparece a etiqueta <strong>Lição N</strong> e, dentro do cartão, o link <strong>Ver na lição</strong>. As lições seguem o Minna no Nihongo; aqui o foco é o que costuma cair no JLPT.</p>
+            <p data-i18n-html="gram.intro3">Para as formas dos verbos (ます, て, ない, た...), use a <a href="n5-verbs.html">página de verbos</a>.</p>
         </details>
 
-        <section class="kanji-controls" aria-label="Busca e filtros">
+        <section class="kanji-controls" data-i18n-attr="aria-label:common.searchFilters" aria-label="Busca e filtros">
             <div class="kanji-searchbar">
                 <input type="search" id="gram-search" class="input-text" autocomplete="off" autocapitalize="off"
-                       aria-label="Buscar ponto de gramática" placeholder="Buscar por padrão, significado ou palavra (ex.: antes de, てから, motivo)">
+                       data-i18n-attr="aria-label:gram.search;placeholder:gram.searchPh" aria-label="Buscar ponto de gramática" placeholder="Buscar por padrão, significado ou palavra (ex.: antes de, てから, motivo)">
             </div>
             <div class="kanji-chips" id="gram-chips"></div>
             <div class="kanji-count" id="gram-count" aria-live="polite"></div>
         </section>
 
         <div class="verb-list" id="gram-list"></div>
-        <p class="empty-state" id="gram-empty" hidden>Nenhum ponto encontrado. Tente outra busca ou outra categoria.</p>
-        <p class="verb-source">Lista de referência dos pontos mais comuns do N5 (o JLPT não publica uma lista oficial de gramática). Explicações e frases são próprias deste projeto.</p>
+        <p class="empty-state" id="gram-empty" hidden data-i18n="gram.empty">Nenhum ponto encontrado. Tente outra busca ou outra categoria.</p>
+        <p class="verb-source" data-i18n="gram.source">Lista de referência dos pontos mais comuns do N5 (o JLPT não publica uma lista oficial de gramática). Explicações e frases são próprias deste projeto.</p>
     </main>
 
     <footer>
-        みんなの日本語 • versão web para estudo
+        <span data-i18n="home.footer">みんなの日本語 • versão web para estudo</span>
     </footer>
 
     <script src="data/n5-grammar.js"></script>
@@ -58,9 +58,9 @@
         SiteHeader.render(document.getElementById("page-header"), {
             stamp: "文",
             title: 'JLPT N5 - <ruby>文法<rt>ぶんぽう</rt></ruby>',
-            back: { href: "index.html", label: "Voltar ao JLPT" },
+            back: { href: "index.html", label: I18n.t("jlpt.back") },
             crumbs: [
-                { label: "Início", href: "../index.html" },
+                { label: I18n.t("lesson.home"), href: "../index.html" },
                 { label: "JLPT", href: "index.html" },
                 { label: "<ruby>文法<rt>ぶんぽう</rt></ruby> N5" }
             ]

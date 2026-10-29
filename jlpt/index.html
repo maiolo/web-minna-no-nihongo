@@ -23,12 +23,12 @@
     <header id="page-header"></header>
 
     <main>
-        <p class="page-intro"><ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby><ruby>能<rt>のう</rt></ruby><ruby>力<rt>りょく</rt></ruby><ruby>試<rt>し</rt></ruby><ruby>験<rt>けん</rt></ruby> • Material de apoio para o Exame de Proficiência em Língua Japonesa.</p>
+        <p class="page-intro"><ruby>日<rt>に</rt></ruby><ruby>本<rt>ほん</rt></ruby><ruby>語<rt>ご</rt></ruby><ruby>能<rt>のう</rt></ruby><ruby>力<rt>りょく</rt></ruby><ruby>試<rt>し</rt></ruby><ruby>験<rt>けん</rt></ruby> • <span data-i18n="jlpt.intro">Material de apoio para o Exame de Proficiência em Língua Japonesa.</span></p>
         <div id="jlpt-sections"></div>
     </main>
 
     <footer>
-        みんなの日本語 • versão web para estudo
+        <span data-i18n="home.footer">みんなの日本語 • versão web para estudo</span>
     </footer>
 
     <script src="../assets/js/settings-panel.js"></script>
@@ -37,8 +37,8 @@
         SiteHeader.render(document.getElementById("page-header"), {
             stamp: "試",
             title: "JLPT",
-            back: { href: "../index.html", label: "Voltar ao início" },
-            crumbs: [{ label: "Início", href: "../index.html" }, { label: "JLPT" }]
+            back: { href: "../index.html", label: I18n.t("jlpt.backHome") },
+            crumbs: [{ label: I18n.t("lesson.home"), href: "../index.html" }, { label: "JLPT" }]
         });
     </script>
     <script src="../assets/js/jlpt-index.js"></script>
@@ -47,7 +47,7 @@
             var host = document.getElementById("jlpt-sections");
             var pages = window.JLPT_PAGES || [], groups = window.JLPT_GROUPS || [];
             if (!pages.length) {
-                host.innerHTML = '<p class="empty-state">Nenhuma página disponível ainda.</p>';
+                host.innerHTML = '<p class="empty-state">' + I18n.t("jlpt.none") + '</p>';
                 return;
             }
             function card(p) {
@@ -56,10 +56,10 @@
                     '<p class="lesson-desc">' + p.description + "</p>";
                 if (p.status === "soon") {
                     return '<li><div class="lesson-card is-soon" aria-disabled="true">' + inner +
-                        '<span class="soon-tag">Em breve</span></div></li>';
+                        '<span class="soon-tag">' + I18n.t("status.soon") + '</span></div></li>';
                 }
                 return '<li><a class="lesson-card" href="' + p.file + '">' + inner +
-                    '<span class="lesson-go">Abrir página →</span></a></li>';
+                    '<span class="lesson-go">' + I18n.t("jlpt.openPage") + '</span></a></li>';
             }
             host.innerHTML = groups.map(function (g) {
                 var items = pages.filter(function (p) { return p.group === g.id; });

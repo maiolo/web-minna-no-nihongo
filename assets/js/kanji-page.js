@@ -13,19 +13,20 @@
     "use strict";
 
     var body = document.body;
-    var kanjiList = window[body.dataset.global] || [];
+    var kanjiList = (window.I18n ? window.I18n.localize(window[body.dataset.global] || [], window.I18n.lang()) : (window[body.dataset.global] || []));
+    function T(key, vars) { return window.I18n ? window.I18n.t(key, vars) : key; }
     var level = body.dataset.level || "N5";
 
     var CATEGORIES = [
-        { id: "numeros", label: "Números" },
-        { id: "tempo", label: "Tempo" },
-        { id: "natureza", label: "Natureza" },
-        { id: "pessoas", label: "Pessoas" },
-        { id: "corpo", label: "Corpo" },
-        { id: "posicao", label: "Posição e direção" },
-        { id: "verbos", label: "Verbos" },
-        { id: "adjetivos", label: "Adjetivos" },
-        { id: "sociedade", label: "Lugares, estudo e coisas" }
+        { id: "numeros", label: T("kanji.cat.numeros") },
+        { id: "tempo", label: T("kanji.cat.tempo") },
+        { id: "natureza", label: T("kanji.cat.natureza") },
+        { id: "pessoas", label: T("kanji.cat.pessoas") },
+        { id: "corpo", label: T("kanji.cat.corpo") },
+        { id: "posicao", label: T("kanji.cat.posicao") },
+        { id: "verbos", label: T("kanji.cat.verbos") },
+        { id: "adjetivos", label: T("kanji.cat.adjetivos") },
+        { id: "sociedade", label: T("kanji.cat.sociedade") }
     ];
 
     /* ---------- Notação e romaji (assets/js/notation.js) ---------- */
@@ -76,7 +77,7 @@
     function speakButton(notation) {
         var text = readingText(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "")
             .replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        return '<button type="button" class="speak-btn" data-speak="' + text + '" aria-label="Ouvir a frase" title="Ouvir">' + SPEAKER + "</button>";
+        return '<button type="button" class="speak-btn" data-speak="' + text + '" aria-label="' + T("kanji.listenSentence") + '" title="' + T("lesson.listen") + '">' + SPEAKER + "</button>";
     }
 
     function renderTile(entry) {
@@ -96,27 +97,27 @@
                 '<span class="read-tag ' + kind + '">' + e[0] + "</span>" +
                 '<div class="jp-row"><div class="jp-example">' + toRuby(e[1], entry.k) + "</div>" + speakButton(e[1]) + "</div>" +
                 '<div class="romaji">' + sentenceRomaji(e[1]) + "</div>" +
-                '<div class="pt-line">🇧🇷 ' + e[2] + "</div>" +
+                '<div class="pt-line">' + T("tr.flag") + ' ' + e[2] + "</div>" +
             "</li>";
         }).join("");
         var known = isKnown(entry.k);
         return '<div class="detail-top">' +
                 '<div class="detail-nav">' +
-                    '<button type="button" class="detail-btn" data-step="-1" aria-label="Kanji anterior"' + (i <= 0 ? " disabled" : "") + ">‹</button>" +
-                    '<button type="button" class="detail-btn" data-step="1" aria-label="Próximo kanji"' + (i === -1 || i >= visible.length - 1 ? " disabled" : "") + ">›</button>" +
+                    '<button type="button" class="detail-btn" data-step="-1" aria-label="' + T("kanji.prev") + '"' + (i <= 0 ? " disabled" : "") + ">‹</button>" +
+                    '<button type="button" class="detail-btn" data-step="1" aria-label="' + T("kanji.next") + '"' + (i === -1 || i >= visible.length - 1 ? " disabled" : "") + ">›</button>" +
                 "</div>" +
-                '<button type="button" class="detail-btn detail-close" aria-label="Fechar">Fechar ✕</button>' +
+                '<button type="button" class="detail-btn detail-close" aria-label="' + T("kanji.close") + '">' + T("kanji.close") + ' ✕</button>' +
             "</div>" +
             '<div class="detail-hero">' +
                 '<div class="detail-glyph" lang="ja">' + entry.k + "</div>" +
                 '<div class="kanji-meaning">' + entry.pt + "</div>" +
             "</div>" +
             '<div class="detail-readings">' +
-                '<div class="read-row"><span class="read-label on" title="On\'yomi: leitura de origem chinesa">音 On</span>' + readingChips(entry.on) + "</div>" +
-                '<div class="read-row"><span class="read-label kun" title="Kun\'yomi: leitura japonesa">訓 Kun</span>' + readingChips(entry.kun) + "</div>" +
+                '<div class="read-row"><span class="read-label on" title="' + T("kanji.onTip") + '">音 On</span>' + readingChips(entry.on) + "</div>" +
+                '<div class="read-row"><span class="read-label kun" title="' + T("kanji.kunTip") + '">訓 Kun</span>' + readingChips(entry.kun) + "</div>" +
             "</div>" +
             '<button type="button" class="btn btn-toggle known-btn" data-action="known" aria-pressed="' + known + '">' +
-                (known ? "✓ Já sei" : "Marcar como “já sei”") + "</button>" +
+                (known ? T("kanji.knownOn") : T("kanji.knownOff")) + "</button>" +
             '<ul class="example-list">' + examples + "</ul>" +
             (entry.note ? '<p class="kanji-note">💡 ' + entry.note + "</p>" : "");
     }
@@ -160,7 +161,7 @@
         refreshTiles();
         var known = P ? P.knownCount(level) : 0;
         document.getElementById("kanji-count").textContent =
-            "Mostrando " + visible + " de " + kanjiList.length + " kanji · " + known + " já sei";
+            T("kanji.showing", { shown: visible, total: kanjiList.length, known: known });
         document.getElementById("kanji-empty").hidden = visible !== 0;
         if (state.selected) refreshDetail();
     }
@@ -172,14 +173,14 @@
             var known = isKnown(k);
             tile.classList.toggle("known", known);
             tile.setAttribute("aria-pressed", k === state.selected ? "true" : "false");
-            tile.querySelector(".tile-state").textContent = known ? " (já sei)" : "";
+            tile.querySelector(".tile-state").textContent = known ? " (" + T("kanji.knownShort") + ")" : "";
         });
     }
 
     function renderChips() {
         var counts = {};
         kanjiList.forEach(function (e) { counts[e.cat] = (counts[e.cat] || 0) + 1; });
-        var html = '<button type="button" class="chip active" data-cat="all">Todos (' + kanjiList.length + ")</button>";
+        var html = '<button type="button" class="chip active" data-cat="all">' + T("common.all") + ' (' + kanjiList.length + ")</button>";
         CATEGORIES.forEach(function (c) {
             if (counts[c.id]) {
                 html += '<button type="button" class="chip" data-cat="' + c.id + '">' +
@@ -329,8 +330,8 @@
     }
 
     function modeSwitch() {
-        return '<div class="segmented quiz-modes" role="group" aria-label="Tipo de pergunta">' +
-            ["meaning:Significado", "reading:Leitura"].map(function (m) {
+        return '<div class="segmented quiz-modes" role="group" aria-label="' + T("kanji.quizType") + '">' +
+            ["meaning:" + T("kanji.meaning"), "reading:" + T("kanji.reading")].map(function (m) {
                 var parts = m.split(":");
                 return '<label class="seg"><input type="radio" name="quiz-mode" value="' + parts[0] + '"' +
                     (quiz.mode === parts[0] ? " checked" : "") + "><span>" + parts[1] + "</span></label>";
@@ -338,10 +339,10 @@
     }
 
     function quizRender() {
-        var head = '<div class="quiz-head"><h2 id="quiz-title">Praticar kanji ' + level + '</h2>' +
-            '<button type="button" class="detail-btn" data-quiz="close" aria-label="Fechar o quiz">✕</button></div>';
+        var head = '<div class="quiz-head"><h2 id="quiz-title">' + T("kanji.quizTitle", { level: level }) + '</h2>' +
+            '<button type="button" class="detail-btn" data-quiz="close" aria-label="' + T("kanji.closeQuiz") + '">✕</button></div>';
         if (!quiz.questions.length) {
-            dialog.innerHTML = head + modeSwitch() + '<p class="detail-empty">Não há perguntas para este modo.</p>';
+            dialog.innerHTML = head + modeSwitch() + '<p class="detail-empty">' + T("kanji.quizNone") + '</p>';
             return;
         }
         if (quiz.index >= quiz.questions.length) {
@@ -350,28 +351,28 @@
             dialog.innerHTML = head +
                 '<div class="quiz-score">' + right.length + " / " + quiz.results.length + "</div>" +
                 (missed.length
-                    ? '<p>Para rever:</p><ul class="quiz-missed">' + missed.map(function (r) {
+                    ? '<p>' + T("kanji.review") + '</p><ul class="quiz-missed">' + missed.map(function (r) {
                         var e = entryOf(r.k);
                         return '<li><span lang="ja">' + r.k + "</span> · " + e.pt + "</li>";
                     }).join("") + "</ul>"
-                    : "<p>Perfeito! Você acertou tudo.</p>") +
+                    : "<p>" + T("kanji.perfect") + "</p>") +
                 '<div class="quiz-foot">' +
-                    (right.length && P ? '<button type="button" class="btn btn-reveal" data-quiz="mark">Marcar os ' + right.length + ' certos como “já sei”</button>' : "") +
-                    '<button type="button" class="btn btn-check" data-quiz="again">Praticar de novo</button>' +
+                    (right.length && P ? '<button type="button" class="btn btn-reveal" data-quiz="mark">' + T("kanji.markRight", { n: right.length }) + '</button>' : "") +
+                    '<button type="button" class="btn btn-check" data-quiz="again">' + T("kanji.again") + '</button>' +
                 "</div>";
             return;
         }
         var q = quiz.questions[quiz.index];
-        var prompt = q.mode === "meaning" ? "Qual é o significado?" : "Qual é uma leitura deste kanji?";
+        var prompt = q.mode === "meaning" ? T("kanji.qMeaning") : T("kanji.qReading");
         dialog.innerHTML = head + modeSwitch() +
-            '<p class="quiz-prompt">Pergunta ' + (quiz.index + 1) + " de " + quiz.questions.length + "</p>" +
+            '<p class="quiz-prompt">' + T("kanji.questionOf", { i: quiz.index + 1, n: quiz.questions.length }) + "</p>" +
             '<div class="quiz-glyph" lang="ja">' + q.k + "</div>" +
             '<p class="quiz-prompt">' + prompt + "</p>" +
             '<div class="quiz-options">' + q.options.map(function (o, i) {
                 return '<button type="button" class="quiz-option" data-option="' + i + '">' + o + "</button>";
             }).join("") + "</div>" +
             '<div class="quiz-foot"><span class="quiz-prompt" id="quiz-feedback" aria-live="polite"></span>' +
-                '<button type="button" class="btn btn-check" data-quiz="next" hidden>Próxima</button></div>';
+                '<button type="button" class="btn btn-check" data-quiz="next" hidden>' + T("kanji.next2") + '</button></div>';
     }
 
     function quizAnswer(i) {
@@ -384,10 +385,10 @@
             if (n === q.answer) btn.classList.add("correct");
             else if (n === i) btn.classList.add("wrong");
         });
-        document.getElementById("quiz-feedback").textContent = ok ? "Correto!" : "Não foi dessa vez.";
+        document.getElementById("quiz-feedback").textContent = ok ? T("ex.correct") : T("kanji.notThisTime");
         var next = dialog.querySelector('[data-quiz="next"]');
         next.hidden = false;
-        next.textContent = quiz.index + 1 >= quiz.questions.length ? "Ver resultado" : "Próxima";
+        next.textContent = quiz.index + 1 >= quiz.questions.length ? T("kanji.seeResult") : T("kanji.next2");
         next.focus();
     }
 
@@ -409,7 +410,7 @@
                 quiz.results.forEach(function (r) { if (r.ok) P.setKnown(level, r.k, true); });
                 applyFilters();
                 act.disabled = true;
-                act.textContent = "Marcados ✓";
+                act.textContent = T("kanji.marked");
             }
         });
         dialog.addEventListener("change", function (e) {
@@ -481,7 +482,7 @@
         document.getElementById("level-label").textContent = level;
         if (!kanjiList.length) {
             document.getElementById("kanji-list").innerHTML =
-                '<p class="empty-state">Não foi possível carregar os dados dos kanji.</p>';
+                '<p class="empty-state">' + T("kanji.loadError") + '</p>';
             return;
         }
         buildSearchIndex();

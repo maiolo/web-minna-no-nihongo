@@ -10,14 +10,17 @@
     "use strict";
 
     var body = document.body;
-    var verbs = window[body.dataset.global] || [];
+    var verbs = (window.I18n ? window.I18n.localize(window[body.dataset.global] || [], window.I18n.lang()) : (window[body.dataset.global] || []));
     var V = window.Verbs, N = window.Notation;
+    function T(key, vars) { return window.I18n ? window.I18n.t(key, vars) : key; }
+    var FORMS = window.I18n ? window.I18n.localize(V.FORMS, window.I18n.lang()) : V.FORMS;
+    var GROUPS = window.I18n ? window.I18n.localize(V.GROUPS, window.I18n.lang()) : V.GROUPS;
 
     var GROUP_FILTERS = [
-        { id: "all", label: "Todos" },
-        { id: "1", label: "Grupo 1" },
-        { id: "2", label: "Grupo 2" },
-        { id: "3", label: "Grupo 3" }
+        { id: "all", label: T("common.all") },
+        { id: "1", label: T("verbs.group", { n: 1 }) },
+        { id: "2", label: T("verbs.group", { n: 2 }) },
+        { id: "3", label: T("verbs.group", { n: 3 }) }
     ];
 
     var SPEAKER =
@@ -43,7 +46,7 @@
 
     function speakButton(notation) {
         var text = N.readingText(notation).replace(/\^は/g, "わ").replace(/\^へ/g, "え").replace(/\^/g, "").replace(/ /g, "");
-        return '<button type="button" class="speak-btn" data-speak="' + esc(text) + '" aria-label="Ouvir" title="Ouvir">' + SPEAKER + "</button>";
+        return '<button type="button" class="speak-btn" data-speak="' + esc(text) + '" aria-label="' + T("lesson.listen") + '" title="' + T("lesson.listen") + '">' + SPEAKER + "</button>";
     }
 
     function romajiOf(notation) { return N.toRomaji(V.reading(notation)); }
@@ -61,7 +64,7 @@
         var host = document.getElementById("verb-groups");
         if (!host) return;
         host.innerHTML = [1, 2, 3].map(function (g) {
-            var info = V.GROUPS[g];
+            var info = GROUPS[g];
             var sample = verbs.filter(function (v) { return v.jp === GROUP_SAMPLES[g]; })[0] ||
                 { jp: GROUP_SAMPLES[g], g: g, pt: "" };
             var chain = ["dict", "masu", "te", "nai"].map(function (id) {
@@ -103,7 +106,7 @@
         var found = visibleVerbs();
         list.innerHTML = found.map(renderItem).join("");
         document.getElementById("verb-count").textContent =
-            found.length === verbs.length ? verbs.length + " verbos" : found.length + " de " + verbs.length + " verbos";
+            found.length === verbs.length ? T("verbs.count", { n: verbs.length }) : T("verbs.countOf", { n: found.length, total: verbs.length });
         document.getElementById("verb-empty").hidden = found.length > 0;
     }
 
@@ -113,15 +116,15 @@
             example = '<div class="verb-example">' +
                 '<div class="jp-row"><div class="jp-example" lang="ja">' + N.toRuby(v.ex[0]) + "</div>" + speakButton(v.ex[0]) + "</div>" +
                 '<div class="romaji">' + N.sentenceRomaji(v.ex[0]) + "</div>" +
-                '<div class="pt-line">🇧🇷 ' + esc(v.ex[1]) + "</div>" +
+                '<div class="pt-line">' + T("tr.flag") + ' ' + esc(v.ex[1]) + "</div>" +
             "</div>";
         }
         var note = v.note ? '<div class="kanji-note">' + rubyText(esc(v.note)) + "</div>" : "";
-        var rows = V.FORMS.map(function (f) {
+        var rows = FORMS.map(function (f) {
             var out = V.conjugate(v, f.id);
             if (out === null) {
                 return '<li class="form-row is-na"><div class="form-label"><span class="form-name" lang="ja">' + f.jp +
-                    '</span><span class="form-desc">' + f.pt + '</span></div><div class="form-value">não se usa com este verbo</div></li>';
+                    '</span><span class="form-desc">' + f.pt + '</span></div><div class="form-value">' + T("verbs.notUsed") + '</div></li>';
             }
             return '<li class="form-row"><div class="form-label"><span class="form-name" lang="ja">' + f.jp +
                 '</span><span class="form-desc">' + f.pt + "</span></div>" +
