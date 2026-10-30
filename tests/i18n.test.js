@@ -77,8 +77,12 @@ test("toda chave usada no código (T, I18n.t, data-i18n) existe em pt e en", () 
         const rel = path.relative(root, f);
         const add = (k) => { if (/^[a-z][\w]*\.[\w.]+$/i.test(k)) used.set(k, rel); };
         let m;
-        const calls = /\b(?:T|I18n\.t|t)\("([^"]+)"/g;
+        const calls = /\b(?:T|I18n\.t|t|msg)\("([^"]+)"/g;
         while ((m = calls.exec(text))) add(m[1]);
+        // chaves em condicionais, como T(ok ? "a.b" : "c.d"): qualquer texto "area.nome" de uma área que existe no dicionário
+        const areas = new Set(Object.keys(strings.pt).map((k) => k.split(".")[0]));
+        const literals = /"([a-z]+\.[A-Za-z0-9.]+)"/g;
+        while ((m = literals.exec(text))) if (areas.has(m[1].split(".")[0]) && !/\.(js|html|css|json)$/.test(m[1])) add(m[1]);
         const attrs = /data-i18n(?:-html)?="([^"]+)"/g;
         while ((m = attrs.exec(text))) add(m[1]);
         const pairs = /data-i18n-attr="([^"]+)"/g;

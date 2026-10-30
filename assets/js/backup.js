@@ -66,16 +66,19 @@
         return { app: APP, version: VERSION, exportedAt: new Date(now === undefined ? Date.now() : now).toISOString(), data: data };
     }
 
+    // Mensagem no idioma da página; fora do navegador (testes) fica o texto em português.
+    function msg(key, fallback) { return root.I18n ? root.I18n.t(key) : fallback; }
+
     function parse(text) {
-        if (typeof text !== "string" || !text.trim()) return { ok: false, error: "O arquivo está vazio." };
-        if (text.length > MAX_CHARS) return { ok: false, error: "O arquivo é grande demais para ser um backup deste site." };
+        if (typeof text !== "string" || !text.trim()) return { ok: false, error: msg("backup.empty", "O arquivo está vazio.") };
+        if (text.length > MAX_CHARS) return { ok: false, error: msg("backup.tooBig", "O arquivo é grande demais para ser um backup deste site.") };
         var obj;
-        try { obj = JSON.parse(text); } catch (e) { return { ok: false, error: "O arquivo não é um JSON válido." }; }
-        if (!isObject(obj) || obj.app !== APP) return { ok: false, error: "Este arquivo não é um backup deste site." };
+        try { obj = JSON.parse(text); } catch (e) { return { ok: false, error: msg("backup.badJson", "O arquivo não é um JSON válido.") }; }
+        if (!isObject(obj) || obj.app !== APP) return { ok: false, error: msg("backup.notBackup", "Este arquivo não é um backup deste site.") };
         if (obj.version !== VERSION) {
-            return { ok: false, error: obj.version > VERSION ? "O backup é de uma versão mais nova do site. Atualize a página e tente de novo." : "Versão de backup desconhecida." };
+            return { ok: false, error: obj.version > VERSION ? msg("backup.newer", "O backup é de uma versão mais nova do site. Atualize a página e tente de novo.") : msg("backup.unknownVersion", "Versão de backup desconhecida.") };
         }
-        if (!isObject(obj.data)) return { ok: false, error: "O backup não tem dados." };
+        if (!isObject(obj.data)) return { ok: false, error: msg("backup.noData", "O backup não tem dados.") };
 
         var data = {}, dropped = 0;
         KEYS.forEach(function (k) {
@@ -89,7 +92,7 @@
                 data[k] = clean(v, 0);
             }
         });
-        if (!Object.keys(data).length) return { ok: false, error: "O backup não tem nada para importar." };
+        if (!Object.keys(data).length) return { ok: false, error: msg("backup.nothing", "O backup não tem nada para importar.") };
         return { ok: true, data: data, summary: describe(data), dropped: dropped, exportedAt: typeof obj.exportedAt === "string" ? obj.exportedAt : null };
     }
 

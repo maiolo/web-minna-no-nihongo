@@ -19,6 +19,14 @@
 (function (root) {
     "use strict";
 
+    // No navegador, o idioma vem de assets/js/i18n.js; no node (testes), os textos saem em português.
+    var I18N = root.I18n || (typeof module !== "undefined" && module.exports ? (function () {
+        var i18n = require("./i18n.js"), strings = require("./i18n-strings.js");
+        i18n.add("pt", strings.pt); i18n.add("en", strings.en);
+        return i18n;
+    })() : null);
+    function T(key, vars) { return I18N ? I18N.t(key, vars) : key; }
+
     var N = typeof module !== "undefined" && module.exports ? require("./notation.js") : root.Notation;
 
     var SPEAKER =
@@ -87,25 +95,25 @@
     function sentenceHtml(q, filled) {
         var parts = q.sentence.split("＿＿");
         var middle = filled === null || filled === undefined
-            ? '<span class="blank" aria-label="lacuna">＿＿</span>'
+            ? '<span class="blank" aria-label="' + T("quiz.blank") + '">＿＿</span>'
             : '<span class="blank filled">' + N.toRuby(filled) + "</span>";
         return N.toRuby(parts[0]) + middle + N.toRuby(parts[1] || "");
     }
 
     function listenHtml(q) {
-        return '<div class="listen-box"><button type="button" class="speak-btn listen-btn" data-speak="' + esc(q.speak) + '" aria-label="Ouvir">' +
-            SPEAKER + "<span>Ouvir</span></button>" +
-            '<p class="listen-hint">Toque para ouvir. Toque de novo para repetir.</p></div>';
+        return '<div class="listen-box"><button type="button" class="speak-btn listen-btn" data-speak="' + esc(q.speak) + '" aria-label="' + T("lesson.listen") + '">' +
+            SPEAKER + "<span>" + T("lesson.listen") + "</span></button>" +
+            '<p class="listen-hint">' + T("quiz.listenHint") + "</p></div>";
     }
 
     function linkFor(q) {
-        if (q.ref) return '<a class="lesson-link" href="n5-grammar.html#' + encodeURIComponent(q.ref) + '">Ver o ponto de gramática →</a>';
-        if (q.topic.indexOf("verbo") === 0) return '<a class="lesson-link" href="n5-verbs.html">Ver a página de verbos →</a>';
-        return '<a class="lesson-link" href="n5-kanji.html">Ver a lista de kanji →</a>';
+        if (q.ref) return '<a class="lesson-link" href="n5-grammar.html#' + encodeURIComponent(q.ref) + '">' + T("quiz.seeGrammar") + '</a>';
+        if (q.topic.indexOf("verbo") === 0) return '<a class="lesson-link" href="n5-verbs.html">' + T("quiz.seeVerbs") + '</a>';
+        return '<a class="lesson-link" href="n5-kanji.html">' + T("quiz.seeKanji") + '</a>';
     }
 
     var MARK = { ok: "✓", bad: "✗", blank: "–" };
-    var STATUS_TEXT = { ok: "Certa", bad: "Errada", blank: "Em branco" };
+    function statusText(s) { return T(s === "ok" ? "review.rightOne" : s === "bad" ? "review.wrongOne" : "review.blank"); }
 
     function statusOf(q, chosen) {
         if (chosen === null || chosen === undefined) return "blank";
@@ -116,18 +124,18 @@
     function examReviewItem(q, chosen, options) {
         var status = statusOf(q, chosen);
         var open = options && options.open !== undefined ? options.open : status !== "ok";
-        var yours = status === "blank" ? "(em branco)" : examText(q.options[chosen], true);
+        var yours = status === "blank" ? T("quiz.blankAnswer") : examText(q.options[chosen], true);
         return '<details class="verb-item review-item ' + status + '"' + (open ? " open" : "") + ">" +
             '<summary>' + (options && options.number ? '<span class="review-num">' + options.number + "</span>" : "") +
-            '<span class="review-mark ' + status + '" role="img" aria-label="' + STATUS_TEXT[status] + '">' + MARK[status] + "</span>" +
+            '<span class="review-mark ' + status + '" role="img" aria-label="' + statusText(status) + '">' + MARK[status] + "</span>" +
             '<span class="verb-pt" lang="ja">' + examSummary(q) + "</span></summary>" +
             '<div class="verb-body">' + (q.scene ? '<div class="exam-scene" aria-hidden="true">' + q.scene + "</div>" : "") + examScriptHtml(q) + examPassageHtml(q, true) +
                 (q.sentence ? '<div class="practice-sentence" lang="ja">' + examSentenceHtml(q, true) + "</div>" : "") +
                 '<ol class="review-options" lang="ja">' + q.options.map(function (o, i) {
                     return '<li class="' + (i === q.answer ? "is-right" : (i === chosen ? "is-wrong" : "")) + '">' + examText(o, true) + "</li>";
                 }).join("") + "</ol>" +
-                '<p class="missed-line">Você respondeu: <span class="' + (status === "ok" ? "right-text" : "wrong-text") + '" lang="ja">' + yours + "</span></p>" +
-                (status === "ok" ? "" : '<p class="missed-line">Certa: <strong lang="ja">' + examText(q.options[q.answer], true) + "</strong></p>") +
+                '<p class="missed-line">' + T("quiz.youAnswered") + ' <span class="' + (status === "ok" ? "right-text" : "wrong-text") + '" lang="ja">' + yours + "</span></p>" +
+                (status === "ok" ? "" : '<p class="missed-line">' + T("quiz.right") + ' <strong lang="ja">' + examText(q.options[q.answer], true) + "</strong></p>") +
                 '<div class="kanji-note">' + rubyText(q.explain) + "</div>" +
             "</div></details>";
     }
@@ -139,17 +147,17 @@
         var filled = q.sentence ? q.sentence.replace("＿＿", q.options[q.answer]) : (q.heard || null);
         var summary = q.speak ? '<span class="verb-pt">' + rubyText(q.prompt) + "</span>" : q.sentence ? '<span class="verb-pt" lang="ja">' + sentenceHtml(q, null) + "</span>" : '<span class="verb-pt">' + rubyText(q.prompt) + "</span>";
         var yours = status === "blank"
-            ? "(em branco)"
+            ? T("quiz.blankAnswer")
             : rubyText(q.options[chosen]);
         return '<details class="verb-item review-item ' + status + '"' + (open ? " open" : "") + ">" +
-            '<summary>' + (options && options.number ? '<span class="review-num">' + options.number + "</span>" : "") + '<span class="review-mark ' + status + '" role="img" aria-label="' + STATUS_TEXT[status] + '">' + MARK[status] + "</span>" + summary + "</summary>" +
+            '<summary>' + (options && options.number ? '<span class="review-num">' + options.number + "</span>" : "") + '<span class="review-mark ' + status + '" role="img" aria-label="' + statusText(status) + '">' + MARK[status] + "</span>" + summary + "</summary>" +
             '<div class="verb-body">' +
                 (q.glyph ? '<div class="missed-glyph" lang="ja">' + esc(q.glyph) + "</div>" : "") +
                 (q.sentence ? '<div class="practice-sentence" lang="ja">' + sentenceHtml(q, q.options[q.answer]) + "</div>" : "") +
-                (q.hint ? '<div class="pt-line">🇧🇷 ' + esc(q.hint) + "</div>" : "") +
+                (q.hint ? '<div class="pt-line">' + T("tr.flag") + ' ' + esc(q.hint) + "</div>" : "") +
                 (q.heard ? '<div class="practice-sentence" lang="ja">' + N.toRuby(q.heard) + "</div>" : "") +
-                '<p class="missed-line">Você respondeu: <span class="' + (status === "ok" ? "right-text" : "wrong-text") + '" lang="ja">' + yours + "</span></p>" +
-                (status === "ok" ? "" : '<p class="missed-line">Certa: <strong lang="ja">' + rubyText(q.options[q.answer]) + "</strong></p>") +
+                '<p class="missed-line">' + T("quiz.youAnswered") + ' <span class="' + (status === "ok" ? "right-text" : "wrong-text") + '" lang="ja">' + yours + "</span></p>" +
+                (status === "ok" ? "" : '<p class="missed-line">' + T("quiz.right") + ' <strong lang="ja">' + rubyText(q.options[q.answer]) + "</strong></p>") +
                 '<div class="kanji-note">' + rubyText(q.explain) + "</div>" +
                 (filled ? '<div class="jp-row"><div class="romaji">' + N.sentenceRomaji(filled) + "</div>" + speakButton(filled) + "</div>" : "") +
                 linkFor(q) +

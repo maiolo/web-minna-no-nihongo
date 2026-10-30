@@ -31,29 +31,29 @@
     var N = typeof module !== "undefined" && module.exports ? require("./notation.js") : root.Notation;
 
     var TOPICS = [
-        { id: "gramatica", label: "Gramática: partículas, frases e formas" },
-        { id: "verbo-forma", label: "Verbos: formas (て, た, ない, ます)" },
-        { id: "verbo-grupo", label: "Verbos: grupos" },
-        { id: "verbo-significado", label: "Verbos: significado" },
-        { id: "kanji-significado", label: "Kanji: significado" },
-        { id: "kanji-leitura", label: "Kanji: leitura" },
-        { id: "escuta-palavra", label: "Escuta: palavras", listening: true },
-        { id: "escuta-frase", label: "Escuta: frases", listening: true },
+        { id: "gramatica", label: "Gramática: partículas, frases e formas", label_en: "Grammar: particles, sentences and forms" },
+        { id: "verbo-forma", label: "Verbos: formas (て, た, ない, ます)", label_en: "Verbs: forms (て, た, ない, ます)" },
+        { id: "verbo-grupo", label: "Verbos: grupos", label_en: "Verbs: groups" },
+        { id: "verbo-significado", label: "Verbos: significado", label_en: "Verbs: meaning" },
+        { id: "kanji-significado", label: "Kanji: significado", label_en: "Kanji: meaning" },
+        { id: "kanji-leitura", label: "Kanji: leitura", label_en: "Kanji: reading" },
+        { id: "escuta-palavra", label: "Escuta: palavras", label_en: "Listening: words", listening: true },
+        { id: "escuta-frase", label: "Escuta: frases", label_en: "Listening: sentences", listening: true },
         // Questões no formato da prova real (só aparecem no simulado, não no treino): jlpt/data/n5-exam-*.js
-        { id: "prova-yomi", label: "Prova: leitura de kanji (漢字読み)", real: true },
-        { id: "prova-hyouki", label: "Prova: escrita da palavra (表記)", real: true },
-        { id: "prova-bunmyaku", label: "Prova: vocabulário em contexto (文脈規定)", real: true },
-        { id: "prova-iikae", label: "Prova: frase equivalente (言い換え類義)", real: true },
-        { id: "prova-bunpo1", label: "Prova: gramática, completar (文の文法1)", real: true },
-        { id: "prova-bunpo2", label: "Prova: gramática, ordenar (文の文法2)", real: true },
-        { id: "prova-bunpo3", label: "Prova: gramática em texto (文章の文法)", real: true },
-        { id: "prova-dokkai-tan", label: "Prova: leitura, texto curto (内容理解 短文)", real: true },
-        { id: "prova-dokkai-chu", label: "Prova: leitura, texto médio (内容理解 中文)", real: true },
-        { id: "prova-dokkai-joho", label: "Prova: leitura, busca de informação (情報検索)", real: true },
-        { id: "prova-choukai1", label: "Prova: escuta, tarefa (課題理解)", real: true },
-        { id: "prova-choukai2", label: "Prova: escuta, ponto (ポイント理解)", real: true },
-        { id: "prova-choukai3", label: "Prova: escuta, o que dizer (発話表現)", real: true },
-        { id: "prova-choukai4", label: "Prova: escuta, resposta rápida (即時応答)", real: true }
+        { id: "prova-yomi", label: "Prova: leitura de kanji (漢字読み)", label_en: "Exam: kanji reading (漢字読み)", real: true },
+        { id: "prova-hyouki", label: "Prova: escrita da palavra (表記)", label_en: "Exam: writing the word (表記)", real: true },
+        { id: "prova-bunmyaku", label: "Prova: vocabulário em contexto (文脈規定)", label_en: "Exam: vocabulary in context (文脈規定)", real: true },
+        { id: "prova-iikae", label: "Prova: frase equivalente (言い換え類義)", label_en: "Exam: equivalent sentence (言い換え類義)", real: true },
+        { id: "prova-bunpo1", label: "Prova: gramática, completar (文の文法1)", label_en: "Exam: grammar, fill in (文の文法1)", real: true },
+        { id: "prova-bunpo2", label: "Prova: gramática, ordenar (文の文法2)", label_en: "Exam: grammar, ordering (文の文法2)", real: true },
+        { id: "prova-bunpo3", label: "Prova: gramática em texto (文章の文法)", label_en: "Exam: grammar in a text (文章の文法)", real: true },
+        { id: "prova-dokkai-tan", label: "Prova: leitura, texto curto (内容理解 短文)", label_en: "Exam: reading, short text (内容理解 短文)", real: true },
+        { id: "prova-dokkai-chu", label: "Prova: leitura, texto médio (内容理解 中文)", label_en: "Exam: reading, medium text (内容理解 中文)", real: true },
+        { id: "prova-dokkai-joho", label: "Prova: leitura, busca de informação (情報検索)", label_en: "Exam: reading, finding information (情報検索)", real: true },
+        { id: "prova-choukai1", label: "Prova: escuta, tarefa (課題理解)", label_en: "Exam: listening, task (課題理解)", real: true },
+        { id: "prova-choukai2", label: "Prova: escuta, ponto (ポイント理解)", label_en: "Exam: listening, key point (ポイント理解)", real: true },
+        { id: "prova-choukai3", label: "Prova: escuta, o que dizer (発話表現)", label_en: "Exam: listening, what to say (発話表現)", real: true },
+        { id: "prova-choukai4", label: "Prova: escuta, resposta rápida (即時応答)", label_en: "Exam: listening, quick reply (即時応答)", real: true }
     ];
 
     var FORM_TYPES = { vte: "te", vta: "ta", vnai: "nai", vmasu: "masu" };

@@ -10,8 +10,11 @@
     var root = document.getElementById("progress-root");
     var QB = window.QuestionBank, Stats = window.Stats, Backup = window.Backup;
     var bank = QB.create({ verbs: window.JLPT_N5_VERBS, kanji: window.JLPT_N5_KANJI, grammar: window.JLPT_N5_QUESTIONS, exam: window.JLPT_N5_EXAM });
+    var TOPICS = window.I18n ? window.I18n.localize(bank.topics, window.I18n.lang()) : bank.topics;
+    var GRAMMAR = window.I18n ? window.I18n.localize(window.JLPT_N5_GRAMMAR || [], window.I18n.lang()) : (window.JLPT_N5_GRAMMAR || []);
+    function T(key, vars) { return window.I18n ? window.I18n.t(key, vars) : key; }
     var grammar = {};
-    (window.JLPT_N5_GRAMMAR || []).forEach(function (p) { grammar[p.id] = p; });
+    GRAMMAR.forEach(function (p) { grammar[p.id] = p; });
     var pending = null;     // arquivo lido, esperando o aluno escolher mesclar/substituir
     var notice = "";
 
@@ -21,27 +24,27 @@
     function peek(key) { return window.Store ? window.Store.peek(key) : null; }
     function dateLabel(iso) {
         var d = new Date(iso);
-        return isNaN(d) ? "" : d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+        return isNaN(d) ? "" : d.toLocaleDateString((window.I18n ? window.I18n.t("lang.locale") : "pt-BR"), { day: "2-digit", month: "2-digit" });
     }
 
     function bar(p) {
-        return '<div class="perf-bar" role="img" aria-label="' + p + '% de acerto"><span style="width:' + p + '%"></span></div>';
+        return '<div class="perf-bar" role="img" aria-label="' + T("perf.accuracyAria", { p: p }) + '"><span style="width:' + p + '%"></span></div>';
     }
 
     function summaryHtml(st) {
         return '<div class="perf-cards">' +
-            '<div class="perf-card"><strong>' + st.attempts + "</strong><span>tentativas</span></div>" +
-            '<div class="perf-card"><strong>' + st.answered + "</strong><span>respostas</span></div>" +
-            '<div class="perf-card"><strong>' + st.pct + "%</strong><span>de acerto</span></div></div>";
+            '<div class="perf-card"><strong>' + st.attempts + "</strong><span>" + T("perf.attempts") + "</span></div>" +
+            '<div class="perf-card"><strong>' + st.answered + "</strong><span>" + T("perf.answers") + "</span></div>" +
+            '<div class="perf-card"><strong>' + st.pct + "%</strong><span>" + T("perf.accuracy") + "</span></div></div>";
     }
 
     function topicsHtml(st) {
-        var rows = bank.topics.filter(function (t) { return st.topics[t.id] && st.topics[t.id].total > 0; }).map(function (t) {
+        var rows = TOPICS.filter(function (t) { return st.topics[t.id] && st.topics[t.id].total > 0; }).map(function (t) {
             var s = st.topics[t.id], p = pct(s.correct, s.total);
             return '<li class="perf-row"><div class="perf-head"><span>' + esc(t.label) + '</span><span class="perf-num">' + s.correct + "/" + s.total + " · " + p + "%</span></div>" +
-                bar(p) + (t.real ? '<a class="lesson-link" href="n5-mock.html">Fazer um simulado →</a>' : '<a class="lesson-link" href="n5-practice.html?topics=' + t.id + '">Treinar este tema →</a>') + "</li>";
+                bar(p) + (t.real ? '<a class="lesson-link" href="n5-mock.html">' + T("perf.doMock") + '</a>' : '<a class="lesson-link" href="n5-practice.html?topics=' + t.id + '">' + T("perf.trainTopic") + '</a>') + "</li>";
         }).join("");
-        return '<section class="card perf-section"><h2>Por tema</h2><ul class="perf-list">' + rows + "</ul></section>";
+        return '<section class="card perf-section"><h2>' + T("perf.byTopic") + '</h2><ul class="perf-list">' + rows + "</ul></section>";
     }
 
     function weakHtml(st) {
@@ -54,9 +57,9 @@
         // Questões da prova no formato JLPT não entram no treino: só as dos outros temas.
         var trainable = st.weakIds.filter(function (id) { var q = bank.get(id); return q && !q.exam; });
         var train = trainable.length
-            ? '<p><a class="btn btn-reveal" href="n5-practice.html?weak=1">Treinar pontos fracos (' + trainable.length + ")</a></p>" : "";
-        var body = rows ? '<ul class="perf-list">' + rows + "</ul>" : '<p class="practice-last">Nenhum ponto de gramática abaixo de 70% por enquanto.</p>';
-        return '<section class="card perf-section"><h2>Pontos fracos</h2>' + body + train + "</section>";
+            ? '<p><a class="btn btn-reveal" href="n5-practice.html?weak=1">' + T("practice.weak") + " (" + trainable.length + ")</a></p>" : "";
+        var body = rows ? '<ul class="perf-list">' + rows + "</ul>" : '<p class="practice-last">' + T("perf.noWeak") + '</p>';
+        return '<section class="card perf-section"><h2>' + T("perf.weak") + '</h2>' + body + train + "</section>";
     }
 
     function trendHtml(st) {
@@ -69,25 +72,24 @@
             return '<li class="trend-row"><span class="trend-date">' + dateLabel(m.startedAt) + "</span>" + bar(share) +
                 '<span class="perf-num">' + label + "</span></li>";
         }).join("");
-        return '<section class="card perf-section"><h2>Simulados</h2><p class="practice-last">Notas estimadas, não oficiais (a prova real é equalizada). Quando a prova teve só uma parte, aparecem os acertos.</p><ul class="trend-list">' + rows + "</ul></section>";
+        return '<section class="card perf-section"><h2>' + T("perf.mocks") + '</h2><p class="practice-last">' + T("perf.mocksNote") + '</p><ul class="trend-list">' + rows + "</ul></section>";
     }
 
     function backupHtml() {
         var preview = "";
         if (pending) {
             var s = pending.summary;
-            preview = '<div class="backup-preview"><p><strong>' + esc(pending.name) + "</strong>: " + s.attempts + " tentativas (" + s.mocks + " simulados), " +
-                s.lessons + " lições com progresso, " + s.kanji + " kanji marcados" + (s.prefs ? ", preferências" : "") + "." +
-                (pending.dropped ? " " + pending.dropped + " tentativa(s) inválida(s) foram ignoradas." : "") + "</p>" +
-                '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="merge">Mesclar (recomendado)</button>' +
-                '<button type="button" class="btn btn-reveal" data-act="replace">Substituir tudo</button>' +
-                '<button type="button" class="btn btn-reveal" data-act="cancel">Cancelar</button></div>' +
-                '<p class="practice-last">Mesclar junta o arquivo com o que já está aqui e não apaga nada. Substituir troca os dados deste aparelho pelos do arquivo.</p></div>';
+            preview = '<div class="backup-preview"><p><strong>' + esc(pending.name) + "</strong>: " + T("backup.summary", { attempts: s.attempts, mocks: s.mocks, lessons: s.lessons, kanji: s.kanji }) + (s.prefs ? T("backup.withPrefs") : "") + "." +
+                (pending.dropped ? " " + T("backup.dropped", { n: pending.dropped }) : "") + "</p>" +
+                '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="merge">' + T("backup.merge") + '</button>' +
+                '<button type="button" class="btn btn-reveal" data-act="replace">' + T("backup.replace") + '</button>' +
+                '<button type="button" class="btn btn-reveal" data-act="cancel">' + T("backup.cancel") + '</button></div>' +
+                '<p class="practice-last">' + T("backup.mergeNote") + '</p></div>';
         }
-        return '<section class="card perf-section"><h2>Backup dos dados</h2>' +
-            '<p>Seu progresso, histórico e preferências ficam só neste aparelho. Exporte um arquivo para guardar ou levar para outro aparelho.</p>' +
-            '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="export">Exportar dados</button>' +
-            '<label class="btn btn-reveal backup-file">Importar arquivo<input type="file" accept="application/json,.json" id="backup-file" hidden></label></div>' +
+        return '<section class="card perf-section"><h2>' + T("backup.title") + '</h2>' +
+            '<p>' + T("backup.lead") + '</p>' +
+            '<div class="practice-actions"><button type="button" class="btn btn-check" data-act="export">' + T("backup.export") + '</button>' +
+            '<label class="btn btn-reveal backup-file">' + T("backup.import") + '<input type="file" accept="application/json,.json" id="backup-file" hidden></label></div>' +
             (notice ? '<p class="backup-notice" role="status">' + esc(notice) + "</p>" : "") + preview + "</section>";
     }
 
@@ -95,7 +97,7 @@
         var st = Stats.compute(peek("attempts"), bank);
         var main = st.attempts
             ? summaryHtml(st) + weakHtml(st) + topicsHtml(st) + trendHtml(st)
-            : '<section class="card perf-section"><h2>Ainda sem dados</h2><p>Faça um <a href="n5-practice.html">treino</a> ou um <a href="n5-mock.html">simulado</a> e seu desempenho aparece aqui.</p></section>';
+            : '<section class="card perf-section"><h2>' + T("perf.noData") + '</h2><p>' + T("perf.noDataText", { practice: '<a href="n5-practice.html">' + T("perf.practice") + "</a>", mock: '<a href="n5-mock.html">' + T("perf.mock") + "</a>" }) + '</p></section>';
         root.innerHTML = '<div class="perf-wrap">' + main + backupHtml() + "</div>";
     }
 
@@ -109,7 +111,7 @@
         a.click();
         a.remove();
         setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
-        notice = "Arquivo gerado.";
+        notice = T("backup.generated");
         render();
     }
 
@@ -129,10 +131,10 @@
         else if (act === "merge" && pending) {
             var local = {};
             Backup.KEYS.forEach(function (k) { local[k] = peek(k); });
-            apply(Backup.merge(local, pending.data), "Dados mesclados.");
+            apply(Backup.merge(local, pending.data), T("backup.merged"));
         } else if (act === "replace" && pending) {
-            if (!window.confirm("Substituir os dados deste aparelho pelos do arquivo?")) return;
-            apply(pending.data, "Dados substituídos.");
+            if (!window.confirm(T("backup.confirmReplace"))) return;
+            apply(pending.data, T("backup.replaced"));
         }
     });
 
@@ -146,7 +148,7 @@
             else { pending = { data: res.data, summary: res.summary, dropped: res.dropped, name: file.name }; notice = ""; }
             render();
         };
-        reader.onerror = function () { notice = "Não consegui ler o arquivo."; render(); };
+        reader.onerror = function () { notice = T("backup.readError"); render(); };
         reader.readAsText(file);
     });
 
