@@ -31,7 +31,11 @@ function check(value, trail, errors) {
 
 const kanji = ["n5-kanji-1", "n5-kanji-2", "n5-kanji-3"].map((f) => load("jlpt/data/" + f + ".js", "JLPT_N5_KANJI"));
 // as três partes somam na mesma lista global; load() devolve a lista acumulada de cada arquivo isolado
+const verbs = load("jlpt/data/n5-verbs.js", "JLPT_N5_VERBS");
+const grammar = load("jlpt/data/n5-grammar.js", "JLPT_N5_GRAMMAR");
 const SETS = {
+    "verbos": [verbs, "verbs"],
+    "gramática": [grammar, "grammar"],
     "kanji (parte 1)": [kanji[0], "kanji"],
     "kanji (parte 2)": [kanji[1], "kanji"],
     "kanji (parte 3)": [kanji[2], "kanji"]
@@ -51,6 +55,28 @@ Object.keys(SETS).forEach((name) => {
                 if (!e.en) missing.push(e.k + ": significado");
                 if (e.note && !e.note_en) missing.push(e.k + ": dica");
                 e.ex.forEach((x, i) => { if (!isTail(x[x.length - 1])) missing.push(e.k + ": exemplo " + (i + 1)); });
+            });
+            assert.deepEqual(missing, []);
+        });
+    }
+    if (kind === "verbs") {
+        test(name + ": significado, exemplo e dicas têm inglês", () => {
+            const missing = [];
+            list.forEach((v) => {
+                if (!v.en) missing.push(v.jp + ": significado");
+                if (v.note && !v.note_en) missing.push(v.jp + ": dica");
+                if (v.ex && !isTail(v.ex[v.ex.length - 1])) missing.push(v.jp + ": exemplo");
+            });
+            assert.deepEqual(missing, []);
+        });
+    }
+    if (kind === "grammar") {
+        test(name + ": título, explicações e exemplos têm inglês", () => {
+            const missing = [];
+            list.forEach((p) => {
+                ["title", "mean", "rule"].forEach((k) => { if (!p[k + "_en"]) missing.push(p.id + ": " + k); });
+                if (p.note && !p.note_en) missing.push(p.id + ": dica");
+                p.ex.forEach((x, i) => { if (!isTail(x[x.length - 1])) missing.push(p.id + ": exemplo " + (i + 1)); });
             });
             assert.deepEqual(missing, []);
         });
