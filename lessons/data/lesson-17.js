@@ -249,7 +249,7 @@ window.lessonData = {
         questions: [
           { q: "{残業|ざんぎょう}しなければなりませんか。(はい) ➔", a: "はい、{残業|ざんぎょう}しなければなりません。", romaji: "Hai, zangyou shinakereba narimasen.", pt: "Sim, tenho que fazer hora extra.", en: "Yes, I have to work overtime." },
           { q: "{名前|なまえ}を{書|か}かなければなりませんか。(はい) ➔", a: "はい、{書|か}かなければなりません。", romaji: "Hai, kakanakereba narimasen.", pt: "Sim, tenho que escrever.", en: "Yes, I have to write." },
-          { q: "{急|いそ}がなければなりませんか。(いいえ) ➔", a: "いいえ、{急|いそ}がなくてもいいです。", romaji: "Iie, isoganutemo ii desu.", pt: "Não, não precisa se apressar.", en: "No, you don't have to hurry." },
+          { q: "{急|いそ}がなければなりませんか。(いいえ) ➔", a: "いいえ、{急|いそ}がなくてもいいです。", romaji: "Iie, isoganakutemo ii desu.", pt: "Não, não precisa se apressar.", en: "No, you don't have to hurry." },
           { q: "{靴|くつ}を{脱|ぬ}がなければなりませんか。(いいえ) ➔", a: "いいえ、{脱|ぬ}がなくてもいいです。", romaji: "Iie, nuganakutemo ii desu.", pt: "Não, não precisa tirar os sapatos.", en: "No, you don't have to take off your shoes." }
         ]
       },
