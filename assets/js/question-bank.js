@@ -29,6 +29,13 @@
 
     var V = typeof module !== "undefined" && module.exports ? require("./verbs.js") : root.Verbs;
     var N = typeof module !== "undefined" && module.exports ? require("./notation.js") : root.Notation;
+    // No navegador, o idioma vem de assets/js/i18n.js; no node (testes), os textos saem em português.
+    var I18N = root.I18n || (typeof module !== "undefined" && module.exports ? (function () {
+        var i18n = require("./i18n.js"), strings = require("./i18n-strings.js");
+        i18n.add("pt", strings.pt); i18n.add("en", strings.en);
+        return i18n;
+    })() : null);
+    function T(key, vars) { return I18N ? I18N.t(key, vars) : key; }
 
     var TOPICS = [
         { id: "gramatica", label: "Gramática: partículas, frases e formas", label_en: "Grammar: particles, sentences and forms" },
@@ -57,7 +64,8 @@
     ];
 
     var FORM_TYPES = { vte: "te", vta: "ta", vnai: "nai", vmasu: "masu" };
-    var FORM_NAME = { te: "forma て", ta: "forma た", nai: "forma ない", masu: "forma ます" };
+    var FORM_KEY = { te: "qb.form.te", ta: "qb.form.ta", nai: "qb.form.nai", masu: "qb.form.masu" };
+    function formName(form) { return T(FORM_KEY[form]); }
     var GROUP_JP = { 1: "{五段|ごだん}", 2: "{一段|いちだん}", 3: "{不規則|ふきそく}" };
 
     /* ---------- Sorteio estável ---------- */
@@ -140,16 +148,16 @@
 
     function explainForm(verb, form, correct) {
         var g = verb.g;
-        var text = "«" + verb.jp + "» é do Grupo " + g + " (" + GROUP_JP[g] + "). ";
+        var text = T("qb.formGroup", { verb: verb.jp, g: g, jp: GROUP_JP[g] }) + " ";
         if (g === 3) {
-            text += "Verbo irregular: " + (KURU.test(verb.jp) ? "a leitura do kanji muda (く, き, こ)." : "o する vira し, さ... conforme a forma (しない, します, して, した).") + " ";
+            text += T(KURU.test(verb.jp) ? "qb.irrKuru" : "qb.irrSuru") + " ";
         } else {
             var last = verb.jp.slice(-1), suffix = correct.slice(verb.jp.length - 1);
             text += g === 1
-                ? "A terminação «" + last + "» vira «" + suffix + "». "
-                : "Tira-se る e acrescenta-se «" + suffix + "». ";
+                ? T("qb.endChange", { last: last, suffix: suffix }) + " "
+                : T("qb.dropRu", { suffix: suffix }) + " ";
         }
-        text += "A " + FORM_NAME[form] + " é " + correct + ".";
+        text += T("qb.formIs", { form: formName(form), correct: correct });
         if (verb.note) text += " " + verb.note;
         return text;
     }
@@ -163,7 +171,7 @@
         var picked = shuffle(wrong, hash(id + "w")).slice(0, 3);
         return finish({
             id: id, topic: "verbo-forma",
-            prompt: "Qual é a " + FORM_NAME[form] + " de " + verb.jp + "?",
+            prompt: T("qb.formPrompt", { form: formName(form), verb: verb.jp }),
             hint: verb.pt,
             correct: correct, wrong: picked,
             explain: explainForm(verb, form, correct)
@@ -172,21 +180,18 @@
 
     /* ---------- Verbos: grupo e significado ---------- */
 
-    var GROUP_OPTIONS = ["Grupo 1 ({五段|ごだん})", "Grupo 2 ({一段|いちだん})", "Grupo 3 ({不規則|ふきそく})"];
-    var GROUP_WHY = {
-        1: "Grupo 1: termina em う, く, ぐ, す, つ, ぬ, ぶ, む ou る, e conjuga trocando a última sílaba.",
-        2: "Grupo 2: termina em いる ou える e conjuga tirando る.",
-        3: "Grupo 3: só する (e «substantivo + する») e {来|く}る."
-    };
+    function groupOptions() {
+        return [1, 2, 3].map(function (g) { return T("qb.groupOpt", { g: g, jp: GROUP_JP[g] }); });
+    }
 
     function groupQuestion(verb) {
-        var text = GROUP_WHY[verb.g];
+        var text = T(["qb.groupWhy1", "qb.groupWhy2", "qb.groupWhy3"][verb.g - 1]);
         if (verb.note) text += " " + verb.note;
         return {
             id: "vgrp:" + verb.jp, topic: "verbo-grupo",
-            prompt: "A que grupo pertence " + verb.jp + "?",
+            prompt: T("qb.groupPrompt", { verb: verb.jp }),
             hint: verb.pt,
-            options: GROUP_OPTIONS.slice(), answer: verb.g - 1, fixed: true,
+            options: groupOptions(), answer: verb.g - 1, fixed: true,
             explain: text
         };
     }
@@ -197,9 +202,9 @@
         var picked = shuffle(Array.from(new Set(pool)), hash(id + "w")).slice(0, 3);
         return finish({
             id: id, topic: "verbo-significado",
-            prompt: "O que significa " + verb.jp + "?",
+            prompt: T("qb.meanPrompt", { verb: verb.jp }),
             correct: verb.pt, wrong: picked,
-            explain: verb.jp + " significa «" + verb.pt + "». Grupo " + verb.g + "." + (verb.ex ? " Exemplo: " + verb.ex[0] + " (" + verb.ex[1] + ")" : "")
+            explain: T("qb.meanExplain", { verb: verb.jp, pt: verb.pt, g: verb.g }) + (verb.ex ? " " + T("qb.example", { jp: verb.ex[0], tr: verb.ex[1] }) : "")
         });
     }
 
@@ -216,10 +221,10 @@
         var picked = shuffle(Array.from(new Set(pool)), hash(id + "w")).slice(0, 3);
         return finish({
             id: id, topic: "escuta-palavra",
-            prompt: "Ouça a palavra e escolha o significado.",
+            prompt: T("qb.listenWordPrompt"),
             speak: spoken(verb.jp), heard: verb.jp,
             correct: verb.pt, wrong: picked,
-            explain: "Você ouviu " + verb.jp + ", que significa «" + verb.pt + "»."
+            explain: T("qb.listenWordExplain", { verb: verb.jp, pt: verb.pt })
         });
     }
 
@@ -230,10 +235,10 @@
         var picked = shuffle(Array.from(new Set(pool)), hash(id + "w")).slice(0, 3);
         return finish({
             id: id, topic: "escuta-frase",
-            prompt: "Ouça a frase e escolha a tradução.",
+            prompt: T("qb.listenSentPrompt"),
             speak: spoken(verb.ex[0]), heard: verb.ex[0],
             correct: correct, wrong: picked,
-            explain: "Você ouviu: " + verb.ex[0] + " («" + correct + "»)."
+            explain: T("qb.listenSentExplain", { jp: verb.ex[0], tr: correct })
         });
     }
 
@@ -253,9 +258,9 @@
         var picked = Array.from(new Set(pool)).slice(0, 3);
         return finish({
             id: id, topic: "kanji-significado", glyph: entry.k,
-            prompt: "Qual é o significado deste kanji?",
+            prompt: T("qb.kmeanPrompt"),
             correct: entry.pt, wrong: picked,
-            explain: entry.k + " significa «" + entry.pt + "». " + readingLine(entry)
+            explain: T("qb.kmeanExplain", { k: entry.k, pt: entry.pt }) + " " + readingLine(entry)
         });
     }
 
@@ -282,9 +287,9 @@
         var picked = shuffle(pool, seed + 1).slice(0, 3);
         return finish({
             id: id, topic: "kanji-leitura", glyph: entry.k,
-            prompt: "Qual destas é uma leitura deste kanji?",
+            prompt: T("qb.kreadPrompt"),
             correct: correct, wrong: picked,
-            explain: entry.k + " (" + entry.pt + "). " + readingLine(entry)
+            explain: T("qb.kreadExplain", { k: entry.k, pt: entry.pt }) + " " + readingLine(entry)
         });
     }
 
@@ -293,7 +298,7 @@
     function grammarQuestion(q) {
         return finish({
             id: "q:" + q.id, topic: "gramatica", ref: q.ref,
-            prompt: "Complete a frase.",
+            prompt: T("qb.gramPrompt"),
             sentence: q.sentence, hint: q.pt,
             correct: q.a, wrong: q.w,
             explain: q.why
@@ -345,7 +350,7 @@
         if (item.w) {   // palavras curtas: alternativas escritas à mão
             return finish({
                 id: id, topic: "prova-yomi", exam: { mondai: 1 }, sentence: item.s, correct: right, wrong: item.w,
-                explain: N.plainText(word) + " lê-se " + right + " (" + item.pt + ")." + (item.note ? " " + item.note : "")
+                explain: T("qb.yomiExplain", { word: N.plainText(word), r: right, pt: item.pt }) + (item.note ? " " + item.note : "")
             });
         }
         var pool = first.slice();
@@ -354,7 +359,7 @@
         return finish({
             id: id, topic: "prova-yomi", exam: { mondai: 1 }, sentence: item.s,
             correct: right, wrong: wrong,
-            explain: N.plainText(word) + " lê-se " + right + " (" + item.pt + ")." + (item.note ? " " + item.note : "")
+            explain: T("qb.yomiExplain", { word: N.plainText(word), r: right, pt: item.pt }) + (item.note ? " " + item.note : "")
         });
     }
 
@@ -363,7 +368,7 @@
         return finish({
             id: id, topic: "prova-hyouki", exam: { mondai: 2 }, sentence: item.s,
             correct: item.a, wrong: item.w,
-            explain: underlined(item.s) + " (" + item.pt + ") escreve-se " + N.plainText(item.a) + "."
+            explain: T("qb.hyoukiExplain", { u: underlined(item.s), pt: item.pt, a: N.plainText(item.a) })
         });
     }
 
@@ -451,6 +456,8 @@
     }
 
     function create(data) {
+        // Os dados chegam em português; com o site em inglês, troca pelos textos em inglês (quando existem).
+        if (I18N && data) data = I18N.localize(data, I18N.lang());
         var verbs = (data && data.verbs) || [];
         var kanji = (data && data.kanji) || [];
         var grammar = (data && data.grammar) || [];

@@ -13,6 +13,7 @@
  * Nos dados (lessons/data, jlpt/data) o português é o texto base e o inglês vem ao lado:
  *   { jp: "...", pt: "Texto", en: "Text" }          "en" substitui "pt"
  *   { mean: "Texto", mean_en: "Text" }              "<campo>_en" substitui "<campo>"
+ *   ["frase", "Texto", { en: "Text" }]               em listas curtas, { en } no fim substitui o item anterior
  * Vale em qualquer nível (textos, listas de textos, objetos aninhados). Sem o par em
  * inglês, o campo fica em português. A troca de idioma recarrega a página.
  */
@@ -58,8 +59,22 @@
         return LANGS.some(function (l) { return l !== "pt" && (key === l || key.slice(-(l.length + 1)) === "_" + l); });
     }
 
+    // Em listas curtas (exemplos [leitura, frase, tradução], [frase, tradução]) o inglês vem como
+    // último item { en: "..." }: ele substitui o item anterior (a tradução em português) e some.
+    function isTail(v) {
+        return !!v && typeof v === "object" && !Array.isArray(v) && Object.keys(v).length === 1 && typeof v.en === "string";
+    }
+
     function localize(value, lang) {
-        if (Array.isArray(value)) return value.map(function (v) { return localize(v, lang); });
+        if (Array.isArray(value)) {
+            var items = value;
+            if (items.length > 1 && isTail(items[items.length - 1])) {
+                var tail = items[items.length - 1];
+                items = items.slice(0, -1);
+                if (lang !== "pt" && tail[lang]) items[items.length - 1] = tail[lang];
+            }
+            return items.map(function (v) { return localize(v, lang); });
+        }
         if (!value || typeof value !== "object") return value;
         var out = {};
         Object.keys(value).forEach(function (key) {

@@ -92,3 +92,13 @@ test("toda chave usada no código (T, I18n.t, data-i18n) existe em pt e en", () 
     const missing = [...used].filter(([k]) => !(k in strings.pt) || !(k in strings.en)).map(([k, f]) => k + " (" + f + ")");
     assert.deepEqual(missing, []);
 });
+
+test("localize: em listas curtas, { en } no fim substitui o item anterior e some", () => {
+    const data = { ex: [["み(る)", "{見|み}ます。", "Vejo.", { en: "I see." }], ["ケン", "{見学|けんがく}", "Visita."]] };
+    const en = I18n.localize(data, "en");
+    assert.deepEqual(en.ex[0], ["み(る)", "{見|み}ます。", "I see."]);
+    assert.deepEqual(en.ex[1], ["ケン", "{見学|けんがく}", "Visita."]);
+    const pt = I18n.localize(data, "pt");
+    assert.deepEqual(pt.ex[0], ["み(る)", "{見|み}ます。", "Vejo."]);
+    assert.equal(data.ex[0].length, 4, "não altera a origem");
+});

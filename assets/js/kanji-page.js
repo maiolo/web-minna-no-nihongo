@@ -51,6 +51,15 @@
         return tag.replace(/\s*\(.*$/, "");
     }
 
+    // O comentário entre parênteses dos rótulos de leitura ("ズ (especial)") sai no idioma do site.
+    var TAG_KEYS = {
+        "especial": "kanji.tag.special", "contagem de dias": "kanji.tag.dayCount", "nome de rio": "kanji.tag.river",
+        "sonorização": "kanji.tag.voicing", "ordinal": "kanji.tag.ordinal"
+    };
+    function tagLabel(tag) {
+        return tag.replace(/\(([^)]*)\)\s*$/, function (m, c) { return TAG_KEYS[c] ? "(" + T(TAG_KEYS[c]) + ")" : m; });
+    }
+
     function readingChips(readings) {
         if (!readings.length) return '<span class="read-none">—</span>';
         return readings.map(function (r) {
@@ -94,7 +103,7 @@
         var examples = entry.ex.map(function (e) {
             var kind = readingKind(e[0]);
             return '<li class="example">' +
-                '<span class="read-tag ' + kind + '">' + e[0] + "</span>" +
+                '<span class="read-tag ' + kind + '">' + tagLabel(e[0]) + "</span>" +
                 '<div class="jp-row"><div class="jp-example">' + toRuby(e[1], entry.k) + "</div>" + speakButton(e[1]) + "</div>" +
                 '<div class="romaji">' + sentenceRomaji(e[1]) + "</div>" +
                 '<div class="pt-line">' + T("tr.flag") + ' ' + e[2] + "</div>" +
