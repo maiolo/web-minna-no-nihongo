@@ -170,6 +170,7 @@ O site tem um seletor **PT | EN** no cabeçalho (e no painel Ajustes). Os dois i
 - **Dados** (lições e JLPT): o português é o texto base e o inglês vem ao lado. `{ jp: "...", pt: "Texto", en: "Text" }` (o `en` substitui o `pt`) e `mean_en`, `title_en`, `trap_en`... para os demais campos (o `<campo>_en` substitui `<campo>`; listas também). Sem a tradução, o campo aparece em português. O teste exige que todo `en`/`*_en` tenha o par em português, do mesmo tipo.
   Em listas curtas (exemplos de kanji `[leitura, frase, tradução]`, de gramática `[frase, tradução]` e de verbos `[frase, tradução]`) o inglês vem como último item `{ en: "Text" }`, que substitui a tradução em português.
 - O japonês, a notação `{漢字|かんじ}` e o romaji não mudam com o idioma.
+- **Ao acrescentar dados do JLPT** (kanji, verbos, gramática, questões, simulado): escreva o texto em português e já traga o inglês (`en`, `*_en` ou `{ en }`). `tests/jlpt-i18n.test.js` falha se algum `pt`, `why`, `note`, `mean` ou `rule` em português ficar sem tradução.
 
 ### Gramática por pontos (`gramatica.points`)
 

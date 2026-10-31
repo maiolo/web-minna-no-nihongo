@@ -82,3 +82,31 @@ Object.keys(SETS).forEach((name) => {
         });
     }
 });
+
+// Cobertura: todo texto em português dos dados do JLPT tem a versão em inglês.
+const COVER = [
+    ["jlpt/data/n5-exam-vocab.js", "JLPT_N5_EXAM"], ["jlpt/data/n5-exam-bunpo.js", "JLPT_N5_EXAM"], ["jlpt/data/n5-exam-choukai.js", "JLPT_N5_EXAM"],
+    ["jlpt/data/n5-questions.js", "JLPT_N5_QUESTIONS"], ["jlpt/data/n5-grammar.js", "JLPT_N5_GRAMMAR"], ["jlpt/data/n5-verbs.js", "JLPT_N5_VERBS"],
+    ["jlpt/data/n5-kanji-1.js", "JLPT_N5_KANJI"], ["jlpt/data/n5-kanji-2.js", "JLPT_N5_KANJI"], ["jlpt/data/n5-kanji-3.js", "JLPT_N5_KANJI"]
+];
+const TEXT_KEYS = ["pt", "why", "note", "mean", "rule"];
+const looksPortuguese = (s) => /[a-zçãõéáíóúâêô]{3,}/i.test(String(s).replace(/\{[^}]*\}/g, ""));
+function missing(value, trail, out) {
+    if (Array.isArray(value)) value.forEach((v, i) => missing(v, trail + "[" + i + "]", out));
+    else if (value && typeof value === "object") {
+        Object.keys(value).forEach((k) => {
+            const v = value[k];
+            if (typeof v === "string" && TEXT_KEYS.includes(k) && looksPortuguese(v)) {
+                const en = k === "pt" ? value.en : value[k + "_en"];
+                if (typeof en !== "string" || !en) out.push(trail + "." + k + ": «" + v.slice(0, 40) + "»");
+            } else if (typeof v === "object") missing(v, trail + "." + k, out);
+        });
+    }
+}
+COVER.forEach(([file, name]) => {
+    test(file + ": todo texto em português tem a versão em inglês", () => {
+        const out = [];
+        missing(load(file, name), "", out);
+        assert.deepEqual(out, []);
+    });
+});
