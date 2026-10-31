@@ -9,7 +9,7 @@
  * - As fontes do Google são guardadas na primeira visita e reaproveitadas depois.
  */
 // ASSETS:START
-const VERSION = "54b4f81716";
+const VERSION = "e7ea2c3655";
 const ASSETS = [
   "./",
   "assets/css/style.css",
@@ -66,14 +66,24 @@ const ASSETS = [
   "jlpt/n5-practice.html",
   "jlpt/n5-progress.html",
   "jlpt/n5-verbs.html",
+  "lessons/data/lesson-1.js",
   "lessons/data/lesson-16.js",
   "lessons/data/lesson-17.js",
   "lessons/data/lesson-18.js",
   "lessons/data/lesson-19.js",
+  "lessons/data/lesson-2.js",
+  "lessons/data/lesson-3.js",
+  "lessons/data/lesson-4.js",
+  "lessons/data/lesson-5.js",
+  "lessons/lesson-1.html",
   "lessons/lesson-16.html",
   "lessons/lesson-17.html",
   "lessons/lesson-18.html",
   "lessons/lesson-19.html",
+  "lessons/lesson-2.html",
+  "lessons/lesson-3.html",
+  "lessons/lesson-4.html",
+  "lessons/lesson-5.html",
   "manifest.webmanifest"
 ];
 // ASSETS:END
