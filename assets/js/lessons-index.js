@@ -11,6 +11,46 @@
  */
 window.LESSONS = [
     {
+        number: 1,
+        file: "lesson-1.html",
+        topic: "{自己紹介|じこしょうかい}",
+        topic_en: "Introducing yourself",
+        description: "N1は N2です • ですか • も • の • さん",
+        description_en: "N1は N2です • ですか • も • の • さん"
+    },
+    {
+        number: 2,
+        file: "lesson-2.html",
+        topic: "これ・それ・あれ",
+        topic_en: "This, that, that over there",
+        description: "この・その・あの • N1の N2 • {何|なん}ですか • そうです",
+        description_en: "この・その・あの • N1の N2 • {何|なん}ですか • そうです"
+    },
+    {
+        number: 3,
+        file: "lesson-3.html",
+        topic: "ここ・そこ・あそこ",
+        topic_en: "Here, there, over there",
+        description: "どこですか • こちら • N1の N2 • いくら ({値段|ねだん})",
+        description_en: "どこですか • こちら • N1の N2 • いくら ({値段|ねだん}: prices)"
+    },
+    {
+        number: 4,
+        file: "lesson-4.html",
+        topic: "{時間|じかん}と {毎日|まいにち}の {生活|せいかつ}",
+        topic_en: "Time and daily life",
+        description: "{何時|なんじ}ですか • Vます・ません・ました • から・まで • に",
+        description_en: "{何時|なんじ}ですか • Vます・ません・ました • から・まで • に"
+    },
+    {
+        number: 5,
+        file: "lesson-5.html",
+        topic: "{行|い}きます・{来|き}ます・{帰|かえ}ります",
+        topic_en: "To go, to come, to return",
+        description: "Nへ {行|い}きます • Nで • Nと • いつ ({日付|ひづけ})",
+        description_en: "Nへ {行|い}きます • Nで • Nと • いつ ({日付|ひづけ}: dates)"
+    },
+    {
         number: 16,
         file: "lesson-16.html",
         topic: "{持|も}ち{物|もの}・{行動|こうどう}の{順序|じゅんじょ}",
