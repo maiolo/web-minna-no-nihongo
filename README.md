@@ -70,8 +70,11 @@ tests/
   progress.test.js          Testes do progresso
   store-prefs.test.js       Testes da camada de dados e das preferências (node --test)
   i18n.test.js              Testes dos idiomas (localize, t, chaves pt/en)
+  jlpt-i18n.test.js         Cobertura do inglês nos dados do JLPT
+  new-lesson.test.js        Testes do script de lição nova e do romaji automático
 scripts/
   update-sw.js              Atualiza a lista de arquivos e a versão do cache em sw.js
+  new-lesson.js             Cria uma lição nova (esqueleto bilíngue) e preenche o romaji que falta
 docs/
   ROADMAP.md                Divisão da nova interface em PRs e lista de recursos de back end
 lessons/
@@ -121,9 +124,24 @@ Todos os links do projeto são relativos, então ele funciona dentro desse subca
 
 ## Adicionar uma lição
 
-1. Copie `lessons/lesson-19.html` para `lessons/lesson-NN.html` e troque o `<title>`, o `data-lesson="NN"` e o caminho do script de dados (`data/lesson-NN.js`). Mantenha `notation.js` carregado antes de `lessons-index.js`.
-2. Crie `lessons/data/lesson-NN.js` com o conteúdo (formato abaixo).
-3. Acrescente a lição em `assets/js/lessons-index.js`, em ordem numérica. Ela passa a aparecer no índice e nos botões de anterior e próxima automaticamente.
+Um comando cria tudo o que a lição precisa:
+
+```bash
+node scripts/new-lesson.js new 20 --topic "Tema em português" --topic-en "Topic in English"
+```
+
+Ele copia o HTML da última lição (com o número trocado), cria `lessons/data/lesson-20.js` com um **esqueleto bilíngue que já passa nos testes**, acrescenta a lição em `assets/js/lessons-index.js` (na ordem numérica, o que a coloca no índice e nos botões de anterior e próxima) e atualiza o `sw.js`. Depois é só trocar os textos de exemplo pelos da lição (formato abaixo; português é o texto base e o inglês vem em `en` / `<campo>_en`) e rodar `node --test`.
+
+**Romaji automático.** Vocabulário e questões precisam de `romaji`. Em vez de escrever à mão:
+
+```bash
+node scripts/new-lesson.js romaji lessons/data/lesson-20.js          # preenche o que falta (nunca troca o que já existe)
+node scripts/new-lesson.js romaji lessons/data/lesson-20.js --check  # só confere: lista onde o escrito difere do gerado
+```
+
+O vocabulário usa `jp` e as questões usam `a`. O script trata `は`/`へ` depois de substantivo como partícula (wa / e), separa `ことが`, `掃除 します` e `Maria-san`. Ele avisa as linhas que pedem revisão: **números** (escreva por extenso, `nijuugo`), **diálogos** (`…`) e leituras especiais. Nas lições 16 a 19 ele concorda com o romaji escrito à mão em quase tudo; as diferenças que sobram são justamente esses casos.
+
+Manualmente, os passos equivalentes são: copiar `lessons/lesson-NN.html` trocando o `<title>`, o `data-lesson="NN"` e o caminho do script de dados; criar `lessons/data/lesson-NN.js`; e acrescentar a lição em `lessons-index.js`.
 
 ### Formato dos dados
 

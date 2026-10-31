@@ -9,7 +9,7 @@
  * - As fontes do Google são guardadas na primeira visita e reaproveitadas depois.
  */
 // ASSETS:START
-const VERSION = "b1d98a800a";
+const VERSION = "54b4f81716";
 const ASSETS = [
   "./",
   "assets/css/style.css",
