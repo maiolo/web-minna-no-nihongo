@@ -38,7 +38,8 @@ test("toda categoria tem pelo menos um ponto", () => {
 
 test("exemplos: furigana completo, tradução e romaji gerável", () => {
     POINTS.forEach((p) => {
-        p.ex.forEach((e) => {
+        p.ex.forEach((raw) => {
+            const e = raw.filter((x) => typeof x === "string");   // o inglês vem como último item { en }
             assert.equal(e.length, 2, p.id);
             assert.ok(e[0] && e[1], p.id + ": exemplo incompleto");
             assert.ok(!hasBareKanji(e[0]), p.id + ": kanji sem furigana em " + e[0]);
