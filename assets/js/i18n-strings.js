@@ -68,6 +68,8 @@
         "tr.flag": "🇧🇷",
         "gp.trap": "Cuidado",
         "gp.tip": "Dica",
+        "gp.examples": "Exemplos",
+        "gp.compare": "Comparação",
 
         "ex.correctAnswers": "Questões corretas",
         "ex.progress": "{done} de {total} corretas",
@@ -93,6 +95,7 @@
         "ex.youTyped": "Você digitou",
         "ex.expected": "Esperado",
         "ex.tapWords": "Toque nas palavras para montar a frase.",
+        "ex.assembleHint": "Toque nas palavras abaixo, na ordem certa",
         "ex.missing": "Está certo até aqui, mas faltam palavras.",
         "ex.missingAndMisplaced": "Faltam palavras e algumas estão fora do lugar (em vermelho).",
         "ex.misplaced1": "{n} palavra está fora do lugar (em vermelho).",
@@ -436,6 +439,8 @@
         "tr.flag": "🇺🇸",
         "gp.trap": "Watch out",
         "gp.tip": "Tip",
+        "gp.examples": "Examples",
+        "gp.compare": "Compare",
 
         "ex.correctAnswers": "Correct answers",
         "ex.progress": "{done} of {total} correct",
@@ -461,6 +466,7 @@
         "ex.youTyped": "You typed",
         "ex.expected": "Expected",
         "ex.tapWords": "Tap the words to build the sentence.",
+        "ex.assembleHint": "Tap the words below, in the right order",
         "ex.missing": "Correct so far, but words are missing.",
         "ex.missingAndMisplaced": "Words are missing and some are out of place (in red).",
         "ex.misplaced1": "{n} word is out of place (in red).",

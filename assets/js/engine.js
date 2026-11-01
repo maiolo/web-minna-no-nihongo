@@ -386,10 +386,10 @@
                     (r.ex || []).map(formLine).join("") + "</div>";
             }).join("") + "</div>";
         }
-        html += '<h4 class="gp-sub">Exemplos</h4>' + p.ex.map(function (e) { return textBlock(e, "jp-example"); }).join("");
+        html += '<h4 class="gp-sub">' + T("gp.examples") + "</h4>" + p.ex.map(function (e) { return textBlock(e, "jp-example"); }).join("");
         if (p.contrast) {
             // Blocos empilhados (e não tabela): no celular a frase inteira cabe sem rolar na horizontal.
-            html += '<h4 class="gp-sub">Compare</h4><div class="gp-compare">' + p.contrast.rows.map(function (r) {
+            html += '<h4 class="gp-sub">' + T("gp.compare") + '</h4><div class="gp-compare">' + p.contrast.rows.map(function (r) {
                 return '<div class="gp-cmp"><div class="gp-cmp-label">' + r.label + '</div><div class="jp-example">' + r.jp +
                     '</div><div class="pt-line">' + r.pt + "</div></div>";
             }).join("") + "</div>";
@@ -438,7 +438,7 @@
                         '<button type="button" class="btn btn-reveal" data-action="reveal">' +
                             "💡 " + T("ex.reveal") + " (<ruby>答<rt>こた</rt></ruby>え)</button>" +
                     "</div>" +
-                    '<div class="feedback-box"></div>' +
+                    '<div class="feedback-box" role="status" aria-live="polite"></div>' +
                     '<div class="answer-box">' +
                         '<div class="jp-row"><div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.a + "</div>" + speakButton(q.a) + "</div>" +
                         '<div class="romaji">' + q.romaji + "</div>" +
@@ -462,8 +462,10 @@
                 var order = E.shuffleSeeded(q.tokens.map(function (t, i) { return i; }), (g + 1) * 100 + n + lessonNumber);
                 html += '<div class="item-box" data-exercise="' + sectionId + ":" + g + ":" + n + '" data-kind="assemble">' +
                     '<div class="exercise-prompt">' + q.pt + "</div>" +
-                    '<div class="assemble-answer" aria-label="' + T("ex.yourSentence") + '" aria-live="polite"></div>' +
-                    '<div class="assemble-bank" aria-label="' + T("ex.availableWords") + '">' +
+                    '<div class="assemble-answer" role="group" aria-label="' + T("ex.yourSentence") + '" aria-live="polite">' +
+                        '<p class="assemble-hint">' + T("ex.assembleHint") + "</p>" +
+                    "</div>" +
+                    '<div class="assemble-bank" role="group" aria-label="' + T("ex.availableWords") + '">' +
                         order.map(function (i) {
                             return '<button type="button" class="word-chip" data-i="' + i + '">' + q.tokens[i] + "</button>";
                         }).join("") +
@@ -473,7 +475,7 @@
                         '<button type="button" class="btn btn-reveal" data-action="retry">↺ ' + T("ex.clear") + '</button>' +
                         '<button type="button" class="btn btn-reveal" data-action="reveal">💡 ' + T("ex.reveal") + ' (<ruby>答<rt>こた</rt></ruby>え)</button>' +
                     "</div>" +
-                    '<div class="feedback-box"></div>' +
+                    '<div class="feedback-box" role="status" aria-live="polite"></div>' +
                     '<div class="answer-box">' +
                         '<div class="jp-row"><div class="answer-correct"><ruby>正解<rt>せいかい</rt></ruby>: ' + q.tokens.join("") + "</div>" + speakButton(q.tokens.join("")) + "</div>" +
                         '<div class="romaji">' + q.romaji + "</div>" +
@@ -621,12 +623,18 @@
 
     function chipsOf(container) { return Array.prototype.slice.call(container.querySelectorAll(".word-chip")); }
 
+    // A dica da caixa de resposta some quando já há palavras escolhidas (o chip ocupa o lugar).
+    function syncAssembleHint(answer) {
+        answer.classList.toggle("has-chips", Boolean(answer.querySelector(".word-chip")));
+    }
+
     function moveChip(chip) {
         var box = chip.closest("[data-exercise]");
         var answer = box.querySelector(".assemble-answer");
         var bank = box.querySelector(".assemble-bank");
         var target = chip.parentNode === bank ? answer : bank;
         target.appendChild(chip);
+        syncAssembleHint(answer);
         chip.classList.remove("wrong", "right");
         chip.focus();
         var fb = box.querySelector(".feedback-box");
@@ -675,6 +683,7 @@
                 chip.classList.remove("wrong", "right");
                 bank.appendChild(chip);
             });
+            syncAssembleHint(box.querySelector(".assemble-answer"));
             var first = bank.querySelector(".word-chip");
             if (first) first.focus();
         } else {
