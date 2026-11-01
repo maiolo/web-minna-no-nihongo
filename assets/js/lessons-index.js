@@ -91,6 +91,46 @@ window.LESSONS = [
         description_en: "Nが あります・います • {場所|ばしょ}に あります • position words • や"
     },
     {
+        number: 11,
+        file: "lesson-11.html",
+        topic: "{数|かぞ}える・かかる{時間|じかん}",
+        topic_en: "Counting and how long things take",
+        description: "{数|かぞ}え{方|かた} • {数量|すうりょう} • {時間|じかん}の{長|なが}さ • {回数|かいすう}",
+        description_en: "Counters • quantities • duration • frequency"
+    },
+    {
+        number: 12,
+        file: "lesson-12.html",
+        topic: "{比|くら}べる ({比較|ひかく})",
+        topic_en: "Comparing",
+        description: "Nでした • より • どちらが • いちばん",
+        description_en: "Nでした • より • どちらが • いちばん"
+    },
+    {
+        number: 13,
+        file: "lesson-13.html",
+        topic: "ほしい・〜たい・{目的|もくてき}",
+        topic_en: "Wanting and purpose",
+        description: "Nが ほしい • Vたい • Vに {行|い}きます • {何|なに}か・どこか",
+        description_en: "Nが ほしい • Vたい • Vに {行|い}きます • {何|なに}か・どこか"
+    },
+    {
+        number: 14,
+        file: "lesson-14.html",
+        topic: "て{形|けい} (Forma TE)",
+        topic_en: "The て form",
+        description: "てください • ています • ましょうか",
+        description_en: "てください • ています • ましょうか"
+    },
+    {
+        number: 15,
+        file: "lesson-15.html",
+        topic: "{許可|きょか}・{禁止|きんし}・{状態|じょうたい}",
+        topic_en: "Permission, prohibition and states",
+        description: "てもいいです • てはいけません • ています ({状態|じょうたい}) • {知|し}っています",
+        description_en: "てもいいです • てはいけません • ています (state) • {知|し}っています"
+    },
+    {
         number: 16,
         file: "lesson-16.html",
         topic: "{持|も}ち{物|もの}・{行動|こうどう}の{順序|じゅんじょ}",
