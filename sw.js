@@ -9,7 +9,7 @@
  * - As fontes do Google são guardadas na primeira visita e reaproveitadas depois.
  */
 // ASSETS:START
-const VERSION = "0b78f18fba";
+const VERSION = "1d71c56e47";
 const ASSETS = [
   "./",
   "assets/css/style.css",
@@ -78,6 +78,9 @@ const ASSETS = [
   "lessons/data/lesson-18.js",
   "lessons/data/lesson-19.js",
   "lessons/data/lesson-2.js",
+  "lessons/data/lesson-20.js",
+  "lessons/data/lesson-21.js",
+  "lessons/data/lesson-22.js",
   "lessons/data/lesson-3.js",
   "lessons/data/lesson-4.js",
   "lessons/data/lesson-5.js",
@@ -97,6 +100,9 @@ const ASSETS = [
   "lessons/lesson-18.html",
   "lessons/lesson-19.html",
   "lessons/lesson-2.html",
+  "lessons/lesson-20.html",
+  "lessons/lesson-21.html",
+  "lessons/lesson-22.html",
   "lessons/lesson-3.html",
   "lessons/lesson-4.html",
   "lessons/lesson-5.html",
