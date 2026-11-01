@@ -51,6 +51,46 @@ window.LESSONS = [
         description_en: "Nへ {行|い}きます • Nで • Nと • いつ ({日付|ひづけ}: dates)"
     },
     {
+        number: 6,
+        file: "lesson-6.html",
+        topic: "{食|た}べる・{見|み}る・{誘|さそ}う",
+        topic_en: "Eating, watching, inviting",
+        description: "Nを Vます • Nで Vます • Vませんか • Vましょう",
+        description_en: "Nを Vます • Nで Vます • Vませんか • Vましょう"
+    },
+    {
+        number: 7,
+        file: "lesson-7.html",
+        topic: "どうぐと あげる・もらう",
+        topic_en: "Tools, giving and receiving",
+        description: "Nで Vます • あげます・もらいます • もう・まだ",
+        description_en: "Nで Vます • あげます・もらいます • もう・まだ"
+    },
+    {
+        number: 8,
+        file: "lesson-8.html",
+        topic: "{形容詞|けいようし} (Adjetivos)",
+        topic_en: "Adjectives",
+        description: "い{形容詞|けいようし} • な{形容詞|けいようし} • とても・あまり • どんな",
+        description_en: "い-adjectives • な-adjectives • とても・あまり • どんな"
+    },
+    {
+        number: 9,
+        file: "lesson-9.html",
+        topic: "{好|す}き・{上手|じょうず}・わかります",
+        topic_en: "Likes, skills and understanding",
+        description: "Nが {好|す}きです • Nが わかります • どうして・から",
+        description_en: "Nが {好|す}きです • Nが わかります • どうして・から"
+    },
+    {
+        number: 10,
+        file: "lesson-10.html",
+        topic: "あります・います (Existência)",
+        topic_en: "Existence: あります and います",
+        description: "Nが あります・います • {場所|ばしょ}に あります • {位置|いち}の ことば • や",
+        description_en: "Nが あります・います • {場所|ばしょ}に あります • position words • や"
+    },
+    {
         number: 16,
         file: "lesson-16.html",
         topic: "{持|も}ち{物|もの}・{行動|こうどう}の{順序|じゅんじょ}",
