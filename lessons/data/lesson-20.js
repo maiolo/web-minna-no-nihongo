@@ -28,7 +28,7 @@ window.lessonData = {
   },
   gramatica: {
     title: "{文法|ぶんぽう} (Gramática)", title_en: "{文法|ぶんぽう} (Grammar)",
-    intro: "Três pontos nesta lição. Até aqui, todas as frases eram em です／ます. Agora entra a forma {普通|ふつう}, a mesma que os japoneses usam em casa, entre amigos e nas mensagens do dia a dia. Cada cartão traz o modelo, a explicação, os exemplos, uma comparação e as armadilhas.", intro_en: "Three points in this lesson. Until now every sentence was in です／ます. Now comes the {普通|ふつう} form, the one Japanese people use at home, with friends and in everyday messages. Each card gives the pattern, the explanation, the examples, a comparison and the pitfalls.",
+    intro: "Três pontos nesta lição. Até aqui, os modelos eram em です／ます (a forma た apareceu na lição 19); agora a lição organiza as quatro formas da conversa. Entra a forma {普通|ふつう}, a mesma que os japoneses usam em casa, entre amigos e nas mensagens do dia a dia. Cada cartão traz o modelo, a explicação, os exemplos, uma comparação e as armadilhas.", intro_en: "Three points in this lesson. Until now the models were in です／ます (the た form appeared in lesson 19); now this lesson organises the four forms of everyday talk. This lesson introduces the {普通|ふつう} form, the one Japanese people use at home, with friends and in everyday messages. Each card gives the pattern, the explanation, the examples, a comparison and the pitfalls.",
     points: [
       {
         id: "futsuukei",
@@ -71,7 +71,7 @@ window.lessonData = {
         ],
         contrast: {
           rows: [
-            { label: "{丁寧形|ていねいけい} (です・ます)", label_en: "{丁寧形|ていねいけい} (です・ます)", jp: "{明日|あした}、{友達|ともだち}に {会|あ}います。", pt: "Com quem não é próximo: professor, chefe, desconhecido.", en: "With people you are not close to: teachers, bosses, strangers." },
+            { label: "{丁寧形|ていねいけい} (です・ます)", label_en: "{丁寧形|ていねいけい} (です・ます)", jp: "{明日|あした}、{先生|せんせい}に {会|あ}います。", pt: "Com quem não é próximo: professor, chefe, desconhecido.", en: "With people you are not close to: teachers, bosses, strangers." },
             { label: "{普通形|ふつうけい}", label_en: "{普通形|ふつうけい}", jp: "{明日|あした}、{友達|ともだち}に {会|あ}う。", pt: "Com amigos e família.", en: "With friends and family." }
           ],
           note: "O sentido é o mesmo: muda só o nível de formalidade. O erro clássico é misturar as duas formas na mesma frase ({会|あ}う ですか).", note_en: "The meaning is the same: only the level of formality changes. The classic mistake is to mix the two forms in one sentence ({会|あ}う ですか)."
@@ -108,13 +108,13 @@ window.lessonData = {
             { tag: "passado negativo", tag_en: "past negative", jp: "{元気|げんき}じゃなかった", pt: "não estava bem", en: "was not well" }
           ] },
           { label: "{丁寧形|ていねいけい} (para comparar)", label_en: "{丁寧形|ていねいけい} (for comparison)", text: "Na forma educada, o だ sai e entra です.", text_en: "In the polite form the だ goes away and です comes in.", ex: [
-            { jp: "{学生|がくせい}だ ➔ {学生|がくせい}です", romaji: "gakuseida ➔ gakusei desu", pt: "é estudante", en: "is a student" },
-            { jp: "{学生|がくせい}じゃない ➔ {学生|がくせい}じゃありません", romaji: "gakuseijanai ➔ gakuseijaarimasen", pt: "não é estudante", en: "is not a student" }
+            { jp: "{学生|がくせい}だ ➔ {学生|がくせい}です", romaji: "gakusei da ➔ gakusei desu", pt: "é estudante", en: "is a student" },
+            { jp: "{学生|がくせい}じゃない ➔ {学生|がくせい}じゃありません", romaji: "gakusei ja nai ➔ gakusei ja arimasen", pt: "não é estudante", en: "is not a student" }
           ] }
         ],
         ex: [
           { jp: "{田中|たなか}さん^は {日本人|にほんじん}だ。", romaji: "Tanaka-san wa nihonjin da.", pt: "O Tanaka é japonês.", en: "Tanaka is Japanese." },
-          { jp: "{今日|きょう}^は {元気|げんき}じゃない。", romaji: "Kyou wa genkijanai.", pt: "Hoje não estou bem.", en: "I am not well today." },
+          { jp: "{今日|きょう}^は {元気|げんき}じゃない。", romaji: "Kyou wa genki ja nai.", pt: "Hoje não estou bem.", en: "I am not well today." },
           { jp: "{昔|むかし}、ここ^は {海|うみ}だった。", romaji: "Mukashi, koko wa umidatta.", pt: "Antigamente, aqui era mar.", en: "Long ago, this place was the sea." },
           { jp: "A: {学生|がくせい}？<br>B: ううん、{学生|がくせい}じゃない。{会社員|かいしゃいん}だ。", romaji: "Gakusei? ...Uun, gakusei ja nai. Kaishain da.", pt: "A: Você é estudante? B: Não, não sou estudante. Sou funcionário de empresa.", en: "A: Are you a student? B: No, I'm not. I'm a company employee." }
         ],
@@ -160,12 +160,12 @@ window.lessonData = {
         },
         trap: [
           "Não use a forma {普通|ふつう} com professor, chefe ou desconhecido: soa infantil ou grosseiro.",
-          "Pergunta casual não leva か: {行|い}くか？ soa de livro ou de briga. Use {行|い}く？",
+          "Pergunta casual não leva か: {行|い}くか？ soa rude ou masculino demais. Use {行|い}く？",
           "うん／ううん são de conversa. Em situação educada, responda はい／いいえ."
         ],
         trap_en: [
           "Do not use the {普通|ふつう} form with teachers, bosses or strangers: it sounds childish or rude.",
-          "A casual question takes no か: {行|い}くか？ sounds like a book or a fight. Use {行|い}く？",
+          "A casual question takes no か: {行|い}くか？ sounds rude or too masculine. Use {行|い}く？",
           "うん／ううん belong to conversation. In a polite situation answer はい／いいえ."
         ]
       }
@@ -253,14 +253,14 @@ window.lessonData = {
         desc: "1. {夏休|なつやす}みの {予定|よてい} (Planos de férias)", desc_en: "1. {夏休|なつやす}みの {予定|よてい} (Holiday plans)",
         questions: [
           { q: "A: {夏休|なつやす}み、どこか <strong>[{行|い}きます]</strong>？<br>B: うん、{国|くに}^へ {帰|かえ}る。", a: "{行|い}く", romaji: "iku", pt: "vou (forma {普通|ふつう})", en: "I go (plain form)" },
-          { q: "A: {海|うみ}と {山|やま}と、どっちが {好|す}き？<br>B: {海|うみ}が <strong>[{好|す}きです]</strong>。", a: "{好|す}きだ", romaji: "suki da", pt: "gosto (forma {普通|ふつう})", en: "I like (plain form)" },
-          { q: "A: {予約|よやく}^は もう しましたか。<br>B: ううん、まだ。<strong>[します]</strong>。", a: "する", romaji: "suru", pt: "faço (forma {普通|ふつう})", en: "I do (plain form)" }
+          { q: "A: {海|うみ}と {山|やま}と、どっちが {好|す}き？<br>B: {海|うみ}が <strong>[{好|す}きです]</strong>。", a: "{好|す}きだ／{好|す}き", romaji: "suki da／suki", pt: "gosto (forma {普通|ふつう})", en: "I like (plain form)" },
+          { q: "A: {予約|よやく}^は もう した？<br>B: ううん、まだ。<strong>[します]</strong>。", a: "する", romaji: "suru", pt: "faço (forma {普通|ふつう})", en: "I do (plain form)" }
         ]
       },
       {
         desc: "2. {天気|てんき}の {話|はなし} (Falando do tempo)", desc_en: "2. {天気|てんき}の {話|はなし} (Talking about the weather)",
         questions: [
-          { q: "A: {今日|きょう}^は {寒|さむ}いね。<br>B: うん、{昨日|きのう}^は もっと <strong>[{寒|さむ}いでした]</strong>。", a: "{寒|さむ}かった", romaji: "samukatta", pt: "estava mais frio (forma {普通|ふつう})", en: "was colder (plain form)" },
+          { q: "A: {今日|きょう}^は {寒|さむ}いね。<br>B: うん、{昨日|きのう}^は もっと <strong>[{寒|さむ}かったです]</strong>。", a: "{寒|さむ}かった", romaji: "samukatta", pt: "estava mais frio (forma {普通|ふつう})", en: "was colder (plain form)" },
           { q: "A: {明日|あした}、{雪|ゆき}が {降|ふ}る？<br>B: ううん、<strong>[{降|ふ}りません]</strong>。", a: "{降|ふ}らない", romaji: "furanai", pt: "não cai (forma {普通|ふつう})", en: "it does not fall (plain form)" }
         ]
       }
@@ -273,16 +273,16 @@ window.lessonData = {
         desc: "1. (　　) に {正|ただ}しい {形|かたち}を {入|い}れなさい。(Complete com a forma {普通|ふつう})", desc_en: "1. (　　) に {正|ただ}しい {形|かたち}を {入|い}れなさい。(Complete with the {普通|ふつう} form)",
         questions: [
           { q: "{明日|あした}、{友達|ともだち}に （{会|あ}います ➔ ＿＿＿）。", a: "{会|あ}う", romaji: "au", pt: "encontro (forma {普通|ふつう}, presente)", en: "meet (plain form, present)" },
-          { q: "{昨日|きのう}^は {寒|さむ}い （です ➔ ＿＿＿）。", a: "{寒|さむ}かった", romaji: "samukatta", pt: "estava frio (forma {普通|ふつう}, passado)", en: "was cold (plain form, past)" },
-          { q: "{田中|たなか}さん^は {学生|がくせい} （です ➔ ＿＿＿）。", a: "{学生|がくせい}だ", romaji: "gakusei da", pt: "é estudante (substantivo + だ)", en: "is a student (noun + だ)" },
-          { q: "{今日|きょう}^は {元気|げんき} （です ➔ ＿＿＿）。", a: "{元気|げんき}じゃない", romaji: "genki ja nai", pt: "não estou bem (adjetivo な, negativo)", en: "am not well (na-adjective, negative)" }
+          { q: "{昨日|きのう}^は （{寒|さむ}いです ➔ ＿＿＿）。", a: "{寒|さむ}かった", romaji: "samukatta", pt: "estava frio (forma {普通|ふつう}, passado)", en: "was cold (plain form, past)" },
+          { q: "{田中|たなか}さん^は {学生|がくせい} （です ➔ ＿＿＿）。", a: "だ", romaji: "da", pt: "é estudante (substantivo + だ)", en: "is a student (noun + だ)" },
+          { q: "{今日|きょう}^は {元気|げんき} （です ➔ ＿＿＿）。", a: "じゃない", romaji: "ja nai", pt: "não estou bem (adjetivo な, negativo)", en: "am not well (na-adjective, negative)" }
         ]
       },
       {
         desc: "2. {正|ただ}しい ものを {選|えら}びなさい。(Escolha a resposta certa)", desc_en: "2. {正|ただ}しい ものを {選|えら}びなさい。(Choose the right answer)",
         questions: [
-          { q: "{夏休|なつやす}み、{国|くに} （　　） {帰|かえ}る？", a: "へ", romaji: "e", pt: "Partícula de direção (para o país)", en: "Direction particle (to the country)" },
-          { q: "{昨日|きのう}^は {日曜日|にちようび} （　　）。", a: "だった", romaji: "datta", pt: "Substantivo no passado afirmativo", en: "Noun in the past affirmative" },
+          { q: "{夏休|なつやす}み、{国|くに} （　　） {帰|かえ}る？", a: "へ／に", romaji: "e／ni", pt: "Partícula de direção (para o país)", en: "Direction particle (to the country)" },
+          { q: "{昨日|きのう}^は {日曜日|にちようび} （　　）。", a: "だった／でした", romaji: "datta／deshita", pt: "Substantivo no passado afirmativo", en: "Noun in the past affirmative" },
           { q: "{今日|きょう}^は {忙|いそが}しい？　…ううん、 （　　） 。", a: "{忙|いそが}しくない", romaji: "isogashikunai", pt: "Adjetivo い no negativo", en: "い-adjective in the negative" }
         ]
       },
@@ -291,11 +291,12 @@ window.lessonData = {
         questions: [
           {
             q: `<div class="reading-box">
-                                            {来月|らいげつ}、サントスさん^は {夏休|なつやす}みに なります。{国|くに}^へ {帰|かえ}る {予定|よてい}です。でも、ひこうきの {予約|よやく}^は まだ して いません。{家族|かぞく}に お{土産|みやげ}も まだ {買|か}って いません。
+                                            {来月|らいげつ}から サントスさん^は {夏休|なつやす}みです。{国|くに}^へ {帰|かえ}る {予定|よてい}です。でも、ひこうきの {予約|よやく}^は まだです。{家族|かぞく}への お{土産|みやげ}も まだです。
                                         </div>
-                                        {質問|しつもん}: サントスさん^は これから {何|なに}を しますか。`,
-            a: "ひこうきの {予約|よやく}を します。",
-            pt: "Ele vai reservar a passagem de avião.", en: "He is going to book the plane ticket."
+                                        {質問|しつもん}: サントスさん^は もう ひこうきの {予約|よやく}を しましたか。`,
+            a: "いいえ、まだです。",
+            romaji: "Iie, mada desu.",
+            pt: "Não, ainda não.", en: "No, not yet."
           }
         ]
       }

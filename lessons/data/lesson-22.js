@@ -91,7 +91,7 @@ window.lessonData = {
           { label: "{動詞|どうし}", label_en: "{動詞|どうし}", text: "Quem faz a ação também leva が.", text_en: "Whoever does the action also takes が.", ex: [
             { jp: "{雨|あめ}が {降|ふ}って いる {日|ひ}", romaji: "ame ga futte iru hi", pt: "um dia em que está chovendo", en: "a day when it is raining" }
           ] },
-          { label: "{名詞|めいし} + が できます", label_en: "{名詞|めいし} + が できます", text: "Sujeito do que se sabe fazer.", text_en: "Subject of what one can do.", ex: [
+          { label: "{名詞|めいし} + が わかる／できます", label_en: "{名詞|めいし} + が わかる／できます", text: "Sujeito do que se sabe fazer.", text_en: "Subject of what one can do.", ex: [
             { jp: "{日本語|にほんご}が わかる {人|ひと}", romaji: "nihongo ga wakaru hito", pt: "pessoa que entende japonês", en: "a person who understands Japanese" }
           ] }
         ],
@@ -102,7 +102,7 @@ window.lessonData = {
         ],
         contrast: {
           rows: [
-            { label: "が dentro da cláusula", label_en: "が inside the clause", jp: "{背|せ}が {高|たか}い {人|ひと}が {好|す}きです。", pt: "Gosto de pessoas altas: が descreve, e o が final é o sujeito de {好|す}き.", en: "I like tall people: が describes, and the final が is the subject of {好|す}き." },
+            { label: "が dentro da cláusula", label_en: "が inside the clause", jp: "{背|せ}が {高|たか}い {人|ひと}が {好|す}きです。", pt: "Gosto de pessoas altas: が descreve, e o が final é o que {好|す}き pede (o objeto do gosto), não é o sujeito da descrição.", en: "I like tall people: が describes, and the final が is what {好|す}き asks for (the object of liking), not the subject of the description." },
             { label: "は na frase inteira", label_en: "は in the whole sentence", jp: "{田中|たなか}さん^は {背|せ}が {高|たか}いです。", pt: "O Tanaka é alto: o は apresenta o assunto da frase.", en: "Tanaka is tall: は introduces the topic of the sentence." }
           ],
           note: "Dentro do bloco o は não cabe. ［{背|せ}は {高|たか}い］{人|ひと} soa como comparação, não como descrição.", note_en: "は does not fit inside the block. ［{背|せ}は {高|たか}い］{人|ひと} sounds like a comparison, not a description."
@@ -124,7 +124,7 @@ window.lessonData = {
         pat: "V-て いる ＋ N<br>V-た ＋ N", title_en: "V-て いる ＋ N<br>V-た ＋ N",
         short: "situação em curso × ação concluída", short_en: "ongoing situation vs. finished action",
         mean: "［V-て いる］N descreve uma situação que continua ou está em curso: a pessoa que está de pé, que usa óculos, que mora perto. ［V-た］N descreve uma ação que terminou: o bolo que o pai fez, o livro que comprei ontem.", mean_en: "［V-て いる］N describes a situation that continues or is in progress: the person standing, wearing glasses, living nearby. ［V-た］N describes a finished action: the cake my father made, the book I bought yesterday.",
-        rule: "Use ている para estado ou ação em curso e た para o que já aconteceu. Verbos de estado como {住|す}む e {結婚|けっこん}する aparecem sempre em ている quando descrevem alguém.", rule_en: "Use ている for a state or an action in progress and た for what has already happened. State verbs like {住|す}む and {結婚|けっこん}する always appear in ている when describing someone.",
+        rule: "Use ている para estado ou ação em curso e た para o que já aconteceu. Para descrever alguém, use ている ({住|す}んでいる, {結婚|けっこん}している); {住|す}みます/{結婚|けっこん}します ficam para o futuro.", rule_en: "Use ている for a state or an action in progress and た for what has already happened. To describe someone, use ている ({住|す}んでいる, {結婚|けっこん}している); {住|す}みます/{結婚|けっこん}します are for the future.",
         form: [
           { label: "V-て いる", label_en: "V-て いる", text: "Situação atual ou ação em curso.", text_en: "Current situation or action in progress.", ex: [
             { jp: "{眼鏡|めがね}を かけて いる {人|ひと}", romaji: "megane o kakete iru hito", pt: "a pessoa que está de óculos", en: "the person wearing glasses" },
@@ -191,12 +191,12 @@ window.lessonData = {
         },
         trap: [
           "A partícula nunca entra na cláusula: {昨日|きのう} {買|か}った を {本|ほん} é errado.",
-          "Não repita o substantivo: ［{読|よ}んだ {本|ほん}］を {本|ほん}を は errado.",
+          "Não repita o substantivo: 「{読|よ}んだ {本|ほん}を {本|ほん}を {返|かえ}しました」 é errado; diga 「{読|よ}んだ {本|ほん}を {返|かえ}しました」.",
           "A partícula vem logo depois do substantivo que fecha o bloco."
         ],
         trap_en: [
           "The particle never goes inside the clause: {昨日|きのう} {買|か}った を {本|ほん} is wrong.",
-          "Do not repeat the noun: ［{読|よ}んだ {本|ほん}］を {本|ほん}を is wrong.",
+          "Do not repeat the noun: 「{読|よ}んだ {本|ほん}を {本|ほん}を {返|かえ}しました」 is wrong; say 「{読|よ}んだ {本|ほん}を {返|かえ}しました」.",
           "The particle comes right after the noun that closes the block."
         ]
       }
@@ -238,7 +238,7 @@ window.lessonData = {
       {
         desc: "1. {文|ぶん}を {一|ひと}つの {名詞|めいし}に しなさい。(Transforme a frase em um bloco com substantivo)", desc_en: "1. {文|ぶん}を {一|ひと}つの {名詞|めいし}に しなさい。(Turn the sentence into one noun block)",
         questions: [
-          { q: "{昨日|きのう}、{友達|ともだち}に {会|あ}いました。＋ {日|ひ} ➔", a: "{友達|ともだち}に {会|あ}った {日|ひ}", romaji: "tomodachi ni atta hi", pt: "o dia em que encontrei um amigo", en: "the day I met a friend" },
+          { q: "{昨日|きのう}、{友達|ともだち}に {会|あ}いました。＋ {日|ひ}（{昨日|きのう}は {入|い}れない）➔", a: "{友達|ともだち}に {会|あ}った {日|ひ}", romaji: "tomodachi ni atta hi", pt: "o dia em que encontrei um amigo", en: "the day I met a friend" },
           { q: "{雪|ゆき}が {降|ふ}りました。＋ {日|ひ}（passado）➔", a: "{雪|ゆき}が {降|ふ}った {日|ひ}", romaji: "yuki ga futta hi", pt: "o dia em que nevou", en: "the day it snowed" },
           { q: "{田中|たなか}さん^は {親切|しんせつ}です。＋ {人|ひと} ➔", a: "{親切|しんせつ}な {人|ひと}", romaji: "shinsetsu na hito", pt: "uma pessoa gentil", en: "a kind person" }
         ]

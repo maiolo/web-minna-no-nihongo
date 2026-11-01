@@ -35,27 +35,27 @@ window.lessonData = {
         pat: "{普通形|ふつうけい} ＋ と {思|おも}います", title_en: "{普通形|ふつうけい} ＋ と {思|おも}います",
         short: "eu acho que… / na minha opinião", short_en: "I think that… / in my opinion",
         mean: "Diz o que você pensa ou acha. O と marca o conteúdo da opinião e {思|おも}います vem sempre no fim. Usa-se quando você não tem certeza absoluta — que é o caso da maior parte das opiniões.", mean_en: "It says what you think or believe. と marks the content of the opinion and {思|おも}います always comes at the end. It is used when you are not absolutely sure — which is the case for most opinions.",
-        rule: "A parte de dentro vai sempre em {普通形|ふつうけい} + と; só {思|おも}います fica na forma educada. Negativo: と {思|おも}いません (acho que não). Pergunta: と {思|おも}いますか. Com substantivo e adjetivo な, o だ é obrigatório antes de と.", rule_en: "The inside part is always in the {普通|ふつう} form + と; only {思|おも}います stays in the polite form. Negative: と {思|おも}いません (I don't think so). Question: と {思|おも}いますか. With nouns and な-adjectives the だ is required before と.",
+        rule: "A parte de dentro vai sempre em {普通形|ふつうけい} + と; só {思|おも}います fica na forma educada. Negativo: 〜ないと {思|おも}います (acho que não), a forma mais comum; 〜と {思|おも}いません = não acho que. Não confunda as duas. Pergunta: と {思|おも}いますか. Com substantivo e adjetivo な, o だ é obrigatório antes de と.", rule_en: "The inside part is always in the {普通|ふつう} form + と; only {思|おも}います stays in the polite form. Negative: 〜ないと {思|おも}います (I think that not…), the most common form; 〜と {思|おも}いません = I don't think so. Do not confuse the two. Question: と {思|おも}いますか. With nouns and な-adjectives the だ is required before と.",
         form: [
           { label: "{動詞|どうし} (verbo)", label_en: "{動詞|どうし} (verb)", text: "Presente: 〜る／〜ない. Passado: 〜た／〜なかった.", text_en: "Present: 〜る／〜ない. Past: 〜た／〜なかった.", ex: [
-            { jp: "{行|い}くと {思|おも}います", romaji: "ikuto omoimasu", pt: "acho que ele vai", en: "I think he will go" },
-            { jp: "{行|い}ったと {思|おも}います", romaji: "ittato omoimasu", pt: "acho que ele foi", en: "I think he went" },
-            { jp: "{行|い}かないと {思|おも}います", romaji: "ikanaito omoimasu", pt: "acho que ele não vai", en: "I think he will not go" }
+            { jp: "{行|い}くと {思|おも}います", romaji: "iku to omoimasu", pt: "acho que ele vai", en: "I think he will go" },
+            { jp: "{行|い}ったと {思|おも}います", romaji: "itta to omoimasu", pt: "acho que ele foi", en: "I think he went" },
+            { jp: "{行|い}かないと {思|おも}います", romaji: "ikanai to omoimasu", pt: "acho que ele não vai", en: "I think he will not go" }
           ] },
           { label: "い{形容詞|けいようし} (Adj-i)", label_en: "い{形容詞|けいようし} (i-adjective)", text: "O adjetivo entra como está, sem だ.", text_en: "The adjective goes in as it is, with no だ.", ex: [
-            { jp: "{寒|さむ}いと {思|おも}います", romaji: "samuito omoimasu", pt: "acho que está frio", en: "I think it is cold" },
-            { jp: "{寒|さむ}かったと {思|おも}います", romaji: "samukattato omoimasu", pt: "acho que estava frio", en: "I think it was cold" }
+            { jp: "{寒|さむ}いと {思|おも}います", romaji: "samui to omoimasu", pt: "acho que está frio", en: "I think it is cold" },
+            { jp: "{寒|さむ}かったと {思|おも}います", romaji: "samukatta to omoimasu", pt: "acho que estava frio", en: "I think it was cold" }
           ] },
           { label: "な{形容詞|けいようし}・{名詞|めいし}", label_en: "な{形容詞|けいようし}・{名詞|めいし}", text: "Aqui o <strong>だ</strong> é obrigatório antes de と.", text_en: "Here the <strong>だ</strong> is required before と.", ex: [
-            { jp: "{元気|げんき}だと {思|おも}います", romaji: "genkidato omoimasu", pt: "acho que ele está bem", en: "I think he is well" },
-            { jp: "{学生|がくせい}だと {思|おも}います", romaji: "gakuseidato omoimasu", pt: "acho que ele é estudante", en: "I think he is a student" }
+            { jp: "{元気|げんき}だと {思|おも}います", romaji: "genki da to omoimasu", pt: "acho que ele está bem", en: "I think he is well" },
+            { jp: "{学生|がくせい}だと {思|おも}います", romaji: "gakusei da to omoimasu", pt: "acho que ele é estudante", en: "I think he is a student" }
           ] }
         ],
         ex: [
           { jp: "{明日|あした}^は {雨|あめ}が {降|ふ}ると {思|おも}います。", romaji: "Ashita wa ame ga furu to omoimasu.", pt: "Acho que amanhã vai chover.", en: "I think it will rain tomorrow." },
           { jp: "{田中|たなか}さん^は もう {帰|かえ}ったと {思|おも}います。", romaji: "Tanaka-san wa mou kaetta to omoimasu.", pt: "Acho que o Tanaka já voltou.", en: "I think Tanaka has already gone home." },
           { jp: "{日本語|にほんご}の {勉強|べんきょう}^は {楽|たの}しいと {思|おも}います。", romaji: "Nihongo no benkyou wa tanoshii to omoimasu.", pt: "Acho que estudar japonês é divertido.", en: "I think studying Japanese is fun." },
-          { jp: "{今日|きょう}^は {寒|さむ}くないと {思|おも}います。", romaji: "Kyou wa samukunai to omoimasu.", pt: "Não acho que hoje está frio.", en: "I don't think it is cold today." }
+          { jp: "{今日|きょう}^は {寒|さむ}くないと {思|おも}います。", romaji: "Kyou wa samukunai to omoimasu.", pt: "Acho que hoje não está frio.", en: "I think it is not cold today." }
         ],
         contrast: {
           rows: [
@@ -84,19 +84,19 @@ window.lessonData = {
         rule: "Citação direta: 「…」と {言|い}います (dentro das aspas, a frase fica como a pessoa falou). Citação indireta: {普通形|ふつうけい} + と {言|い}います. Para perguntar, o verbo é {聞|き}きます, não {言|い}います.", rule_en: "Direct quote: 「…」と {言|い}います (inside the quotation marks the sentence stays as the person said it). Indirect quote: {普通形|ふつうけい} + と {言|い}います. For asking, the verb is {聞|き}きます, not {言|い}います.",
         form: [
           { label: "{直接|ちょくせつ} (citação direta)", label_en: "{直接|ちょくせつ} (direct quote)", text: "As palavras exatas dentro de 「 」.", text_en: "The exact words inside 「 」.", ex: [
-            { jp: "{田中|たなか}さん^は「{明日|あした}^は {暇|ひま}です」と {言|い}いました", romaji: "Tanaka-san wa ashita wa hima desu to iimashita", pt: "O Tanaka disse: amanhã estou livre.", en: "Tanaka said: I am free tomorrow." },
+            { jp: "{田中|たなか}さん^は「{明日|あした}^は {暇|ひま}です」と {言|い}いました", romaji: "Tanaka-san wa ashita wa hima desu to iimashita.", pt: "O Tanaka disse: amanhã estou livre.", en: "Tanaka said: I am free tomorrow." },
             { jp: "「{雨|あめ}が {降|ふ}りますか」と {聞|き}きました", romaji: "Ame ga furimasu ka to kikimashita", pt: "Perguntei: vai chover?", en: "I asked: is it going to rain?" }
           ] },
           { label: "{間接|かんせつ} (citação indireta)", label_en: "{間接|かんせつ} (indirect quote)", text: "Dentro do と, {普通形|ふつうけい}; fora, {言|い}います.", text_en: "Inside と, the {普通|ふつう} form; outside, {言|い}います.", ex: [
-            { jp: "{田中|たなか}さん^は {明日|あした}^は {暇|ひま}だと {言|い}いました", romaji: "tanaka-san wa Ashita wa hima da to iimashita", pt: "O Tanaka disse que amanhã está livre.", en: "Tanaka said that he is free tomorrow." },
-            { jp: "{雨|あめ}が {降|ふ}ると {言|い}いました", romaji: "ame ga furuto iimashita", pt: "Ele disse que vai chover.", en: "He said that it is going to rain." }
+            { jp: "{田中|たなか}さん^は {明日|あした}^は {暇|ひま}だと {言|い}いました", romaji: "Tanaka-san wa ashita wa hima da to iimashita.", pt: "O Tanaka disse que amanhã está livre.", en: "Tanaka said that he is free tomorrow." },
+            { jp: "{雨|あめ}が {降|ふ}ると {言|い}いました", romaji: "ame ga furu to iimashita", pt: "Ele disse que vai chover.", en: "He said that it is going to rain." }
           ] }
         ],
         ex: [
           { jp: "{先生|せんせい}^は「{明日|あした}^は テストです」と {言|い}いました。", romaji: "Sensei wa ashita wa tesuto desu to iimashita.", pt: "O professor disse: amanhã tem prova.", en: "The teacher said: there is a test tomorrow." },
           { jp: "{田中|たなか}さん^は {来週|らいしゅう} {国|くに}^へ {帰|かえ}ると {言|い}いました。", romaji: "Tanaka-san wa raishuu kuni e kaeru to iimashita.", pt: "O Tanaka disse que volta para o país na semana que vem.", en: "Tanaka said he is going back to his country next week." },
           { jp: "「{駅|えき}^は どこですか」と {聞|き}きました。", romaji: "Eki wa doko desu ka to kikimashita.", pt: "Perguntei: onde fica a estação?", en: "I asked: where is the station?" },
-          { jp: "{母|はは}^は「{来月|らいげつ} {家|いえ}に {来|き}て ください」と {言|い}いました。", romaji: "Haha wa raigetsu ie ni kite kudasai to iimashita.", pt: "Minha mãe disse: venha em casa no mês que vem.", en: "My mother said: please come to our house next month." }
+          { jp: "{母|はは}^は「{来月|らいげつ} {家|いえ}に {来|き}て ください」と {言|い}いました。", romaji: "Haha wa raigetsu ie ni kite kudasai to iimashita.", pt: "Minha mãe disse: venha à minha casa no mês que vem.", en: "My mother said: please come to our house next month." }
         ],
         contrast: {
           rows: [
@@ -106,12 +106,12 @@ window.lessonData = {
           note: "Dentro das aspas pode aparecer です／ます, porque é o que a pessoa falou. Fora das aspas, o verbo da citação volta para a forma {普通|ふつう}.", note_en: "Inside the quotation marks です／ます may appear, because it is what the person said. Outside the marks, the quoted verb goes back to the {普通|ふつう} form."
         },
         trap: [
-          "Não use と{思|おも}います para o que outra pessoa pensa ou disse: para fala, é と {言|い}います.",
+          "Para o que outra pessoa pensa, と{思|おも}います não serve (é sempre a sua opinião); para fala, use と {言|い}います.",
           "Cuidado com {言|い}います (dizer) e {話|はな}します (falar com alguém): {友達|ともだち}と {話|はな}しました = conversei com um amigo.",
           "Citação indireta leva {普通形|ふつうけい} mesmo quando a frase original era educada."
         ],
         trap_en: [
-          "Do not use と{思|おも}います for what another person thinks or said: for speech it is と {言|い}います.",
+          "For what another person thinks, と{思|おも}います does not work (it is always your own opinion); for speech, use と {言|い}います.",
           "Mind {言|い}います (to say) and {話|はな}します (to talk with someone): {友達|ともだち}と {話|はな}しました = I talked with a friend.",
           "An indirect quote takes the {普通|ふつう} form even when the original sentence was polite."
         ]
@@ -207,7 +207,7 @@ window.lessonData = {
         desc: "2. でしょう／でしょう？ (Provavelmente / não é?)", desc_en: "2. でしょう／でしょう？ (Probably / isn't it?)",
         questions: [
           { q: "{明日|あした}^は {雪|ゆき}です。（たぶん）➔", a: "{明日|あした}^は {雪|ゆき}でしょう。", romaji: "Ashita wa yuki deshou.", pt: "Provavelmente vai nevar amanhã.", en: "It will probably snow tomorrow." },
-          { q: "{明日|あした}^は {寒|さむ}いです。＋ でしょう？（pedir concordância）➔", a: "{明日|あした}^は {寒|さむ}いでしょう？", romaji: "Ashita wa samui deshou?", pt: "Hoje está frio, não está?", en: "It's cold today, isn't it?" },
+          { q: "{明日|あした}^は {寒|さむ}いです。＋ でしょう？（pedir concordância）➔", a: "{明日|あした}^は {寒|さむ}いでしょう？", romaji: "Ashita wa samui deshou?", pt: "Amanhã vai estar frio, não vai?", en: "It'll be cold tomorrow, won't it?" },
           { q: "{試験|しけん}^は {難|むずか}しいですか。（はい・きっと）➔", a: "はい、きっと {難|むずか}しいでしょう。", romaji: "Hai, kitto muzukashii deshou.", pt: "Sim, com certeza vai ser difícil.", en: "Yes, it will surely be difficult." }
         ]
       },
@@ -215,7 +215,7 @@ window.lessonData = {
         desc: "3. と {言|い}います (Repita a fala)", desc_en: "3. と {言|い}います (Report the speech)",
         questions: [
           { q: "{先生|せんせい}「{明日|あした}^は テストです」➔", a: "{先生|せんせい}^は「{明日|あした}^は テストです」と {言|い}いました。", romaji: "Sensei wa ashita wa tesuto desu to iimashita.", pt: "O professor disse: amanhã tem prova.", en: "The teacher said: there is a test tomorrow." },
-          { q: "{母|はは}「{来月|らいげつ} {家|いえ}に {来|き}て ください」➔", a: "{母|はは}^は「{来月|らいげつ} {家|いえ}に {来|き}て ください」と {言|い}いました。", romaji: "Haha wa raigetsu ie ni kite kudasai to iimashita.", pt: "Minha mãe disse: venha em casa no mês que vem.", en: "My mother said: please come to our house next month." },
+          { q: "{母|はは}「{来月|らいげつ} {家|いえ}に {来|き}て ください」➔", a: "{母|はは}^は「{来月|らいげつ} {家|いえ}に {来|き}て ください」と {言|い}いました。", romaji: "Haha wa raigetsu ie ni kite kudasai to iimashita.", pt: "Minha mãe disse: venha à minha casa no mês que vem.", en: "My mother said: please come to our house next month." },
           { q: "{田中|たなか}さん「{約束|やくそく}を しました」➔（{間接|かんせつ}）", a: "{田中|たなか}さん^は {約束|やくそく}を したと {言|い}いました。", romaji: "Tanaka-san wa yakusoku o shita to iimashita.", pt: "O Tanaka disse que fez a promessa.", en: "Tanaka said that he made the promise." }
         ]
       }
@@ -248,12 +248,12 @@ window.lessonData = {
         questions: [
           { q: "{明日|あした}^は {雨|あめ}が {降|ふ}る （　　） {思|おも}います。", a: "と", romaji: "to", pt: "Partícula que marca o conteúdo da opinião", en: "Particle that marks the content of the opinion" },
           { q: "{田中|たなか}さん^は {元気|げんき} （　　） と {思|おも}います。", a: "だ", romaji: "da", pt: "Adjetivo な precisa de だ antes de と", en: "A な-adjective needs だ before と" },
-          { q: "{明日|あした}^は {寒|さむ}い （　　）。", a: "でしょう", romaji: "deshou", pt: "Probabilidade (provavelmente)", en: "Probability (probably)" },
+          { q: "{明日|あした}^は {寒|さむ}い （　　）。（たぶん）", a: "でしょう", romaji: "deshou", pt: "Probabilidade (provavelmente)", en: "Probability (probably)" },
           { q: "{先生|せんせい}^は「{明日|あした}^は テストです」 （　　） {言|い}いました。", a: "と", romaji: "to", pt: "Partícula da citação", en: "Quotation particle" }
         ]
       },
       {
-        desc: "2. {文|ぶん}を {間接|かんせつ}の {形|かたち}に しなさい。(Passe para a citação indireta)", desc_en: "2. {文|ぶん}を {間接|かんせつ}の {形|かたち}に しなさい。(Change to the indirect quote)",
+        desc: "2. {文|ぶん}を {間接|かんせつ}の {言|い}い{方|かた}に しなさい。(Passe para a citação indireta)", desc_en: "2. {文|ぶん}を {間接|かんせつ}の {言|い}い{方|かた}に しなさい。(Change to the indirect quote)",
         questions: [
           { q: "{田中|たなか}さん^は「{今日|きょう}^は {忙|いそが}しいです」と {言|い}いました。➔", a: "{田中|たなか}さん^は {今日|きょう}^は {忙|いそが}しいと {言|い}いました。", romaji: "Tanaka-san wa kyou wa isogashii to iimashita.", pt: "O Tanaka disse que hoje está ocupado.", en: "Tanaka said that he is busy today." },
           { q: "{母|はは}^は「{雨|あめ}は {降|ふ}りません」と {言|い}いました。➔", a: "{母|はは}^は {雨|あめ}は {降|ふ}らないと {言|い}いました。", romaji: "Haha wa ame wa furanai to iimashita.", pt: "Minha mãe disse que não vai chover.", en: "My mother said that it will not rain." }
@@ -266,7 +266,7 @@ window.lessonData = {
             q: `<div class="reading-box">
                                             マリアさん<br>{昨日|きのう}の ニュースを {見|み}ましたか。{台風|たいふう}が {来|き}ますから、{明日|あした}の パーティー^は {中止|ちゅうし}だと {思|おも}います。{残念|ざんねん}ですが、{来週|らいしゅう}に しましょう。<br>わたし^は {大丈夫|だいじょうぶ}です。{雨|あめ}の {日|ひ}は {家|いえ}で {本|ほん}を {読|よ}みます。<br>たなか
                                         </div>
-                                        {質問|しつもん}: どうして {明日|あした}の パーティーを しませんか。`,
+                                        {質問|しつもん}: どうして {明日|あした}の パーティー^は {中止|ちゅうし}ですか。`,
             a: "{台風|たいふう}が {来|き}ますから。",
             romaji: "Taifuu ga kimasu kara.",
             pt: "Porque o tufão vai chegar.", en: "Because the typhoon is coming."
