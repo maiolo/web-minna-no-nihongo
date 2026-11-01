@@ -1,0 +1,22 @@
+name: CI
+
+# O site não tem build; a checagem mecânica é a suíte de testes.
+# `node --test` roda tests/*.test.js, incluindo tests/sw.test.js que
+# falha quando o service worker está com hash velho.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Testes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: node --test
+        run: node --test
