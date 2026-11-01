@@ -4,7 +4,7 @@ Site de estudo de japonês feito para ler bem no celular e no computador. Cada l
 
 O projeto segue a **ordem gramatical** do *Minna no Nihongo*, mas é independente e não tem ligação com a editora (3A Corporation). O objetivo é ter conteúdo próprio: explicações, exemplos e exercícios escritos para este site.
 
-> **Status do conteúdo:** as lições 16 a 19 estão em revisão e serão reescritas com conteúdo próprio. As lições seguintes já entram nesse formato.
+> **Status do conteúdo:** as lições 1 a 15 têm conteúdo próprio, no formato de cartões de gramática. As lições 16 a 19 estão em revisão e serão reescritas nesse mesmo formato.
 
 ## Seções
 
