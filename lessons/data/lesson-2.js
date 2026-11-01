@@ -118,7 +118,7 @@ window.lessonData = {
           "Não repita o substantivo ao omitir: errado わたしの {本|ほん}のです。 Certo: わたしのです。"
         ],
         trap_en: [
-          "The order is the reverse of English: “Japanese book” is {日本語|にほんご}の {本|ほん} (subject first) and “Maria's book” is マリアさんの {本|ほん}.",
+          "English also puts the modifier first (“a Japanese book”), but Japanese adds の: {日本語|にほんご}の {本|ほん}, マリアさんの {本|ほん}. The order only flips when English uses “of”: a book of Japanese ＞ {日本語|にほんご}の {本|ほん}.",
           "Do not repeat the noun when omitting it: wrong わたしの {本|ほん}のです。 Right: わたしのです。"
         ]
       },
@@ -128,7 +128,7 @@ window.lessonData = {
         pat: "N1 ですか、N2 ですか。<br>はい、そうです。／いいえ、ちがいます。",
         short: "respostas curtas e perguntas de escolha", short_en: "short answers and either-or questions",
         mean: "<strong>そうです</strong> confirma (“é isso”); <strong>ちがいます</strong> nega e corrige (“não é, é diferente”). Quando a pergunta oferece duas opções, escolha repetindo a opção certa.", mean_en: "<strong>そうです</strong> confirms (“that is right”); <strong>ちがいます</strong> denies and corrects (“no, it is different”). When the question offers two options, choose by repeating the right one.",
-        rule: "Pergunta de sim ou não: はい、そうです。／いいえ、ちがいます。 (e, se quiser, a informação certa). Pergunta de escolha (N1 ですか、N2 ですか): responda só com a opção, sem はい nem いいえ. <strong>そうですか</strong> reage a uma informação nova: “ah, é?”.", rule_en: "Yes-or-no question: はい、そうです。／いいえ、ちがいます。 (plus the right information if you like). Either-or question (N1 ですか、N2 ですか): answer with just the option, without はい or いいえ. <strong>そうですか</strong> reacts to new information: “oh, I see”.",
+        rule: "Pergunta sobre uma coisa (これ/それ/あれ): はい、そうです。／いいえ、ちがいます。 (e, se quiser, a informação certa). Pergunta com N ですか (pessoa, profissão, nacionalidade): a resposta curta natural é a do L1, いいえ、{学生|がくせい}じゃ ありません. Pergunta de escolha (N1 ですか、N2 ですか): responda só com a opção, sem はい nem いいえ. <strong>そうですか</strong> reage a uma informação nova: “ah, é?”.", rule_en: "Question about a thing (これ/それ/あれ): はい、そうです。／いいえ、ちがいます。 (plus the right information if you like). Question with N ですか (person, profession, nationality): the natural short answer is the one from Lesson 1, いいえ、{学生|がくせい}じゃ ありません. Either-or question (N1 ですか、N2 ですか): answer with just the option, without はい or いいえ. <strong>そうですか</strong> reacts to new information: “oh, I see”.",
         ex: [
           { jp: "これ^は {鉛筆|えんぴつ}ですか。<br>…はい、そうです。", romaji: "Kore wa enpitsu desu ka. ...Hai, sou desu.", pt: "Isto é um lápis? ...Sim, é.", en: "Is this a pencil? ...Yes, it is." },
           { jp: "それ^は {辞書|じしょ}ですか。<br>…いいえ、ちがいます。{雑誌|ざっし}です。", romaji: "Sore wa jisho desu ka. ...Iie, chigaimasu. Zasshi desu.", pt: "Isso é um dicionário? ...Não, é uma revista.", en: "Is that a dictionary? ...No, it is a magazine." },
@@ -159,10 +159,10 @@ window.lessonData = {
       {
         desc: "1. これ, それ ou あれ? (o objeto está perto de você, perto do outro ou longe dos dois)", desc_en: "1. これ, それ or あれ? (the object is near you, near the other person or far from both)",
         questions: [
-          { q: "Está na sua mão: ＿＿は {本|ほん}です。", q_en: "In your hand: ＿＿は {本|ほん}です。", a: "これ", romaji: "kore", pt: "Isto é um livro", en: "This is a book" },
-          { q: "Está na mão do outro: ＿＿は {辞書|じしょ}ですか。", q_en: "In the other person's hand: ＿＿は {辞書|じしょ}ですか。", a: "それ", romaji: "sore", pt: "Isso é um dicionário?", en: "Is that a dictionary?" },
-          { q: "Está longe dos dois: ＿＿は {大学|だいがく}です。", q_en: "Far from both of you: ＿＿は {大学|だいがく}です。", a: "あれ", romaji: "are", pt: "Aquilo é uma universidade", en: "That over there is a university" },
-          { q: "Você pergunta sobre o que está na mão do outro: ＿＿は {何|なん}ですか。", q_en: "You ask about what is in the other person's hand: ＿＿は {何|なん}ですか。", a: "それ", romaji: "sore", pt: "O que é isso?", en: "What is that?" }
+          { q: "Está na sua mão: ＿＿^は {本|ほん}です。", q_en: "In your hand: ＿＿^は {本|ほん}です。", a: "これ", romaji: "kore", pt: "Isto é um livro", en: "This is a book" },
+          { q: "Está na mão do outro: ＿＿^は {辞書|じしょ}ですか。", q_en: "In the other person's hand: ＿＿^は {辞書|じしょ}ですか。", a: "それ", romaji: "sore", pt: "Isso é um dicionário?", en: "Is that a dictionary?" },
+          { q: "Está longe dos dois: ＿＿^は {大学|だいがく}です。", q_en: "Far from both of you: ＿＿^は {大学|だいがく}です。", a: "あれ", romaji: "are", pt: "Aquilo é uma universidade", en: "That over there is a university" },
+          { q: "Você pergunta sobre o que está na mão do outro: ＿＿^は {何|なん}ですか。", q_en: "You ask about what is in the other person's hand: ＿＿^は {何|なん}ですか。", a: "それ", romaji: "sore", pt: "O que é isso?", en: "What is that?" }
         ]
       },
       {
@@ -182,18 +182,18 @@ window.lessonData = {
       {
         desc: "1. Complete com の ou の ＋ です (omissão)", desc_en: "1. Fill in with の or the shortened form",
         questions: [
-          { q: "これは わたし（　　）{本|ほん}です。", a: "の", romaji: "no", pt: "Este é o meu livro", en: "This is my book" },
-          { q: "それは {日本語|にほんご}（　　）{辞書|じしょ}ですか。", a: "の", romaji: "no", pt: "Isso é um dicionário de japonês?", en: "Is that a Japanese dictionary?" },
-          { q: "この かばんは だれ（　　）ですか。", a: "の", romaji: "no", pt: "De quem é esta bolsa?", en: "Whose bag is this?" },
-          { q: "この かさは マリアさん（　　）です。", a: "の", romaji: "no", pt: "Este guarda-chuva é da Maria", en: "This umbrella is Maria's" }
+          { q: "これ^は わたし（　　）{本|ほん}です。", a: "の", romaji: "no", pt: "Este é o meu livro", en: "This is my book" },
+          { q: "それ^は {日本語|にほんご}（　　）{辞書|じしょ}ですか。", a: "の", romaji: "no", pt: "Isso é um dicionário de japonês?", en: "Is that a Japanese dictionary?" },
+          { q: "この かばん^は だれ（　　）ですか。", a: "の", romaji: "no", pt: "De quem é esta bolsa?", en: "Whose bag is this?" },
+          { q: "この かさ^は マリアさん（　　）です。", a: "の", romaji: "no", pt: "Este guarda-chuva é da Maria", en: "This umbrella is Maria's" }
         ]
       },
       {
         desc: "2. Responda à pergunta de escolha", desc_en: "2. Answer the either-or question",
         questions: [
-          { q: "A: これは {本|ほん}ですか、{雑誌|ざっし}ですか。<br>B: （{雑誌|ざっし}）＿＿＿＿＿＿＿＿。", a: "{雑誌|ざっし}です", romaji: "zasshi desu", pt: "É uma revista", en: "It is a magazine" },
-          { q: "A: それは ペンですか、{鉛筆|えんぴつ}ですか。<br>B: （ペン）＿＿＿＿＿＿＿＿。", a: "ペンです", romaji: "pen desu", pt: "É uma caneta", en: "It is a pen" },
-          { q: "A: あの {人|ひと}は {先生|せんせい}ですか、{学生|がくせい}ですか。<br>B: （{学生|がくせい}）＿＿＿＿＿＿＿＿。", a: "{学生|がくせい}です", romaji: "gakusei desu", pt: "É estudante", en: "A student" }
+          { q: "A: これ^は {本|ほん}ですか、{雑誌|ざっし}ですか。<br>B: （{雑誌|ざっし}）＿＿＿＿＿＿＿＿。", a: "{雑誌|ざっし}です", romaji: "zasshi desu", pt: "É uma revista", en: "It is a magazine" },
+          { q: "A: それ^は ペンですか、{鉛筆|えんぴつ}ですか。<br>B: （ペン）＿＿＿＿＿＿＿＿。", a: "ペンです", romaji: "pen desu", pt: "É uma caneta", en: "It is a pen" },
+          { q: "A: あの {人|ひと}^は {先生|せんせい}ですか、{学生|がくせい}ですか。<br>B: （{学生|がくせい}）＿＿＿＿＿＿＿＿。", a: "{学生|がくせい}です", romaji: "gakusei desu", pt: "É estudante", en: "A student" }
         ]
       }
     ]
@@ -204,17 +204,17 @@ window.lessonData = {
       {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (これ・この・それ・その・あれ・あの・の)", desc_en: "1. Fill in the blank with the right word. (これ・この・それ・その・あれ・あの・の)",
         questions: [
-          { q: "（　　）は {辞書|じしょ}です。（na sua mão）", q_en: "（　　）は {辞書|じしょ}です。(in your hand)", a: "これ", romaji: "kore", pt: "Pronome para o que está na sua mão", en: "Pronoun for what is in your hand" },
-          { q: "（　　）{時計|とけい}は {日本|にほん}の {時計|とけい}ですか。（perto do outro）", q_en: "（　　）{時計|とけい}は {日本|にほん}の {時計|とけい}ですか。(near the other person)", a: "その", romaji: "sono", pt: "Antes de substantivo, perto do outro", en: "Before a noun, near the other person" },
-          { q: "これは {車|くるま}（　　）{雑誌|ざっし}です。", a: "の", romaji: "no", pt: "Revista de carros", en: "A car magazine" },
-          { q: "（　　）{人|ひと}は だれですか。（pessoa longe）", q_en: "（　　）{人|ひと}は だれですか。(a person far away)", a: "あの", romaji: "ano", pt: "Aquela pessoa, longe", en: "That person, far away" }
+          { q: "（　　）^は {辞書|じしょ}です。（na sua mão）", q_en: "（　　）^は {辞書|じしょ}です。(in your hand)", a: "これ", romaji: "kore", pt: "Pronome para o que está na sua mão", en: "Pronoun for what is in your hand" },
+          { q: "（　　）{時計|とけい}^は {日本|にほん}の {時計|とけい}ですか。（perto do outro）", q_en: "（　　）{時計|とけい}^は {日本|にほん}の {時計|とけい}ですか。(near the other person)", a: "その", romaji: "sono", pt: "Antes de substantivo, perto do outro", en: "Before a noun, near the other person" },
+          { q: "これ^は {車|くるま}（　　）{雑誌|ざっし}です。", a: "の", romaji: "no", pt: "Revista de carros", en: "A car magazine" },
+          { q: "（　　）{人|ひと}^は だれですか。（pessoa longe）", q_en: "（　　）{人|ひと}^は だれですか。(a person far away)", a: "あの", romaji: "ano", pt: "Aquela pessoa, longe", en: "That person, far away" }
         ]
       },
       {
         desc: "2. {読|よ}み{物|もの} (Leitura): {教室|きょうしつ}で", desc_en: "2. Reading: in the classroom",
         questions: [
           {
-            q: `<div class="reading-box">A: これは {何|なん}ですか。<br>B: それは {辞書|じしょ}です。{日本語|にほんご}の {辞書|じしょ}です。<br>A: そうですか。その {辞書|じしょ}は だれのですか。<br>B: わたしのです。</div>{質問|しつもん}: {辞書|じしょ}は だれのですか。<br>➔ ＿＿＿＿＿＿＿＿＿＿。`,
+            q: `<div class="reading-box">A: これ^は {何|なん}ですか。<br>B: それ^は {辞書|じしょ}です。{日本語|にほんご}の {辞書|じしょ}です。<br>A: そうですか。その {辞書|じしょ}^は だれのですか。<br>B: わたしのです。</div>{質問|しつもん}: {辞書|じしょ}^は だれのですか。<br>➔ ＿＿＿＿＿＿＿＿＿＿。`,
             a: "Bさんのです",
             romaji: "B-san no desu",
             pt: "É de B.", en: "It is B's."
@@ -229,10 +229,10 @@ window.lessonData = {
       {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
-          { tokens: ["これは", "{何|なん}ですか。"], pt: "O que é isto?", en: "What is this?", romaji: "Kore wa nan desu ka." },
-          { tokens: ["その", "かばんは", "だれのですか。"], pt: "De quem é essa bolsa?", en: "Whose bag is that?", romaji: "Sono kaban wa dare no desu ka." },
-          { tokens: ["それは", "{日本語|にほんご}の", "{辞書|じしょ}ですか。"], pt: "Isso é um dicionário de japonês?", en: "Is that a Japanese dictionary?", romaji: "Sore wa nihongo no jisho desu ka." },
-          { tokens: ["ペンですか、", "{鉛筆|えんぴつ}ですか。"], pt: "É uma caneta ou um lápis?", en: "Is it a pen or a pencil?", romaji: "Pen desu ka, enpitsu desu ka." }
+          { tokens: ["これ^は", "{何|なん}ですか。"], pt: "O que é isto?", en: "What is this?", romaji: "Kore wa nan desu ka." },
+          { tokens: ["その", "かばん^は", "だれのですか。"], pt: "De quem é essa bolsa?", en: "Whose bag is that?", romaji: "Sono kaban wa dare no desu ka." },
+          { tokens: ["それ^は", "{日本語|にほんご}の", "{辞書|じしょ}ですか。"], pt: "Isso é um dicionário de japonês?", en: "Is that a Japanese dictionary?", romaji: "Sore wa nihongo no jisho desu ka." },
+          { tokens: ["それ^は", "ペンですか、", "{鉛筆|えんぴつ}ですか。"], pt: "É uma caneta ou um lápis?", en: "Is it a pen or a pencil?", romaji: "Sore wa pen desu ka, enpitsu desu ka." }
         ]
       }
     ]

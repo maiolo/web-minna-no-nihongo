@@ -30,7 +30,7 @@ window.lessonData = {
       { jp: "{何月|なんがつ}", romaji: "nangatsu", pt: "Que mês", en: "What month" },
       { jp: "{何日|なんにち}", romaji: "nannichi", pt: "Que dia do mês", en: "What day of the month" },
       { jp: "〜{月|がつ}", romaji: "gatsu", pt: "Mês 〜", en: "Month 〜" },
-      { jp: "〜{日|にち}", romaji: "nichi", pt: "Dia 〜 do mês", en: "Day 〜 of the month" }
+      { jp: "〜{日|にち}", romaji: "nichi", pt: "Dia 〜 do mês (de 11 a 31; 1–10, 14, 20 e 24 têm leitura própria)", en: "Day 〜 of the month (11–31; 1–10, 14, 20 and 24 have their own readings)" }
     ]
   },
   gramatica: {
@@ -133,7 +133,7 @@ window.lessonData = {
         form: [
           { label: "Meses especiais", label_en: "Special months", text: "Três meses fogem do padrão.", text_en: "Three months break the pattern.", ex: [
             { tag: "4", jp: "{四月|しがつ}", romaji: "shigatsu", pt: "abril (não よんがつ)", en: "April (not よんがつ)" },
-            { tag: "7", jp: "{七月|しちがつ}", romaji: "shichigatsu", pt: "julho (não ななかつ)", en: "July (not ななかつ)" },
+            { tag: "7", jp: "{七月|しちがつ}", romaji: "shichigatsu", pt: "julho (não なながつ)", en: "July (not なながつ)" },
             { tag: "9", jp: "{九月|くがつ}", romaji: "kugatsu", pt: "setembro (não きゅうがつ)", en: "September (not きゅうがつ)" }
           ] },
           { label: "Dias 1 a 10", label_en: "Days 1 to 10", text: "Leituras próprias, de origem antiga.", text_en: "Their own readings, of old origin.", ex: [
@@ -156,7 +156,7 @@ window.lessonData = {
         ],
         ex: [
           { jp: "{誕生日|たんじょうび}^は いつですか。<br>…{七月|しちがつ} {二十日|はつか}です。", romaji: "Tanjoubi wa itsu desu ka. ...Shichigatsu hatsuka desu.", pt: "Quando é o seu aniversário? ...É em 20 de julho.", en: "When is your birthday? ...It is on July 20th." },
-          { jp: "{京都|きょうと}^へ いつ {行|い}きますか。<br>…{来週|らいしゅう}の {金曜日|きんようび}に {行|い}きます。", romaji: "Kyouto e itsu ikimasu ka. ...Raishuu no kinyoubi ni ikimasu.", pt: "Quando você vai a Kyoto? ...Vou na sexta-feira da semana que vem.", en: "When are you going to Kyoto? ...I am going next Friday." },
+          { jp: "{京都|きょうと}^へ いつ {行|い}きますか。<br>…{来週|らいしゅう}の {金曜日|きんようび}に {行|い}きます。", romaji: "Kyouto e itsu ikimasu ka. ...Raishuu no kin'youbi ni ikimasu.", pt: "Quando você vai a Kyoto? ...Vou na sexta-feira da semana que vem.", en: "When are you going to Kyoto? ...I am going next Friday." },
           { jp: "{去年|きょねん}、{九月|くがつ} {四日|よっか}に {日本|にほん}^へ {来|き}ました。", romaji: "Kyonen, kugatsu yokka ni Nihon e kimashita.", pt: "No ano passado, vim ao Japão em 4 de setembro.", en: "Last year, I came to Japan on September 4th." }
         ],
         contrast: {
@@ -183,8 +183,8 @@ window.lessonData = {
       {
         desc: "1. へ, で ou と?", desc_en: "1. へ, で or と?",
         questions: [
-          { q: "わたしは {電車|でんしゃ}（　　）{学校|がっこう}へ {行|い}きます。", a: "で", romaji: "de", pt: "Meio de transporte", en: "Means of transport" },
-          { q: "わたしは {友達|ともだち}（　　）{海|うみ}へ {行|い}きました。", a: "と", romaji: "to", pt: "Companhia", en: "Companion" },
+          { q: "わたし^は {電車|でんしゃ}（　　）{学校|がっこう}^へ {行|い}きます。", a: "で", romaji: "de", pt: "Meio de transporte", en: "Means of transport" },
+          { q: "わたし^は {友達|ともだち}（　　）{海|うみ}^へ {行|い}きました。", a: "と", romaji: "to", pt: "Companhia", en: "Companion" },
           { q: "{明日|あした}、{京都|きょうと}（　　）{行|い}きます。", a: "へ", romaji: "e", pt: "Destino", en: "Destination" },
           { q: "{一人|ひとり}（　　）{帰|かえ}りました。", a: "で", romaji: "de", pt: "Sozinho(a)", en: "Alone" }
         ]
@@ -233,9 +233,9 @@ window.lessonData = {
       {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (へ・で・と・に・いつ)", desc_en: "1. Fill in the blank with the right word. (へ・で・と・に・いつ)",
         questions: [
-          { q: "{毎朝|まいあさ} {七時|しちじ}（　　）{学校|がっこう}へ {行|い}きます。", a: "に", romaji: "ni", pt: "Horário exato", en: "Exact time" },
-          { q: "{誕生日|たんじょうび}は （　　）ですか。…{七月|しちがつ} {二十日|はつか}です。", a: "いつ", romaji: "itsu", pt: "Quando é?", en: "When is it?" },
-          { q: "{空港|くうこう}へ {何|なん}（　　）{行|い}きますか。…タクシーで {行|い}きます。", a: "で", romaji: "de", pt: "Com que meio de transporte", en: "By what means of transport" },
+          { q: "{毎朝|まいあさ} {七時|しちじ}（　　）{学校|がっこう}^へ {行|い}きます。", a: "に", romaji: "ni", pt: "Horário exato", en: "Exact time" },
+          { q: "{誕生日|たんじょうび}^は （　　）ですか。…{七月|しちがつ} {二十日|はつか}です。", a: "いつ", romaji: "itsu", pt: "Quando é?", en: "When is it?" },
+          { q: "{空港|くうこう}^へ {何|なん}（　　）{行|い}きますか。…タクシーで {行|い}きます。", a: "で", romaji: "de", pt: "Com que meio de transporte", en: "By what means of transport" },
           { q: "だれ（　　）{帰|かえ}りますか。…{友達|ともだち}と {帰|かえ}ります。", a: "と", romaji: "to", pt: "Com quem", en: "With whom" }
         ]
       },
@@ -243,13 +243,13 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): りょこう", desc_en: "2. Reading: the trip",
         questions: [
           {
-            q: `<div class="reading-box">マリアさんは {来週|らいしゅう}の {土曜日|どようび}に {京都|きょうと}へ {行|い}きます。{友達|ともだち}と {電車|でんしゃ}で {行|い}きます。{日曜日|にちようび}に {帰|かえ}ります。</div>{質問|しつもん}: マリアさんは だれと {京都|きょうと}へ {行|い}きますか。<br>➔ ＿＿＿＿＿＿＿＿。`,
+            q: `<div class="reading-box">マリアさん^は {来週|らいしゅう}の {土曜日|どようび}に {京都|きょうと}^へ {行|い}きます。{友達|ともだち}と {電車|でんしゃ}で {行|い}きます。{日曜日|にちようび}に {帰|かえ}ります。</div>{質問|しつもん}: マリアさん^は だれと {京都|きょうと}^へ {行|い}きますか。<br>➔ ＿＿＿＿＿＿＿＿。`,
             a: "{友達|ともだち}と",
             romaji: "tomodachi to",
             pt: "Com uma amiga.", en: "With a friend."
           },
           {
-            q: `<div class="reading-box">マリアさんは {来週|らいしゅう}の {土曜日|どようび}に {京都|きょうと}へ {行|い}きます。{友達|ともだち}と {電車|でんしゃ}で {行|い}きます。{日曜日|にちようび}に {帰|かえ}ります。</div>{質問|しつもん}: マリアさんは {何|なん}で {京都|きょうと}へ {行|い}きますか。<br>➔ ＿＿＿＿＿＿＿＿。`,
+            q: `<div class="reading-box">マリアさん^は {来週|らいしゅう}の {土曜日|どようび}に {京都|きょうと}^へ {行|い}きます。{友達|ともだち}と {電車|でんしゃ}で {行|い}きます。{日曜日|にちようび}に {帰|かえ}ります。</div>{質問|しつもん}: マリアさん^は {何|なん}で {京都|きょうと}^へ {行|い}きますか。<br>➔ ＿＿＿＿＿＿＿＿。`,
             a: "{電車|でんしゃ}で",
             romaji: "densha de",
             pt: "De trem.", en: "By train."
@@ -264,10 +264,10 @@ window.lessonData = {
       {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
-          { tokens: ["{友達|ともだち}と", "{海|うみ}へ", "{行|い}きました。"], pt: "Fui à praia com um amigo.", en: "I went to the beach with a friend.", romaji: "Tomodachi to umi e ikimashita." },
-          { tokens: ["{電車|でんしゃ}で", "{京都|きょうと}へ", "{行|い}きます。"], pt: "Vou a Kyoto de trem.", en: "I am going to Kyoto by train.", romaji: "Densha de Kyouto e ikimasu." },
-          { tokens: ["{誕生日|たんじょうび}は", "いつですか。"], pt: "Quando é o seu aniversário?", en: "When is your birthday?", romaji: "Tanjoubi wa itsu desu ka." },
-          { tokens: ["{一人|ひとり}で", "{学校|がっこう}へ", "{来|き}ました。"], pt: "Vim sozinho(a) à escola.", en: "I came to school alone.", romaji: "Hitori de gakkou e kimashita." }
+          { tokens: ["{友達|ともだち}と", "{海|うみ}^へ", "{行|い}きました。"], pt: "Fui à praia com um amigo.", en: "I went to the beach with a friend.", romaji: "Tomodachi to umi e ikimashita." },
+          { tokens: ["{電車|でんしゃ}で", "{京都|きょうと}^へ", "{行|い}きます。"], pt: "Vou a Kyoto de trem.", en: "I am going to Kyoto by train.", romaji: "Densha de Kyouto e ikimasu." },
+          { tokens: ["{誕生日|たんじょうび}^は", "いつですか。"], pt: "Quando é o seu aniversário?", en: "When is your birthday?", romaji: "Tanjoubi wa itsu desu ka." },
+          { tokens: ["{一人|ひとり}で", "{学校|がっこう}^へ", "{来|き}ました。"], pt: "Vim sozinho(a) à escola.", en: "I came to school alone.", romaji: "Hitori de gakkou e kimashita." }
         ]
       }
     ]

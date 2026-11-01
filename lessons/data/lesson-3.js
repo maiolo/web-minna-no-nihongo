@@ -74,7 +74,7 @@ window.lessonData = {
         ex: [
           { jp: "お{手洗|てあら}い^は あちらです。", romaji: "Otearai wa achira desu.", pt: "O banheiro é por ali (educado).", en: "The restroom is that way (polite)." },
           { jp: "{食堂|しょくどう}^は どちらですか。<br>…そちらです。", romaji: "Shokudou wa dochira desu ka. ...Sochira desu.", pt: "Onde fica o refeitório? ...É por aí.", en: "Where is the cafeteria? ...It is that way." },
-          { jp: "こちら^は {田中|たなか}さんです。<br>はじめまして。どうぞ よろしく。", romaji: "Kochira wa Tanaka-san desu. Hajimemashite. Douzo yoroshiku.", pt: "Este é o Sr. Tanaka. Muito prazer.", en: "This is Mr. Tanaka. Nice to meet you." },
+          { jp: "こちら^は {田中|たなか}さんです。<br>{田中|たなか}：はじめまして。どうぞ よろしく。", romaji: "Kochira wa Tanaka-san desu. Hajimemashite. Douzo yoroshiku.", pt: "Este é o Sr. Tanaka. O Sr. Tanaka se apresenta: muito prazer, conte comigo.", en: "This is Mr. Tanaka. Mr. Tanaka introduces himself: nice to meet you." },
           { jp: "お{国|くに}^は どちらですか。<br>…ブラジルです。", romaji: "Okuni wa dochira desu ka. ...Burajiru desu.", pt: "De que país o senhor é? ...Do Brasil.", en: "Which country are you from? ...Brazil." }
         ],
         contrast: {
@@ -100,7 +100,7 @@ window.lessonData = {
         short: "de onde é, quem fabrica", short_en: "where it is from, who makes it",
         mean: "A mesma の da lição anterior serve para origem e fabricante: {日本|にほん}の {車|くるま} (carro japonês), {会社|かいしゃ}の {時計|とけい} (relógio da empresa). Para perguntar a origem, use <strong>どこの</strong>.", mean_en: "The same の as in the previous lesson works for origin and maker: {日本|にほん}の {車|くるま} (a Japanese car), {会社|かいしゃ}の {時計|とけい} (the company's watch). To ask the origin, use <strong>どこの</strong>.",
         ex: [
-          { jp: "これ^は イタリアの {靴|くつ}です。", romaji: "Kore wa itaria no kutsu desu.", pt: "Estes são sapatos italianos.", en: "These are Italian shoes." },
+          { jp: "これ^は イタリアの {靴|くつ}です。", romaji: "Kore wa Itaria no kutsu desu.", pt: "Estes são sapatos italianos.", en: "These are Italian shoes." },
           { jp: "この {時計|とけい}^は どこの {時計|とけい}ですか。<br>…{日本|にほん}の {時計|とけい}です。", romaji: "Kono tokei wa doko no tokei desu ka. ...Nihon no tokei desu.", pt: "De onde é este relógio? ...É japonês.", en: "Where is this watch from? ...It is Japanese." },
           { jp: "あの {車|くるま}^は {日本|にほん}の {車|くるま}じゃ ありません。アメリカの {車|くるま}です。", romaji: "Ano kuruma wa Nihon no kuruma ja arimasen. Amerika no kuruma desu.", pt: "Aquele carro não é japonês. É americano.", en: "That car is not Japanese. It is American." }
         ],
@@ -126,7 +126,7 @@ window.lessonData = {
         pat: "N^は いくらですか。<br>これを ください。",
         short: "preço e pedido de compra", short_en: "price and asking to buy",
         mean: "<strong>いくら</strong> pergunta o preço. <strong>N を ください</strong> é como se pede algo numa loja: “quero N, por favor”. A moeda é o iene: 〜{円|えん}.", mean_en: "<strong>いくら</strong> asks the price. <strong>N を ください</strong> is how you ask for something in a shop: “I would like N, please”. The currency is the yen: 〜{円|えん}.",
-        rule: "Os números 100, 1000 e 10000 têm leituras especiais, principalmente 300, 600 e 800 (centenas) e 3000 e 8000 (milhares). O japonês conta de 10 mil em 10 mil: 12000 é “1 man 2 mil”.", rule_en: "The numbers 100, 1000 and 10000 have special readings, especially 300, 600 and 800 (hundreds) and 3000 and 8000 (thousands). Japanese counts in units of 10,000: 12,000 is “1 man 2 thousand”.",
+        rule: "Algumas centenas e milhares têm leitura irregular: 300 さんびゃく, 600 ろっぴゃく, 800 はっぴゃく, 3000 さんぜん, 8000 はっせん. O resto é regular: 100 ひゃく, 1000 せん, 10.000 いちまん.", rule_en: "Some hundreds and thousands have an irregular reading: 300 さんびゃく, 600 ろっぴゃく, 800 はっぴゃく, 3000 さんぜん, 8000 はっせん. The rest is regular: 100 ひゃく, 1000 せん, 10,000 いちまん.",
         form: [
           { label: "Centenas", label_en: "Hundreds", text: "Cuidado com 300, 600 e 800.", text_en: "Watch out for 300, 600 and 800.", ex: [
             { tag: "100", jp: "{百|ひゃく}", romaji: "hyaku", pt: "cem", en: "one hundred" },
@@ -142,9 +142,9 @@ window.lessonData = {
           ] }
         ],
         ex: [
-          { jp: "この {時計|とけい}^は いくらですか。<br>…{五千円|ごせんえん}です。", romaji: "Kono tokei wa ikura desu ka. ...Gosen-en desu.", pt: "Quanto custa este relógio? ...Custa 5000 ienes.", en: "How much is this watch? ...It is 5,000 yen." },
-          { jp: "あの {靴|くつ}^は いくらですか。<br>…{八千円|はっせんえん}です。", romaji: "Ano kutsu wa ikura desu ka. ...Hassen-en desu.", pt: "Quanto custam aqueles sapatos? ...8000 ienes.", en: "How much are those shoes? ...8,000 yen." },
-          { jp: "この かばん^は いくらですか。<br>…{一万二千円|いちまんにせんえん}です。<br>じゃ、これを ください。", romaji: "Kono kaban wa ikura desu ka. ...Ichiman nisen-en desu. Ja, kore o kudasai.", pt: "Quanto custa esta bolsa? ...12 000 ienes. Então, vou levar esta.", en: "How much is this bag? ...12,000 yen. Then I will take this one." }
+          { jp: "この {時計|とけい}^は いくらですか。<br>…{五千円|ごせんえん}です。", romaji: "Kono tokei wa ikura desu ka. ...Gosen-en desu.", pt: "Quanto custa este relógio? ...Custa 5.000 ienes.", en: "How much is this watch? ...It is 5,000 yen." },
+          { jp: "あの {靴|くつ}^は いくらですか。<br>…{八千円|はっせんえん}です。", romaji: "Ano kutsu wa ikura desu ka. ...Hassen-en desu.", pt: "Quanto custam aqueles sapatos? ...8.000 ienes.", en: "How much are those shoes? ...8,000 yen." },
+          { jp: "この かばん^は いくらですか。<br>…{一万二千円|いちまんにせんえん}です。<br>じゃ、これを ください。", romaji: "Kono kaban wa ikura desu ka. ...Ichiman nisen-en desu. Ja, kore o kudasai.", pt: "Quanto custa esta bolsa? ...12.000 ienes. Então, vou levar esta.", en: "How much is this bag? ...12,000 yen. Then I will take this one." }
         ],
         contrast: {
           rows: [
@@ -173,9 +173,9 @@ window.lessonData = {
           { q: "300 ➔", a: "さんびゃく", romaji: "sanbyaku", pt: "300", en: "300" },
           { q: "600 ➔", a: "ろっぴゃく", romaji: "roppyaku", pt: "600", en: "600" },
           { q: "800 ➔", a: "はっぴゃく", romaji: "happyaku", pt: "800", en: "800" },
-          { q: "3000 ➔", a: "さんぜん", romaji: "sanzen", pt: "3000", en: "3,000" },
-          { q: "8000 ➔", a: "はっせん", romaji: "hassen", pt: "8000", en: "8,000" },
-          { q: "10000 ➔", a: "いちまん", romaji: "ichiman", pt: "10 000", en: "10,000" }
+          { q: "3000 ➔", a: "さんぜん", romaji: "sanzen", pt: "3.000", en: "3,000" },
+          { q: "8000 ➔", a: "はっせん", romaji: "hassen", pt: "8.000", en: "8,000" },
+          { q: "10000 ➔", a: "いちまん", romaji: "ichiman", pt: "10.000", en: "10,000" }
         ]
       }
     ]
@@ -186,17 +186,17 @@ window.lessonData = {
       {
         desc: "1. ここ, そこ, あそこ ou どこ?", desc_en: "1. ここ, そこ, あそこ or どこ?",
         questions: [
-          { q: "お{手洗|てあら}いは （　　）ですか。 (você não sabe onde fica)", q_en: "お{手洗|てあら}いは （　　）ですか。 (you do not know where it is)", a: "どこ", romaji: "doko", pt: "Onde é o banheiro?", en: "Where is the restroom?" },
-          { q: "（　　）は {教室|きょうしつ}です。 (o lugar onde você está)", q_en: "（　　）は {教室|きょうしつ}です。 (the place where you are)", a: "ここ", romaji: "koko", pt: "Aqui é a sala de aula", en: "This is the classroom" },
-          { q: "{食堂|しょくどう}は （　　）です。 (longe dos dois)", q_en: "{食堂|しょくどう}は （　　）です。 (far from both)", a: "あそこ", romaji: "asoko", pt: "O refeitório fica ali", en: "The cafeteria is over there" }
+          { q: "お{手洗|てあら}い^は （　　）ですか。 (você não sabe onde fica)", q_en: "お{手洗|てあら}い^は （　　）ですか。 (you do not know where it is)", a: "どこ", romaji: "doko", pt: "Onde é o banheiro?", en: "Where is the restroom?" },
+          { q: "（　　）^は {教室|きょうしつ}です。 (o lugar onde você está)", q_en: "（　　）^は {教室|きょうしつ}です。 (the place where you are)", a: "ここ", romaji: "koko", pt: "Aqui é a sala de aula", en: "This is the classroom" },
+          { q: "{食堂|しょくどう}^は （　　）です。 (longe dos dois)", q_en: "{食堂|しょくどう}^は （　　）です。 (far from both)", a: "あそこ", romaji: "asoko", pt: "O refeitório fica ali", en: "The cafeteria is over there" }
         ]
       },
       {
         desc: "2. Responda sobre o preço (escreva o valor por extenso, em hiragana ou kanji)", desc_en: "2. Answer about the price (write the amount out, in hiragana or kanji)",
         questions: [
-          { q: "A: この {靴|くつ}は いくらですか。<br>B: （3000{円|えん}）＿＿＿＿＿＿＿＿。", a: "{三千円|さんぜんえん}です", romaji: "sanzen-en desu", pt: "3000 ienes", en: "3,000 yen" },
-          { q: "A: この かばんは いくらですか。<br>B: （600{円|えん}）＿＿＿＿＿＿＿＿。", a: "{六百円|ろっぴゃくえん}です", romaji: "roppyaku-en desu", pt: "600 ienes", en: "600 yen" },
-          { q: "A: その {時計|とけい}は いくらですか。<br>B: （12000{円|えん}）＿＿＿＿＿＿＿＿。", a: "{一万二千円|いちまんにせんえん}です", romaji: "ichiman nisen-en desu", pt: "12 000 ienes", en: "12,000 yen" }
+          { q: "A: この {靴|くつ}^は いくらですか。<br>B: （3000{円|えん}）＿＿＿＿＿＿＿＿。", a: "{三千円|さんぜんえん}です", romaji: "sanzen-en desu", pt: "3.000 ienes", en: "3,000 yen" },
+          { q: "A: この かばん^は いくらですか。<br>B: （600{円|えん}）＿＿＿＿＿＿＿＿。", a: "{六百円|ろっぴゃくえん}です", romaji: "roppyaku-en desu", pt: "600 ienes", en: "600 yen" },
+          { q: "A: その {時計|とけい}^は いくらですか。<br>B: （12000{円|えん}）＿＿＿＿＿＿＿＿。", a: "{一万二千円|いちまんにせんえん}です", romaji: "ichiman nisen-en desu", pt: "12.000 ienes", en: "12,000 yen" }
         ]
       }
     ]
@@ -207,20 +207,20 @@ window.lessonData = {
       {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (どこ・どこの・だれの・いくら・こちら)", desc_en: "1. Fill in the blank with the right word. (どこ・どこの・だれの・いくら・こちら)",
         questions: [
-          { q: "この {時計|とけい}は （　　）ですか。…{五千円|ごせんえん}です。", a: "いくら", romaji: "ikura", pt: "Pergunta pelo preço", en: "Asks for the price" },
-          { q: "この かばんは （　　）かばんですか。…イタリアの かばんです。", a: "どこの", romaji: "doko no", pt: "Pergunta pela origem", en: "Asks for the origin" },
-          { q: "その かさは （　　）ですか。…マリアさんのです。", a: "だれの", romaji: "dare no", pt: "Pergunta pelo dono", en: "Asks for the owner" },
-          { q: "（　　）は {田中|たなか}さんです。 (ao apresentar uma pessoa)", q_en: "（　　）は {田中|たなか}さんです。 (when introducing a person)", a: "こちら", romaji: "kochira", pt: "Este é o Sr. Tanaka", en: "This is Mr. Tanaka" }
+          { q: "この {時計|とけい}^は （　　）ですか。…{五千円|ごせんえん}です。", a: "いくら", romaji: "ikura", pt: "Pergunta pelo preço", en: "Asks for the price" },
+          { q: "この かばん^は （　　）かばんですか。…イタリアの かばんです。", a: "どこの", romaji: "doko no", pt: "Pergunta pela origem", en: "Asks for the origin" },
+          { q: "その かさ^は （　　）ですか。…マリアさんのです。", a: "だれの", romaji: "dare no", pt: "Pergunta pelo dono", en: "Asks for the owner" },
+          { q: "（　　）^は {田中|たなか}さんです。 (ao apresentar uma pessoa)", q_en: "（　　）^は {田中|たなか}さんです。 (when introducing a person)", a: "こちら", romaji: "kochira", pt: "Este é o Sr. Tanaka", en: "This is Mr. Tanaka" }
         ]
       },
       {
         desc: "2. {読|よ}み{物|もの} (Leitura): デパートで", desc_en: "2. Reading: at the department store",
         questions: [
           {
-            q: `<div class="reading-box">A: すみません。{靴|くつ}は どこですか。<br>B: {靴|くつ}は あちらです。<br>A: ありがとう ございます。…この {靴|くつ}は いくらですか。<br>B: {八千円|はっせんえん}です。<br>A: じゃ、これを ください。</div>{質問|しつもん}: {靴|くつ}は いくらですか。<br>➔ ＿＿＿＿＿＿＿＿。`,
+            q: `<div class="reading-box">A: すみません。{靴|くつ}^は どこですか。<br>B: {靴|くつ}^は あちらです。<br>A: ありがとう ございます。…この {靴|くつ}^は いくらですか。<br>B: {八千円|はっせんえん}です。<br>A: じゃ、これを ください。</div>{質問|しつもん}: {靴|くつ}^は いくらですか。<br>➔ ＿＿＿＿＿＿＿＿。`,
             a: "{八千円|はっせんえん}です",
             romaji: "hassen-en desu",
-            pt: "São 8000 ienes.", en: "It is 8,000 yen."
+            pt: "São 8.000 ienes.", en: "It is 8,000 yen."
           }
         ]
       }
@@ -232,9 +232,9 @@ window.lessonData = {
       {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
-          { tokens: ["お{手洗|てあら}いは", "どこですか。"], pt: "Onde é o banheiro?", en: "Where is the restroom?", romaji: "Otearai wa doko desu ka." },
-          { tokens: ["{食堂|しょくどう}は", "あちらです。"], pt: "O refeitório é por ali.", en: "The cafeteria is that way.", romaji: "Shokudou wa achira desu." },
-          { tokens: ["この", "{時計|とけい}は", "いくらですか。"], pt: "Quanto custa este relógio?", en: "How much is this watch?", romaji: "Kono tokei wa ikura desu ka." },
+          { tokens: ["お{手洗|てあら}い^は", "どこですか。"], pt: "Onde é o banheiro?", en: "Where is the restroom?", romaji: "Otearai wa doko desu ka." },
+          { tokens: ["{食堂|しょくどう}^は", "あちらです。"], pt: "O refeitório é por ali.", en: "The cafeteria is that way.", romaji: "Shokudou wa achira desu." },
+          { tokens: ["この", "{時計|とけい}^は", "いくらですか。"], pt: "Quanto custa este relógio?", en: "How much is this watch?", romaji: "Kono tokei wa ikura desu ka." },
           { tokens: ["じゃ、", "これを", "ください。"], pt: "Então, vou levar este.", en: "Then I will take this one.", romaji: "Ja, kore o kudasai." }
         ]
       }

@@ -21,7 +21,8 @@ window.lessonData = {
       { jp: "{何歳|なんさい}", romaji: "nansai", pt: "Quantos anos (idade)", en: "How old (age)" },
       { jp: "〜{歳|さい}", romaji: "sai", pt: "〜 anos (idade)", en: "〜 years old" },
       { jp: "〜さん", romaji: "san", pt: "Senhor(a), sufixo de respeito depois do nome de outra pessoa", en: "Mr./Ms., respectful suffix after another person's name" },
-      { jp: "〜{人|じん}", romaji: "jin", pt: "Pessoa de (nacionalidade): ブラジル{人|じん}", en: "Person from (nationality): ブラジル{人|じん}" },
+      { jp: "〜{人|じん}", romaji: "jin", pt: "Pessoa de (nacionalidade)", en: "Person from (nationality)" },
+      { jp: "ブラジル{人|じん}", romaji: "Burajiru-jin", pt: "brasileiro(a)", en: "Brazilian" },
       { jp: "ブラジル", romaji: "Burajiru", pt: "Brasil", en: "Brazil" },
       { jp: "アメリカ", romaji: "Amerika", pt: "Estados Unidos", en: "United States" },
       { jp: "{日本|にほん}", romaji: "Nihon", pt: "Japão", en: "Japan" },
@@ -133,8 +134,14 @@ window.lessonData = {
         ],
         contrast: {
           rows: [
-            { label: "は (informação nova)", label_en: "は (new information)", jp: "ジョンさん^は {先生|せんせい}です。", pt: "O John é professor (outra informação).", en: "John is a teacher (a different piece of information)." },
-            { label: "も (mesma informação)", label_en: "も (same information)", jp: "ジョンさんも {学生|がくせい}です。", pt: "O John também é estudante.", en: "John is a student too." }
+            { label: "は (informação nova)", label_en: "は (new information)",
+              jp: "マリアさん^は {学生|がくせい}です。ジョンさん^は {先生|せんせい}です。",
+              pt: "A Maria é estudante. O John é professor (informação nova).",
+              en: "Maria is a student. John is a teacher (new information)." },
+            { label: "も (mesma informação)", label_en: "も (same information)",
+              jp: "マリアさん^は {学生|がくせい}です。ジョンさんも {学生|がくせい}です。",
+              pt: "A Maria é estudante. O John também é estudante.",
+              en: "Maria is a student. John is a student too." }
           ],
           note: "は e も não aparecem juntos no mesmo substantivo. Escolha de acordo com a informação ser ou não igual à anterior.", note_en: "は and も do not appear together on the same noun. Choose according to whether the information is the same as the previous one."
         },
@@ -153,7 +160,7 @@ window.lessonData = {
         pat: "N1 の N2",
         short: "N2 de N1 (a que grupo pertence)", short_en: "N2 of N1 (the group someone belongs to)",
         mean: "の liga dois substantivos: N1 descreve N2. Aqui N1 é o grupo a que a pessoa pertence (universidade, empresa, hospital).", mean_en: "の links two nouns: N1 describes N2. Here N1 is the group the person belongs to (university, company, hospital).",
-        rule: "A ordem é a inversa do português: grupo ＋ の ＋ pessoa. <strong>さん</strong> vem depois do nome de outra pessoa (nunca do seu). <strong>〜{人|じん}</strong> indica nacionalidade.", rule_en: "The order is the reverse of English: group ＋ の ＋ person. <strong>さん</strong> goes after another person's name (never your own). <strong>〜{人|じん}</strong> shows nationality.",
+        rule: "A ordem é a inversa do português: grupo ＋ の ＋ pessoa. <strong>さん</strong> vem depois do nome de outra pessoa (nunca do seu). <strong>〜{人|じん}</strong> indica nacionalidade.", rule_en: "The の order reverses the Portuguese “de” phrase, not the English one: group ＋ の ＋ person is “Sakura University's student / a student at Sakura University”. <strong>さん</strong> goes after another person's name (never your own). <strong>〜{人|じん}</strong> shows nationality.",
         ex: [
           { jp: "マリアさん^は さくら{大学|だいがく}の {学生|がくせい}です。", romaji: "Maria-san wa Sakura daigaku no gakusei desu.", pt: "A Maria é estudante da Universidade Sakura.", en: "Maria is a student at Sakura University." },
           { jp: "{田中|たなか}さん^は ひかり{病院|びょういん}の {医者|いしゃ}です。", romaji: "Tanaka-san wa Hikari byouin no isha desu.", pt: "O Sr. Tanaka é médico do Hospital Hikari.", en: "Mr. Tanaka is a doctor at Hikari Hospital." },
@@ -171,7 +178,7 @@ window.lessonData = {
           "Nunca use さん com o seu próprio nome: マリアです, e não マリアさんです (quando você é a Maria)."
         ],
         trap_en: [
-          "The order is the opposite of English: “student of the university” is {大学|だいがく}の {学生|がくせい} (university first).",
+          "English often uses noun ＋ noun (a Japanese book, a university student); the news is that Japanese always links them with の: {日本語|にほんご}の {本|ほん}, {大学|だいがく}の {学生|がくせい}.",
           "Never use さん with your own name: マリアです, not マリアさんです (when you are Maria)."
         ]
       }
@@ -194,10 +201,10 @@ window.lessonData = {
       {
         desc: "2. Acrescente か para perguntar", desc_en: "2. Add か to ask a question",
         questions: [
-          { q: "あなたは {学生|がくせい}です。 ➔", a: "あなたは{学生|がくせい}ですか。", romaji: "Anata wa gakusei desu ka.", pt: "Você é estudante?", en: "Are you a student?" },
-          { q: "あの {人|ひと}は {先生|せんせい}です。 ➔", a: "あの{人|ひと}は{先生|せんせい}ですか。", romaji: "Ano hito wa sensei desu ka.", pt: "Aquela pessoa é professora?", en: "Is that person a teacher?" },
-          { q: "{田中|たなか}さんは {医者|いしゃ}です。 ➔", a: "{田中|たなか}さんは{医者|いしゃ}ですか。", romaji: "Tanaka-san wa isha desu ka.", pt: "O Sr. Tanaka é médico?", en: "Is Mr. Tanaka a doctor?" },
-          { q: "マリアさんは ブラジル{人|じん}です。 ➔", a: "マリアさんはブラジル{人|じん}ですか。", romaji: "Maria-san wa Burajiru-jin desu ka.", pt: "A Maria é brasileira?", en: "Is Maria Brazilian?" }
+          { q: "あなた^は {学生|がくせい}です。 ➔", a: "あなたは{学生|がくせい}ですか。", romaji: "Anata wa gakusei desu ka.", pt: "Você é estudante?", en: "Are you a student?" },
+          { q: "あの {人|ひと}^は {先生|せんせい}です。 ➔", a: "あの{人|ひと}は{先生|せんせい}ですか。", romaji: "Ano hito wa sensei desu ka.", pt: "Aquela pessoa é professora?", en: "Is that person a teacher?" },
+          { q: "{田中|たなか}さん^は {医者|いしゃ}です。 ➔", a: "{田中|たなか}さんは{医者|いしゃ}ですか。", romaji: "Tanaka-san wa isha desu ka.", pt: "O Sr. Tanaka é médico?", en: "Is Mr. Tanaka a doctor?" },
+          { q: "マリアさん^は ブラジル{人|じん}です。 ➔", a: "マリアさんはブラジル{人|じん}ですか。", romaji: "Maria-san wa Burajiru-jin desu ka.", pt: "A Maria é brasileira?", en: "Is Maria Brazilian?" }
         ]
       }
     ]
@@ -206,21 +213,21 @@ window.lessonData = {
     title: "{練習|れんしゅう} B", title_en: "{練習|れんしゅう} B",
     exercises: [
       {
-        desc: "1. Complete com は, も ou の", desc_en: "1. Fill in with は, も or の",
+        desc: "1. Complete com は, も ou の (use も quando a informação se repete: “também”)", desc_en: "1. Fill in with は, も or の (use も when the information is repeated: “also”)",
         questions: [
           { q: "わたし（　　）マリアです。", a: "は", romaji: "wa", pt: "Partícula do tema", en: "Topic particle" },
-          { q: "マリアさんは {学生|がくせい}です。ジョンさん（　　）{学生|がくせい}です。", a: "も", romaji: "mo", pt: "O John também é estudante", en: "John is a student too" },
-          { q: "{田中|たなか}さんは {医者|いしゃ}じゃ ありません。{山田|やまだ}さん（　　）{医者|いしゃ}じゃ ありません。", a: "も", romaji: "mo", pt: "O Sr. Yamada também não é médico", en: "Mr. Yamada is not a doctor either" },
-          { q: "ミゲルさんは さくら{大学|だいがく}（　　）{学生|がくせい}です。", a: "の", romaji: "no", pt: "Afiliação: estudante da universidade", en: "Affiliation: student of the university" },
+          { q: "マリアさん^は {学生|がくせい}です。ジョンさん（　　）{学生|がくせい}です。", a: "も", romaji: "mo", pt: "O John também é estudante", en: "John is a student too" },
+          { q: "{田中|たなか}さん^は {医者|いしゃ}じゃ ありません。{山田|やまだ}さん（　　）{医者|いしゃ}じゃ ありません。", a: "も", romaji: "mo", pt: "O Sr. Yamada também não é médico", en: "Mr. Yamada is not a doctor either" },
+          { q: "ミゲルさん^は さくら{大学|だいがく}（　　）{学生|がくせい}です。", a: "の", romaji: "no", pt: "Afiliação: estudante da universidade", en: "Affiliation: student of the university" },
           { q: "あの {人|ひと}（　　）だれですか。", a: "は", romaji: "wa", pt: "Partícula do tema", en: "Topic particle" }
         ]
       },
       {
         desc: "2. Responda com a negativa e a informação certa", desc_en: "2. Answer with the negative and the right information",
         questions: [
-          { q: "A: {田中|たなか}さんは {学生|がくせい}ですか。<br>B: いいえ、<strong>[{学生|がくせい}]</strong>＿＿＿＿＿＿＿＿。{会社員|かいしゃいん}です。", a: "じゃ ありません", romaji: "ja arimasen", pt: "Não é estudante", en: "Is not a student" },
-          { q: "A: マリアさんは {先生|せんせい}ですか。<br>B: いいえ、<strong>[{先生|せんせい}]</strong>＿＿＿＿＿＿＿＿。{医者|いしゃ}です。", a: "じゃ ありません", romaji: "ja arimasen", pt: "Não é professora", en: "Is not a teacher" },
-          { q: "A: ジョンさんは ブラジル{人|じん}ですか。<br>B: いいえ、<strong>[ブラジル{人|じん}]</strong>＿＿＿＿＿＿＿＿。アメリカ{人|じん}です。", a: "じゃ ありません", romaji: "ja arimasen", pt: "Não é brasileiro", en: "Is not Brazilian" }
+          { q: "A: {田中|たなか}さん^は {学生|がくせい}ですか。<br>B: いいえ、<strong>[{学生|がくせい}]</strong>＿＿＿＿＿＿＿＿。{会社員|かいしゃいん}です。", a: "じゃ ありません", romaji: "ja arimasen", pt: "Não é estudante", en: "Is not a student" },
+          { q: "A: マリアさん^は {先生|せんせい}ですか。<br>B: いいえ、<strong>[{先生|せんせい}]</strong>＿＿＿＿＿＿＿＿。{医者|いしゃ}です。", a: "じゃ ありません", romaji: "ja arimasen", pt: "Não é professora", en: "Is not a teacher" },
+          { q: "A: ジョンさん^は ブラジル{人|じん}ですか。<br>B: いいえ、<strong>[ブラジル{人|じん}]</strong>＿＿＿＿＿＿＿＿。アメリカ{人|じん}です。", a: "じゃ ありません", romaji: "ja arimasen", pt: "Não é brasileiro", en: "Is not Brazilian" }
         ]
       }
     ]
@@ -229,25 +236,25 @@ window.lessonData = {
     title: "{問題|もんだい} (Problemas / Avaliação)", title_en: "{問題|もんだい} (Problems / Assessment)",
     exercises: [
       {
-        desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (は・も・の・か)", desc_en: "1. Fill in the blank with the right word. (は・も・の・か)",
+        desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (は・も・の・か; use も quando a informação se repete: “também”)", desc_en: "1. Fill in the blank with the right word. (は・も・の・か; use も when the information repeats: “also”)",
         questions: [
           { q: "わたし（　　）ブラジル{人|じん}です。", a: "は", romaji: "wa", pt: "Eu sou brasileiro(a)", en: "I am Brazilian" },
-          { q: "あなたは {学生|がくせい}です（　　）。", a: "か", romaji: "ka", pt: "Pergunta: Você é estudante?", en: "Question: Are you a student?" },
+          { q: "あなた^は {学生|がくせい}です（　　）。", a: "か", romaji: "ka", pt: "Pergunta: Você é estudante?", en: "Question: Are you a student?" },
           { q: "ひかり{病院|びょういん}（　　）{医者|いしゃ}です。", a: "の", romaji: "no", pt: "Médico do Hospital Hikari", en: "A doctor at Hikari Hospital" },
-          { q: "ミゲルさんは {会社員|かいしゃいん}です。マリアさん（　　）{会社員|かいしゃいん}です。", a: "も", romaji: "mo", pt: "A Maria também", en: "Maria too" }
+          { q: "ミゲルさん^は {会社員|かいしゃいん}です。マリアさん（　　）{会社員|かいしゃいん}です。", a: "も", romaji: "mo", pt: "A Maria também", en: "Maria too" }
         ]
       },
       {
         desc: "2. {読|よ}み{物|もの} (Leitura): じこしょうかい", desc_en: "2. Reading: self-introduction",
         questions: [
           {
-            q: `<div class="reading-box">わたしは マリアです。ブラジル{人|じん}です。さくら{大学|だいがく}の {学生|がくせい}です。{友達|ともだち}の ジョンさんも さくら{大学|だいがく}の {学生|がくせい}です。ジョンさんは アメリカ{人|じん}です。</div>{質問|しつもん}: ジョンさんは ブラジル{人|じん}ですか。<br>➔ いいえ、＿＿＿＿＿＿＿＿。`,
+            q: `<div class="reading-box">わたし^は マリアです。ブラジル{人|じん}です。さくら{大学|だいがく}の {学生|がくせい}です。{友達|ともだち}の ジョンさんも さくら{大学|だいがく}の {学生|がくせい}です。ジョンさん^は アメリカ{人|じん}です。</div>{質問|しつもん}: ジョンさん^は ブラジル{人|じん}ですか。<br>➔ いいえ、＿＿＿＿＿＿＿＿。`,
             a: "アメリカ{人|じん}です",
             romaji: "Amerika-jin desu",
             pt: "Não, é americano.", en: "No, he is American."
           },
           {
-            q: `<div class="reading-box">わたしは マリアです。ブラジル{人|じん}です。さくら{大学|だいがく}の {学生|がくせい}です。{友達|ともだち}の ジョンさんも さくら{大学|だいがく}の {学生|がくせい}です。ジョンさんは アメリカ{人|じん}です。</div>{質問|しつもん}: マリアさんは どこの {学生|がくせい}ですか。<br>➔ ＿＿＿＿＿＿＿＿の {学生|がくせい}です。`,
+            q: `<div class="reading-box">わたし^は マリアです。ブラジル{人|じん}です。さくら{大学|だいがく}の {学生|がくせい}です。{友達|ともだち}の ジョンさんも さくら{大学|だいがく}の {学生|がくせい}です。ジョンさん^は アメリカ{人|じん}です。</div>{質問|しつもん}: マリアさん^は どこの {学生|がくせい}ですか。<br>➔ ＿＿＿＿＿＿＿＿の {学生|がくせい}です。`,
             a: "さくら{大学|だいがく}",
             romaji: "Sakura daigaku",
             pt: "Da Universidade Sakura.", en: "Of Sakura University."
@@ -262,9 +269,9 @@ window.lessonData = {
       {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
-          { tokens: ["わたしは", "マリアです。"], pt: "Eu sou a Maria.", en: "I am Maria.", romaji: "Watashi wa Maria desu." },
-          { tokens: ["マリアさんは", "ブラジル{人|じん}じゃ", "ありません。"], pt: "A Maria não é brasileira.", en: "Maria is not Brazilian.", romaji: "Maria-san wa Burajiru-jin ja arimasen." },
-          { tokens: ["あの{人|ひと}は", "だれですか。"], pt: "Quem é aquela pessoa?", en: "Who is that person?", romaji: "Ano hito wa dare desu ka." },
+          { tokens: ["わたし^は", "マリアです。"], pt: "Eu sou a Maria.", en: "I am Maria.", romaji: "Watashi wa Maria desu." },
+          { tokens: ["マリアさん^は", "ブラジル{人|じん}じゃ", "ありません。"], pt: "A Maria não é brasileira.", en: "Maria is not Brazilian.", romaji: "Maria-san wa Burajiru-jin ja arimasen." },
+          { tokens: ["あの{人|ひと}^は", "だれですか。"], pt: "Quem é aquela pessoa?", en: "Who is that person?", romaji: "Ano hito wa dare desu ka." },
           { tokens: ["ジョンさんも", "さくら{大学|だいがく}の", "{学生|がくせい}です。"], pt: "O John também é estudante da Universidade Sakura.", en: "John is also a student at Sakura University.", romaji: "Jon-san mo Sakura daigaku no gakusei desu." }
         ]
       }

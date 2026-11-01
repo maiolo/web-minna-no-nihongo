@@ -17,7 +17,7 @@ window.lessonData = {
       { jp: "{今日|きょう}", romaji: "kyou", pt: "Hoje", en: "Today" },
       { jp: "{昨日|きのう}", romaji: "kinou", pt: "Ontem", en: "Yesterday" },
       { jp: "{明日|あした}", romaji: "ashita", pt: "Amanhã", en: "Tomorrow" },
-      { jp: "{起|お}きます", romaji: "okimasu", pt: "Acordar, levantar-se", en: "To get up, to wake up" },
+      { jp: "{起|お}きます", romaji: "okimasu", pt: "Levantar-se (da cama)", en: "To get up" },
       { jp: "{寝|ね}ます", romaji: "nemasu", pt: "Dormir, ir dormir", en: "To sleep, to go to bed" },
       { jp: "{働|はたら}きます", romaji: "hatarakimasu", pt: "Trabalhar", en: "To work" },
       { jp: "{休|やす}みます", romaji: "yasumimasu", pt: "Descansar, faltar, tirar folga", en: "To rest, to take a day off" },
@@ -45,23 +45,25 @@ window.lessonData = {
         pat: "いま 〜{時|じ} 〜{分|ふん} です",
         short: "dizer e perguntar as horas", short_en: "telling and asking the time",
         mean: "As horas são o número ＋ <strong>{時|じ}</strong> e os minutos, o número ＋ <strong>{分|ふん}</strong>. <strong>{半|はん}</strong> é “e meia”. Para perguntar: {何時|なんじ}ですか (que horas são?) e {何分|なんぷん}ですか (quantos minutos?).", mean_en: "Hours are number ＋ <strong>{時|じ}</strong> and minutes are number ＋ <strong>{分|ふん}</strong>. <strong>{半|はん}</strong> is “half past”. To ask: {何時|なんじ}ですか (what time is it?) and {何分|なんぷん}ですか (how many minutes?).",
-        rule: "Três horas têm leitura própria: 4h = よじ, 7h = しちじ, 9h = くじ. Nos minutos, o som muda para ぷん depois de 1, 3, 4, 6, 8 e 10 (いっぷん, さんぷん, よんぷん, ろっぷん, はっぷん, じゅっぷん) e fica ふん nos outros (にふん, ごふん).", rule_en: "Three hours have their own reading: 4:00 = よじ, 7:00 = しちじ, 9:00 = くじ. For minutes, the sound changes to ぷん after 1, 3, 4, 6, 8 and 10 (いっぷん, さんぷん, よんぷん, ろっぷん, はっぷん, じゅっぷん) and stays ふん for the others (にふん, ごふん).",
+        rule: "Três horas têm leitura própria: 4h = よじ, 7h = しちじ, 9h = くじ. Nos minutos, o som muda para ぷん depois de 1, 3, 4, 6, 8 e 10 (いっぷん, さんぷん, よんぷん, ろっぷん, はっぷん, じゅっぷん) e também nas dezenas de 20 a 50 (にじゅっぷん, さんじゅっぷん, よんじゅっぷん, ごじゅっぷん); fica ふん em 2, 5, 7 e 9 (にふん, ごふん, ななふん, きゅうふん). {何分|なんぷん} = なんぷん.", rule_en: "Three hours have their own reading: 4:00 = よじ, 7:00 = しちじ, 9:00 = くじ. For minutes, the sound changes to ぷん after 1, 3, 4, 6, 8 and 10 (いっぷん, さんぷん, よんぷん, ろっぷん, はっぷん, じゅっぷん) and also in the tens from 20 to 50 (にじゅっぷん, さんじゅっぷん, よんじゅっぷん, ごじゅっぷん); it stays ふん for 2, 5, 7 and 9 (にふん, ごふん, ななふん, きゅうふん). {何分|なんぷん} = なんぷん.",
         form: [
           { label: "Horas especiais", label_en: "Special hours", text: "Memorize estas três.", text_en: "Memorize these three.", ex: [
             { tag: "4:00", jp: "{四時|よじ}", romaji: "yoji", pt: "quatro horas (não よんじ)", en: "four o'clock (not よんじ)" },
             { tag: "7:00", jp: "{七時|しちじ}", romaji: "shichiji", pt: "sete horas (não ななじ)", en: "seven o'clock (not ななじ)" },
             { tag: "9:00", jp: "{九時|くじ}", romaji: "kuji", pt: "nove horas (não きゅうじ)", en: "nine o'clock (not きゅうじ)" }
           ] },
-          { label: "Minutos: ふん ou ぷん", label_en: "Minutes: ふん or ぷん", text: "Troque ふん por <strong>ぷん</strong> depois de 1, 3, 4, 6, 8, 10.", text_en: "Switch ふん to <strong>ぷん</strong> after 1, 3, 4, 6, 8, 10.", ex: [
+          { label: "Minutos: ふん ou ぷん", label_en: "Minutes: ふん or ぷん", text: "Troque ふん por <strong>ぷん</strong> depois de 1, 3, 4, 6, 8, 10 e nas dezenas 20–50.", text_en: "Switch ふん to <strong>ぷん</strong> after 1, 3, 4, 6, 8, 10 and in the tens 20–50.", ex: [
             { tag: "2 min", jp: "{二分|にふん}", romaji: "nifun", pt: "dois minutos", en: "two minutes" },
             { tag: "3 min", jp: "{三分|さんぷん}", romaji: "sanpun", pt: "três minutos", en: "three minutes" },
             { tag: "5 min", jp: "{五分|ごふん}", romaji: "gofun", pt: "cinco minutos", en: "five minutes" },
-            { tag: "10 min", jp: "{十分|じゅっぷん}", romaji: "juppun", pt: "dez minutos", en: "ten minutes" }
+            { tag: "10 min", jp: "{十分|じゅっぷん}", romaji: "juppun", pt: "dez minutos", en: "ten minutes" },
+            { tag: "20 min", jp: "{二十分|にじゅっぷん}", romaji: "nijuppun", pt: "vinte minutos", en: "twenty minutes" },
+            { tag: "30 min", jp: "{三十分|さんじゅっぷん}", romaji: "sanjuppun", pt: "trinta minutos", en: "thirty minutes" }
           ] }
         ],
         ex: [
           { jp: "いま {九時|くじ}です。", romaji: "Ima kuji desu.", pt: "Agora são nove horas.", en: "It is nine o'clock now." },
-          { jp: "いま {三時半|さんじはん}です。", romaji: "Ima sanjihan desu.", pt: "Agora são três e meia.", en: "It is half past three now." },
+          { jp: "いま {三時半|さんじはん}です。", romaji: "Ima sanji han desu.", pt: "Agora são três e meia.", en: "It is half past three now." },
           { jp: "いま {何時|なんじ}ですか。<br>…{午後|ごご} {四時|よじ} {十分|じゅっぷん}です。", romaji: "Ima nanji desu ka. ...Gogo yoji juppun desu.", pt: "Que horas são agora? ...São quatro e dez da tarde.", en: "What time is it now? ...It is ten past four in the afternoon." }
         ],
         contrast: {
@@ -73,11 +75,11 @@ window.lessonData = {
         },
         trap: [
           "As horas 4, 7 e 9 têm leituras especiais: {四時|よじ}, {七時|しちじ}, {九時|くじ}. Dizer よんじ, ななじ ou きゅうじ é erro comum.",
-          "Em japonês não existe “quinze” para “um quarto”: 15 minutos é {十五分|じゅうごふん} e 30 minutos é {半|はん}."
+          "Em japonês não há expressão para “um quarto de hora”: 15 minutos é {十五分|じゅうごふん}. A metade da hora é {半|はん} depois da hora: {三時半|さんじはん} = 3h30; 30 minutos sozinhos são {三十分|さんじゅっぷん}."
         ],
         trap_en: [
           "The hours 4, 7 and 9 have special readings: {四時|よじ}, {七時|しちじ}, {九時|くじ}. Saying よんじ, ななじ or きゅうじ is a common mistake.",
-          "Japanese has no “a quarter” for 15 minutes: 15 minutes is {十五分|じゅうごふん} and 30 minutes is {半|はん}."
+          "Japanese has no expression for “a quarter of an hour”: 15 minutes is {十五分|じゅうごふん}. The half hour is {半|はん} after the hour: {三時半|さんじはん} = 3:30; 30 minutes on their own are {三十分|さんじゅっぷん}."
         ]
       },
       {
@@ -120,7 +122,7 @@ window.lessonData = {
       {
         id: "ni-tempo",
         title: "N (tempo) に V", title_en: "N (time) に V",
-        pat: "{時間|じかん} に V ます",
+        pat: "{七時|しちじ} に V ます",
         short: "em que momento algo acontece", short_en: "when something happens",
         mean: "A partícula <strong>に</strong> marca o momento exato: uma hora, um dia da semana. Palavras relativas ao “agora” (hoje, ontem, amanhã, todos os dias) <strong>não</strong> levam に.", mean_en: "The particle <strong>に</strong> marks the exact moment: a clock time or a weekday. Words relative to “now” (today, yesterday, tomorrow, every day) take <strong>no</strong> に.",
         ex: [
@@ -152,9 +154,9 @@ window.lessonData = {
         mean: "<strong>から</strong> marca o início e <strong>まで</strong> marca o fim, no tempo ou num intervalo: “das nove às cinco”, “de segunda a sexta”.", mean_en: "<strong>から</strong> marks the start and <strong>まで</strong> marks the end, in time or in a range: “from nine to five”, “from Monday to Friday”.",
         rule: "Elas vêm depois da palavra que marcam. Podem aparecer juntas ou só uma delas: {九時|くじ}から (a partir das nove) ou {五時|ごじ}まで (até as cinco).", rule_en: "They come after the word they mark. They can appear together or only one of them: {九時|くじ}から (from nine on) or {五時|ごじ}まで (until five).",
         ex: [
-          { jp: "{銀行|ぎんこう}^は {九時|くじ}から {三時|さんじ}までです。", romaji: "Ginkou wa kujikara sanjimade desu.", pt: "O banco abre das nove às três.", en: "The bank is open from nine to three." },
-          { jp: "わたし^は {月曜日|げつようび}から {金曜日|きんようび}まで {働|はたら}きます。", romaji: "Watashi wa getsuyoubikara kin'youbimade hatarakimasu.", pt: "Eu trabalho de segunda a sexta.", en: "I work from Monday to Friday." },
-          { jp: "{昼|ひる}の {休|やす}み^は {十二時|じゅうにじ}から {一時|いちじ}までです。", romaji: "Hiru no yasumi wa juunijikara ichijimade desu.", pt: "O intervalo do almoço é de meio-dia à uma.", en: "The lunch break is from noon to one." }
+          { jp: "{銀行|ぎんこう}^は {九時|くじ}から {三時|さんじ}までです。", romaji: "Ginkou wa kuji kara sanji made desu.", pt: "O banco abre das nove às três.", en: "The bank is open from nine to three." },
+          { jp: "わたし^は {月曜日|げつようび}から {金曜日|きんようび}まで {働|はたら}きます。", romaji: "Watashi wa getsuyoubi kara kin'youbi made hatarakimasu.", pt: "Eu trabalho de segunda a sexta.", en: "I work from Monday to Friday." },
+          { jp: "{昼|ひる}の {休|やす}み^は {十二時|じゅうにじ}から {一時|いちじ}までです。", romaji: "Hiru no yasumi wa juuniji kara ichiji made desu.", pt: "O intervalo do almoço é de meio-dia à uma.", en: "The lunch break is from noon to one." }
         ],
         contrast: {
           rows: [
@@ -222,9 +224,9 @@ window.lessonData = {
       {
         desc: "2. から ou まで?", desc_en: "2. から or まで?",
         questions: [
-          { q: "{銀行|ぎんこう}は {九時|くじ}（　　）{三時|さんじ}までです。", a: "から", romaji: "kara", pt: "Início do intervalo", en: "Start of the range" },
-          { q: "わたしは {月曜日|げつようび}から {金曜日|きんようび}（　　）{働|はたら}きます。", a: "まで", romaji: "made", pt: "Fim do intervalo", en: "End of the range" },
-          { q: "{昼|ひる}の {休|やす}みは {十二時|じゅうにじ}（　　）{一時|いちじ}までです。", a: "から", romaji: "kara", pt: "Início do intervalo", en: "Start of the range" }
+          { q: "{銀行|ぎんこう}^は {九時|くじ}（　　）{三時|さんじ}までです。", a: "から", romaji: "kara", pt: "Início do intervalo", en: "Start of the range" },
+          { q: "わたし^は {月曜日|げつようび}から {金曜日|きんようび}（　　）{働|はたら}きます。", a: "まで", romaji: "made", pt: "Fim do intervalo", en: "End of the range" },
+          { q: "{昼|ひる}の {休|やす}み^は {十二時|じゅうにじ}（　　）{一時|いちじ}までです。", a: "から", romaji: "kara", pt: "Início do intervalo", en: "Start of the range" }
         ]
       }
     ]
@@ -236,8 +238,8 @@ window.lessonData = {
         desc: "1. (　　) に {正|ただ}しい {形|かたち} を {入|い}れなさい。 (ます・ません・ました・ませんでした)", desc_en: "1. Fill in the blank with the right form. (ます・ません・ました・ませんでした)",
         questions: [
           { q: "{昨日|きのう}、{勉強|べんきょう}（　　）。(passado)", q_en: "{昨日|きのう}、{勉強|べんきょう}（　　）。(past)", a: "しました", romaji: "shimashita", pt: "Ontem estudei", en: "I studied yesterday" },
-          { q: "{日曜日|にちようび}は {働|はたら}き（　　）。(negativo)", q_en: "{日曜日|にちようび}は {働|はたら}き（　　）。(negative)", a: "ません", romaji: "masen", pt: "No domingo não trabalho", en: "I do not work on Sundays" },
-          { q: "{昨日|きのう}は {休|やす}み（　　）。(passado negativo)", q_en: "{昨日|きのう}は {休|やす}み（　　）。(past negative)", a: "ませんでした", romaji: "masen deshita", pt: "Ontem não descansei", en: "I did not rest yesterday" },
+          { q: "{日曜日|にちようび}^は {働|はたら}き（　　）。(negativo)", q_en: "{日曜日|にちようび}^は {働|はたら}き（　　）。(negative)", a: "ません", romaji: "masen", pt: "No domingo não trabalho", en: "I do not work on Sundays" },
+          { q: "{昨日|きのう}^は {休|やす}み（　　）。(passado negativo)", q_en: "{昨日|きのう}^は {休|やす}み（　　）。(past negative)", a: "ませんでした", romaji: "masen deshita", pt: "Ontem não descansei", en: "I did not rest yesterday" },
           { q: "{毎朝|まいあさ} {七時|しちじ}に {起|お}き（　　）。(habitual)", q_en: "{毎朝|まいあさ} {七時|しちじ}に {起|お}き（　　）。(habitual)", a: "ます", romaji: "masu", pt: "Toda manhã acordo às sete", en: "I get up at seven every morning" }
         ]
       },
@@ -245,8 +247,8 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): マリアさんの {一日|いちにち}", desc_en: "2. Reading: Maria's day",
         questions: [
           {
-            q: `<div class="reading-box">マリアさんは {毎朝|まいあさ} {六時|ろくじ}に {起|お}きます。{九時|くじ}から {五時|ごじ}まで {働|はたら}きます。{晩|ばん}は {勉強|べんきょう}します。{十二時|じゅうにじ}に {寝|ね}ます。{土曜日|どようび}と {日曜日|にちようび}は {働|はたら}きません。</div>{質問|しつもん}: マリアさんは {何時|なんじ}から {何時|なんじ}まで {働|はたら}きますか。<br>➔ ＿＿＿＿＿から ＿＿＿＿＿まで {働|はたら}きます。`,
-            a: "{九時|くじ}、{五時|ごじ}",
+            q: `<div class="reading-box">マリアさん^は {毎朝|まいあさ} {六時|ろくじ}に {起|お}きます。{九時|くじ}から {五時|ごじ}まで {働|はたら}きます。{晩|ばん}^は {勉強|べんきょう}します。{十二時|じゅうにじ}に {寝|ね}ます。{土曜日|どようび}と {日曜日|にちようび}^は {働|はたら}きません。</div>{質問|しつもん}: マリアさん^は {何時|なんじ}から {何時|なんじ}まで {働|はたら}きますか。<br>➔ ＿＿＿＿＿から ＿＿＿＿＿まで {働|はたら}きます。`,
+            a: "{九時|くじ}、{五時|ごじ}／{九時|くじ}から{五時|ごじ}まで",
             romaji: "kuji, goji",
             pt: "Das nove às cinco.", en: "From nine to five."
           }
@@ -261,9 +263,9 @@ window.lessonData = {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
           { tokens: ["{毎朝|まいあさ}", "{六時|ろくじ}に", "{起|お}きます。"], pt: "Toda manhã acordo às seis.", en: "I get up at six every morning.", romaji: "Maiasa rokuji ni okimasu." },
-          { tokens: ["{銀行|ぎんこう}は", "{九時|くじ}から", "{三時|さんじ}までです。"], pt: "O banco abre das nove às três.", en: "The bank is open from nine to three.", romaji: "Ginkou wa kuji kara sanji made desu." },
-          { tokens: ["{昨日|きのう}は", "{勉強|べんきょう}しませんでした。"], pt: "Ontem não estudei.", en: "I did not study yesterday.", romaji: "Kinou wa benkyou shimasen deshita." },
-          { tokens: ["{日曜日|にちようび}は", "{休|やす}みます。"], pt: "No domingo descanso.", en: "I rest on Sunday.", romaji: "Nichiyoubi wa yasumimasu." }
+          { tokens: ["{銀行|ぎんこう}^は", "{九時|くじ}から", "{三時|さんじ}までです。"], pt: "O banco abre das nove às três.", en: "The bank is open from nine to three.", romaji: "Ginkou wa kuji kara sanji made desu." },
+          { tokens: ["{昨日|きのう}^は", "{勉強|べんきょう}しませんでした。"], pt: "Ontem não estudei.", en: "I did not study yesterday.", romaji: "Kinou wa benkyou shimasen deshita." },
+          { tokens: ["{日曜日|にちようび}^は", "{休|やす}みます。"], pt: "No domingo descanso.", en: "I rest on Sunday.", romaji: "Nichiyoubi wa yasumimasu." }
         ]
       }
     ]
