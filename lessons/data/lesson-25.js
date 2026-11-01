@@ -160,7 +160,7 @@ window.lessonData = {
         pat: "V-たら どうですか",
         short: "sugestão gentil", short_en: "a gentle suggestion",
         mean: "Sugere uma opção com educação: “que tal…?”, “por que não…?”. Não é ordem: pede a opinião de quem ouve.", mean_en: "Suggests an option politely: “how about…?”, “why don't you…?”. It is not an order: it asks for the other person's opinion.",
-        rule: "Forma た + ら + どうですか. Respostas comuns: はい、そう します／いいですね。O verbo de sugestão pode ser também 〜ませんか (lição 14).", rule_en: "た form + ら + どうですか. Common answers: はい、そう します／いいですね。The suggestion can also use 〜ませんか (lesson 14).",
+        rule: "Forma た + ら + どうですか. Respostas comuns: はい、そう します／いいですね。O verbo de sugestão pode ser também 〜ませんか (lição 6).", rule_en: "た form + ら + どうですか. Common answers: はい、そう します／いいですね。The suggestion can also use 〜ませんか (lesson 6).",
         ex: [
           { jp: "{少|すこ}し {休|やす}んだら どうですか。", romaji: "Sukoshi yasundara dou desu ka.", pt: "Que tal descansar um pouco?", en: "How about resting a little?" },
           { jp: "{熱|ねつ}が ありますね。{病院|びょういん}^へ {行|い}ったら どうですか。", romaji: "Netsu ga arimasu ne. Byouin e ittara dou desu ka.", pt: "Você está com febre. Que tal ir ao hospital?", en: "You have a fever. How about going to the hospital?" },
@@ -281,7 +281,7 @@ window.lessonData = {
     title: "{練習|れんしゅう} B", title_en: "{練習|れんしゅう} B",
     exercises: [
       {
-        desc: "1. たら{形|けい}に しなさい。(Passe para a forma たら)", desc_en: "1. たら{形|けい}に しなさい。(Change to the たら form)",
+        desc: "1. 「〜たら」の {形|けい}に しなさい。(Passe para a forma たら)", desc_en: "1. 「〜たら」の {形|けい}に しなさい。(Change to the たら form)",
         questions: [
           { q: "{行|い}きます ➔", a: "{行|い}ったら", romaji: "ittara", pt: "Se eu for", en: "If I go" },
           { q: "{食|た}べます ➔", a: "{食|た}べたら", romaji: "tabetara", pt: "Se eu comer", en: "If I eat" },
@@ -310,7 +310,7 @@ window.lessonData = {
         ]
       },
       {
-        desc: "4. 〜くても・〜でも に しなさい。(Passe para 〜くても ou 〜でも)", desc_en: "4. 〜くても・〜でも に しなさい。(Change to 〜くても or 〜でも)",
+        desc: "4. 「〜くても／〜でも」の {形|けい}に しなさい。(Passe para 〜くても ou 〜でも)", desc_en: "4. 「〜くても／〜でも」の {形|けい}に しなさい。(Change to 〜くても or 〜でも)",
         questions: [
           { q: "{高|たか}い ➔", a: "{高|たか}くても", romaji: "takakutemo", pt: "Mesmo sendo caro", en: "Even if it is expensive" },
           { q: "{寒|さむ}い ➔", a: "{寒|さむ}くても", romaji: "samukutemo", pt: "Mesmo estando frio", en: "Even if it is cold" },
@@ -337,14 +337,14 @@ window.lessonData = {
         questions: [
           { q: "A: {明日|あした}、{何|なに}を しますか。<br>B: {雨|あめ}が（{降|ふ}ります ➔ ＿＿）、{家|いえ}で {本|ほん}を {読|よ}みます。<br>A: いいですね。", a: "{降|ふ}ったら", romaji: "futtara", pt: "Se chover, leio em casa.", en: "If it rains, I read at home." },
           { q: "A: {熱|ねつ}が ありますね。<br>B: ええ。{薬|くすり}を（{飲|の}みます ➔ ＿＿）も、{熱|ねつ}が {下|さ}がりません。<br>A: それは たいへんですね。", a: "{飲|の}んで", romaji: "nonde", pt: "Mesmo tomando o remédio, a febre não baixa.", en: "Even after taking the medicine, the fever does not go down." },
-          { q: "A: {日曜日|にちようび}も {会社|かいしゃ}で {働|はたら}きますか。<br>B: ええ。{日曜日|にちようび}（＿＿）{仕事|しごと}が あります。", a: "でも", romaji: "demo", pt: "Mesmo no domingo, tenho trabalho.", en: "Even on Sunday, I have work." }
+          { q: "A: {日曜日|にちようび}も {会社|かいしゃ}で {働|はたら}きますか。<br>B: ええ。{日曜日|にちようび}（です ➔ ＿＿）{仕事|しごと}が あります。", a: "でも", romaji: "demo", pt: "Mesmo no domingo, tenho trabalho.", en: "Even on Sunday, I have work." }
         ]
       },
       {
         desc: "2. アドバイス (Dando conselhos)", desc_en: "2. アドバイス (Giving advice)",
         questions: [
           { q: "A: {漢字|かんじ}が よく {分|わ}かりません。<br>B: {先生|せんせい}に（{聞|き}きます ➔ ＿＿）どうですか。<br>A: そうですね。そう します。", a: "{聞|き}いたら", romaji: "kiitara", pt: "Que tal perguntar ao professor?", en: "How about asking the teacher?" },
-          { q: "A: {明日|あした}の {予定|よてい}は まだ {決|き}めて いません。<br>B: {京都|きょうと}^へ（{行|い}きます ➔ ＿＿）どうですか。<br>A: いいですね。ぜひ {行|い}きたいです。", a: "{行|い}ったら", romaji: "ittara", pt: "Que tal ir a Kyoto?", en: "How about going to Kyoto?" }
+          { q: "A: {明日|あした}の {予定|よてい}^は まだ {決|き}めて いません。<br>B: {京都|きょうと}^へ（{行|い}きます ➔ ＿＿）どうですか。<br>A: いいですね。ぜひ {行|い}きたいです。", a: "{行|い}ったら", romaji: "ittara", pt: "Que tal ir a Kyoto?", en: "How about going to Kyoto?" }
         ]
       }
     ]
@@ -375,10 +375,10 @@ window.lessonData = {
         questions: [
           {
             q: `<div class="reading-box">
-                                {明日|あした}は {町|まち}の お{祭|まつ}りです。{雨|あめ}が {降|ふ}って も、お{祭|まつ}りは あります。でも、{雨|あめ}が {降|ふ}ったら、{学校|がっこう}の {中|なか}で します。{天気|てんき}が よかったら、{公園|こうえん}で します。{私|わたし}は {友達|ともだち}と {行|い}きます。{雨|あめ}が {降|ふ}ったら、かさを {持|も}って {行|い}きます。
+                                {明日|あした}は {町|まち}の お{祭|まつ}りです。{雨|あめ}が {降|ふ}って も、お{祭|まつ}りは あります。でも、{雨|あめ}が {降|ふ}ったら、{学校|がっこう}の {中|なか}で します。{天気|てんき}が よかったら、{公園|こうえん}で します。{私|わたし}^は {友達|ともだち}と {行|い}きます。{雨|あめ}が {降|ふ}ったら、かさを {持|も}って {行|い}きます。
                                 </div>
                                 {質問|しつもん}: お{祭|まつ}りは、{雨|あめ}が {降|ふ}ったら どこで しますか。<br>➔ ＿＿＿＿＿＿＿＿＿。`,
-            a: "{学校|がっこう}の {中|なか}で します",
+            a: "{学校|がっこう}の {中|なか}で します／{学校|がっこう}の {中|なか}です",
             romaji: "Gakkou no naka de shimasu.",
             pt: "Na escola (dentro da escola).", en: "At school (inside the school)."
           }

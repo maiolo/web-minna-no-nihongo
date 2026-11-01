@@ -6,10 +6,10 @@ window.lessonData = {
       { jp: "{手伝|てつだ}います", romaji: "tetsudaimasu", pt: "Ajudar (em um trabalho)", en: "To help (with a task)" },
       { jp: "{案内|あんない}します", romaji: "annai shimasu", pt: "Guiar, levar para conhecer", en: "To show someone around, to guide" },
       { jp: "{説明|せつめい}します", romaji: "setsumei shimasu", pt: "Explicar", en: "To explain" },
-      { jp: "{直|なお}します", romaji: "nao shimasu", pt: "Consertar, corrigir", en: "To fix, to correct" },
+      { jp: "{直|なお}します", romaji: "naoshimasu", pt: "Consertar, corrigir", en: "To fix, to correct" },
       { jp: "{運|はこ}びます", romaji: "hakobimasu", pt: "Carregar, transportar", en: "To carry, to transport" },
       { jp: "{片付|かたづ}けます", romaji: "katazukemasu", pt: "Arrumar, guardar (a bagunça)", en: "To tidy up, to put away" },
-      { jp: "{貸|か}します", romaji: "ka shimasu", pt: "Emprestar (algo a alguém)", en: "To lend (something to someone)" },
+      { jp: "{貸|か}します", romaji: "kashimasu", pt: "Emprestar (algo a alguém)", en: "To lend (something to someone)" },
       { jp: "{借|か}ります", romaji: "karimasu", pt: "Pegar emprestado", en: "To borrow" },
       { jp: "{教|おし}えます", romaji: "oshiemasu", pt: "Ensinar, avisar", en: "To teach, to tell" },
       { jp: "{呼|よ}びます", romaji: "yobimasu", pt: "Chamar", en: "To call" },
@@ -27,7 +27,7 @@ window.lessonData = {
   },
   gramatica: {
     title: "{文法|ぶんぽう} (Gramática)", title_en: "{文法|ぶんぽう} (Grammar)",
-    intro: "Quatro pontos nesta lição: fazer um favor (〜て あげます), receber um favor (〜て くれます) e pedir o favor (〜て もらいます), mais um resumo de quem leva が e quem leva に.", intro_en: "Four points in this lesson: doing a favour (〜て あげます), having a favour done for you (〜て くれます) and receiving a favour (〜て もらいます), plus a summary of who takes が and who takes に.",
+    intro: "Quatro pontos nesta lição: fazer um favor (〜て あげます), alguém faz um favor por mim (〜て くれます) e receber um favor (〜て もらいます), mais um resumo das partículas が e に.", intro_en: "Four points in this lesson: doing a favour (〜て あげます), having a favour done for you (〜て くれます) and receiving a favour (〜て もらいます), plus a summary of who takes が and who takes に.",
     points: [
       {
         id: "te-agemasu",
@@ -35,7 +35,7 @@ window.lessonData = {
         pat: "A ^は B に V-て あげます",
         short: "eu faço algo por outra pessoa", short_en: "I do something for another person",
         mean: "Diz que uma pessoa faz algo em benefício de outra: um favor, uma ajuda. Quem faz é o sujeito; quem recebe leva に.", mean_en: "It says that one person does something for the benefit of another: a favour, a help. The doer is the subject; the receiver takes に.",
-        rule: "Use a forma て do verbo + あげます. O tempo e a negativa ficam em あげます: あげました, あげません. O favor pode ser para um amigo, um colega ou um familiar — nunca para o professor ou o chefe.", rule_en: "Use the て form of the verb + あげます. Tense and negative stay in あげます: あげました, あげません. The favour can be for a friend, a colleague or a family member — never for the teacher or the boss.",
+        rule: "Use a forma て do verbo + あげます. O tempo e a negativa ficam em あげます: あげました, あげません. O favor pode ser para um amigo, um colega ou um familiar — evite com o professor ou o chefe: dito diretamente a um superior, てあげます soa presunçoso (o livro recomenda não usar).", rule_en: "Use the て form of the verb + あげます. Tense and negative stay in あげます: あげました, あげません. The favour can be for a friend, a colleague or a family member — avoid it with the teacher or the boss: said directly to a superior, てあげます sounds presumptuous (the book recommends not using it).",
         form: [
           { label: "{動詞|どうし} (forma て) + あげます", label_en: "{動詞|どうし} (て form) + あげます", text: "O verbo fica na forma て; nada muda em あげます.", text_en: "The verb stays in the て form; nothing changes in あげます.", ex: [
             { jp: "{貸|か}して あげます", romaji: "kashite agemasu", pt: "empresto (para alguém)", en: "I lend (to someone)" },
@@ -134,11 +134,11 @@ window.lessonData = {
           note: "Mesma cena, ponto de vista diferente. Use くれます para agradecer o que alguém fez; use もらいます para contar o favor que você conseguiu.", note_en: "Same scene, different point of view. Use くれます to thank someone for what they did; use もらいます to tell about the favour you got."
         },
         trap: [
-          "Quem faz o favor leva に com もらいます: errado {田中|たなか}さんが 〜て もらいました.",
+          "Com もらいます, o sujeito é quem recebe e に marca quem faz: certo {私|わたし}^は {田中|たなか}さんに {書|か}いて もらいました; errado, para “recebi do Tanaka”, {田中|たなか}さんが {私|わたし}に {書|か}いて もらいました. Se o próprio Tanaka recebe o favor, a frase é normal: {田中|たなか}さんは {木村|きむら}さんに {書|か}いて もらいました.",
           "もらいます não é “pedir”: é “receber o favor”. Para pedir algo, use 〜て ください ou 〜て くださいませんか."
         ],
         trap_en: [
-          "The doer takes に with もらいます: wrong {田中|たなか}さんが 〜て もらいました.",
+          "With もらいます, the subject is the receiver and に marks the doer: right {私|わたし}^は {田中|たなか}さんに {書|か}いて もらいました; wrong, for “I received it from Tanaka”, {田中|たなか}さんが {私|わたし}に {書|か}いて もらいました. If Tanaka himself receives the favour, the sentence is normal: {田中|たなか}さんは {木村|きむら}さんに {書|か}いて もらいました.",
           "もらいます is not “to ask”: it is “to receive the favour”. To ask for something, use 〜て ください or 〜て くださいませんか."
         ]
       },
@@ -147,8 +147,8 @@ window.lessonData = {
         title: "が と に: quem faz, quem recebe", title_en: "が and に: who does it, who receives it",
         pat: "あげます: A ^は B に<br>くれます: B が ({私|わたし} に)<br>もらいます: A ^は B に",
         short: "resumo das partículas dos três verbos", short_en: "summary of the particles with the three verbs",
-        mean: "As três formas contam a mesma cena (um favor) de pontos de vista diferentes. A partícula mostra o papel de cada pessoa: が marca quem faz; に marca quem recebe o favor.", mean_en: "All three forms tell the same scene (a favour) from different points of view. The particle shows each person's role: が marks the doer; に marks the receiver of the favour.",
-        rule: "Com あげます e もらいます, o sujeito é a pessoa de quem se fala e quem faz/recebe o favor leva に. Com くれます, quem faz é o sujeito (が) e eu sou o beneficiário.", rule_en: "With あげます and もらいます, the subject is the person being talked about and the other person takes に. With くれます, the doer is the subject (が) and I am the beneficiary.",
+        mean: "As três formas mostram um favor de pontos de vista diferentes. Em あげます o sujeito (^は/が) é quem faz e に marca quem recebe; em くれます quem faz é o sujeito (が) e quem recebe sou eu (に opcional); em もらいます o sujeito (^は/が) é quem recebe e に marca quem faz.", mean_en: "The three forms show a favour from different points of view. In あげます the subject (^は/が) is the doer and に marks the receiver; in くれます the doer is the subject (が) and the receiver is me (に optional); in もらいます the subject (^は/が) is the receiver and に marks the doer.",
+        rule: "あげます: A ^は B に (A faz, B recebe). くれます: B が ({私|わたし} に) (B faz, eu recebo). もらいます: A ^は B に (A recebe, B faz). Só あげます e もらいます descrevem o mesmo fato visto dos dois lados; くれます é o mesmo fato quando quem recebe sou eu.", rule_en: "あげます: A ^は B に (A does, B receives). くれます: B が ({私|わたし} に) (B does, I receive). もらいます: A ^は B に (A receives, B does). Only あげます and もらいます describe the same fact seen from both sides; くれます is the same fact when the receiver is me.",
         form: [
           { label: "あげます (eu ➔ outro)", label_en: "あげます (me ➔ other)", text: "A ^は <strong>B に</strong> V-て あげます", text_en: "A ^は <strong>B に</strong> V-て あげます" },
           { label: "くれます (outro ➔ eu)", label_en: "くれます (other ➔ me)", text: "<strong>B が</strong> ({私|わたし} に) V-て くれます", text_en: "<strong>B が</strong> ({私|わたし} に) V-て くれます" },
@@ -164,15 +164,15 @@ window.lessonData = {
             { label: "A が B に あげます", label_en: "A が B に あげます", jp: "{田中|たなか}さんが {木村|きむら}さんに {本|ほん}を {貸|か}して あげました。", pt: "O Tanaka emprestou ao Kimura: quem faz leva が, quem recebe leva に.", en: "Tanaka lent to Kimura: the doer takes が, the receiver takes に." },
             { label: "B が {私|わたし} に くれます", label_en: "B が {私|わたし} に くれます", jp: "{木村|きむら}さんが {私|わたし}に {本|ほん}を {貸|か}して くれました。", pt: "O Kimura emprestou para mim: quem faz leva が e o favor é meu.", en: "Kimura lent to me: the doer takes が and the favour is mine." }
           ],
-          note: "A regra prática: が aponta quem age; に aponta para quem a ação vai (o beneficiário).", note_en: "Rule of thumb: が points at who acts; に points at whom the action goes to (the beneficiary)."
+          note: "Regra prática: あげます → に = quem recebe; もらいます → に = quem faz; くれます → が = quem faz, e o favor é meu.", note_en: "Rule of thumb: あげます → に = who receives; もらいます → に = who does it; くれます → が = who does it, and the favour is mine."
         },
         trap: [
-          "Não troque as partículas: com あげます e もらいます, quem recebe o favor leva に; com くれます, quem faz leva が.",
+          "Não troque as partículas: あげます → に = quem recebe; もらいます → に = quem faz; くれます → が = quem faz.",
           "Uma frase só tem um sujeito marcado com が para o favor: não use が nos dois lados.",
           "Não misture は e が na mesma pessoa no mesmo papel: escolha um e mantenha a frase coerente."
         ],
         trap_en: [
-          "Do not swap the particles: with あげます and もらいます the receiver takes に; with くれます the doer takes が.",
+          "Do not swap the particles: あげます → に = who receives; もらいます → に = who does it; くれます → が = who does it.",
           "A sentence has only one が for the favour: do not mark both sides with が.",
           "Do not mix は and が for the same person in the same role: choose one and keep the sentence coherent."
         ]
@@ -187,7 +187,7 @@ window.lessonData = {
     <p class="page-intro">Leia cada linha em voz alta e observe quem faz o favor e quem recebe.</p>
 </div>
 <div class="card">
-    <h3 class="card-header">1. {三|みっ}つの {見方|みかた} (Três pontos de vista)</h3>
+    <h3 class="card-header">1. あげます・くれます・もらいます (as direções do favor)</h3>
     <table class="grammar-table">
         <tr><th>Forma</th><th>Exemplo</th></tr>
         <tr><td>あげます<br>(eu ➔ outro)</td><td>{私|わたし}^は {木村|きむら}さんに {傘|かさ}を {貸|か}して あげました。</td></tr>
@@ -220,7 +220,7 @@ window.lessonData = {
     <p class="page-intro">Read each line aloud and notice who does the favour and who receives it.</p>
 </div>
 <div class="card">
-    <h3 class="card-header">1. Three points of view</h3>
+    <h3 class="card-header">1. あげます・くれます・もらいます (the directions of the favour)</h3>
     <table class="grammar-table">
         <tr><th>Form</th><th>Example</th></tr>
         <tr><td>あげます<br>(me ➔ other)</td><td>{私|わたし}^は {木村|きむら}さんに {傘|かさ}を {貸|か}して あげました。</td></tr>
@@ -281,7 +281,7 @@ window.lessonData = {
         desc: "3. 〜て くれます の {文|ぶん}に しなさい。(Reescreva com 〜て くれます)", desc_en: "3. 〜て くれます の {文|ぶん}に しなさい。(Rewrite with 〜て くれます)",
         questions: [
           { q: "{山田|やまだ}さんは {私|わたし}の {荷物|にもつ}を {持|も}ちました。➔", a: "{山田|やまだ}さんが {私|わたし}の {荷物|にもつ}を {持|も}って くれました。", romaji: "Yamada-san ga watashi no nimotsu o motte kuremashita.", pt: "O Yamada carregou a minha bagagem (para mim).", en: "Yamada carried my luggage (for me)." },
-          { q: "{母|はは}は {私|わたし}に プレゼントを あげました。➔", a: "{母|はは}が {私|わたし}に プレゼントを くれました。", romaji: "Haha ga watashi ni purezento o kuremashita.", pt: "Minha mãe me deu um presente.", en: "My mother gave me a present." },
+          { q: "{母|はは}^は {私|わたし}に プレゼントを あげました。➔", a: "{母|はは}が {私|わたし}に プレゼントを くれました。", romaji: "Haha ga watashi ni purezento o kuremashita.", pt: "Minha mãe me deu um presente.", en: "My mother gave me a present." },
           { q: "{田中|たなか}さんは {私|わたし}に {地図|ちず}を {書|か}きました。➔", a: "{田中|たなか}さんが {私|わたし}に {地図|ちず}を {書|か}いて くれました。", romaji: "Tanaka-san ga watashi ni chizu o kaite kuremashita.", pt: "O Tanaka desenhou um mapa para mim.", en: "Tanaka drew a map for me." }
         ]
       },
@@ -290,7 +290,7 @@ window.lessonData = {
         questions: [
           { q: "{田中|たなか}さんが {私|わたし}に {地図|ちず}を {書|か}いて くれました。➔", a: "{私|わたし}^は {田中|たなか}さんに {地図|ちず}を {書|か}いて もらいました。", romaji: "Watashi wa Tanaka-san ni chizu o kaite moraimashita.", pt: "Recebi do Tanaka o favor de desenhar o mapa.", en: "I received the favour of Tanaka drawing the map." },
           { q: "{友達|ともだち}が {私|わたし}を {車|くるま}で {駅|えき}まで {送|おく}って くれました。➔", a: "{私|わたし}^は {友達|ともだち}に {車|くるま}で {駅|えき}まで {送|おく}って もらいました。", romaji: "Watashi wa tomodachi ni kuruma de eki made okutte moraimashita.", pt: "Um amigo me levou de carro até a estação.", en: "A friend gave me a ride to the station." },
-          { q: "{先生|せんせい}が {漢字|かんじ}の {読|よ}み{方|かた}を {教|おし}えて くれました。➔", a: "{先生|せんせい}に {漢字|かんじ}の {読|よ}み{方|かた}を {教|おし}えて もらいました。", romaji: "Sensei ni kanji no yomikata o oshiete moraimashita.", pt: "O professor me ensinou a ler os kanji.", en: "The teacher taught me how to read the kanji." }
+          { q: "{先生|せんせい}が {漢字|かんじ}の {読|よ}み{方|かた}を {教|おし}えて くれました。➔", a: "{先生|せんせい}に {漢字|かんじ}の {読|よ}み{方|かた}を {教|おし}えて もらいました。／{私|わたし}^は {先生|せんせい}に {漢字|かんじ}の {読|よ}み{方|かた}を {教|おし}えて もらいました。", romaji: "Sensei ni kanji no yomikata o oshiete moraimashita.", pt: "O professor me ensinou a ler os kanji.", en: "The teacher taught me how to read the kanji." }
         ]
       },
       {
@@ -310,9 +310,9 @@ window.lessonData = {
       {
         desc: "1. ＿＿ に あげます・くれます・もらいます の {正|ただ}しい {形|けい} を {入|い}れなさい。(Complete com あげます, くれます ou もらいます)", desc_en: "1. ＿＿ に あげます・くれます・もらいます の {正|ただ}しい {形|けい} を {入|い}れなさい。(Fill in with the right form of あげます, くれます or もらいます)",
         questions: [
-          { q: "A: {重|おも}いですね。{持|も}ちましょうか。<br>B: ありがとう ございます。じゃ、お{願|ねが}いします。<br>A: （{荷物|にもつ}を {持|も}ちます ➔ ＿＿）", a: "{持|も}って あげます", romaji: "motte agemasu", pt: "A oferece carregar a bagagem (favor a outra pessoa).", en: "A offers to carry the luggage (a favour to the other person)." },
+          { q: "A: {重|おも}いね。{持|も}とうか。<br>B: ありがとう。じゃ、お{願|ねが}い。<br>A: （{荷物|にもつ}を {持|も}ちます ➔ ＿＿）", a: "{持|も}って あげます", romaji: "motte agemasu", pt: "A oferece carregar a bagagem (favor a outra pessoa).", en: "A offers to carry the luggage (a favour to the other person)." },
           { q: "A: この {地図|ちず}、{田中|たなか}さんが {書|か}いて ＿＿。<br>B: いいですね。", a: "くれました", romaji: "kuremashita", pt: "O Tanaka fez o mapa para mim.", en: "Tanaka drew the map for me." },
-          { q: "A: {漢字|かんじ}が {分|わ}かりません。<br>B: {先生|せんせい}に {教|おし}えて ＿＿ どうですか。<br>A: そうですね。", a: "もらったら", romaji: "morattara", pt: "Sugestão: receber o favor de o professor ensinar.", en: "Suggestion: receive the favour of the teacher teaching you." }
+          { q: "A: {漢字|かんじ}が {分|わ}かりません。<br>B: {先生|せんせい}に {教|おし}えて もらいませんか。<br>A: そうですね。", a: "もらいませんか", romaji: "moraimasen ka", pt: "Que tal pedir ao professor para ensinar?", en: "How about having the teacher teach you?" }
         ]
       },
       {
@@ -349,10 +349,10 @@ window.lessonData = {
         questions: [
           {
             q: `<div class="reading-box">
-                                {山田|やまだ}さん、こんにちは。{昨日|きのう}は ありがとう ございました。{私|わたし}は {一人|ひとり}で できない ことを、{山田|やまだ}さんが たくさん {手伝|てつだ}って くれました。{荷物|にもつ}も {運|はこ}んで くれました。とても うれしかったです。{私|わたし}は お{礼|れい}に、{山田|やまだ}さんの {好|す}きな ケーキを {作|つく}って あげたいです。{来週|らいしゅう}、{私|わたし}の {家|いえ}に {来|き}ませんか。
+                                {山田|やまだ}さん、こんにちは。{昨日|きのう}^は ありがとう ございました。{私|わたし}^は {一人|ひとり}で できない ことを、{山田|やまだ}さんが たくさん {手伝|てつだ}って くれました。{荷物|にもつ}も {運|はこ}んで くれました。とても うれしかったです。{私|わたし}^は お{礼|れい}に、{山田|やまだ}さんの {好|す}きな ケーキを {作|つく}って あげたいです。{来週|らいしゅう}、{私|わたし}の {家|いえ}に {来|き}ませんか。
                                 </div>
-                                {質問|しつもん}: この メールを {書|か}いた {人|ひと}は、{山田|やまだ}さんに {何|なに}を して あげたいですか。<br>➔ ＿＿＿＿＿＿＿＿＿。`,
-            a: "ケーキを {作|つく}って あげたいです",
+                                {質問|しつもん}: この メールを {書|か}いた {人|ひと}^は、{山田|やまだ}さんに {何|なに}を して あげたいですか。<br>➔ ＿＿＿＿＿＿＿＿＿。`,
+            a: "ケーキを {作|つく}って あげたいです／{山田|やまだ}さんの {好|す}きな ケーキを {作|つく}って あげたいです",
             romaji: "Keeki o tsukutte agetai desu.",
             pt: "Quer fazer um bolo para ele (retribuir o favor).", en: "Wants to make a cake for him (to return the favour)."
           }
@@ -366,9 +366,9 @@ window.lessonData = {
       {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
-          { tokens: ["{私|わたし}は", "{山田|やまだ}さんに", "{本|ほん}を", "{貸|か}して", "あげました。"], pt: "Emprestei o livro para o Yamada.", en: "I lent the book to Yamada.", romaji: "Watashi wa Yamada-san ni hon o kashite agemashita." },
+          { tokens: ["{私|わたし}^は", "{山田|やまだ}さんに", "{本|ほん}を", "{貸|か}して", "あげました。"], pt: "Emprestei o livro para o Yamada.", en: "I lent the book to Yamada.", romaji: "Watashi wa Yamada-san ni hon o kashite agemashita." },
           { tokens: ["{田中|たなか}さんが", "{私|わたし}に", "{地図|ちず}を", "{書|か}いて", "くれました。"], pt: "O Tanaka desenhou um mapa para mim.", en: "Tanaka drew a map for me.", romaji: "Tanaka-san ga watashi ni chizu o kaite kuremashita." },
-          { tokens: ["{私|わたし}は", "{友達|ともだち}に", "{駅|えき}まで", "{送|おく}って", "もらいました。"], pt: "Um amigo me levou até a estação.", en: "A friend gave me a ride to the station.", romaji: "Watashi wa tomodachi ni eki made okutte moraimashita." },
+          { tokens: ["{私|わたし}^は", "{友達|ともだち}に", "{駅|えき}まで", "{送|おく}って", "もらいました。"], pt: "Um amigo me levou até a estação.", en: "A friend gave me a ride to the station.", romaji: "Watashi wa tomodachi ni eki made okutte moraimashita." },
           { tokens: ["{母|はは}が", "{誕生日|たんじょうび}に", "プレゼントを", "くれました。"], pt: "Minha mãe me deu um presente no meu aniversário.", en: "My mother gave me a present on my birthday.", romaji: "Haha ga tanjoubi ni purezento o kuremashita." }
         ]
       }

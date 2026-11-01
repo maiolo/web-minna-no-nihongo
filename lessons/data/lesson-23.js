@@ -4,13 +4,13 @@ window.lessonData = {
     title: "{語彙|ごい} (Vocabulário)", title_en: "{語彙|ごい} (Vocabulary)",
     items: [
       { jp: "{聞|き}きます [{先生|せんせい}に〜]", romaji: "kikimasu [sensei ni~]", pt: "Perguntar (a alguém), ouvir", en: "To ask (someone), to listen" },
-      { jp: "{返|かえ}します", romaji: "kae shimasu", pt: "Devolver", en: "To give back, to return (something)" },
+      { jp: "{返|かえ}します", romaji: "kaeshimasu", pt: "Devolver", en: "To give back, to return (something)" },
       { jp: "{出|で}ます [お{金|かね}が〜]", romaji: "demasu [okane ga~]", pt: "Sair (dinheiro da máquina), sair de dentro", en: "To come out (money from a machine)" },
       { jp: "{動|うご}きます", romaji: "ugokimasu", pt: "Funcionar, mover-se (máquina)", en: "To work, to move (a machine)" },
-      { jp: "{回|まわ}します", romaji: "mawa shimasu", pt: "Girar, rodar (um botão, um interruptor)", en: "To turn, to rotate (a dial, a switch)" },
+      { jp: "{回|まわ}します", romaji: "mawashimasu", pt: "Girar, rodar (um botão, um interruptor)", en: "To turn, to rotate (a dial, a switch)" },
       { jp: "{引|ひ}きます", romaji: "hikimasu", pt: "Puxar", en: "To pull" },
       { jp: "{変|か}わります", romaji: "kawarimasu", pt: "Mudar, trocar", en: "To change" },
-      { jp: "{探|さが}します", romaji: "saga shimasu", pt: "Procurar", en: "To look for" },
+      { jp: "{探|さが}します", romaji: "sagashimasu", pt: "Procurar", en: "To look for" },
       { jp: "〜{方|かた}", romaji: "~kata", pt: "Maneira de fazer, modo de", en: "Way of doing, how to" },
       { jp: "スイッチ", romaji: "suitchi", pt: "Interruptor", en: "Switch" },
       { jp: "ボタン", romaji: "botan", pt: "Botão", en: "Button" },
@@ -20,7 +20,7 @@ window.lessonData = {
       { jp: "{音|おと}", romaji: "oto", pt: "Som, barulho", en: "Sound, noise" },
       { jp: "{図書館|としょかん}", romaji: "toshokan", pt: "Biblioteca", en: "Library" },
       { jp: "{紙|かみ}", romaji: "kami", pt: "Papel", en: "Paper" },
-      { jp: "{貸|か}します", romaji: "ka shimasu", pt: "Emprestar (algo a alguém)", en: "To lend (something to someone)" },
+      { jp: "{貸|か}します", romaji: "kashimasu", pt: "Emprestar (algo a alguém)", en: "To lend (something to someone)" },
       { jp: "{借|か}ります", romaji: "karimasu", pt: "Pegar emprestado", en: "To borrow" },
       { jp: "{使|つか}います", romaji: "tsukaimasu", pt: "Usar", en: "To use" }
     ]
@@ -92,7 +92,7 @@ window.lessonData = {
         ],
         contrast: {
           rows: [
-            { label: "V-る とき (antes)", label_en: "V-る とき (before)", jp: "{田中|たなか}さんに {会|あ}う とき、この {写真|しゃしん}を {見|み}せます。", pt: "Quando encontro o Tanaka (antes de encontrá-lo), mostro esta foto.", en: "When I meet Tanaka (before meeting him), I show him this photo." },
+            { label: "V-る とき (antes)", label_en: "V-る とき (before)", jp: "{田中|たなか}さんに {会|あ}う とき、この {写真|しゃしん}を {持|も}って {行|い}きます。", romaji: "Tanaka-san ni au toki, kono shashin o motte ikimasu.", pt: "Quando vou encontrar o Tanaka, levo esta foto (antes do encontro).", en: "When I go to meet Tanaka, I take this photo (before the meeting)." },
             { label: "V-た とき (depois)", label_en: "V-た とき (after)", jp: "{田中|たなか}さんに {会|あ}った とき、この {写真|しゃしん}を {見|み}せました。", pt: "Quando encontrei o Tanaka (já no encontro), mostrei esta foto.", en: "When I met Tanaka (at the meeting), I showed him this photo." }
           ],
           note: "O português usa “quando” nos dois casos e esconde a diferença. O japonês marca a ordem dos fatos com る ou た antes de とき.", note_en: "English uses “when” in both cases and hides the difference. Japanese marks the order of events with る or た before とき."
@@ -110,7 +110,7 @@ window.lessonData = {
         id: "to-kekka",
         title: "［V-る／V-ない］と、… ({自然|しぜん}な {結果|けっか})", title_en: "［V-る／V-ない］と、… (natural consequence)",
         pat: "V-る と、〜<br>V-ない と、〜",
-        short: "sempre que A, B acontece naturalmente", short_en: "whenever A happens, B follows naturally",
+        short: "sempre que A acontece, B acontece naturalmente", short_en: "whenever A happens, B follows naturally",
         mean: "Diz que B acontece sempre que A acontece, como uma regra: lei da natureza, funcionamento de uma máquina, instrução de uso, resultado automático. Em português: “ao…, …”, “quando…, … sempre”.", mean_en: "It says that B always follows A, like a rule: a law of nature, how a machine works, instructions for use, an automatic result. In English: “when/if…, … always”.",
         rule: "O verbo antes de と fica na forma de dicionário ou na ない{形|けい}; nunca em ます. A segunda parte é um fato que acontece sozinho: nada de pedido, convite, intenção ou obrigação depois de と.", rule_en: "The verb before と stays in the dictionary form or the ない form; never in ます. The second part is a fact that happens by itself: no request, invitation, intention or obligation after と.",
         form: [
@@ -143,7 +143,7 @@ window.lessonData = {
           "O verbo antes de と fica na forma de dicionário: errado {押|お}します と; certo {押|お}す と."
         ],
         trap_en: [
-          "No request or invitation after と: wrong 「{春|はる}に なる と、{花|はな}を {見|み}に {行|い}きましょう。」 Lesson 25 shows the right form for that.",
+          "Never put a request or an invitation after と: wrong 「{春|はる}に なる と、{花|はな}を {見|み}に {行|い}きましょう。」 Lesson 25 shows the right form for that.",
           "と is not an uncertain guess: the result is always the same, like a rule. For “maybe”, do not use と.",
           "The verb before と stays in the dictionary form: wrong {押|お}します と; right {押|お}す と."
         ]
@@ -244,18 +244,19 @@ window.lessonData = {
         ]
       },
       {
-        desc: "3. る か た か、どちらが いいですか。(Escolha a forma antes de とき)", desc_en: "3. る か た か、どちらが いいですか。(Choose the form before とき)",
+        desc: "3. （　　）に {入|い}れる {形|けい}（る／た）を {選|えら}びなさい。(Escolha a forma antes de とき)", desc_en: "3. （　　）に {入|い}れる {形|けい}（る／た）を {選|えら}びなさい。(Choose the form before とき)",
         questions: [
           { q: "{日本|にほん}^へ（{行|い}きます ➔ ＿＿）とき、いつも お{金|かね}を {換|か}えます。（まだ {行|い}って いません）", a: "{行|い}く", romaji: "iku", pt: "Vou ao Japão: a troca é antes da viagem.", en: "I am going to Japan: the exchange happens before the trip." },
           { q: "{日本|にほん}^へ（{行|い}きます ➔ ＿＿）とき、{友達|ともだち}に {会|あ}いました。（もう {日本|にほん}に います）", a: "{行|い}った", romaji: "itta", pt: "Fui ao Japão: o encontro foi lá.", en: "I went to Japan: the meeting happened there." },
-          { q: "{家|いえ}^へ（{帰|かえ}ります ➔ ＿＿）とき、スーパーで {野菜|やさい}を {買|か}います。（{家|いえ}は まだ です）", a: "{帰|かえ}る", romaji: "kaeru", pt: "Ainda não cheguei em casa: compro no caminho.", en: "I am not home yet: I shop on the way." }
+          { q: "{家|いえ}^へ（{帰|かえ}ります ➔ ＿＿）とき、スーパーで {野菜|やさい}を {買|か}います。（{家|いえ}^は まだ です）", a: "{帰|かえ}る", romaji: "kaeru", pt: "Ainda não cheguei em casa: compro no caminho.", en: "I am not home yet: I shop on the way." }
         ]
       },
       {
         desc: "4. 〜{方|かた} (maneira de fazer)", desc_en: "4. 〜{方|かた} (way of doing)",
+        intro: "Vます (sem ます) + {方|かた} = maneira de fazer: {使|つか}います ➔ {使|つか}い{方|かた}、{読|よ}みます ➔ {読|よ}み{方|かた}。", intro_en: "Vます (without ます) + {方|かた} = way of doing: {使|つか}います ➔ {使|つか}い{方|かた}、{読|よ}みます ➔ {読|よ}み{方|かた}。",
         questions: [
           { q: "この {機械|きかい}の（{使|つか}います ➔ ＿＿）を {教|おし}えて ください。", a: "{使|つか}い{方|かた}", romaji: "tsukaikata", pt: "Ensine-me como usar esta máquina.", en: "Please teach me how to use this machine." },
-          { q: "{漢字|かんじ}の（{読|よ}みます ➔ ＿＿）が {難|むずか}しいです。", a: "{読|よ}み{方|かた}", romaji: "yomikata", pt: "A leitura dos kanji é difícil.", en: "The reading of kanji is difficult." }
+          { q: "{漢字|かんじ}の（{読|よ}みます ➔ ＿＿）が {難|むずか}しいです。", a: "{読|よ}み{方|かた}", romaji: "yomikata", pt: "O modo de ler os kanji é difícil.", en: "How to read kanji is difficult." }
         ]
       }
     ]
@@ -293,11 +294,11 @@ window.lessonData = {
         ]
       },
       {
-        desc: "2. （　　）の ことばを {正|ただ}しい {形|けい}に しなさい。 (Mude para a forma correta)", desc_en: "2. （　　）の ことばを {正|ただ}しい {形|けい}に しなさい。 (Change to the correct form)",
+        desc: "2. （　　）に の か な を {入|い}れなさい。 (Complete com の ou な)", desc_en: "2. （　　）に の か な を {入|い}れなさい。 (Complete with の or な)",
         questions: [
           { q: "この スイッチを（{回|まわ}します ➔ ＿＿）と、{音|おと}が {大|おお}きく なります。", a: "{回|まわ}す", romaji: "mawasu", pt: "Forma de dicionário antes de と", en: "Dictionary form before と" },
-          { q: "{学生|がくせい}（です ➔ ＿＿）とき、よく {図書館|としょかん}で {勉強|べんきょう}しました。", a: "の", romaji: "no", pt: "Substantivo + の + とき", en: "Noun + の + とき" },
-          { q: "{暇|ひま}（です ➔ ＿＿）とき、{音楽|おんがく}を {聞|き}きます。", a: "な", romaji: "na", pt: "Adjetivo な + な + とき", en: "な-adjective + な + とき" }
+          { q: "{学生|がくせい}（＿＿）とき、よく {図書館|としょかん}で {勉強|べんきょう}しました。", a: "の", romaji: "no", pt: "Substantivo + の + とき", en: "Noun + の + とき" },
+          { q: "{暇|ひま}（＿＿）とき、{音楽|おんがく}を {聞|き}きます。", a: "な", romaji: "na", pt: "Adjetivo な + な + とき", en: "な-adjective + な + とき" }
         ]
       },
       {
@@ -305,10 +306,10 @@ window.lessonData = {
         questions: [
           {
             q: `<div class="reading-box">
-                                わたしの {町|まち}の {図書館|としょかん}は、{駅|えき}の となりに あります。カードを {作|つく}る とき、{住所|じゅうしょ}と {名前|なまえ}を {書|か}きます。{本|ほん}を {借|か}りる ときは、カウンターで カードを {見|み}せて ください。{本|ほん}を {返|かえ}す とき、{受付|うけつけ}の ボタンを {押|お}す と、「ありがとう ございました」と いう {音|おと}が します。
+                                わたしの {町|まち}の {図書館|としょかん}^は、{駅|えき}の となりに あります。カードを {作|つく}る とき、{住所|じゅうしょ}と {名前|なまえ}を {書|か}きます。{本|ほん}を {借|か}りる ときは、カウンターで カードを {見|み}せて ください。{本|ほん}を {返|かえ}す とき、{受付|うけつけ}の ボタンを {押|お}す と、「ありがとう ございました」と いう {音|おと}が します。
                                 </div>
                                 {質問|しつもん}: カードを {作|つく}る とき、{何|なに}を しますか。<br>➔ ＿＿＿＿＿＿＿＿＿。`,
-            a: "{名前|なまえ}と {住所|じゅうしょ}を {書|か}きます",
+            a: "{名前|なまえ}と {住所|じゅうしょ}を {書|か}きます。／{住所|じゅうしょ}と {名前|なまえ}を {書|か}きます。",
             romaji: "Namae to juusho o kakimasu.",
             pt: "Escrevo o nome e o endereço.", en: "I write my name and address."
           }
@@ -324,7 +325,7 @@ window.lessonData = {
         questions: [
           { tokens: ["{図書館|としょかん}で", "{本|ほん}を", "{借|か}りる", "とき、", "カードを", "{見|み}せます。"], pt: "Quando pego um livro emprestado na biblioteca, mostro o cartão.", en: "When I borrow a book at the library, I show my card.", romaji: "Toshokan de hon o kariru toki, kaado o misemasu." },
           { tokens: ["この", "ボタンを", "{押|お}す", "と、", "{音|おと}が", "{出|で}ます。"], pt: "Ao apertar este botão, sai som.", en: "When you press this button, a sound comes out.", romaji: "Kono botan o osu to, oto ga demasu." },
-          { tokens: ["{日本|にほん}へ", "{行|い}く", "とき、", "{空港|くうこう}で", "お{金|かね}を", "{換|か}えます。"], pt: "Quando vou ao Japão, troco dinheiro no aeroporto.", en: "When I go to Japan, I change money at the airport.", romaji: "Nihon e iku toki, kuukou de okane o kaemasu." },
+          { tokens: ["{日本|にほん}^へ", "{行|い}く", "とき、", "{空港|くうこう}で", "お{金|かね}を", "{換|か}えます。"], pt: "Quando vou ao Japão, troco dinheiro no aeroporto.", en: "When I go to Japan, I change money at the airport.", romaji: "Nihon e iku toki, kuukou de okane o kaemasu." },
           { tokens: ["{薬|くすり}を", "{飲|の}まない", "と、", "{病気|びょうき}が", "{悪|わる}く", "なります。"], pt: "Se não tomar o remédio, a doença piora.", en: "If you do not take the medicine, the illness gets worse.", romaji: "Kusuri o nomanai to, byouki ga waruku narimasu." }
         ]
       }
