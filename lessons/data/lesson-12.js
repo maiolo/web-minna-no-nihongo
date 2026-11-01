@@ -32,16 +32,16 @@ window.lessonData = {
       { jp: "どれ", romaji: "dore", pt: "Qual (de três ou mais)", en: "Which (of three or more)" },
       { jp: "いちばん", romaji: "ichiban", pt: "O mais, o melhor", en: "The most, the best" },
       { jp: "ずっと", romaji: "zutto", pt: "Muito mais (com comparação)", en: "Much more (with a comparison)" },
-      { jp: "どちらも", romaji: "dochiramo", pt: "Os dois, ambos", en: "Both" }
+      { jp: "どちらも", romaji: "dochira mo", pt: "Os dois, ambos", en: "Both" }
     ]
   },
   gramatica: {
     title: "{文法|ぶんぽう} (Gramática)", title_en: "{文法|ぶんぽう} (Grammar)",
-    intro: "Quatro pontos: o passado do substantivo e, depois, as três formas de comparar. Cada cartão traz o modelo de frase, a explicação, os exemplos, uma comparação com o que é parecido e os erros mais comuns.", intro_en: "Four points: the past of the noun and then three ways of comparing. Each card gives the sentence pattern, the explanation, the examples, a comparison with what looks similar and the most common mistakes.",
+    intro: "Quatro pontos: o passado de substantivos e な-adjetivos, e depois as três formas de comparar. Cada cartão traz o modelo de frase, a explicação, os exemplos, uma comparação com o que é parecido e os erros mais comuns.", intro_en: "Four points: the past of nouns and な-adjectives, and then the three ways of comparing. Each card gives the sentence pattern, the explanation, the examples, a comparison with what looks similar and the most common mistakes.",
     points: [
       {
         id: "meishi-kako",
-        title: "N でした・じゃ ありませんでした (passado do substantivo)", title_en: "N でした・じゃ ありませんでした (past of the noun)",
+        title: "N・Adj-な でした・じゃ ありませんでした (passado de substantivo e な-adjetivo)", title_en: "N・Adj-な でした・じゃ ありませんでした (past of nouns and な-adjectives)",
         pat: "N／Adj-な です ➔ でした<br>N／Adj-な じゃ ありません ➔ じゃ ありませんでした",
         short: "o passado de “é” para substantivos e な-adjetivos", short_en: "the past of “is” for nouns and な-adjectives",
         mean: "O passado de <strong>です</strong> é <strong>でした</strong>; o de <strong>じゃ ありません</strong> é <strong>じゃ ありませんでした</strong>. Vale para substantivos e para な-adjetivos. Os い-adjetivos têm a sua forma própria (〜かったです), da lição 8.", mean_en: "The past of <strong>です</strong> is <strong>でした</strong>; that of <strong>じゃ ありません</strong> is <strong>じゃ ありませんでした</strong>. It works for nouns and な-adjectives. い-adjectives have their own form (〜かったです), from lesson 8.",
@@ -81,9 +81,9 @@ window.lessonData = {
         short: "A é mais ... do que B", short_en: "A is more … than B",
         mean: "<strong>より</strong> marca o <em>padrão</em> de comparação (B). O adjetivo não muda de forma: a ordem das palavras mostra quem é “mais”. Para reforçar, use <strong>ずっと</strong> (muito mais).", mean_en: "<strong>より</strong> marks the <em>standard</em> of comparison (B). The adjective does not change form: the word order shows who is “more”. To reinforce, use <strong>ずっと</strong> (much more).",
         ex: [
-          { jp: "{東京|とうきょう}^は {京都|きょうと}より {大|おお}きいです。", romaji: "Toukyou wa kyoutoyori ookii desu.", pt: "Tóquio é maior do que Kyoto.", en: "Tokyo is bigger than Kyoto." },
-          { jp: "{電車|でんしゃ}^は バスより {速|はや}いです。", romaji: "Densha wa basuyori hayai desu.", pt: "O trem é mais rápido do que o ônibus.", en: "The train is faster than the bus." },
-          { jp: "{飛行機|ひこうき}^は {電車|でんしゃ}より ずっと {速|はや}いです。", romaji: "Hikouki wa denshayori zutto hayai desu.", pt: "O avião é muito mais rápido do que o trem.", en: "The plane is much faster than the train." }
+          { jp: "{東京|とうきょう}^は {京都|きょうと}より {大|おお}きいです。", romaji: "Toukyou wa Kyouto yori ookii desu.", pt: "Tóquio é maior do que Kyoto.", en: "Tokyo is bigger than Kyoto." },
+          { jp: "{電車|でんしゃ}^は バスより {速|はや}いです。", romaji: "Densha wa basu yori hayai desu.", pt: "O trem é mais rápido do que o ônibus.", en: "The train is faster than the bus." },
+          { jp: "{飛行機|ひこうき}^は {電車|でんしゃ}より ずっと {速|はや}いです。", romaji: "Hikouki wa densha yori zutto hayai desu.", pt: "O avião é muito mais rápido do que o trem.", en: "The plane is much faster than the train." }
         ],
         contrast: {
           rows: [
@@ -121,11 +121,11 @@ window.lessonData = {
         },
         trap: [
           "どちら é só para <em>duas</em> opções. Para três ou mais, use {何|なに}／どれ／いつ… com いちばん (próximo cartão).",
-          "Na resposta, não repita só o substantivo: é {電車|でんしゃ}の ほうが…, e não {電車|でんしゃ}が… (que seria uma resposta incompleta)."
+          "Na resposta, prefira の ほうが: {電車|でんしゃ}の ほうが {速|はや}いです。{電車|でんしゃ}が {速|はや}いです também é possível, mas の ほうが deixa a comparação explícita."
         ],
         trap_en: [
           "どちら is only for <em>two</em> options. For three or more, use {何|なに}／どれ／いつ… with いちばん (next card).",
-          "In the answer, do not repeat only the noun: say {電車|でんしゃ}の ほうが…, not just {電車|でんしゃ}が… (which would be an incomplete answer)."
+          "In the answer, prefer の ほうが: {電車|でんしゃ}の ほうが {速|はや}いです。{電車|でんしゃ}が {速|はや}いです is also possible, but の ほうが makes the comparison explicit."
         ]
       },
       {
@@ -172,7 +172,7 @@ window.lessonData = {
       {
         desc: "2. Escolha: より, どちら, いちばん ou ほう", desc_en: "2. Choose: より, どちら, いちばん or ほう",
         questions: [
-          { q: "{電車|でんしゃ}は バス（　　）{速|はや}いです。", a: "より", romaji: "yori", pt: "Padrão de comparação", en: "Standard of comparison" },
+          { q: "{電車|でんしゃ}^は バス（　　）{速|はや}いです。", a: "より", romaji: "yori", pt: "Padrão de comparação", en: "Standard of comparison" },
           { q: "{夏|なつ}と {冬|ふゆ}と （　　）が {好|す}きですか。", a: "どちら", romaji: "dochira", pt: "Entre duas opções", en: "Between two options" },
           { q: "{夏|なつ}の （　　）が {好|す}きです。", a: "ほう", romaji: "hou", pt: "O lado do verão", en: "The summer side" },
           { q: "{季節|きせつ}の {中|なか}で {春|はる}が （　　）{好|す}きです。", a: "いちばん", romaji: "ichiban", pt: "O mais", en: "The most" }
@@ -187,7 +187,7 @@ window.lessonData = {
         desc: "1. Complete a comparação", desc_en: "1. Complete the comparison",
         questions: [
           { q: "A: {東京|とうきょう}と {京都|きょうと}と どちらが {大|おお}きいですか。<br>B: {東京|とうきょう}の ＿＿＿＿ {大|おお}きいです。", a: "ほうが", romaji: "hou ga", pt: "O lado de Tóquio", en: "The Tokyo side" },
-          { q: "A: {果物|くだもの}の {中|なか}で {何|なに}が いちばん {好|す}きですか。<br>B: りんご＿＿ いちばん {好|す}きです。", a: "が", romaji: "ga", pt: "Escolha: が", en: "The choice: が" },
+          { q: "A: {果物|くだもの}の {中|なか}で {何|なに}が いちばん {好|す}きですか。<br>B: りんご＿＿ いちばん {好|す}きです。", a: "が／は", romaji: "ga / wa", pt: "が (ou は, tópico)", en: "が (or は, topic)" },
           { q: "A: {肉|にく}と {魚|さかな}と どちらが {好|す}きですか。<br>B: ＿＿＿＿＿ {好|す}きです。(os dois)", q_en: "A: {肉|にく}と {魚|さかな}と どちらが {好|す}きですか。<br>B: ＿＿＿＿＿ {好|す}きです。(both)", a: "どちらも", romaji: "dochira mo", pt: "Gosto dos dois", en: "I like both" }
         ]
       }
@@ -199,7 +199,7 @@ window.lessonData = {
       {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (より・ずっと・どちら・いちばん・で)", desc_en: "1. Fill in the blank with the right word. (より・ずっと・どちら・いちばん・で)",
         questions: [
-          { q: "{飛行機|ひこうき}は {電車|でんしゃ}より （　　）{速|はや}いです。(muito mais)", q_en: "{飛行機|ひこうき}は {電車|でんしゃ}より （　　）{速|はや}いです。(much)", a: "ずっと", romaji: "zutto", pt: "Muito mais", en: "Much more" },
+          { q: "{飛行機|ひこうき}^は {電車|でんしゃ}より （　　）{速|はや}いです。(muito mais)", q_en: "{飛行機|ひこうき}^は {電車|でんしゃ}より （　　）{速|はや}いです。(much)", a: "ずっと", romaji: "zutto", pt: "Muito mais", en: "Much more" },
           { q: "{日本|にほん}（　　）どこが いちばん {寒|さむ}いですか。", a: "で", romaji: "de", pt: "Faixa de comparação: で", en: "Range of comparison: で" },
           { q: "{肉|にく}と {魚|さかな}と （　　）が {好|す}きですか。", a: "どちら", romaji: "dochira", pt: "Entre dois", en: "Between two" },
           { q: "{家族|かぞく}の {中|なか}で だれが （　　）{速|はや}いですか。", a: "いちばん", romaji: "ichiban", pt: "O mais", en: "The most" }
@@ -209,7 +209,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): {季節|きせつ}", desc_en: "2. Reading: seasons",
         questions: [
           {
-            q: `<div class="reading-box">わたしは {四|よっ}つの {季節|きせつ}の {中|なか}で {春|はる}が いちばん {好|す}きです。{冬|ふゆ}は {寒|さむ}いですから、{好|す}きじゃ ありません。{夏|なつ}は {秋|あき}より {暑|あつ}いです。{去年|きょねん}の {夏|なつ}は とても {暑|あつ}かったです。</div>{質問|しつもん}: {夏|なつ}と {秋|あき}と どちらが {暑|あつ}いですか。<br>➔ ＿＿＿＿の ほうが {暑|あつ}いです。`,
+            q: `<div class="reading-box">わたし^は {四|よっ}つの {季節|きせつ}の {中|なか}で {春|はる}が いちばん {好|す}きです。{冬|ふゆ}^は {寒|さむ}いですから、{好|す}きじゃ ありません。{夏|なつ}^は {秋|あき}より {暑|あつ}いです。{去年|きょねん}の {夏|なつ}^は とても {暑|あつ}かったです。</div>{質問|しつもん}: {夏|なつ}と {秋|あき}と どちらが {暑|あつ}いですか。<br>➔ ＿＿＿＿の ほうが {暑|あつ}いです。`,
             a: "{夏|なつ}",
             romaji: "natsu",
             pt: "O verão.", en: "Summer."
@@ -224,8 +224,8 @@ window.lessonData = {
       {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
-          { tokens: ["{昨日|きのう}は", "{雨|あめ}でした。"], pt: "Ontem choveu.", en: "It rained yesterday.", romaji: "Kinou wa ame deshita." },
-          { tokens: ["{電車|でんしゃ}は", "バスより", "{速|はや}いです。"], pt: "O trem é mais rápido do que o ônibus.", en: "The train is faster than the bus.", romaji: "Densha wa basu yori hayai desu." },
+          { tokens: ["{昨日|きのう}^は", "{雨|あめ}でした。"], pt: "Ontem choveu.", en: "It rained yesterday.", romaji: "Kinou wa ame deshita." },
+          { tokens: ["{電車|でんしゃ}^は", "バスより", "{速|はや}いです。"], pt: "O trem é mais rápido do que o ônibus.", en: "The train is faster than the bus.", romaji: "Densha wa basu yori hayai desu." },
           { tokens: ["{夏|なつ}と", "{冬|ふゆ}と", "どちらが", "{好|す}きですか。"], pt: "Verão ou inverno: de qual você gosta mais?", en: "Which do you like better, summer or winter?", romaji: "Natsu to fuyu to dochira ga suki desu ka." },
           { tokens: ["{季節|きせつ}の", "{中|なか}で", "{春|はる}が", "いちばん", "{好|す}きです。"], pt: "Entre as estações, gosto mais da primavera.", en: "Of the seasons, I like spring best.", romaji: "Kisetsu no naka de haru ga ichiban suki desu." }
         ]

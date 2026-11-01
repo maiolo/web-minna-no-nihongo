@@ -95,7 +95,7 @@ window.LESSONS = [
         file: "lesson-11.html",
         topic: "{数|かぞ}える・かかる{時間|じかん}",
         topic_en: "Counting and how long things take",
-        description: "{数|かず}え{方|かた} • {数量|すうりょう} • {時間|じかん}の{長|なが}さ • {回数|かいすう}",
+        description: "{数|かぞ}え{方|かた} • {数量|すうりょう} • {時間|じかん}の{長|なが}さ • {回数|かいすう}",
         description_en: "Counters • quantities • duration • frequency"
     },
     {

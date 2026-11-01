@@ -25,7 +25,7 @@ window.lessonData = {
       { jp: "{何|なに}か", romaji: "nanika", pt: "Alguma coisa", en: "Something" },
       { jp: "どこか", romaji: "dokoka", pt: "Algum lugar", en: "Somewhere" },
       { jp: "{何|なに}も", romaji: "nani mo", pt: "Nada (com negativa)", en: "Nothing (with a negative)" },
-      { jp: "どこも", romaji: "dokomo", pt: "Lugar nenhum (com negativa)", en: "Nowhere (with a negative)" },
+      { jp: "どこも", romaji: "doko mo", pt: "Lugar nenhum (com negativa)", en: "Nowhere (with a negative)" },
       { jp: "ほしい", romaji: "hoshii", pt: "Querer (ter), desejar", en: "To want (to have)" },
       { jp: "〜たい", romaji: "tai", pt: "Querer fazer 〜", en: "To want to do 〜" },
       { jp: "{目的|もくてき}", romaji: "mokuteki", pt: "Objetivo, finalidade", en: "Purpose" },
@@ -45,7 +45,7 @@ window.lessonData = {
         short: "querer ter algo", short_en: "wanting to have something",
         mean: "<strong>ほしい</strong> é um い-adjetivo e expressa o desejo de <em>ter</em> algo. O objeto do desejo leva <strong>が</strong>. Na pergunta, usa-se {何|なに}が ほしいですか. Normalmente fala-se do próprio desejo (primeira pessoa) ou se pergunta ao ouvinte.", mean_en: "<strong>ほしい</strong> is an い-adjective and expresses the wish to <em>have</em> something. The object of the wish takes <strong>が</strong>. In the question, use {何|なに}が ほしいですか. You normally talk about your own wish (first person) or ask the listener.",
         ex: [
-          { jp: "わたしは {新|あたら}しい {車|くるま}が ほしいです。", romaji: "Watashiha atarashii kuruma ga hoshii desu.", pt: "Eu quero um carro novo.", en: "I want a new car." },
+          { jp: "わたし^は {新|あたら}しい {車|くるま}が ほしいです。", romaji: "Watashi wa atarashii kuruma ga hoshii desu.", pt: "Eu quero um carro novo.", en: "I want a new car." },
           { jp: "{何|なに}が ほしいですか。<br>…{時間|じかん}が ほしいです。", romaji: "Nani ga hoshii desu ka. ...Jikan ga hoshii desu.", pt: "O que você quer? ...Quero tempo.", en: "What do you want? ...I want time." },
           { jp: "いま、{何|なに}も ほしく ありません。", romaji: "Ima, nani mo hoshiku arimasen.", pt: "Agora não quero nada.", en: "Right now I don't want anything." }
         ],
@@ -80,9 +80,9 @@ window.lessonData = {
           ] }
         ],
         ex: [
-          { jp: "{夏休|なつやす}みに {海|うみ}へ {行|い}きたいです。", romaji: "Natsuyasumini umi e ikitai desu.", pt: "Nas férias de verão, quero ir à praia.", en: "In the summer vacation I want to go to the beach." },
+          { jp: "{夏休|なつやす}みに {海|うみ}^へ {行|い}きたいです。", romaji: "Natsuyasumi ni umi e ikitai desu.", pt: "Nas férias de verão, quero ir à praia.", en: "In the summer vacation I want to go to the beach." },
           { jp: "{今|いま}、{何|なに}が {食|た}べたいですか。<br>…すしが {食|た}べたいです。", romaji: "Ima, nani ga tabetai desu ka. ...Sushi ga tabetai desu.", pt: "O que você quer comer agora? ...Quero comer sushi.", en: "What do you want to eat now? ...I want to eat sushi." },
-          { jp: "{今日|きょう}^は どこも {行|い}きたく ありません。", romaji: "Kyou wa dokomo ikitaku arimasen.", pt: "Hoje não quero ir a lugar nenhum.", en: "Today I don't want to go anywhere." }
+          { jp: "{今日|きょう}^は どこも {行|い}きたく ありません。", romaji: "Kyou wa doko mo ikitaku arimasen.", pt: "Hoje não quero ir a lugar nenhum.", en: "Today I don't want to go anywhere." }
         ],
         contrast: {
           rows: [
@@ -107,24 +107,24 @@ window.lessonData = {
         short: "ir a algum lugar para fazer algo", short_en: "going somewhere in order to do something",
         mean: "Para dizer <em>com que objetivo</em> se vai, vem ou volta, marca-se o objetivo com <strong>に</strong>. Pode ser um verbo sem ます ({買|か}いに) ou um substantivo de ação ({買|か}い{物|もの}に, {散歩|さんぽ}に).", mean_en: "To say <em>for what purpose</em> you go, come or return, mark the purpose with <strong>に</strong>. It can be a verb without ます ({買|か}いに) or an action noun ({買|か}い{物|もの}に, {散歩|さんぽ}に).",
         ex: [
-          { jp: "デパートへ {買|か}い{物|もの}に {行|い}きます。", romaji: "Depaato e kaimono ni ikimasu.", pt: "Vou ao shopping para fazer compras.", en: "I go to the department store to shop." },
-          { jp: "{駅|えき}へ {友達|ともだち}を {迎|むか}えに {行|い}きます。", romaji: "Eki e tomodachi o mukaeni ikimasu.", pt: "Vou à estação buscar um amigo.", en: "I go to the station to pick up a friend." },
-          { jp: "{公園|こうえん}へ {散歩|さんぽ}に {行|い}きませんか。", romaji: "Kouen e sanpo ni ikimasen ka.", pt: "Que tal irmos passear no parque?", en: "Shall we go for a walk in the park?" }
+          { jp: "デパート^へ {買|か}い{物|もの}に {行|い}きます。", romaji: "Depaato e kaimono ni ikimasu.", pt: "Vou ao shopping para fazer compras.", en: "I go to the department store to shop." },
+          { jp: "{駅|えき}^へ {友達|ともだち}を {迎|むか}えに {行|い}きます。", romaji: "Eki e tomodachi o mukae ni ikimasu.", pt: "Vou à estação buscar um amigo.", en: "I go to the station to pick up a friend." },
+          { jp: "{公園|こうえん}^へ {散歩|さんぽ}に {行|い}きませんか。", romaji: "Kouen e sanpo ni ikimasen ka.", pt: "Que tal irmos passear no parque?", en: "Shall we go for a walk in the park?" }
         ],
         contrast: {
           rows: [
-            { label: "sem objetivo", label_en: "without purpose", jp: "{公園|こうえん}へ {行|い}きます。", pt: "Vou ao parque.", en: "I go to the park." },
-            { label: "com objetivo (に)", label_en: "with purpose (に)", jp: "{公園|こうえん}へ {遊|あそ}びに {行|い}きます。", pt: "Vou ao parque para me divertir.", en: "I go to the park to have fun." }
+            { label: "sem objetivo", label_en: "without purpose", jp: "{公園|こうえん}^へ {行|い}きます。", pt: "Vou ao parque.", en: "I go to the park." },
+            { label: "com objetivo (に)", label_en: "with purpose (に)", jp: "{公園|こうえん}^へ {遊|あそ}びに {行|い}きます。", pt: "Vou ao parque para me divertir.", en: "I go to the park to have fun." }
           ],
           note: "O に do objetivo vem antes de {行|い}きます e depois do verbo (sem ます) ou do substantivo de ação.", note_en: "The purpose に comes before {行|い}きます and after the verb (without ます) or the action noun."
         },
         trap: [
           "Não deixe o ます antes do に: errado {買|か}いますに. O correto é {買|か}いに.",
-          "Com substantivo de ação, não repita し: é {散歩|さんぽ}に {行|い}きます, e não {散歩|さんぽ}しに a menos que se queira o verbo."
+          "O objetivo leva に, não で: errado {買|か}い{物|もの}で {行|い}きます。Certo: {買|か}い{物|もの}に {行|い}きます。A forma com し também é correta: {散歩|さんぽ}しに {行|い}きます."
         ],
         trap_en: [
           "Do not keep ます before に: wrong {買|か}いますに. The right form is {買|か}いに.",
-          "With an action noun, do not repeat し: say {散歩|さんぽ}に {行|い}きます, not {散歩|さんぽ}しに unless you want the verb."
+          "The purpose takes に, not で: wrong {買|か}い{物|もの}で {行|い}きます. Right: {買|か}い{物|もの}に {行|い}きます. The し form is also correct: {散歩|さんぽ}しに {行|い}きます."
         ]
       },
       {
@@ -132,7 +132,7 @@ window.lessonData = {
         title: "{何|なに}か ・ どこか ・ {何|なに}も ・ どこも", title_en: "{何|なに}か ・ どこか ・ {何|なに}も ・ どこも",
         pat: "{何|なに}か／どこか V ・ {何|なに}も／どこも V-ません",
         short: "alguma coisa, algum lugar, nada, lugar nenhum", short_en: "something, somewhere, nothing, nowhere",
-        mean: "Com <strong>か</strong>, a palavra interrogativa vira “algum”: {何|なに}か (algo), どこか (algum lugar). Com <strong>も</strong> e uma frase negativa, vira “nenhum”: {何|なに}も, どこも. A partícula で/を/へ costuma ser omitida depois delas.", mean_en: "With <strong>か</strong>, the question word becomes “some-”: {何|なに}か (something), どこか (somewhere). With <strong>も</strong> and a negative sentence, it becomes “no-”: {何|なに}も, どこも. The particle で/を/へ is usually dropped after them.",
+        mean: "Com <strong>か</strong>, a palavra interrogativa vira “algum”: {何|なに}か (algo), どこか (algum lugar). Com <strong>も</strong> e uma frase negativa, vira “nenhum”: {何|なに}も, どこも. Depois de {何|なに}か o を costuma cair ({何|なに}か {食|た}べます); com どこか, o へ é opcional e frequente (どこか^へ {行|い}きます / どこか {行|い}きます). O で não cai: どこかで {会|あ}いました.", mean_en: "With <strong>か</strong>, the question word becomes “some-”: {何|なに}か (something), どこか (somewhere). With <strong>も</strong> and a negative sentence, it becomes “no-”: {何|なに}も, どこも. After {何|なに}か the を usually drops ({何|なに}か {食|た}べます); with どこか, へ is optional and common (どこか^へ {行|い}きます / どこか {行|い}きます). で does not drop: どこかで {会|あ}いました.",
         ex: [
           { jp: "{暑|あつ}いですから、{何|なに}か {飲|の}みたいです。", romaji: "Atsui desu kara, nanika nomitai desu.", pt: "Está calor, então quero beber alguma coisa.", en: "It's hot, so I want to drink something." },
           { jp: "{日曜日|にちようび}、どこか {行|い}きましたか。<br>…いいえ、どこも {行|い}きませんでした。", romaji: "Nichiyoubi, doko ka ikimashita ka. ...Iie, doko mo ikimasen deshita.", pt: "No domingo, foi a algum lugar? ...Não, não fui a lugar nenhum.", en: "Did you go anywhere on Sunday? ...No, I didn't go anywhere." },
@@ -147,11 +147,11 @@ window.lessonData = {
         },
         trap: [
           "{何|なに}も só funciona com verbo negativo: errado {何|なに}も {食|た}べました.",
-          "Não junte a partícula: é どこか {行|い}きます, e não どこかへ ... a menos que a frase peça (aqui a regra é omitir)."
+          "Não use a partícula errada: どこか^へ {行|い}きます (mais comum) e どこか {行|い}きます são corretas; どこかで {行|い}きます é errado (で é lugar da ação, não destino)."
         ],
         trap_en: [
           "{何|なに}も only works with a negative verb: wrong {何|なに}も {食|た}べました.",
-          "Do not add the particle: say どこか {行|い}きます, not どこかへ … unless the sentence requires it (here the rule is to drop it)."
+          "Do not use the wrong particle: どこか^へ {行|い}きます (more common) and どこか {行|い}きます are both correct; どこかで {行|い}きます is wrong (で marks where an action happens, not destination)."
         ]
       }
     ]
@@ -160,7 +160,7 @@ window.lessonData = {
     title: "{練習|れんしゅう} A", title_en: "{練習|れんしゅう} A",
     exercises: [
       {
-        desc: "1. Passe para 〜たいです", desc_en: "1. Change to 〜たいです",
+        desc: "1. Passe para a forma de desejo (〜たいです／〜たく ありません)", desc_en: "1. Change to the desire form (〜たいです／〜たく ありません)",
         questions: [
           { q: "{行|い}きます ➔", a: "{行|い}きたいです", romaji: "ikitai desu", pt: "Quero ir", en: "I want to go" },
           { q: "{食|た}べます ➔", a: "{食|た}べたいです", romaji: "tabetai desu", pt: "Quero comer", en: "I want to eat" },
@@ -172,9 +172,9 @@ window.lessonData = {
         desc: "2. Complete com は, が, を, に ou へ", desc_en: "2. Fill in は, が, を, に or へ",
         questions: [
           { q: "{新|あたら}しい {車|くるま}（　　）ほしいです。", a: "が", romaji: "ga", pt: "Objeto do desejo: が", en: "Object of the wish: が" },
-          { q: "デパート（　　）{買|か}い{物|もの}に {行|い}きます。", a: "へ", romaji: "e", pt: "Destino: へ (lido e)", en: "Destination: へ (read e)" },
+          { q: "デパート（　　）{買|か}い{物|もの}に {行|い}きます。", a: "へ／に", romaji: "e / ni", pt: "Destino: へ ou に (ambos corretos)", en: "Destination: へ or に (both correct)" },
           { q: "{買|か}い{物|もの}（　　）{行|い}きます。", a: "に", romaji: "ni", pt: "Objetivo: に", en: "Purpose: に" },
-          { q: "{映画|えいが}（　　）{見|み}たいです。", a: "を", romaji: "o", pt: "Objeto: を", en: "Object: を" }
+          { q: "{映画|えいが}（　　）{見|み}ました。", a: "を", romaji: "o", pt: "Objeto: を", en: "Object: を" }
         ]
       }
     ]
@@ -185,7 +185,7 @@ window.lessonData = {
       {
         desc: "1. Complete a frase", desc_en: "1. Complete the sentence",
         questions: [
-          { q: "A: {夏休|なつやす}みに どこか {行|い}きたいですか。<br>B: はい、{海|うみ}へ ＿＿＿＿＿＿。(ir nadar)", q_en: "A: {夏休|なつやす}みに どこか {行|い}きたいですか。<br>B: はい、{海|うみ}へ ＿＿＿＿＿＿。(to go swimming)", a: "{泳|およ}ぎに {行|い}きたいです", romaji: "oyogini ikitai desu", pt: "Objetivo ＋ 〜たい", en: "Purpose ＋ 〜たい" },
+          { q: "A: {夏休|なつやす}みに どこか {行|い}きたいですか。<br>B: はい、{海|うみ}^へ ＿＿＿＿＿＿。(ir nadar)", q_en: "A: {夏休|なつやす}みに どこか {行|い}きたいですか。<br>B: はい、{海|うみ}^へ ＿＿＿＿＿＿。(to go swimming)", a: "{泳|およ}ぎに {行|い}きたいです", romaji: "oyogi ni ikitai desu", pt: "Objetivo ＋ 〜たい", en: "Purpose ＋ 〜たい" },
           { q: "A: {日曜日|にちようび}、どこか {行|い}きましたか。<br>B: いいえ、＿＿＿＿ {行|い}きませんでした。", a: "どこも", romaji: "doko mo", pt: "Nenhum lugar", en: "Nowhere" },
           { q: "A: {何|なに}が ほしいですか。<br>B: {自分|じぶん}の {車|くるま}＿＿ ほしいです。", a: "が", romaji: "ga", pt: "Objeto do desejo", en: "Object of the wish" }
         ]
@@ -200,7 +200,7 @@ window.lessonData = {
         questions: [
           { q: "{何|なに}（　　）{飲|の}みたいです。(alguma coisa)", q_en: "{何|なに}（　　）{飲|の}みたいです。(something)", a: "か", romaji: "ka", pt: "“Algo”: か", en: "“Something”: か" },
           { q: "どこ（　　）{行|い}きませんでした。", a: "も", romaji: "mo", pt: "“Nenhum”: も", en: "“No-”: も" },
-          { q: "{友達|ともだち}を {迎|むか}え（　　）{駅|えき}へ {行|い}きます。", a: "に", romaji: "ni", pt: "Objetivo: に", en: "Purpose: に" },
+          { q: "{友達|ともだち}を {迎|むか}え（　　）{駅|えき}^へ {行|い}きます。", a: "に", romaji: "ni", pt: "Objetivo: に", en: "Purpose: に" },
           { q: "{新|あたら}しい パソコン（　　）ほしいです。", a: "が", romaji: "ga", pt: "Objeto do desejo", en: "Object of the wish" }
         ]
       },
@@ -208,7 +208,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): {夏休|なつやす}み", desc_en: "2. Reading: summer vacation",
         questions: [
           {
-            q: `<div class="reading-box">{来週|らいしゅう}から {夏休|なつやす}みです。わたしは {山|やま}へ {行|い}きたいです。{友達|ともだち}は {海|うみ}へ {泳|およ}ぎに {行|い}きたいです。でも、わたしは あまり {泳|およ}ぎたく ありません。</div>{質問|しつもん}: {友達|ともだち}は {何|なに}を しに {海|うみ}へ {行|い}きたいですか。<br>➔ ＿＿＿＿に {行|い}きたいです。`,
+            q: `<div class="reading-box">{来週|らいしゅう}から {夏休|なつやす}みです。わたし^は {山|やま}^へ {行|い}きたいです。{友達|ともだち}^は {海|うみ}^へ {泳|およ}ぎに {行|い}きたいです。でも、わたし^は あまり {泳|およ}ぎたく ありません。</div>{質問|しつもん}: {友達|ともだち}^は {何|なに}を しに {海|うみ}^へ {行|い}きたいですか。<br>➔ ＿＿＿＿に {行|い}きたいです。`,
             a: "{泳|およ}ぎ",
             romaji: "oyogi",
             pt: "Nadar.", en: "To swim."
@@ -224,8 +224,8 @@ window.lessonData = {
         desc: "Toque nas palavras na ordem certa para montar a frase.", desc_en: "Tap the words in the right order to build the sentence.",
         questions: [
           { tokens: ["{新|あたら}しい", "{車|くるま}が", "ほしいです。"], pt: "Quero um carro novo.", en: "I want a new car.", romaji: "Atarashii kuruma ga hoshii desu." },
-          { tokens: ["{海|うみ}へ", "{泳|およ}ぎに", "{行|い}きたいです。"], pt: "Quero ir à praia nadar.", en: "I want to go to the beach to swim.", romaji: "Umi e oyogi ni ikitai desu." },
-          { tokens: ["デパートへ", "{買|か}い{物|もの}に", "{行|い}きます。"], pt: "Vou ao shopping fazer compras.", en: "I go to the department store to shop.", romaji: "Depaato e kaimono ni ikimasu." },
+          { tokens: ["{海|うみ}^へ", "{泳|およ}ぎに", "{行|い}きたいです。"], pt: "Quero ir à praia nadar.", en: "I want to go to the beach to swim.", romaji: "Umi e oyogi ni ikitai desu." },
+          { tokens: ["デパート^へ", "{買|か}い{物|もの}に", "{行|い}きます。"], pt: "Vou ao shopping fazer compras.", en: "I go to the department store to shop.", romaji: "Depaato e kaimono ni ikimasu." },
           { tokens: ["どこも", "{行|い}きませんでした。"], pt: "Não fui a lugar nenhum.", en: "I didn't go anywhere.", romaji: "Doko mo ikimasen deshita." }
         ]
       }

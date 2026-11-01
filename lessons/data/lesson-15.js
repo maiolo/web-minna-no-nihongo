@@ -28,7 +28,7 @@ window.lessonData = {
       { jp: "{結婚|けっこん}して います", romaji: "kekkon shite imasu", pt: "Ser casado", en: "To be married" },
       { jp: "{太|ふと}って います", romaji: "futotte imasu", pt: "Estar gordo", en: "To be heavy-set" },
       { jp: "{眼鏡|めがね}", romaji: "megane", pt: "Óculos", en: "Glasses" },
-      { jp: "ここで", romaji: "kokode", pt: "Aqui (lugar da ação)", en: "Here (place of action)" },
+      { jp: "ここで", romaji: "koko de", pt: "Aqui (lugar da ação)", en: "Here (place of action)" },
       { jp: "もちろん", romaji: "mochiron", pt: "Claro, com certeza", en: "Of course" },
       { jp: "{少|すこ}し", romaji: "sukoshi", pt: "Um pouco", en: "A little" },
       { jp: "{全然|ぜんぜん}", romaji: "zenzen", pt: "Nem um pouco (com negativa)", en: "Not at all (with a negative)" }
@@ -99,8 +99,8 @@ window.lessonData = {
         short: "estado que continua: morar, ser casado, saber", short_en: "a continuing state: to live, to be married, to know",
         mean: "Com certos verbos, V-て います não mostra ação em andamento, mas um <strong>estado</strong> que resulta de uma ação: {住|す}んで います (moro), {結婚|けっこん}して います (sou casado), {知|し}って います (sei). O contrário de {知|し}って います é <strong>{知|し}りません</strong>.", mean_en: "With certain verbs, V-て います does not show an ongoing action but a <strong>state</strong> that results from an action: {住|す}んで います (I live), {結婚|けっこん}して います (I'm married), {知|し}って います (I know). The opposite of {知|し}って います is <strong>{知|し}りません</strong>.",
         ex: [
-          { jp: "わたしは {東京|とうきょう}に {住|す}んで います。", romaji: "Watashiha Toukyou ni sunde imasu.", pt: "Eu moro em Tóquio.", en: "I live in Tokyo." },
-          { jp: "マリアさんは {結婚|けっこん}して います。", romaji: "Maria-san wa kekkon shite imasu.", pt: "A Maria é casada.", en: "Maria is married." },
+          { jp: "わたし^は {東京|とうきょう}に {住|す}んで います。", romaji: "Watashi wa Toukyou ni sunde imasu.", pt: "Eu moro em Tóquio.", en: "I live in Tokyo." },
+          { jp: "マリアさん^は {結婚|けっこん}して います。", romaji: "Maria-san wa kekkon shite imasu.", pt: "A Maria é casada.", en: "Maria is married." },
           { jp: "あの {人|ひと}を {知|し}って いますか。<br>…いいえ、{知|し}りません。", romaji: "Ano hito o shitte imasu ka. ...Iie, shirimasen.", pt: "Você conhece aquela pessoa? ...Não, não conheço.", en: "Do you know that person? ...No, I don't." }
         ],
         contrast: {
@@ -112,11 +112,11 @@ window.lessonData = {
         },
         trap: [
           "O contrário de {知|し}って います não é {知|し}って いません: diz-se {知|し}りません.",
-          "Com {住|す}みます, o presente fala de “vou morar”; para “moro”, use sempre {住|す}んで います."
+          "Para “moro”, use sempre {住|す}んで います; {住|す}みます quase não aparece no presente falado."
         ],
         trap_en: [
           "The opposite of {知|し}って います is not {知|し}って いません: say {知|し}りません.",
-          "With {住|す}みます, the plain present sounds like “will live”; for “I live”, always use {住|す}んで います."
+          "For “I live”, always use {住|す}んで います; {住|す}みます hardly appears in the spoken present."
         ]
       }
     ]
@@ -133,10 +133,10 @@ window.lessonData = {
         ]
       },
       {
-        desc: "2. Escolha: も, は, ください ou います", desc_en: "2. Choose: も, は, ください or います",
+        desc: "2. Complete com いい ou います", desc_en: "2. Fill in いい ou います",
         questions: [
-          { q: "ここで {写真|しゃしん}を {撮|と}っても（　　）ですか。(pode?)", q_en: "ここで {写真|しゃしん}を {撮|と}っても（　　）ですか。(may I?)", a: "いい", romaji: "ii", pt: "いい", en: "いい" },
-          { q: "{私|わたし}は {大阪|おおさか}に {住|す}んで（　　）。", a: "います", romaji: "imasu", pt: "Estado", en: "State" }
+          { q: "ここで {写真|しゃしん}を {撮|と}っても（　　）ですか。(pode?)", q_en: "ここで {写真|しゃしん}を {撮|と}っても（　　）ですか。(may I?)", a: "いい", romaji: "ii", pt: "Pode (permissão)", en: "May (permission)" },
+          { q: "{私|わたし}^は {大阪|おおさか}に {住|す}んで（　　）。", a: "います", romaji: "imasu", pt: "Estado", en: "State" }
         ]
       }
     ]
@@ -148,7 +148,7 @@ window.lessonData = {
         desc: "1. Responda", desc_en: "1. Answer",
         questions: [
           { q: "A: あの {人|ひと}を {知|し}って いますか。<br>B: いいえ、＿＿＿＿＿＿。", a: "{知|し}りません", romaji: "shirimasen", pt: "Não conheço", en: "I don't know" },
-          { q: "A: ここで {写真|しゃしん}を {撮|と}っても いいですか。<br>B: すみません、＿＿＿＿ いけません。(tirar)", q_en: "A: ここで {写真|しゃしん}を {撮|と}っても いいですか。<br>B: すみません、＿＿＿＿ いけません。(take)", a: "{撮|と}っては", romaji: "totteha", pt: "Proibição", en: "Prohibition" }
+          { q: "A: ここで {写真|しゃしん}を {撮|と}っても いいですか。<br>B: すみません、＿＿＿＿ いけません。(tirar)", q_en: "A: ここで {写真|しゃしん}を {撮|と}っても いいですか。<br>B: すみません、＿＿＿＿ いけません。(take)", a: "{撮|と}っては", romaji: "totte wa", pt: "Proibição", en: "Prohibition" }
         ]
       }
     ]
@@ -160,7 +160,7 @@ window.lessonData = {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。", desc_en: "1. Fill in the blank with the right word.",
         questions: [
           { q: "ここで {食|た}べて（　　）いいですか。", a: "も", romaji: "mo", pt: "Permissão: も", en: "Permission: も" },
-          { q: "{私|わたし}は {結婚|けっこん}して（　　）。", a: "います", romaji: "imasu", pt: "Estado", en: "State" },
+          { q: "{私|わたし}^は {結婚|けっこん}して（　　）。", a: "います", romaji: "imasu", pt: "Estado", en: "State" },
           { q: "{先生|せんせい}の {名前|なまえ}を {知|し}って いますか。<br>…いいえ、（　　）。", a: "{知|し}りません", romaji: "shirimasen", pt: "Não sei", en: "I don't know" }
         ]
       },
@@ -168,7 +168,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): {図書館|としょかん}", desc_en: "2. Reading: library",
         questions: [
           {
-            q: `<div class="reading-box">ここは {図書館|としょかん}です。ここで {話|はな}して^は いけません。{本|ほん}を {読|よ}んでも いいです。わたしは {近|ちか}くに {住|す}んで います。</div>{質問|しつもん}: {図書館|としょかん}で {何|なに}を しても いいですか。<br>➔ ＿＿＿＿＿＿＿＿ いいです。`,
+            q: `<div class="reading-box">ここ^は {図書館|としょかん}です。ここで {話|はな}して^は いけません。{本|ほん}を {読|よ}んでも いいです。わたし^は {近|ちか}くに {住|す}んで います。</div>{質問|しつもん}: {図書館|としょかん}で {何|なに}を しても いいですか。<br>➔ ＿＿＿＿＿＿＿＿ いいです。`,
             a: "{本|ほん}を {読|よ}んでも",
             romaji: "hon o yondemo",
             pt: "Ler livros.", en: "Reading books."

@@ -4,7 +4,7 @@ window.lessonData = {
     title: "{語彙|ごい} (Vocabulário)", title_en: "{語彙|ごい} (Vocabulary)",
     items: [
       { jp: "{付|つ}けます", romaji: "tsukemasu", pt: "Ligar (luz, ar-condicionado)", en: "To turn on (light, A/C)" },
-      { jp: "{消|け}します", romaji: "ke shimasu", pt: "Apagar, desligar", en: "To turn off, to erase" },
+      { jp: "{消|け}します", romaji: "keshimasu", pt: "Apagar, desligar", en: "To turn off, to erase" },
       { jp: "{開|あ}けます", romaji: "akemasu", pt: "Abrir", en: "To open (something)" },
       { jp: "{閉|し}めます", romaji: "shimemasu", pt: "Fechar", en: "To close (something)" },
       { jp: "{急|いそ}ぎます", romaji: "isogimasu", pt: "Apressar-se", en: "To hurry" },
@@ -13,7 +13,7 @@ window.lessonData = {
       { jp: "{取|と}ります", romaji: "torimasu", pt: "Pegar", en: "To take" },
       { jp: "{手伝|てつだ}います", romaji: "tetsudaimasu", pt: "Ajudar", en: "To help" },
       { jp: "{呼|よ}びます", romaji: "yobimasu", pt: "Chamar", en: "To call" },
-      { jp: "{話|はな}します", romaji: "hana shimasu", pt: "Falar, conversar", en: "To speak, to talk" },
+      { jp: "{話|はな}します", romaji: "hanashimasu", pt: "Falar, conversar", en: "To speak, to talk" },
       { jp: "{使|つか}います", romaji: "tsukaimasu", pt: "Usar", en: "To use" },
       { jp: "{止|と}めます", romaji: "tomemasu", pt: "Parar, estacionar", en: "To stop, to park" },
       { jp: "{見|み}せます", romaji: "misemasu", pt: "Mostrar", en: "To show" },
@@ -23,16 +23,16 @@ window.lessonData = {
       { jp: "{入|はい}ります", romaji: "hairimasu", pt: "Entrar", en: "To enter" },
       { jp: "{出|で}ます", romaji: "demasu", pt: "Sair", en: "To leave, to go out" },
       { jp: "{降|ふ}ります", romaji: "furimasu", pt: "Cair (chuva, neve)", en: "To fall (rain, snow)" },
-      { jp: "コピーします", romaji: "kopiishimasu", pt: "Tirar cópia", en: "To make a copy" },
+      { jp: "コピーします", romaji: "kopii shimasu", pt: "Tirar cópia", en: "To make a copy" },
       { jp: "{住所|じゅうしょ}", romaji: "juusho", pt: "Endereço", en: "Address" },
       { jp: "{地図|ちず}", romaji: "chizu", pt: "Mapa", en: "Map" },
       { jp: "{電気|でんき}", romaji: "denki", pt: "Luz elétrica", en: "Electric light" },
       { jp: "{窓|まど}", romaji: "mado", pt: "Janela", en: "Window" },
       { jp: "{塩|しお}", romaji: "shio", pt: "Sal", en: "Salt" },
-      { jp: "{砂糖|さとう}", romaji: "Satou", pt: "Açúcar", en: "Sugar" },
+      { jp: "{砂糖|さとう}", romaji: "satou", pt: "Açúcar", en: "Sugar" },
       { jp: "ゆっくり", romaji: "yukkuri", pt: "Devagar, com calma", en: "Slowly, at ease" },
       { jp: "すぐ", romaji: "sugu", pt: "Logo, imediatamente", en: "Right away" },
-      { jp: "もう{一度|いちど}", romaji: "mouichido", pt: "Mais uma vez", en: "Once more" }
+      { jp: "もう{一度|いちど}", romaji: "mou ichido", pt: "Mais uma vez", en: "Once more" }
     ]
   },
   gramatica: {
@@ -51,7 +51,7 @@ window.lessonData = {
             { tag: "{待|ま}ちます", jp: "{待|ま}って", pt: "esperar", en: "to wait" },
             { tag: "{帰|かえ}ります", jp: "{帰|かえ}って", pt: "voltar", en: "to return" }
           ] },
-          { label: "Grupo 1: み・び・に ➔ んで", label_en: "Group 1: み・び・に ➔ んで", text: "", text_en: "", ex: [
+          { label: "Grupo 1: み・び ➔ んで", label_en: "Group 1: み・び ➔ んで", text: "", text_en: "", ex: [
             { tag: "{飲|の}みます", jp: "{飲|の}んで", pt: "beber", en: "to drink" },
             { tag: "{呼|よ}びます", jp: "{呼|よ}んで", pt: "chamar", en: "to call" }
           ] },
@@ -70,8 +70,8 @@ window.lessonData = {
         ],
         ex: [
           { jp: "{水|みず}を {飲|の}んで ください。", romaji: "Mizu o nonde kudasai.", pt: "Beba água, por favor.", en: "Please drink water." },
-          { jp: "ここに {名前|なまえ}を {書|か}いて ください。", romaji: "Kokoni namae o kaite kudasai.", pt: "Escreva seu nome aqui, por favor.", en: "Please write your name here." },
-          { jp: "{朝|あさ}ごはんを {食|た}べて、{学校|がっこう}へ {行|い}きます。", romaji: "Asagohan o tabete, gakkou e ikimasu.", pt: "Tomo café da manhã e vou à escola.", en: "I eat breakfast and go to school." }
+          { jp: "ここに {名前|なまえ}を {書|か}いて ください。", romaji: "Koko ni namae o kaite kudasai.", pt: "Escreva seu nome aqui, por favor.", en: "Please write your name here." },
+          { jp: "{朝|あさ}ごはんを {食|た}べて、{学校|がっこう}^へ {行|い}きます。", romaji: "Asagohan o tabete, gakkou e ikimasu.", pt: "Tomo café da manhã e vou à escola.", en: "I eat breakfast and go to school." }
         ],
         contrast: {
           rows: [
@@ -96,7 +96,7 @@ window.lessonData = {
         short: "por favor, faça…", short_en: "please do…",
         mean: "Forma educada de pedir ou instruir. Pode-se suavizar com <strong>ちょっと</strong> ou com {名前|なまえ}／objeto: {塩|しお}を {取|と}って ください.", mean_en: "A polite way of asking or instructing. It can be softened with <strong>ちょっと</strong> or with a name/object: {塩|しお}を {取|と}って ください.",
         ex: [
-          { jp: "ここに {住所|じゅうしょ}を {書|か}いて ください。", romaji: "Kokoni juusho o kaite kudasai.", pt: "Escreva o endereço aqui, por favor.", en: "Please write your address here." },
+          { jp: "ここに {住所|じゅうしょ}を {書|か}いて ください。", romaji: "Koko ni juusho o kaite kudasai.", pt: "Escreva o endereço aqui, por favor.", en: "Please write your address here." },
           { jp: "ちょっと {待|ま}って ください。", romaji: "Chotto matte kudasai.", pt: "Espere um pouco, por favor.", en: "Please wait a moment." },
           { jp: "もう {一度|いちど} {言|い}って ください。", romaji: "Mou ichido itte kudasai.", pt: "Diga mais uma vez, por favor.", en: "Please say it once more." }
         ],
@@ -124,8 +124,8 @@ window.lessonData = {
         mean: "Mostra que a ação está <em>acontecendo agora</em>. Na pergunta, {何|なに}を して いますか. O passado é V-て いました.", mean_en: "Shows that the action is <em>happening now</em>. In the question: {何|なに}を して いますか. The past is V-て いました.",
         ex: [
           { jp: "{今|いま}、{雨|あめ}が {降|ふ}って います。", romaji: "Ima, ame ga futte imasu.", pt: "Agora está chovendo.", en: "It is raining now." },
-          { jp: "{先生|せんせい}は {話|はな}して います。", romaji: "Sensei wa hana shite imasu.", pt: "O professor está falando.", en: "The teacher is talking." },
-          { jp: "ミラーさんは {何|なに}を して いますか。<br>…{電話|でんわ}を して います。", romaji: "Miraa-san wa nani o shite imasu ka. ...Denwa o shite imasu.", pt: "O que o Miller está fazendo? ...Está telefonando.", en: "What is Miller doing? ...He is on the phone." }
+          { jp: "{先生|せんせい}^は {話|はな}して います。", romaji: "Sensei wa hanashite imasu.", pt: "O professor está falando.", en: "The teacher is talking." },
+          { jp: "ミラーさん^は {何|なに}を して いますか。<br>…{電話|でんわ}を して います。", romaji: "Miraa-san wa nani o shite imasu ka. ...Denwa o shite imasu.", pt: "O que o Miller está fazendo? ...Está telefonando.", en: "What is Miller doing? ...He is on the phone." }
         ],
         contrast: {
           rows: [
@@ -135,11 +135,11 @@ window.lessonData = {
           note: "Para hábitos, ます; para o que está acontecendo agora, て います.", note_en: "For habits, ます; for what is happening now, て います."
         },
         trap: [
-          "Não use ます junto: errado {読|よ}んで います ます. A frase termina em います.",
+          "Não acrescente outro final depois de います: errado {読|よ}んで いますです／{読|よ}んで いますました。A frase termina em います (passado: いました).",
           "Cuidado: com alguns verbos (como {住|す}む), て います indica estado, não ação (lição 15)."
         ],
         trap_en: [
-          "Do not double ます: the sentence ends in います.",
+          "Do not add another ending after います: wrong {読|よ}んで いますです／{読|よ}んで いますました。The sentence ends in います (past: いました).",
           "Careful: with some verbs (like {住|す}む), て います marks a state, not an action (lesson 15)."
         ]
       },
@@ -222,7 +222,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): {教室|きょうしつ}", desc_en: "2. Reading: classroom",
         questions: [
           {
-            q: `<div class="reading-box">{教室|きょうしつ}は {暑|あつ}いです。{窓|まど}を {開|あ}けて ください。ミラーさんは {電話|でんわ}を して います。</div>{質問|しつもん}: ミラーさんは {何|なに}を して いますか。<br>➔ ＿＿＿＿を して います。`,
+            q: `<div class="reading-box">{教室|きょうしつ}^は {暑|あつ}いです。{窓|まど}を {開|あ}けて ください。ミラーさん^は {電話|でんわ}を して います。</div>{質問|しつもん}: ミラーさん^は {何|なに}を して いますか。<br>➔ ＿＿＿＿を して います。`,
             a: "{電話|でんわ}",
             romaji: "denwa",
             pt: "Telefonando.", en: "Phoning."

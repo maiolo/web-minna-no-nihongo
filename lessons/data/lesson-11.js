@@ -4,7 +4,7 @@ window.lessonData = {
     title: "{語彙|ごい} (Vocabulário)", title_en: "{語彙|ごい} (Vocabulary)",
     items: [
       { jp: "{一|ひと}つ", romaji: "hitotsu", pt: "Um (coisas em geral)", en: "One (things in general)" },
-      { jp: "{何|いく}つ", romaji: "ikutsu", pt: "Quantos (coisas)", en: "How many (things)" },
+      { jp: "いくつ", romaji: "ikutsu", pt: "Quantos (coisas)", en: "How many (things)" },
       { jp: "{一人|ひとり}", romaji: "hitori", pt: "Uma pessoa", en: "One person" },
       { jp: "{二人|ふたり}", romaji: "futari", pt: "Duas pessoas", en: "Two people" },
       { jp: "〜{人|にん}", romaji: "nin", pt: "〜 pessoas (a partir de três)", en: "〜 people (from three on)" },
@@ -26,7 +26,7 @@ window.lessonData = {
       { jp: "〜ぐらい", romaji: "gurai", pt: "Cerca de 〜, aproximadamente", en: "About 〜, approximately" },
       { jp: "かかります", romaji: "kakarimasu", pt: "Levar, demorar, custar (tempo ou dinheiro)", en: "To take, to cost (time or money)" },
       { jp: "〜だけ", romaji: "dake", pt: "Apenas, só 〜", en: "Only 〜" },
-      { jp: "ぜんぶで", romaji: "zenbude", pt: "No total, ao todo", en: "In total, altogether" }
+      { jp: "ぜんぶで", romaji: "zenbu de", pt: "No total, ao todo", en: "In total, altogether" }
     ]
   },
   gramatica: {
@@ -96,7 +96,7 @@ window.lessonData = {
         ex: [
           { jp: "みかんを {三|みっ}つ {食|た}べました。", romaji: "Mikan o mittsu tabemashita.", pt: "Comi três tangerinas.", en: "I ate three mandarin oranges." },
           { jp: "{教室|きょうしつ}に {学生|がくせい}が {十人|じゅうにん} います。", romaji: "Kyoushitsu ni gakusei ga juunin imasu.", pt: "Há dez alunos na sala.", en: "There are ten students in the classroom." },
-          { jp: "ケーキを {一|ひと}つだけ {食|た}べました。", romaji: "Keeki o hitotsudake tabemashita.", pt: "Comi só um bolo.", en: "I ate just one cake." },
+          { jp: "ケーキを {一|ひと}つだけ {食|た}べました。", romaji: "Keeki o hitotsu dake tabemashita.", pt: "Comi só um bolo.", en: "I ate just one cake." },
           { jp: "{切手|きって}を {五枚|ごまい} ください。<br>…ぜんぶで {二百円|にひゃくえん}です。", romaji: "Kitte o gomai kudasai. ...Zenbu de nihyaku-en desu.", pt: "Cinco selos, por favor. ...Ao todo, 200 ienes.", en: "Five stamps, please. ...That is 200 yen in total." }
         ],
         contrast: {
@@ -132,7 +132,7 @@ window.lessonData = {
           ] }
         ],
         ex: [
-          { jp: "{家|うち}から {駅|えき}まで {歩|ある}いて {十五分|じゅうごふん} かかります。", romaji: "Uchikara ekimade aruite juugofun kakarimasu.", pt: "De casa até a estação, a pé, leva 15 minutos.", en: "From home to the station, it takes 15 minutes on foot." },
+          { jp: "{家|うち}から {駅|えき}まで {歩|ある}いて {十五分|じゅうごふん} かかります。", romaji: "Uchi kara eki made aruite juugofun kakarimasu.", pt: "De casa até a estação, a pé, leva 15 minutos.", en: "From home to the station, it takes 15 minutes on foot." },
           { jp: "{京都|きょうと}から {大阪|おおさか}まで {電車|でんしゃ}で どのくらい かかりますか。<br>…{一時間|いちじかん}ぐらい かかります。", romaji: "Kyouto kara Oosaka made densha de dono kurai kakarimasu ka. ...Ichijikan gurai kakarimasu.", pt: "De Kyoto a Osaka, de trem, quanto tempo leva? ...Cerca de uma hora.", en: "How long does it take from Kyoto to Osaka by train? ...About an hour." },
           { jp: "{日本語|にほんご}を {二年|にねん} {勉強|べんきょう}しました。", romaji: "Nihongo o ninen benkyou shimashita.", pt: "Estudei japonês por dois anos.", en: "I studied Japanese for two years." }
         ],
@@ -245,7 +245,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): わたしの {家族|かぞく}", desc_en: "2. Reading: my family",
         questions: [
           {
-            q: `<div class="reading-box">わたしの {家族|かぞく}は {五人|ごにん}です。{父|ちち}と {母|はは}と {兄弟|きょうだい}が {二人|ふたり} います。{家|うち}に {車|くるま}が {二台|にだい} あります。{父|ちち}は {会社|かいしゃ}まで {電車|でんしゃ}で {一時間|いちじかん}ぐらい かかります。{母|はは}は {一週間|いっしゅうかん}に {二回|にかい} テニスを します。</div>{質問|しつもん}: {母|はは}は {一週間|いっしゅうかん}に {何回|なんかい} テニスを しますか。<br>➔ ＿＿＿＿＿＿ します。`,
+            q: `<div class="reading-box">わたしの {家族|かぞく}^は {五人|ごにん}です。{父|ちち}と {母|はは}と {兄弟|きょうだい}が {二人|ふたり} います。{家|うち}に {車|くるま}が {二台|にだい} あります。{父|ちち}^は {会社|かいしゃ}まで {電車|でんしゃ}で {一時間|いちじかん}ぐらい かかります。{母|はは}^は {一週間|いっしゅうかん}に {二回|にかい} テニスを します。</div>{質問|しつもん}: {母|はは}^は {一週間|いっしゅうかん}に {何回|なんかい} テニスを しますか。<br>➔ ＿＿＿＿＿＿ します。`,
             a: "{二回|にかい}",
             romaji: "nikai",
             pt: "Duas vezes.", en: "Twice."
