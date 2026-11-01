@@ -183,6 +183,30 @@ window.LESSONS = [
         topic_en: "Noun modification",
         description: "{名詞修飾|めいししゅうしょく} • が • 〜て いる／〜た (descrever com uma frase)",
         description_en: "{名詞修飾|めいししゅうしょく} • が • 〜て いる／〜た (describing with a clause)"
+    },
+    {
+        number: 23,
+        file: "lesson-23.html",
+        topic: "〜とき・〜と",
+        topic_en: "〜とき and 〜と (when and natural consequence)",
+        description: "{図書館|としょかん}で {本|ほん}を {借|か}りるとき • {自然|しぜん}な {結果|けっか} • {条件|じょうけん}",
+        description_en: "When (とき) • natural consequence (と) • conditions"
+    },
+    {
+        number: 24,
+        file: "lesson-24.html",
+        topic: "てあげます・てくれます・てもらいます",
+        topic_en: "Doing favours (てあげます / てくれます / てもらいます)",
+        description: "{手伝|てつだ}って くれます • お{礼|れい} • が と に",
+        description_en: "Doing a favour • someone does for me • receiving a favour • が and に"
+    },
+    {
+        number: 25,
+        file: "lesson-25.html",
+        topic: "〜たら・〜ても",
+        topic_en: "If and even if (たら, ても)",
+        description: "{条件|じょうけん} • もし • 〜たら どうですか",
+        description_en: "Conditions • even if • suggestions with たら"
     }
 ];
 
