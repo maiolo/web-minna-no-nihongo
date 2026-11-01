@@ -159,6 +159,30 @@ window.LESSONS = [
         topic_en: "た{形|けい} (TA form)",
         description: "{経験|けいけん} (Experiência) • 〜たり〜たりします • なります",
         description_en: "{経験|けいけん} (Experience) • 〜たり〜たりします • なります"
+    },
+    {
+        number: 20,
+        file: "lesson-20.html",
+        topic: "{夏休|なつやす}み ({普通形|ふつうけい})",
+        topic_en: "{夏休|なつやす}み (plain form)",
+        description: "{普通形|ふつうけい} (fala informal) • だ／じゃない・だった • {会話|かいわ} casual",
+        description_en: "{普通形|ふつうけい} (plain speech) • だ／じゃない・だった • casual talk"
+    },
+    {
+        number: 21,
+        file: "lesson-21.html",
+        topic: "{思|おも}います・{言|い}います・でしょう",
+        topic_en: "I think / I say / probably",
+        description: "{意見|いけん} • {引用|いんよう} • {確信|かくしん}の{程度|ていど} (opinião, citação, probabilidade)",
+        description_en: "{意見|いけん} • {引用|いんよう} • {確信|かくしん}の{程度|ていど} (opinion, quoting, probability)"
+    },
+    {
+        number: 22,
+        file: "lesson-22.html",
+        topic: "{名詞修飾|めいししゅうしょく}",
+        topic_en: "Noun modification",
+        description: "{名詞修飾|めいししゅうしょく} • が • 〜て いる／〜た (descrever com uma frase)",
+        description_en: "{名詞修飾|めいししゅうしょく} • が • 〜て いる／〜た (describing with a clause)"
     }
 ];
 
