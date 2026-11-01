@@ -313,6 +313,7 @@ main {
 
 /* Texto de leitura dentro de um exercício (usa as cores de dica do tema, claro e escuro). */
 .reading-box {
+    font-weight: 400;
     padding: 15px;
     background: var(--note-bg);
     border: 1px solid var(--note-line);
@@ -925,7 +926,7 @@ span.map-cell { border: 1px dashed var(--muted); color: var(--muted); }
 .section-done-btn[aria-pressed="true"] { background: var(--matcha-tint); border-color: var(--matcha-line); color: var(--matcha-dark); }
 .ex-progress { display: flex; align-items: center; gap: 12px; margin: 12px 0 4px; }
 .ex-progress .progress { flex: 1; }
-.ex-progress-text { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
+.ex-progress-text { font-size: 0.85rem; color: var(--muted); }
 .item-box.answered-ok { border-left: 4px solid var(--matcha); }
 
 /* Home: continuar, situação das lições */
@@ -969,7 +970,9 @@ mark.diff-ins { background: var(--matcha-tint); color: var(--matcha-dark); borde
     min-height: 60px; margin: 12px 0; padding: 10px;
     background: var(--surface); border: 2px dashed var(--line); border-radius: var(--radius);
 }
-.assemble-answer:empty::before { content: "Toque nas palavras abaixo, na ordem certa"; color: var(--muted); font-size: 0.9rem; }
+/* Dica da aba montar: texto vindo do engine/i18n (some quando há palavras escolhidas). */
+.assemble-hint { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.assemble-answer.has-chips .assemble-hint { display: none; }
 .assemble-bank { margin-bottom: 8px; }
 .word-chip {
     min-height: 48px; padding: 4px 14px;
@@ -1454,3 +1457,7 @@ html[data-speech="off"] .speak-btn { display: none; }
 .lang-opt:hover { color: var(--ink); }
 .lang-opt[aria-pressed="true"] { background: var(--ink); color: var(--surface); cursor: default; }
 .lang-opt:focus-visible { outline: 2px solid var(--accent, var(--ink)); outline-offset: -2px; }
+/* Alvo de toque de 44px no celular, como os demais botões do cabeçalho. */
+@media (pointer: coarse) {
+    .lang-opt { min-width: 44px; height: 44px; }
+}
