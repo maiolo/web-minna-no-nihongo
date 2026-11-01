@@ -59,7 +59,7 @@ window.lessonData = {
         },
         trap: [
           "Não troque os dois verbos: errado {猫|ねこ}が あります。 Certo: {猫|ねこ}が います。",
-          "O lugar leva に, não で: {部屋|へや}に {机|つくえ}が あります。 O で é para onde uma ação acontece."
+          "O lugar leva に, não で: {部屋|へや}に {机|つくえ}が あります。 O で marca o lugar onde a ação acontece."
         ],
         trap_en: [
           "Do not swap the two verbs: wrong {猫|ねこ}が あります。 Right: {猫|ねこ}が います。",
@@ -196,7 +196,7 @@ window.lessonData = {
         desc: "1. Complete com が, は, に, と ou や", desc_en: "1. Fill in with が, は, に, と or や",
         questions: [
           { q: "{部屋|へや}（　　）{机|つくえ}が あります。", a: "に", romaji: "ni", pt: "Lugar de existência", en: "Place of existence" },
-          { q: "{郵便局|ゆうびんきょく}（　　）{駅|えき}の {前|まえ}に あります。", a: "は", romaji: "wa", pt: "Tema: onde está?", en: "Topic: where is it?" },
+          { q: "{郵便局|ゆうびんきょく}（　　）{駅|えき}の {前|まえ}に あります。", a: "は／が", romaji: "wa / ga", pt: "Tema (は) ou informação nova (が) — ambas corretas aqui", en: "Topic (は) or new information (が) — both correct here" },
           { q: "{机|つくえ}の {上|うえ}に {本|ほん}（　　）ノートが あります。(entre outras coisas)", q_en: "{机|つくえ}の {上|うえ}に {本|ほん}（　　）ノートが あります。(among other things)", a: "や", romaji: "ya", pt: "Lista aberta", en: "Open list" },
           { q: "{冷蔵庫|れいぞうこ}の {中|なか}に {何|なに}（　　）ありますか。", a: "が", romaji: "ga", pt: "O que há", en: "What there is" }
         ]
@@ -212,14 +212,14 @@ window.lessonData = {
           { q: "{図書館|としょかん}（　　）{本|ほん}を {読|よ}みます。", a: "で", romaji: "de", pt: "Lugar da ação: で", en: "Place of an action: で" },
           { q: "{公園|こうえん}（　　）{犬|いぬ}が います。", a: "に", romaji: "ni", pt: "Lugar de existência: に", en: "Place of existence: に" },
           { q: "{窓|まど}の {近|ちか}くに {机|つくえ}が （　　）。", a: "あります", romaji: "arimasu", pt: "Coisa", en: "A thing" },
-          { q: "{友達|ともだち}は {部屋|へや}に （　　）。", a: "います", romaji: "imasu", pt: "Pessoa", en: "A person" }
+          { q: "{友達|ともだち}^は {部屋|へや}に （　　）。", a: "います", romaji: "imasu", pt: "Pessoa", en: "A person" }
         ]
       },
       {
         desc: "2. {読|よ}み{物|もの} (Leitura): わたしの {部屋|へや}", desc_en: "2. Reading: my room",
         questions: [
           {
-            q: `<div class="reading-box">わたしの {部屋|へや}に {机|つくえ}と ベッドが あります。{机|つくえ}の {上|うえ}に {本|ほん}や ノートが あります。ベッドの {下|した}に {猫|ねこ}が います。{窓|まど}の {外|そと}に {木|き}が あります。</div>{質問|しつもん}: {猫|ねこ}は どこに いますか。<br>➔ ＿＿＿＿＿＿＿＿＿＿に います。`,
+            q: `<div class="reading-box">わたしの {部屋|へや}に {机|つくえ}と ベッドが あります。{机|つくえ}の {上|うえ}に {本|ほん}や ノートが あります。ベッドの {下|した}に {猫|ねこ}が います。{窓|まど}の {外|そと}に {木|き}が あります。</div>{質問|しつもん}: {猫|ねこ}^は どこに いますか。<br>➔ ＿＿＿＿＿＿＿＿＿＿に います。`,
             a: "ベッドの{下|した}",
             romaji: "beddo no shita",
             pt: "Embaixo da cama.", en: "Under the bed."

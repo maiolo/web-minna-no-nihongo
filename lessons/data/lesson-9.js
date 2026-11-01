@@ -27,7 +27,7 @@ window.lessonData = {
       { jp: "たくさん", romaji: "takusan", pt: "Muito, muitos", en: "A lot, many" },
       { jp: "どうして", romaji: "doushite", pt: "Por quê", en: "Why" },
       { jp: "〜から", romaji: "kara", pt: "Porque 〜 (depois de uma frase)", en: "Because 〜 (after a clause)" },
-      { jp: "ざんねんですね", romaji: "zannen desune", pt: "Que pena!", en: "That is too bad!" }
+      { jp: "ざんねんですね", romaji: "zannen desu ne", pt: "Que pena!", en: "That is too bad!" }
     ]
   },
   gramatica: {
@@ -40,7 +40,7 @@ window.lessonData = {
         pat: "N が {好|す}き／{嫌|きら}い／{上手|じょうず}／{下手|へた} です",
         short: "gostos e habilidades", short_en: "likes and skills",
         mean: "Para dizer do que se gosta ou se desgosta, e em que se é bom ou ruim, o objeto leva <strong>が</strong>. As quatro palavras são な-adjetivos.", mean_en: "To say what you like or dislike, and what you are good or bad at, the object takes <strong>が</strong>. The four words are な-adjectives.",
-        rule: "Pergunta: どんな N が {好|す}きですか。 Para gradar: とても, あまり (com negativa), ぜんぜん (com negativa).", rule_en: "Question: どんな N が {好|す}きですか。 To grade: とても, あまり (with a negative), ぜんぜん (with a negative).",
+        rule: "Pergunta: どんな N が {好|す}きですか。 Para indicar o grau: とても, あまり (com negativa), ぜんぜん (com negativa).", rule_en: "Question: どんな N が {好|す}きですか。 To express degree: とても, あまり (with a negative), ぜんぜん (with a negative).",
         ex: [
           { jp: "わたし^は {音楽|おんがく}が {好|す}きです。", romaji: "Watashi wa ongaku ga suki desu.", pt: "Eu gosto de música.", en: "I like music." },
           { jp: "{田中|たなか}さん^は {料理|りょうり}が {上手|じょうず}です。", romaji: "Tanaka-san wa ryouri ga jouzu desu.", pt: "O Sr. Tanaka cozinha bem.", en: "Mr. Tanaka is good at cooking." },
@@ -137,10 +137,10 @@ window.lessonData = {
       {
         desc: "1. Complete com が ou を", desc_en: "1. Fill in with が or を",
         questions: [
-          { q: "わたしは {音楽|おんがく}（　　）{好|す}きです。", a: "が", romaji: "ga", pt: "Gostar: が", en: "Liking: が" },
-          { q: "わたしは {音楽|おんがく}（　　）{聞|き}きます。", a: "を", romaji: "o", pt: "Ação direta: を", en: "Direct action: を" },
+          { q: "わたし^は {音楽|おんがく}（　　）{好|す}きです。", a: "が", romaji: "ga", pt: "Gostar: が", en: "Liking: が" },
+          { q: "わたし^は {音楽|おんがく}（　　）{聞|き}きます。", a: "を", romaji: "o", pt: "Ação direta: を", en: "Direct action: を" },
           { q: "{日本語|にほんご}（　　）わかります。", a: "が", romaji: "ga", pt: "Entender: が", en: "Understanding: が" },
-          { q: "{田中|たなか}さんは {料理|りょうり}（　　）{上手|じょうず}です。", a: "が", romaji: "ga", pt: "Habilidade: が", en: "Skill: が" },
+          { q: "{田中|たなか}さん^は {料理|りょうり}（　　）{上手|じょうず}です。", a: "が", romaji: "ga", pt: "Habilidade: が", en: "Skill: が" },
           { q: "{明日|あした}、{約束|やくそく}（　　）あります。", a: "が", romaji: "ga", pt: "Ter: が", en: "Having: が" }
         ]
       },
@@ -162,7 +162,7 @@ window.lessonData = {
         questions: [
           { q: "A: どうして {行|い}きませんか。<br>B: {時間|じかん}が ありません＿＿＿。", a: "から", romaji: "kara", pt: "Porque não tenho tempo", en: "Because I have no time" },
           { q: "A: どうして {日本語|にほんご}を {勉強|べんきょう}しますか。<br>B: {日本|にほん}が {好|す}きです＿＿＿。", a: "から", romaji: "kara", pt: "Porque gosto do Japão", en: "Because I like Japan" },
-          { q: "A: どうして {昨日|きのう}は {来|き}ませんでしたか。<br>B: {用事|ようじ}が ありました＿＿＿。", a: "から", romaji: "kara", pt: "Porque tinha um compromisso", en: "Because I had something to do" }
+          { q: "A: どうして {昨日|きのう}^は {来|き}ませんでしたか。<br>B: {用事|ようじ}が ありました＿＿＿。", a: "から", romaji: "kara", pt: "Porque tinha um compromisso", en: "Because I had something to do" }
         ]
       },
       {
@@ -181,7 +181,7 @@ window.lessonData = {
       {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (が・を・から・どうして・ぜんぜん)", desc_en: "1. Fill in the blank with the right word. (が・を・から・どうして・ぜんぜん)",
         questions: [
-          { q: "わたしは カラオケ（　　）{上手|じょうず}じゃ ありません。", a: "が", romaji: "ga", pt: "Habilidade: が", en: "Skill: が" },
+          { q: "わたし^は カラオケ（　　）{上手|じょうず}じゃ ありません。", a: "が", romaji: "ga", pt: "Habilidade: が", en: "Skill: が" },
           { q: "（　　）{勉強|べんきょう}しますか。…{好|す}きですから。", a: "どうして", romaji: "doushite", pt: "Por quê", en: "Why" },
           { q: "{寒|さむ}いです（　　）、ジュースを {飲|の}みません。", a: "から", romaji: "kara", pt: "Razão antes de から", en: "The reason comes before から" },
           { q: "{漢字|かんじ}が （　　）わかりません。", a: "ぜんぜん", romaji: "zenzen", pt: "Não entendo nada", en: "I do not understand at all" }
@@ -191,7 +191,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): どうして?", desc_en: "2. Reading: why?",
         questions: [
           {
-            q: `<div class="reading-box">マリアさんは {日本|にほん}の {料理|りょうり}が {好|す}きです。{毎週|まいしゅう} {日曜日|にちようび}に {料理|りょうり}を します。でも、{漢字|かんじ}が ぜんぜん わかりませんから、{毎日|まいにち} {勉強|べんきょう}します。</div>{質問|しつもん}: どうして マリアさんは {毎日|まいにち} {勉強|べんきょう}しますか。<br>➔ ＿＿＿＿＿＿＿＿＿＿＿＿＿から です。`,
+            q: `<div class="reading-box">マリアさん^は {日本|にほん}の {料理|りょうり}が {好|す}きです。{毎週|まいしゅう} {日曜日|にちようび}に {料理|りょうり}を します。でも、{漢字|かんじ}が ぜんぜん わかりませんから、{毎日|まいにち} {勉強|べんきょう}します。</div>{質問|しつもん}: どうして マリアさん^は {毎日|まいにち} {勉強|べんきょう}しますか。<br>➔ ＿＿＿＿＿＿＿＿＿＿＿＿＿から です。`,
             a: "{漢字|かんじ}が ぜんぜん わかりません",
             romaji: "kanji ga zenzen wakarimasen",
             pt: "Porque não entende nada de kanji.", en: "Because she does not understand kanji at all."

@@ -31,9 +31,9 @@ window.lessonData = {
       { jp: "{図書館|としょかん}", romaji: "toshokan", pt: "Biblioteca", en: "Library" },
       { jp: "{公園|こうえん}", romaji: "kouen", pt: "Parque", en: "Park" },
       { jp: "{何|なに}", romaji: "nani", pt: "O que (antes de を, が, も)", en: "What (before を, が, も)" },
-      { jp: "いっしょに", romaji: "isshoni", pt: "Juntos, junto", en: "Together" },
+      { jp: "いっしょに", romaji: "issho ni", pt: "Juntos, junto", en: "Together" },
       { jp: "ちょっと", romaji: "chotto", pt: "Um pouco; (recusa suave) é que…", en: "A little; (soft refusal) it is just that…" },
-      { jp: "いいですね", romaji: "ii desune", pt: "Que bom!, boa ideia!", en: "Sounds good!, nice!" }
+      { jp: "いいですね", romaji: "ii desu ne", pt: "Que bom!, boa ideia!", en: "Sounds good!, nice!" }
     ]
   },
   gramatica: {
@@ -207,7 +207,7 @@ window.lessonData = {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (を・で・へ・に・なに・なん)", desc_en: "1. Fill in the blank with the right word. (を・で・へ・に・なに・なん)",
         questions: [
           { q: "（　　）を {食|た}べますか。…{魚|さかな}を {食|た}べます。", a: "なに", romaji: "nani", pt: "「{何|なに}」 antes de を", en: "「{何|なに}」 before を" },
-          { q: "これは （　　）ですか。…{辞書|じしょ}です。", a: "なん", romaji: "nan", pt: "「{何|なん}」 antes de です", en: "「{何|なん}」 before です" },
+          { q: "これ^は （　　）ですか。…{辞書|じしょ}です。", a: "なん", romaji: "nan", pt: "「{何|なん}」 antes de です", en: "「{何|なん}」 before です" },
           { q: "{食堂|しょくどう}（　　）ごはんを {食|た}べます。", a: "で", romaji: "de", pt: "Lugar da ação", en: "Place of the action" },
           { q: "{友達|ともだち}と {映画|えいが}（　　）{見|み}ました。", a: "を", romaji: "o", pt: "Objeto direto", en: "Direct object" }
         ]
@@ -216,7 +216,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): {日曜日|にちようび}", desc_en: "2. Reading: Sunday",
         questions: [
           {
-            q: `<div class="reading-box">{日曜日|にちようび}に {友達|ともだち}と {公園|こうえん}で サッカーを します。それから、{食堂|しょくどう}で {昼|ひる}ごはんを {食|た}べます。{晩|ばん}ごはんの あとで、{一人|ひとり}で {映画|えいが}を {見|み}ます。</div>{質問|しつもん}: {昼|ひる}ごはんは どこで {食|た}べますか。<br>➔ ＿＿＿＿＿＿＿＿で {食|た}べます。`,
+            q: `<div class="reading-box">{日曜日|にちようび}に {友達|ともだち}と {公園|こうえん}で サッカーを します。それから、{食堂|しょくどう}で {昼|ひる}ごはんを {食|た}べます。{晩|ばん}ごはんの あとで、{一人|ひとり}で {映画|えいが}を {見|み}ます。</div>{質問|しつもん}: {昼|ひる}ごはん^は どこで {食|た}べますか。<br>➔ ＿＿＿＿＿＿＿＿で {食|た}べます。`,
             a: "{食堂|しょくどう}",
             romaji: "shokudou",
             pt: "No refeitório.", en: "At the cafeteria."

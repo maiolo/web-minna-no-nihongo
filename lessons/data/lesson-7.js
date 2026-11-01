@@ -5,7 +5,7 @@ window.lessonData = {
     items: [
       { jp: "あげます", romaji: "agemasu", pt: "Dar (a outra pessoa)", en: "To give (to someone)" },
       { jp: "もらいます", romaji: "moraimasu", pt: "Receber", en: "To receive" },
-      { jp: "{貸|か}します", romaji: "ka shimasu", pt: "Emprestar", en: "To lend" },
+      { jp: "{貸|か}します", romaji: "kashimasu", pt: "Emprestar", en: "To lend" },
       { jp: "{借|か}ります", romaji: "karimasu", pt: "Pegar emprestado", en: "To borrow" },
       { jp: "{教|おし}えます", romaji: "oshiemasu", pt: "Ensinar", en: "To teach" },
       { jp: "{習|なら}います", romaji: "naraimasu", pt: "Aprender (com alguém)", en: "To learn (from someone)" },
@@ -42,7 +42,7 @@ window.lessonData = {
         pat: "N (instrumento／língua) で V ます",
         short: "com o quê, em que língua", short_en: "with what, in what language",
         mean: "<strong>で</strong> também marca o instrumento (com o quê se faz) e a língua em que se faz: “como <em>com</em> hashi”, “escrevo <em>em</em> japonês”.", mean_en: "<strong>で</strong> also marks the instrument (what you do it with) and the language it is done in: “I eat <em>with</em> chopsticks”, “I write <em>in</em> Japanese”.",
-        rule: "Pergunta do instrumento: {何|なん}で V ますか。 Pergunta da língua: {何語|なにご}で V ますか。", rule_en: "Question about the instrument: {何|なん}で V ますか。 Question about the language: {何語|なにご}で V ますか。",
+        rule: "Pergunta do instrumento: {何|なに}で V ますか（なにで = com quê; なんで = por quê）。 Pergunta da língua: {何語|なにご}で V ますか。", rule_en: "Question about the instrument: {何|なに}で V ますか (なにで = with what; なんで = why). Question about the language: {何語|なにご}で V ますか。",
         ex: [
           { jp: "はしで ごはんを {食|た}べます。", romaji: "hashi de gohan o tabemasu.", pt: "Como com hashi.", en: "I eat with chopsticks." },
           { jp: "パソコンで レポートを {書|か}きました。", romaji: "Pasokon de repooto o kakimashita.", pt: "Escrevi o relatório no computador.", en: "I wrote the report on the computer." },
@@ -57,12 +57,14 @@ window.lessonData = {
           note: "É a mesma partícula. Se o substantivo é um lugar, é “onde”; se é uma ferramenta ou língua, é “com o quê” ou “em que língua”.", note_en: "It is the same particle. If the noun is a place, it means “where”; if it is a tool or language, it means “with what” or “in what language”."
         },
         trap: [
-          "Não use と para instrumento: “com hashi” é はしで, e não はしと. と é só para pessoas.",
-          "“Em japonês” é {日本語|にほんご}で, e não {日本語|にほんご}に."
+          "Não use と para instrumento: “com hashi” é はしで, e não はしと. O と de companhia vale para pessoas ({友達|ともだち}と); para listar coisas usa-se と também (lição 10).",
+          "“Em japonês” é {日本語|にほんご}で, e não {日本語|にほんご}に.",
+          "{何|なに}で = なにで pergunta o instrumento; {何|なん}で é “por quê”."
         ],
         trap_en: [
-          "Do not use と for an instrument: “with chopsticks” is はしで, not はしと. と is only for people.",
-          "“In Japanese” is {日本語|にほんご}で, not {日本語|にほんご}に."
+          "Do not use と for an instrument: “with chopsticks” is はしで, not はしと. The と of company is for people ({友達|ともだち}と); と is also used to list things (lesson 10).",
+          "“In Japanese” is {日本語|にほんご}で, not {日本語|にほんご}に.",
+          "{何|なに}で = なにで asks about the instrument; {何|なん}で means “why”."
         ]
       },
       {
@@ -75,7 +77,7 @@ window.lessonData = {
         form: [
           { label: "Do lado de quem dá", label_en: "From the giver's side", text: "A coisa vai para o outro.", text_en: "The thing goes to the other person.", ex: [
             { jp: "あげます", romaji: "agemasu", pt: "dar", en: "to give" },
-            { jp: "{貸|か}します", romaji: "ka shimasu", pt: "emprestar", en: "to lend" },
+            { jp: "{貸|か}します", romaji: "kashimasu", pt: "emprestar", en: "to lend" },
             { jp: "{教|おし}えます", romaji: "oshiemasu", pt: "ensinar", en: "to teach" }
           ] },
           { label: "Do lado de quem recebe", label_en: "From the receiver's side", text: "A coisa vem do outro.", text_en: "The thing comes from the other person.", ex: [
@@ -86,7 +88,7 @@ window.lessonData = {
         ],
         ex: [
           { jp: "わたし^は マリアさんに {花|はな}を あげました。", romaji: "Watashi wa Maria-san ni hana o agemashita.", pt: "Eu dei flores à Maria.", en: "I gave flowers to Maria." },
-          { jp: "わたし^は {友達|ともだち}に {本|ほん}を {貸|か}しました。", romaji: "Watashi wa tomodachi ni hon o ka shimashita.", pt: "Emprestei um livro a um amigo.", en: "I lent a book to a friend." },
+          { jp: "わたし^は {友達|ともだち}に {本|ほん}を {貸|か}しました。", romaji: "Watashi wa tomodachi ni hon o kashimashita.", pt: "Emprestei um livro a um amigo.", en: "I lent a book to a friend." },
           { jp: "{母|はは}に プレゼントを もらいました。", romaji: "Haha ni purezento o moraimashita.", pt: "Ganhei um presente da minha mãe.", en: "I received a present from my mother." },
           { jp: "{田中|たなか}さん^は わたしに {日本語|にほんご}を {教|おし}えます。", romaji: "Tanaka-san wa watashi ni nihongo o oshiemasu.", pt: "O Sr. Tanaka me ensina japonês.", en: "Mr. Tanaka teaches me Japanese." },
           { jp: "だれに {手紙|てがみ}を {送|おく}りましたか。<br>…{父|ちち}に {送|おく}りました。", romaji: "Dare ni tegami o okurimashita ka. ...Chichi ni okurimashita.", pt: "Para quem você enviou a carta? ...Enviei para o meu pai.", en: "Who did you send the letter to? ...I sent it to my father." }
@@ -99,11 +101,11 @@ window.lessonData = {
           note: "É o mesmo acontecimento, visto de dois lados. Escolha o verbo conforme o sujeito da frase.", note_en: "It is the same event, seen from two sides. Choose the verb according to the subject of the sentence."
         },
         trap: [
-          "Não use あげます quando alguém dá algo <em>a você</em>: para isso há outro verbo (くれます, numa lição posterior). Aqui, quem recebe é o sujeito e usa もらいます.",
+          "Não use あげます quando alguém dá algo <em>a você</em>: para isso há outro verbo (em japonês usa-se くれます, que não é ensinado nestas lições). Aqui, quem recebe é o sujeito e usa もらいます.",
           "Em もらいます, quem dá leva に (ou から). Não use を para a pessoa: errado {友達|ともだち}を {本|ほん}を もらいました。"
         ],
         trap_en: [
-          "Do not use あげます when someone gives something <em>to you</em>: there is another verb for that (くれます, in a later lesson). Here, the receiver is the subject and uses もらいます.",
+          "Do not use あげます when someone gives something <em>to you</em>: there is another verb for that (Japanese uses くれます, which is not taught in these lessons). Here, the receiver is the subject and uses もらいます.",
           "With もらいます, the giver takes に (or から). Do not use を for the person: wrong {友達|ともだち}を {本|ほん}を もらいました。"
         ]
       },
@@ -144,17 +146,17 @@ window.lessonData = {
         questions: [
           { q: "はし（　　）ごはんを {食|た}べます。", a: "で", romaji: "de", pt: "Instrumento", en: "Instrument" },
           { q: "{友達|ともだち}（　　）{花|はな}を あげました。", a: "に", romaji: "ni", pt: "Quem recebe", en: "The receiver" },
-          { q: "わたしは {母|はは}に プレゼント（　　）もらいました。", a: "を", romaji: "o", pt: "O que recebeu", en: "What was received" },
+          { q: "わたし^は {母|はは}に プレゼント（　　）もらいました。", a: "を", romaji: "o", pt: "O que recebeu", en: "What was received" },
           { q: "{日本語|にほんご}（　　）メールを {書|か}きます。", a: "で", romaji: "de", pt: "Língua", en: "Language" }
         ]
       },
       {
         desc: "2. あげます ou もらいます?", desc_en: "2. あげます or もらいます?",
         questions: [
-          { q: "わたしは {田中|たなか}さんに {花|はな}を ＿＿＿＿＿＿。(dei)", q_en: "わたしは {田中|たなか}さんに {花|はな}を ＿＿＿＿＿＿。(I gave)", a: "あげました", romaji: "agemashita", pt: "Dei", en: "I gave" },
-          { q: "わたしは {母|はは}に プレゼントを ＿＿＿＿＿＿。(recebi)", q_en: "わたしは {母|はは}に プレゼントを ＿＿＿＿＿＿。(I received)", a: "もらいました", romaji: "moraimashita", pt: "Recebi", en: "I received" },
-          { q: "わたしは {友達|ともだち}に {本|ほん}を ＿＿＿＿＿＿。(emprestei)", q_en: "わたしは {友達|ともだち}に {本|ほん}を ＿＿＿＿＿＿。(I lent)", a: "{貸|か}しました", romaji: "kashimashita", pt: "Emprestei", en: "I lent" },
-          { q: "わたしは {先生|せんせい}に {日本語|にほんご}を ＿＿＿＿＿＿。(aprendi)", q_en: "わたしは {先生|せんせい}に {日本語|にほんご}を ＿＿＿＿＿＿。(I learned)", a: "{習|なら}いました", romaji: "naraimashita", pt: "Aprendi", en: "I learned" }
+          { q: "わたし^は {田中|たなか}さんに {花|はな}を ＿＿＿＿＿＿。(dei)", q_en: "わたし^は {田中|たなか}さんに {花|はな}を ＿＿＿＿＿＿。(I gave)", a: "あげました", romaji: "agemashita", pt: "Dei", en: "I gave" },
+          { q: "わたし^は {母|はは}に プレゼントを ＿＿＿＿＿＿。(recebi)", q_en: "わたし^は {母|はは}に プレゼントを ＿＿＿＿＿＿。(I received)", a: "もらいました", romaji: "moraimashita", pt: "Recebi", en: "I received" },
+          { q: "わたし^は {友達|ともだち}に {本|ほん}を ＿＿＿＿＿＿。(emprestei)", q_en: "わたし^は {友達|ともだち}に {本|ほん}を ＿＿＿＿＿＿。(I lent)", a: "{貸|か}しました", romaji: "kashimashita", pt: "Emprestei", en: "I lent" },
+          { q: "わたし^は {先生|せんせい}に {日本語|にほんご}を ＿＿＿＿＿＿。(aprendi)", q_en: "わたし^は {先生|せんせい}に {日本語|にほんご}を ＿＿＿＿＿＿。(I learned)", a: "{習|なら}いました", romaji: "naraimashita", pt: "Aprendi", en: "I learned" }
         ]
       }
     ]
@@ -165,7 +167,7 @@ window.lessonData = {
       {
         desc: "1. Responda: já fez? (sim ou ainda não)", desc_en: "1. Answer: have you done it already? (yes or not yet)",
         questions: [
-          { q: "A: もう ごはんを {食|た}べましたか。<br>B: はい、＿＿＿＿＿＿＿＿。", a: "もう {食|た}べました", romaji: "mou tabemashita", pt: "Sim, já comi", en: "Yes, I have already eaten" },
+          { q: "A: もう ごはんを {食|た}べましたか。<br>B: はい、＿＿＿＿＿＿＿＿。", a: "もう {食|た}べました／{食|た}べました", romaji: "mou tabemashita / tabemashita", pt: "Sim, já comi", en: "Yes, I have already eaten" },
           { q: "A: もう {手紙|てがみ}を {書|か}きましたか。<br>B: いいえ、＿＿＿＿＿＿＿＿。", a: "まだです", romaji: "mada desu", pt: "Não, ainda não", en: "No, not yet" },
           { q: "A: もう {荷物|にもつ}を {送|おく}りましたか。<br>B: いいえ、＿＿＿＿＿＿＿＿。", a: "まだです", romaji: "mada desu", pt: "Não, ainda não", en: "No, not yet" }
         ]
@@ -188,7 +190,7 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): たんじょうび", desc_en: "2. Reading: the birthday",
         questions: [
           {
-            q: `<div class="reading-box">きのう、{友達|ともだち}の マリアさんの {誕生日|たんじょうび}でした。わたしは マリアさんに {花|はな}を あげました。それから、いっしょに ケーキを {食|た}べました。マリアさんは {母|はは}にも プレゼントを もらいました。</div>{質問|しつもん}: わたしは マリアさんに {何|なに}を あげましたか。<br>➔ ＿＿＿＿＿＿を あげました。`,
+            q: `<div class="reading-box">きのう、{友達|ともだち}の マリアさんの {誕生日|たんじょうび}でした。わたし^は マリアさんに {花|はな}を あげました。それから、いっしょに ケーキを {食|た}べました。マリアさん^は {母|はは}にも プレゼントを もらいました。</div>{質問|しつもん}: わたし^は マリアさんに {何|なに}を あげましたか。<br>➔ ＿＿＿＿＿＿を あげました。`,
             a: "{花|はな}",
             romaji: "hana",
             pt: "Flores.", en: "Flowers."

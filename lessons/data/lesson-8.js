@@ -84,7 +84,7 @@ window.lessonData = {
       {
         id: "na-keiyoushi",
         title: "な{形容詞|けいようし} (adjetivos em な)", title_en: "な{形容詞|けいようし} (な-adjectives)",
-        pat: "N は Adj-な です／じゃ ありません／でした／じゃ ありませんでした",
+        pat: "N は Adj です／じゃ ありません／でした／じゃ ありませんでした",
         short: "adjetivos que se comportam como substantivos", short_en: "adjectives that behave like nouns",
         mean: "Adjetivos como きれい, {元気|げんき}, {静|しず}か, {便利|べんり}. Na frase, comportam-se como substantivos: usam です e <strong>じゃ ありません</strong>.", mean_en: "Adjectives like きれい, {元気|げんき}, {静|しず}か, {便利|べんり}. In the sentence they behave like nouns: they use です and <strong>じゃ ありません</strong>.",
         rule: "O な só aparece quando o adjetivo vem antes de um substantivo (próximo cartão). No fim da frase, não há な.", rule_en: "The な only appears when the adjective comes before a noun (next card). At the end of a sentence there is no な.",
@@ -120,14 +120,14 @@ window.lessonData = {
       {
         id: "keiyoushi-meishi",
         title: "Adj ＋ N (adjetivo antes do substantivo)", title_en: "Adj ＋ N (adjective before a noun)",
-        pat: "Adj-い ＋ N<br>Adj-な な ＋ N",
+        pat: "Adj-い ＋ N<br>Adj-な ＋ な ＋ N",
         short: "“uma casa nova”, “uma cidade bonita”", short_en: "“a new house”, “a pretty town”",
         mean: "O adjetivo vem antes do substantivo e o descreve. Com い-adjetivo, basta colocar o adjetivo; com な-adjetivo, acrescenta-se <strong>な</strong>.", mean_en: "The adjective comes before the noun and describes it. With an い-adjective, just place the adjective; with a な-adjective, add <strong>な</strong>.",
         rule: "Para perguntar “que tipo de N?”, use <strong>どんな N</strong>.", rule_en: "To ask “what kind of N?”, use <strong>どんな N</strong>.",
         ex: [
           { jp: "{新|あたら}しい {車|くるま}です。", romaji: "Atarashii kuruma desu.", pt: "É um carro novo.", en: "It is a new car." },
-          { jp: "{有名|ゆうめい}な {先生|せんせい}です。", romaji: "Yuumeina sensei desu.", pt: "É um professor famoso.", en: "He is a famous teacher." },
-          { jp: "きれいな {町|まち}ですね。", romaji: "Kireina machi desune.", pt: "Que cidade bonita!", en: "What a pretty town!" },
+          { jp: "{有名|ゆうめい}な {先生|せんせい}です。", romaji: "Yuumei na sensei desu.", pt: "É um professor famoso.", en: "He is a famous teacher." },
+          { jp: "きれいな {町|まち}ですね。", romaji: "Kirei na machi desu ne.", pt: "Que cidade bonita!", en: "What a pretty town!" },
           { jp: "{富士山|ふじさん}^は どんな {山|やま}ですか。<br>…{高|たか}い {山|やま}です。", romaji: "Fujisan wa donna yama desu ka. ...Takai yama desu.", pt: "Que tipo de montanha é o Monte Fuji? ...É uma montanha alta.", en: "What kind of mountain is Mt. Fuji? ...It is a tall mountain." }
         ],
         contrast: {
@@ -227,9 +227,9 @@ window.lessonData = {
       {
         desc: "1. (　　) に {正|ただ}しい ことばを {入|い}れなさい。 (とても・あまり・が・どう・どんな)", desc_en: "1. Fill in the blank with the right word. (とても・あまり・が・どう・どんな)",
         questions: [
-          { q: "この ラーメンは （　　）おいしいです。", a: "とても", romaji: "totemo", pt: "Muito (afirmativa)", en: "Very (affirmative)" },
-          { q: "この {町|まち}は （　　）にぎやかじゃ ありません。", a: "あまり", romaji: "amari", pt: "Não muito (negativa)", en: "Not very (negative)" },
-          { q: "{日本|にほん}の {生活|せいかつ}は （　　）ですか。…{楽|たの}しいです。", a: "どう", romaji: "dou", pt: "Como é?", en: "How is it?" },
+          { q: "この ラーメン^は （　　）おいしいです。", a: "とても", romaji: "totemo", pt: "Muito (afirmativa)", en: "Very (affirmative)" },
+          { q: "この {町|まち}^は （　　）にぎやかじゃ ありません。", a: "あまり", romaji: "amari", pt: "Não muito (negativa)", en: "Not very (negative)" },
+          { q: "{日本|にほん}の {生活|せいかつ}^は （　　）ですか。…{楽|たの}しいです。", a: "どう", romaji: "dou", pt: "Como é?", en: "How is it?" },
           { q: "{安|やす}いです（　　）、おいしく ないです。", a: "が", romaji: "ga", pt: "Mas", en: "But" }
         ]
       },
@@ -237,9 +237,9 @@ window.lessonData = {
         desc: "2. {読|よ}み{物|もの} (Leitura): {新|あたら}しい {町|まち}", desc_en: "2. Reading: the new town",
         questions: [
           {
-            q: `<div class="reading-box">わたしは {先月|せんげつ}、{新|あたら}しい {町|まち}に {来|き}ました。この {町|まち}は あまり {大|おお}きく ないですが、とても きれいです。そして、{静|しず}かです。{町|まち}の ラーメンの {店|みせ}は {安|やす}いですが、おいしいです。</div>{質問|しつもん}: この {町|まち}は にぎやかですか。<br>➔ いいえ、＿＿＿＿＿＿＿＿＿＿。`,
-            a: "にぎやかじゃ ありません",
-            romaji: "nigiyaka ja arimasen",
+            q: `<div class="reading-box">わたし^は {先月|せんげつ}、{新|あたら}しい {町|まち}に {来|き}ました。この {町|まち}^は あまり {大|おお}きく ないですが、とても きれいです。そして、{静|しず}かです。{町|まち}の ラーメンの {店|みせ}^は {安|やす}いですが、おいしいです。</div>{質問|しつもん}: この {町|まち}^は にぎやかですか。<br>➔ いいえ、＿＿＿＿＿＿＿＿＿＿。`,
+            a: "にぎやかじゃ ありません／{静|しず}かです",
+            romaji: "nigiyaka ja arimasen / shizuka desu",
             pt: "Não, não é animada (é calma).", en: "No, it is not lively (it is quiet)."
           }
         ]
