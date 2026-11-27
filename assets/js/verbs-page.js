@@ -30,6 +30,15 @@
 
     var state = { query: "", group: "all" };
 
+    // Onde cada forma é ensinada (jlpt/data/n5-links.js): [lição, ponto].
+    var FORM_LINKS = (window.JLPT_N5_LINKS && window.JLPT_N5_LINKS.forms) || {};
+    function lessonLink(formId, cls) {
+        var pair = FORM_LINKS[formId];
+        var lesson = pair && (window.LESSONS || []).filter(function (l) { return l.number === pair[0]; })[0];
+        if (!lesson) return "";
+        return '<a class="' + cls + '" href="../lessons/' + lesson.file + "#gramatica/" + pair[1] + '">' + T("home.lessonN", { n: lesson.number }) + "</a>";
+    }
+
     function esc(s) {
         return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
@@ -127,7 +136,7 @@
                     '</span><span class="form-desc">' + f.pt + '</span></div><div class="form-value">' + T("verbs.notUsed") + '</div></li>';
             }
             return '<li class="form-row"><div class="form-label"><span class="form-name" lang="ja">' + f.jp +
-                '</span><span class="form-desc">' + f.pt + "</span></div>" +
+                '</span><span class="form-desc">' + f.pt + " " + lessonLink(f.id, "form-lesson") + "</span></div>" +
                 '<div class="form-value"><span class="form-jp" lang="ja">' + N.toRuby(out) + "</span>" +
                 '<span class="romaji">' + romajiOf(out) + "</span></div>" +
                 speakButton(out) + "</li>";

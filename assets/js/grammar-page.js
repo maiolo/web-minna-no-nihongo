@@ -2,8 +2,9 @@
  * Página de gramática do JLPT.
  *
  * Lista os pontos de jlpt/data/n5-grammar.js (window.JLPT_N5_GRAMMAR). Cada ponto é um
- * <details> independente; o corpo é montado na primeira abertura. O link "Ver na lição"
- * só aparece quando o ponto tem `lesson` e a lição existe em window.LESSONS.
+ * <details> independente; o corpo é montado na primeira abertura. A etiqueta "Lição N" e o
+ * link "Ver na lição" vêm de jlpt/data/n5-links.js (window.JLPT_N5_LINKS) e só aparecem
+ * quando a lição existe em window.LESSONS; o link leva direto ao ponto (#gramatica/ponto).
  * Dá para abrir direto um ponto com #id (ex.: n5-grammar.html#te-kara).
  */
 (function () {
@@ -47,9 +48,19 @@
         return '<button type="button" class="speak-btn" data-speak="' + esc(text) + '" aria-label="' + T("kanji.listenSentence") + '" title="' + T("lesson.listen") + '">' + SPEAKER + "</button>";
     }
 
-    function lessonOf(p) {
-        if (!p.lesson) return null;
-        return lessons.filter(function (l) { return l.number === p.lesson; })[0] || null;
+    var LINKS = (window.JLPT_N5_LINKS && window.JLPT_N5_LINKS.grammar) || {};
+
+    // Lições que tratam do ponto (uma por lição, na ordem do arquivo de ligações).
+    function lessonsOf(p) {
+        var seen = {};
+        return (LINKS[p.id] || []).map(function (pair) {
+            var lesson = lessons.filter(function (l) { return l.number === pair[0]; })[0];
+            return lesson ? { lesson: lesson, point: pair[1] } : null;
+        }).filter(function (x) {
+            if (!x || seen[x.lesson.number]) return false;
+            seen[x.lesson.number] = true;
+            return true;
+        });
     }
 
     function searchText(p) {
@@ -70,7 +81,9 @@
     }
 
     function renderItem(p) {
-        var tag = lessonOf(p) ? '<span class="group-badge g2">' + T("home.lessonN", { n: p.lesson }) + "</span>" : "";
+        var tag = lessonsOf(p).map(function (x) {
+            return '<span class="group-badge g2">' + T("home.lessonN", { n: x.lesson.number }) + "</span>";
+        }).join("");
         return '<details class="verb-item gram-item" id="' + p.id + '" data-id="' + p.id + '">' +
             "<summary>" +
                 '<span class="gram-head"><span class="gram-pat" lang="ja">' + ruby(p.pat) + "</span>" +
@@ -81,7 +94,6 @@
     }
 
     function renderBody(p) {
-        var lesson = lessonOf(p);
         var examples = p.ex.map(function (e) {
             return '<li class="example"><div class="jp-row"><div class="jp-example" lang="ja">' + N.toRuby(e[0]) + "</div>" + speakButton(e[0]) + "</div>" +
                 '<div class="romaji">' + N.sentenceRomaji(e[0]) + "</div>" +
@@ -91,7 +103,9 @@
             '<p class="gram-rule">' + ruby(esc(p.rule)) + "</p>" +
             '<ul class="example-list">' + examples + "</ul>" +
             (p.note ? '<div class="kanji-note">' + ruby(esc(p.note)) + "</div>" : "") +
-            (lesson ? '<a class="lesson-link" href="../lessons/' + lesson.file + '#gramatica">' + T("gram.seeLesson", { n: lesson.number }) + "</a>" : "");
+            lessonsOf(p).map(function (x) {
+                return '<a class="lesson-link" href="../lessons/' + x.lesson.file + "#gramatica/" + x.point + '">' + T("gram.seeLesson", { n: x.lesson.number }) + "</a>";
+            }).join(" ");
     }
 
     function fill(item) {

@@ -112,9 +112,22 @@
         });
     }
 
+    // O hash é "secao" ou "secao/ponto" (ex.: #gramatica/te-kudasai, vindo dos cartões do JLPT).
+    function hashParts() {
+        var parts = decodeURIComponent(location.hash.replace(/^#/, "")).split("/");
+        return { section: parts[0], point: parts[1] || "" };
+    }
+
     function sectionFromHash() {
-        var id = decodeURIComponent(location.hash.replace(/^#/, ""));
+        var id = hashParts().section;
         return sections.indexOf(id) !== -1 ? id : null;
+    }
+
+    // Leva ao cartão do ponto pedido no hash (depois que a seção está visível).
+    function scrollToHashPoint() {
+        var point = hashParts().point;
+        var el = point && document.getElementById("gp-" + point);
+        if (el) el.scrollIntoView({ block: "start" });
     }
 
     // Mostra a seção. "scroll" leva a página ao topo (troca feita pela pessoa).
@@ -145,7 +158,7 @@
     // Troca de aba pedida pela pessoa: grava a URL (o evento hashchange ativa a aba).
     function go(id) {
         if (id === currentTab) return;
-        if (decodeURIComponent(location.hash.replace(/^#/, "")) !== id) location.hash = id;
+        if (hashParts().section !== id || hashParts().point) location.hash = id;
         else activate(id, true);
     }
 
@@ -373,6 +386,28 @@
             '</div><div class="romaji">' + l.romaji + "</div></div>";
     }
 
+    // "No JLPT N5": cartões de gramática e formas verbais ligados a este ponto (jlpt/data/n5-links.js).
+    function jlptLinks(p) {
+        var links = window.JLPT_N5_LINKS;
+        if (!links) return "";
+        var lang = window.I18n ? window.I18n.lang() : "pt";
+        var rb = function (t) { return String(t).replace(/\^/g, "").replace(/\{([^|}]+)\|([^}]+)\}/g, "<ruby>$1<rt>$2</rt></ruby>"); };
+        var chips = [];
+        var cards = window.JLPT_N5_GRAMMAR ? (window.I18n ? window.I18n.localize(window.JLPT_N5_GRAMMAR, lang) : window.JLPT_N5_GRAMMAR) : [];
+        cards.forEach(function (c) {
+            var hit = (links.grammar[c.id] || []).some(function (pair) { return pair[0] === lessonNumber && pair[1] === p.id; });
+            if (hit) chips.push('<a class="jlpt-chip" href="../jlpt/n5-grammar.html#' + c.id + '"><span class="jlpt-chip-k">' + T("gp.jlptCard") + "</span> " + rb(c.pat) + "</a>");
+        });
+        var forms = window.Verbs ? (window.I18n ? window.I18n.localize(window.Verbs.FORMS, lang) : window.Verbs.FORMS) : [];
+        forms.forEach(function (f) {
+            var pair = links.forms[f.id];
+            if (pair && pair[0] === lessonNumber && pair[1] === p.id) {
+                chips.push('<a class="jlpt-chip" href="../jlpt/n5-verbs.html"><span class="jlpt-chip-k">' + T("gp.jlptForm") + '</span> <span lang="ja">' + f.jp + "</span></a>");
+            }
+        });
+        return chips.length ? '<div class="gp-jlpt"><strong>' + T("gp.jlpt") + "</strong> " + chips.join(" ") + "</div>" : "";
+    }
+
     function renderPoint(p, n) {
         var html = '<div class="card gp" id="gp-' + p.id + '">' +
             '<h3 class="card-header"><span class="gp-num" aria-hidden="true">' + n + '</span><span class="gp-title">' + p.title + "</span></h3>" +
@@ -400,7 +435,7 @@
                 asList(p.trap).map(function (t) { return "<li>" + t + "</li>"; }).join("") + "</ul></div>";
         }
         if (p.note) html += '<div class="gp-note"><strong>💡 ' + T("gp.tip") + '</strong> ' + p.note + "</div>";
-        return html + "</div>";
+        return html + jlptLinks(p) + "</div>";
     }
 
     function renderGrammarPoints(id) {
@@ -731,6 +766,7 @@
         window.addEventListener("hashchange", function () {
             var id = sectionFromHash();
             if (id && id !== currentTab) activate(id, true);
+            scrollToHashPoint();
         });
 
         var container = document.getElementById("main-container");
@@ -798,6 +834,7 @@
         addProgressUi();
         bindEvents();
         activate(sectionFromHash() || sections[0], false);
+        scrollToHashPoint();
     }
 
     init();

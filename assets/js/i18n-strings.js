@@ -185,6 +185,9 @@
         "gram.cat.verbos": "Formas verbais",
         "gram.cat.adjetivos": "Adjetivos",
         "gram.seeLesson": "Ver na lição {n} →",
+        "gp.jlpt": "No JLPT N5:",
+        "gp.jlptCard": "Gramática",
+        "gp.jlptForm": "Forma verbal",
         "gram.count": "{n} pontos",
         "gram.countOf": "{n} de {total} pontos",
 
@@ -556,6 +559,9 @@
         "gram.cat.verbos": "Verb forms",
         "gram.cat.adjetivos": "Adjectives",
         "gram.seeLesson": "See in lesson {n} →",
+        "gp.jlpt": "In JLPT N5:",
+        "gp.jlptCard": "Grammar",
+        "gp.jlptForm": "Verb form",
         "gram.count": "{n} points",
         "gram.countOf": "{n} of {total} points",
 

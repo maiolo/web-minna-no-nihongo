@@ -88,6 +88,7 @@ jlpt/
   data/n5-verbs.js          Dados dos verbos
   n5-grammar.html           Gramática do N5
   data/n5-grammar.js        Dados dos cartões de gramática
+  data/n5-links.js          Ligações lição ↔ cartão de gramática / forma verbal (fonte única)
   n5-practice.html          Treino do N5
   data/n5-questions.js      Questões de gramática (completar a frase)
   data/n5-exam-vocab.js     Questões da prova no formato JLPT (vocabulário), só em japonês
@@ -263,7 +264,7 @@ Um formato só, em lições, kanji, verbos, gramática e simulado: **`{漢字|�
 
 **Verbo novo** em `jlpt/data/n5-verbs.js`: `{ jp: "{書|か}く", g: 1, pt: "escrever", ex: [frase, tradução] }`. Informe sempre o grupo `g` (帰る, 入る, 走る… são do grupo 1) e, se alguma forma não se usa (ある não tem 〜たい), `skip: ["tai"]`. As formas são geradas; `node --test tests/*.test.js` valida o verbo, o furigana da frase e as 12 formas.
 
-**Ponto de gramática novo** em `jlpt/data/n5-grammar.js` (campos explicados no topo do arquivo). Todo kanji, inclusive nos textos explicativos, vai em `{漢字|かんじ}`. Se a lição do site explica o ponto, informe `lesson: N`; o teste confere que a lição existe e trata do tema (acrescente a palavra-chave em `tests/grammar.test.js`).
+**Ponto de gramática novo** em `jlpt/data/n5-grammar.js` (campos explicados no topo do arquivo). Todo kanji, inclusive nos textos explicativos, vai em `{漢字|かんじ}`. Se uma lição do site explica o ponto, acrescente `"id-do-cartao": [[lição, "id-do-ponto-na-lição"]]` em `jlpt/data/n5-links.js`; o cartão ganha a etiqueta «Lição N» e o link «Ver na lição» (abre direto no ponto, `#gramatica/ponto`), e o ponto da lição ganha o chip «No JLPT N5». `tests/links.test.js` confere que todos os ids existem nos dois lados. Forma verbal nova em `verbs.js` precisa de entrada em `forms`.
 
 **Questão de gramática nova** em `jlpt/data/n5-questions.js` (formato no topo do arquivo): informe `ref` (cartão que explica o ponto), a frase com ＿＿, a certa e **três erradas que sejam realmente erradas naquela frase**, e a explicação. O `id` é guardado no histórico dos alunos, então não o mude depois de publicado. As questões de verbos e kanji saem dos dados sozinhas.
 
