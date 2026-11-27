@@ -1461,3 +1461,11 @@ html[data-speech="off"] .speak-btn { display: none; }
 @media (pointer: coarse) {
     .lang-opt { min-width: 44px; height: 44px; }
 }
+
+/* Ligações entre lições e JLPT */
+.gp-jlpt { margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.92rem; }
+.jlpt-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 2px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--shu); font-weight: 700; text-decoration: none; }
+.jlpt-chip:hover { color: var(--shu-dark); border-color: var(--shu); }
+.jlpt-chip-k { color: var(--muted); font-weight: 400; font-size: 0.82rem; }
+.form-lesson { display: inline-block; margin-left: 6px; padding: 0 8px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.78rem; color: var(--shu); text-decoration: none; }
+.form-lesson:hover { color: var(--shu-dark); border-color: var(--shu); }

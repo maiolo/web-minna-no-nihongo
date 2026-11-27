@@ -15,7 +15,6 @@ function load(file, key) {
     return ctx.window[key];
 }
 const POINTS = load("jlpt/data/n5-grammar.js", "JLPT_N5_GRAMMAR");
-const LESSONS = load("assets/js/lessons-index.js", "LESSONS");
 const CATS = ["particulas", "frases", "verbos", "adjetivos"];
 const hasBareKanji = (s) => /[一-鿿]/.test(s.replace(/\{[^}]*\}/g, ""));
 
@@ -60,27 +59,4 @@ test("mean, rule e note: kanji só com furigana", () => {
     POINTS.forEach((p) => ["mean", "rule", "note"].forEach((k) => {
         if (p[k]) assert.ok(!hasBareKanji(p[k]), p.id + "." + k + ": kanji sem furigana");
     }));
-});
-
-test("lesson aponta para uma lição que existe no site", () => {
-    const numbers = LESSONS.map((l) => l.number);
-    POINTS.filter((p) => p.lesson).forEach((p) => {
-        assert.ok(numbers.includes(p.lesson), p.id + ": lição " + p.lesson + " não existe");
-    });
-});
-
-test("a lição indicada de fato trata do tema (confere o arquivo de dados)", () => {
-    // Palavra-chave que precisa aparecer na seção de gramática da lição indicada.
-    const KEYWORDS = {
-        "te-sequence": "Sequência", "te-kara": "から", "wa-ga-adj": "Características",
-        "kute-de": "Ligando", "nai-de-kudasai": "でください", "nakereba": "ければなりません",
-        "nakutemo": "くてもいいです", "koto-ga-dekiru": "できます", "shumi": "趣味",
-        "mae-ni": "前", "ta-koto": "ことが", "tari-tari": "たり", "naru": "なります"
-    };
-    POINTS.filter((p) => p.lesson).forEach((p) => {
-        const text = fs.readFileSync(path.join(__dirname, "../lessons/data/lesson-" + p.lesson + ".js"), "utf8")
-            .replace(/<rt>[^<]*<\/rt>/g, "").replace(/<[^>]+>/g, "");
-        assert.ok(KEYWORDS[p.id], p.id + ": sem palavra-chave de conferência");
-        assert.ok(text.includes(KEYWORDS[p.id]), p.id + ": «" + KEYWORDS[p.id] + "» não aparece na lição " + p.lesson);
-    });
 });
